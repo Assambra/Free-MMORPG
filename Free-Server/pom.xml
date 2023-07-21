@@ -33,6 +33,16 @@
             <artifactId>ezyfox-server-core</artifactId>
             <version>${ezy.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>ezyfox-boot-autoconfigure</artifactId>
+            <version>${ezy.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>ezydata-mongodb</artifactId>
+            <version>${ezy.version}</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
