@@ -20,5 +20,10 @@
             <artifactId>free-server-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>game-box</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
 </project>
