@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Free-Client/Scenes/Persistent.unity
+    guid: 80cf75ea690af19478d5ced6ba9696fb
+  - enabled: 1
+    path: Assets/Free-Client/Scenes/Login.unity
+    guid: 1d278bdfa7f121b4ea02062a5e88cce1
+  - enabled: 1
+    path: Assets/Free-Client/Scenes/CreateAccount.unity
+    guid: 2b33625848dd67847bf6cfa732878aa2
   m_configObjects: {}
