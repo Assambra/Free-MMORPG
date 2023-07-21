@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3f4b749507b684cbd324bccfb596a0, type: 3}
   m_Name: CreateAccount
   m_EditorClassIdentifier: 
-  UIElementPrefabs: []
+  UIElementPrefabs:
+  - {fileID: 8950325327792555447, guid: 927c3417f5e825543898b9e32385be70, type: 3}

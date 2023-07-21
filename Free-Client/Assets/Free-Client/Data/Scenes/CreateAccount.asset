@@ -15,4 +15,5 @@ MonoBehaviour:
   ScenePath: Assets/Free-Client/Scenes/CreateAccount.unity
   IsFirstScene: 0
   SceneUISets:
+  - {fileID: 11400000, guid: 9e885254756bb1742a8411c4ee944fb4, type: 2}
   - {fileID: 11400000, guid: e49eea3b8c113a94cba3902321c27dca, type: 2}

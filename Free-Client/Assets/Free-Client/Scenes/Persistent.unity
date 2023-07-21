@@ -450,6 +450,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4883510217923666553, guid: 697389ec9f47fba498875310523e2799, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -467,6 +471,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
+      propertyPath: Scenes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
+      propertyPath: Scenes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a2e26c0db446ea40932ff46529fc582, type: 2}
+    - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
+      propertyPath: Scenes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b97e4e11283608f44a83fb9b02962a81, type: 2}
     - target: {fileID: 2810307544624843601, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

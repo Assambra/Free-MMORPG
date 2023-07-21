@@ -25,7 +25,7 @@ public class UIHandler : MonoBehaviour
 
         if (sceneHandler.LastScene != null)
         {
-            isTheSameSet = Enumerable.SequenceEqual(sceneHandler.LastScene.SceneUISets.OrderBy(e => e), sceneHandler.CurrentScene.SceneUISets.OrderBy(e => e));
+            isTheSameSet = Enumerable.SequenceEqual(sceneHandler.LastScene.SceneUISets.OrderBy(e => e.name), sceneHandler.CurrentScene.SceneUISets.OrderBy(e => e.name));
             
             if (!isTheSameSet)
             {
