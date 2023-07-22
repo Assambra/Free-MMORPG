@@ -13,13 +13,13 @@ public class UICreateAccount : MonoBehaviour
     private string password;
     private string username;
 
-    //private NetworkManager networkManager;
+    private NetworkManager networkManager;
     private SceneHandler sceneHandler;
 
 
     private void Awake()
     {
-        //networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        networkManager = GameObject.FindObjectOfType<NetworkManager>();
         sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
     }
 
@@ -29,7 +29,7 @@ public class UICreateAccount : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        //networkManager.CreateAccount(email, username, password);
+        networkManager.CreateAccount(email, username, password);
     }
 
     public void OnButtonBack()

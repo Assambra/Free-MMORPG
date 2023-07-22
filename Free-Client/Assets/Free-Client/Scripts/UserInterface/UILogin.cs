@@ -10,12 +10,12 @@ public class UILogin : MonoBehaviour
     private string password;
     private string username;
 
-    //private NetworkManager networkManager;
+    private NetworkManager networkManager;
     private SceneHandler sceneHandler;
 
     private void Awake()
     {
-        //networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        networkManager = GameObject.FindObjectOfType<NetworkManager>();
         sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
     }
 
@@ -33,7 +33,7 @@ public class UILogin : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        //networkManager.Login(username, password);
+        networkManager.Login(username, password);
     }
 
     public void OnButtonNeedAccount()
