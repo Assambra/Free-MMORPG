@@ -115,7 +115,7 @@ public class NetworkManager : MonoBehaviour
 
     public void CreateAccount(string email, string username, string password)
     {
-        Login("Guest", "Guest");
+        Login("YoungMonkey", "YoungMonkey");
 
         this.email = email;
         this.username = username;

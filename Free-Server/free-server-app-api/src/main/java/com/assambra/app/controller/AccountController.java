@@ -6,6 +6,7 @@ import com.assambra.app.service.AccountService;
 import com.assambra.common.entity.Account;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
+import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfoxserver.entity.EzyUser;
 import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
@@ -27,7 +28,7 @@ public class AccountController extends EzyLoggable {
         if(account == null)
         {
             getLogger().info("Account doesn't exist in db, create new one -> E-Mail: {}, Username: {}, Password: {}", request.getEmail(), request.getUsername(), request.getPassword());
-            accountService.createAccount(request.getEmail(), request.getUsername(), request.getPassword());
+            accountService.createAccount(request.getEmail(), request.getUsername(), encodePassword(request.getPassword()));
             resultmessage = "successfully";
         }
         else
@@ -49,5 +50,10 @@ public class AccountController extends EzyLoggable {
                 .param("result", resultmessage)
                 .user(user)
                 .execute();
+    }
+
+    private String encodePassword(String password)
+    {
+        return EzySHA256.cryptUtfToLowercase(password);
     }
 }
