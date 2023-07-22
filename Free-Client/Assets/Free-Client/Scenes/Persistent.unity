@@ -593,11 +593,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496512726802749841, guid: 6e93b7b8806bf1041a541e40f7e81279, type: 3}
       propertyPath: appName
-      value: Free-Server
+      value: free-server
       objectReference: {fileID: 0}
     - target: {fileID: 8496512726802749841, guid: 6e93b7b8806bf1041a541e40f7e81279, type: 3}
       propertyPath: zoneName
-      value: Free-Server
+      value: free-server
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
