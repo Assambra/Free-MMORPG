@@ -20,6 +20,7 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private int udpPort = 2611;
     [SerializeField] private bool useUdp = false;
 
+    [SerializeField] private string email;
     [SerializeField] private string username;
     [SerializeField] private string password;
 
@@ -29,6 +30,8 @@ public class NetworkManager : MonoBehaviour
     private EzyAppProxy appProxy;
 
     private List<Tuple<String, Object>> handlers = new();
+
+    private bool createAccount = false;
 
     private void Awake()
     {
@@ -106,18 +109,19 @@ public class NetworkManager : MonoBehaviour
         }
 
         socketProxy.connect();
+
+        on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
     {
-        EzyObject data = EzyEntityFactory
-            .newObjectBuilder()
-            .append("email", email)
-            .append("username", username)
-            .append("password", password)
-            .build();
+        Login("Guest", "Guest");
 
-        appProxy.send(Commands.CREATE_ACCOUNT, data);
+        this.email = email;
+        this.username = username;
+        this.password = password;
+
+        createAccount = true;
     }
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
@@ -134,5 +138,48 @@ public class NetworkManager : MonoBehaviour
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
         Debug.Log("App access successfully");
+
+        if(createAccount)
+        {
+            EzyObject accountdata = EzyEntityFactory
+            .newObjectBuilder()
+            .append("email", email)
+            .append("username", username)
+            .append("password", password)
+            .build();
+
+            appProxy.send(Commands.CREATE_ACCOUNT, accountdata);
+
+            createAccount = false;
+        }
+        //email = "";
+        //username = "";
+        //password = "";
     }
+
+    #region SERVER RESPONSE
+
+    private void OnCreateAccountResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+
+        switch(result)
+        {
+            case "successfully":
+                Debug.Log("Account successfully created");
+                break;
+            case "email_already_registered":
+                Debug.Log("E-Mail already registered");
+                break;
+            case "username_already_in_use":
+                Debug.Log("Username not allowed");
+                break;
+            default:
+                Debug.LogError("Create Account: Unknown message");
+                break;
+        }
+    }
+
+    #endregion
+
 }
