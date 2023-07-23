@@ -43,6 +43,6 @@ public class UILogin : MonoBehaviour
 
     public void OnButtonForgotPassword()
     {
-        Debug.LogError("Button Forgot Password not implemented");
+        sceneHandler.CurrentScene = sceneHandler.Scenes[2];
     }
 }
