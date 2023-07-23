@@ -30,7 +30,7 @@ public class UserLoginController extends EzyAbstractPluginEventController<EzyUse
 
         Account account = accountService.getAccount(username);
 
-        if(event.getUsername().equals("YoungMonkey") && event.getPassword().equals("YoungMonkey"))
+        if(event.getUsername().equals("Guest") && event.getPassword().equals("Guest"))
         {
             logger.info("Guest");
         }

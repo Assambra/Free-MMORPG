@@ -23,6 +23,7 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private string email;
     [SerializeField] private string username;
     [SerializeField] private string password;
+    [SerializeField] private string usernameOrEMail;
 
     public bool CreateAccountError = false;
     
@@ -36,6 +37,7 @@ public class NetworkManager : MonoBehaviour
     private List<Tuple<String, Object>> handlers = new();
 
     private bool createAccount = false;
+    private bool forgotPassword = false;
 
     private void Awake()
     {
@@ -115,23 +117,29 @@ public class NetworkManager : MonoBehaviour
         socketProxy.connect();
 
         on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
+        on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
     {
+        createAccount = true;
+
         // Todo only if(isConnected)
-        Login("YoungMonkey", "YoungMonkey");
+        Login("Guest", "Guest");
 
         this.email = email;
         this.username = username;
         this.password = password;
-
-        createAccount = true;
     }
 
     public void ForgotPassword(string usernameoremail)
     {
-        Debug.LogError("NetworkManager: ForgotPassword not implemented! Got request for: " + usernameoremail);
+        forgotPassword = true;
+
+        // Todo only if(isConnected)
+        Login("Guest", "Guest");
+
+        this.usernameOrEMail = usernameoremail;
     }
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
@@ -151,6 +159,8 @@ public class NetworkManager : MonoBehaviour
 
         if(createAccount)
         {
+            createAccount = false;
+
             EzyObject accountdata = EzyEntityFactory
             .newObjectBuilder()
             .append("email", email)
@@ -160,11 +170,24 @@ public class NetworkManager : MonoBehaviour
 
             appProxy.send(Commands.CREATE_ACCOUNT, accountdata);
 
-            createAccount = false;
+            
         }
         //email = "";
         //username = "";
         //password = "";
+
+        if(forgotPassword)
+        {
+            forgotPassword = false;
+
+            EzyObject usernameoremail = EzyEntityFactory
+            .newObjectBuilder()
+            .append("usernameOrEMail", usernameOrEMail)
+            .build();
+
+            appProxy.send(Commands.FORGOT_PASSWORD, usernameoremail);
+        }
+        //usernameOrEMail = "";
     }
 
     #region SERVER RESPONSE
@@ -196,6 +219,26 @@ public class NetworkManager : MonoBehaviour
         }
 
         // Todo Need to disconnect from server
+    }
+
+    private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+        string pwd = data.get<string>("password");
+
+        if(result == "no_account")
+        {
+            UIClientLog.ServerLogMessageError("No Account found for given username or email address");
+        }
+        if(result == "sending_email")
+        {
+            if(pwd == "")
+            {
+                UIClientLog.ServerLogMessageSuccess("Your new password has been sent to your registered e-mail address");
+            }
+            else
+                UIClientLog.ServerLogMessageSuccess("Your new password is: " + pwd);
+        }
     }
 
     #endregion

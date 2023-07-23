@@ -14,8 +14,15 @@ public class AccountService
     private final AccountRepo accountRepo;
     private final MaxIdService maxIdService;
 
-    public Account getAccount(String username) {
+
+    public Account getAccountByUsername(String username)
+    {
         return accountRepo.findByField("username", username);
+    }
+
+    public Account getAccountByEMail(String email)
+    {
+        return accountRepo.findByField("email", email);
     }
 
     public void createAccount(String email, String username, String password) {
