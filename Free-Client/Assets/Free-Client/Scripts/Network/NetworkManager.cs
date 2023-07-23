@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviour
 
     public bool CreateAccountError = false;
     
-    public UIServerLog UIServerLog;
+    public UIClientLog UIClientLog;
 
     private SceneHandler sceneHandler;
 
@@ -172,17 +172,17 @@ public class NetworkManager : MonoBehaviour
         {
             case "successfully":
                 Debug.Log("Account successfully created");
-                UIServerLog.ServerLogMessageSuccess("Account successfully created");
+                UIClientLog.ServerLogMessageSuccess("Account successfully created");
                 CreateAccountError = false;
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
-                UIServerLog.ServerLogMessageError("E-Mail already registered");
+                UIClientLog.ServerLogMessageError("E-Mail already registered");
                 CreateAccountError = true;
                 break;
             case "username_already_in_use":
                 Debug.Log("Username not allowed");
-                UIServerLog.ServerLogMessageError("Username not allowed");
+                UIClientLog.ServerLogMessageError("Username not allowed");
                 CreateAccountError = true;
                 break;
             default:

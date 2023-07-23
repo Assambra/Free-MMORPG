@@ -13,7 +13,7 @@ public class UIClientLog : MonoBehaviour
     private void Awake()
     {
         networkManager = GameObject.FindObjectOfType<NetworkManager>();
-        networkManager.UIServerLog = this;
+        networkManager.UIClientLog = this;
     }
 
     void Update()
