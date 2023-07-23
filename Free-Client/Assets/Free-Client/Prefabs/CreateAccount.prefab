@@ -2250,6 +2250,7 @@ MonoBehaviour:
   inputFieldEmail: {fileID: 1637496621}
   inputFieldUsername: {fileID: 2124922939}
   inputFieldPassword: {fileID: 802747682}
+  buttonCreate: {fileID: 2118298}
 --- !u!1 &8950325327792555447
 GameObject:
   m_ObjectHideFlags: 0

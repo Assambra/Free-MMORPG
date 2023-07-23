@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIElementPrefabs:
   - {fileID: 6359865217648782787, guid: b89ba1ca05cd8044783c81647e49d878, type: 3}
+  - {fileID: 2702325962030854823, guid: 75d7d0c2684a89c46ae37c2b980bbcc1, type: 3}

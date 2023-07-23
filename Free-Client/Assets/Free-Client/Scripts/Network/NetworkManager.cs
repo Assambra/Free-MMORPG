@@ -24,6 +24,10 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private string username;
     [SerializeField] private string password;
 
+    public bool CreateAccountError = false;
+    
+    public UIServerLog UIServerLog;
+
     private SceneHandler sceneHandler;
 
     private EzySocketProxy socketProxy;
@@ -115,6 +119,7 @@ public class NetworkManager : MonoBehaviour
 
     public void CreateAccount(string email, string username, string password)
     {
+        // Todo only if(isConnected)
         Login("YoungMonkey", "YoungMonkey");
 
         this.email = email;
@@ -167,17 +172,25 @@ public class NetworkManager : MonoBehaviour
         {
             case "successfully":
                 Debug.Log("Account successfully created");
+                UIServerLog.ServerLogMessageSuccess("Account successfully created");
+                CreateAccountError = false;
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
+                UIServerLog.ServerLogMessageError("E-Mail already registered");
+                CreateAccountError = true;
                 break;
             case "username_already_in_use":
                 Debug.Log("Username not allowed");
+                UIServerLog.ServerLogMessageError("Username not allowed");
+                CreateAccountError = true;
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
                 break;
         }
+
+        // Todo Need to disconnect from server
     }
 
     #endregion
