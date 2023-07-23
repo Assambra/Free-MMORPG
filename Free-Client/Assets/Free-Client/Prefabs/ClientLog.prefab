@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 6505217140257363629}
   - component: {fileID: 6721815966167495422}
   m_Layer: 0
-  m_Name: ServerLog
+  m_Name: ClientLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

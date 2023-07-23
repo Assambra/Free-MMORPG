@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 
-public class UIServerLog : MonoBehaviour
+public class UIClientLog : MonoBehaviour
 {
     [SerializeField] TMP_Text textFieldServerLog;
 
