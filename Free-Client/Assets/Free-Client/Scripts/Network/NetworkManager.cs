@@ -129,6 +129,11 @@ public class NetworkManager : MonoBehaviour
         createAccount = true;
     }
 
+    public void ForgotPassword(string usernameoremail)
+    {
+        Debug.LogError("NetworkManager: ForgotPassword not implemented! Got request for: " + usernameoremail);
+    }
+
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
     {
         Debug.Log("OnUdpHandshake");
