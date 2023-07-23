@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textFieldServerLog: {fileID: 3242810521591023577}
+  clientLogFile: {fileID: 11400000, guid: 1905b54814dd4a64f977eafbfbd523bd, type: 2}
 --- !u!1 &2702325962030854823
 GameObject:
   m_ObjectHideFlags: 0
