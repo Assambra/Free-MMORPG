@@ -14,12 +14,16 @@ public class UIClientLog : MonoBehaviour
     {
         networkManager = GameObject.FindObjectOfType<NetworkManager>();
         networkManager.UIClientLog = this;
-
     }
 
     void Update()
     {
         textFieldServerLog.text = clientLogFile.File;
+    }
+
+    public void ClearLog()
+    {
+        clientLogFile.File = "";
     }
 
     public void ServerLogMessageInfo(string message)
@@ -35,10 +39,5 @@ public class UIClientLog : MonoBehaviour
     public void ServerLogMessageError(string message)
     {
         clientLogFile.File += "<color=red>Error: " + message + "</color><br>";
-    }
-
-    private string CreateNewLine(string text)
-    {
-        return text + "\n";
     }
 }
