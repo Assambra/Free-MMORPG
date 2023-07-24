@@ -2,6 +2,7 @@ package com.assambra.app.controller;
 
 import com.assambra.app.constant.Commands;
 import com.assambra.app.constant.ServerVariables;
+import com.assambra.app.helper.RandomString;
 import com.assambra.app.request.CreateAccountRequest;
 import com.assambra.app.request.ForgotPasswordRequest;
 import com.assambra.app.service.AccountService;
@@ -63,6 +64,7 @@ public class AccountController extends EzyLoggable {
         logger.info("Reseive forgot password request for user {}, username or email {}", user.getName(), request.getUsernameOrEMail());
 
         Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
+
         if(account == null)
         {
             account = accountService.getAccountByEMail(request.getUsernameOrEMail().toLowerCase());
@@ -70,23 +72,41 @@ public class AccountController extends EzyLoggable {
 
         if (account == null)
         {
-            logger.info("Forgot password request for user: {}, no username or email address found", user.getName());
             resultmessage = "no_account";
             password = "";
+
+            logger.info("Forgot password request for user: {}, no username or email address found", user.getName());
         }
         else
         {
             if(!ServerVariables.SERVER_CAN_SEND_MAIL)
             {
-                logger.info("Forgot password request for user: {}, found account: {}, sending password back to client", user.getName(), account.getUsername());
-                resultmessage ="sending_email";
-                password = account.getPassword();
+                logger.info("Forgot password request for account: {}", account.getUsername());
+
+                String randomstring = RandomString.getAlphaNumericString(8);
+                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
+
+                accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
+
+                resultmessage ="sending_password";
+                password = randomstring;
             }
             else
             {
-                logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
+                logger.info("Forgot password request for account: {}", account.getUsername());
+
+                String randomstring = RandomString.getAlphaNumericString(8);
+                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
+
+                accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
+
+                // Todo sending e-mail with the new password
+
                 resultmessage ="sending_email";
                 password = "";
+
+
+                logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
             }
         }
 

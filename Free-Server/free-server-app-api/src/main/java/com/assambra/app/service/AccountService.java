@@ -33,4 +33,11 @@ public class AccountService
         account.setPassword(password);
         accountRepo.save(account);
     }
+
+    public void SetNewPassword(Long id, String password)
+    {
+        Account account = accountRepo.findById(id);
+        account.setPassword(password);
+        accountRepo.save(account);
+    }
 }

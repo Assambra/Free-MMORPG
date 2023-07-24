@@ -226,18 +226,20 @@ public class NetworkManager : MonoBehaviour
         string result = data.get<string>("result");
         string pwd = data.get<string>("password");
 
-        if(result == "no_account")
+        switch (result)
         {
-            UIClientLog.ServerLogMessageError("No Account found for given username or email address");
-        }
-        if(result == "sending_email")
-        {
-            if(pwd == "")
-            {
-                UIClientLog.ServerLogMessageSuccess("Your new password has been sent to your registered e-mail address");
-            }
-            else
+            case "no_account":
+                UIClientLog.ServerLogMessageError("No Account found for given username or email address");
+                break;
+            case "sending_password":
                 UIClientLog.ServerLogMessageSuccess("Your new password is: " + pwd);
+                break;
+            case "sending_email":
+                UIClientLog.ServerLogMessageSuccess("Your new password has been sent to your registered e-mail address");
+                break;
+            default:
+                Debug.LogError("Forgot Password: Unknown result: " + result);
+                break;
         }
     }
 
