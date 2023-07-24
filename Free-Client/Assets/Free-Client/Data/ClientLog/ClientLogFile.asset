@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3f4b749507b684cbd324bccfb596a0, type: 3}
-  m_Name: BasicMenu
+  m_Script: {fileID: 11500000, guid: 34cdc5acdd07e204d9d8fcc460b6d575, type: 3}
+  m_Name: ClientLogFile
   m_EditorClassIdentifier: 
-  UIElementPrefabs:
-  - {fileID: 6359865217648782787, guid: b89ba1ca05cd8044783c81647e49d878, type: 3}
-  - {fileID: 2702325962030854823, guid: 75d7d0c2684a89c46ae37c2b980bbcc1, type: 3}
+  clientLogFile: 

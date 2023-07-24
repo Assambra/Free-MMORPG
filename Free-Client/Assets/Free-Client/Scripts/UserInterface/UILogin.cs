@@ -21,6 +21,8 @@ public class UILogin : MonoBehaviour
 
     public void OnButtonQuit()
     {
+        networkManager.Disconnect();
+
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
@@ -39,5 +41,10 @@ public class UILogin : MonoBehaviour
     public void OnButtonNeedAccount()
     {
         sceneHandler.CurrentScene = sceneHandler.Scenes[1];
+    }
+
+    public void OnButtonForgotPassword()
+    {
+        sceneHandler.CurrentScene = sceneHandler.Scenes[2];
     }
 }
