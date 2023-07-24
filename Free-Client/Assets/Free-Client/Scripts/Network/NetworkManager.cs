@@ -70,6 +70,10 @@ public class NetworkManager : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("OnDestroy");
+
+        if (UIClientLog != null)
+            UIClientLog.ClearLog();
+        
         foreach (Tuple<String, Object> tuple in handlers)
         {
             appProxy.unbind(tuple.Item1, tuple.Item2);
