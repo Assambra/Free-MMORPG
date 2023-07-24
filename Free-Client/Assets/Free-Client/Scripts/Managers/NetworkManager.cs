@@ -13,6 +13,7 @@ using Object = System.Object;
 
 public class NetworkManager : MonoBehaviour
 {
+    [Header("Server Settings")]
     [SerializeField] private string zoneName = "free-server";
     [SerializeField] private string appName = "free-server";
     [SerializeField] private string host = "127.0.0.1";
@@ -20,28 +21,21 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private int udpPort = 2611;
     [SerializeField] private bool useUdp = false;
 
-    [SerializeField] private string email;
-    [SerializeField] private string username;
-    [SerializeField] private string password;
-    [SerializeField] private string usernameOrEMail;
-
-
     public UIClientLog UIClientLog;
 
-    private SceneHandler sceneHandler;
-
+    // private variables
     private EzySocketProxy socketProxy;
     private EzyAppProxy appProxy;
-
     private List<Tuple<String, Object>> handlers = new();
+
+    private string email;
+    private string username;
+    private string password;
+    private string usernameOrEMail;
 
     private bool createAccount = false;
     private bool forgotPassword = false;
 
-    private void Awake()
-    {
-        sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
-    }
 
     private void Start()
     {
@@ -108,9 +102,7 @@ public class NetworkManager : MonoBehaviour
         socketProxy.setDefaultAppName(appName);
 
         if (!useUdp)
-        {
             socketProxy.setTransportType(EzyTransportType.TCP);
-        }
         else
         {
             socketProxy.setTransportType(EzyTransportType.UDP);
@@ -177,14 +169,13 @@ public class NetworkManager : MonoBehaviour
             .build();
 
             appProxy.send(Commands.CREATE_ACCOUNT, accountdata);
-
             
+            email = "";
+            username = "";
+            password = "";
         }
-        //email = "";
-        //username = "";
-        //password = "";
 
-        if(forgotPassword)
+        if (forgotPassword)
         {
             forgotPassword = false;
 
@@ -194,8 +185,9 @@ public class NetworkManager : MonoBehaviour
             .build();
 
             appProxy.send(Commands.FORGOT_PASSWORD, usernameoremail);
+            
+            usernameOrEMail = "";
         }
-        //usernameOrEMail = "";
     }
 
     #region SERVER RESPONSE
@@ -260,7 +252,5 @@ public class NetworkManager : MonoBehaviour
         Disconnect();
     }
     
-
     #endregion
-
 }
