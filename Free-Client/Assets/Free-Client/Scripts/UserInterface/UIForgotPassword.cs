@@ -1,8 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIForgotPassword : MonoBehaviour
 {
+    public Button buttonBack;
+    public Button buttonSendPassword;
+
     [SerializeField] private TMP_InputField inputFieldUsernameOrEMail;
 
     private NetworkManager networkManager;
@@ -21,6 +25,9 @@ public class UIForgotPassword : MonoBehaviour
 
     public void OnButtonSendPassword()
     {
+        buttonSendPassword.interactable = false;
+        buttonBack.interactable = false;
+
         networkManager.ForgotPassword(inputFieldUsernameOrEMail.text);
     }
 }

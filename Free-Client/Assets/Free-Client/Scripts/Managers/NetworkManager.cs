@@ -92,6 +92,7 @@ public class NetworkManager : MonoBehaviour
         socketProxy.onLoginSuccess<Object>(OnLoginSucess);
         socketProxy.onAppAccessed<Object>(OnAppAccessed);
 
+
         socketProxy.setLoginUsername(username);
         socketProxy.setLoginPassword(password);
 
@@ -208,28 +209,30 @@ public class NetworkManager : MonoBehaviour
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
-                UIClientLog.ServerLogMessageError("E-Mail already registered, please use the Forgot password function");
-                uICreateAccount.buttonCreate.interactable = true;
+                UIClientLog.ServerLogMessageError("E-Mail already registered, please use the Forgot password function");      
                 break;
             case "username_already_in_use":
                 Debug.Log("Username not allowed");
                 UIClientLog.ServerLogMessageError("Username not allowed");
-                uICreateAccount.buttonCreate.interactable = true;
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
                 break;
         }
+        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
+        Disconnect();
 
         uICreateAccount.buttonForgotPassword.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
-
-        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
-        Disconnect();
+        uICreateAccount.buttonCreate.interactable = true;
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
     {
+        UIForgotPassword uIForgotPassword = GameObject.FindObjectOfType<UIForgotPassword>();
+        if(uIForgotPassword == null)
+            Debug.LogError("UICreateAccount not found!");
+
         string result = data.get<string>("result");
         string pwd = data.get<string>("password");
 
@@ -250,6 +253,9 @@ public class NetworkManager : MonoBehaviour
         }
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
+
+        uIForgotPassword.buttonBack.interactable = true;
+        uIForgotPassword.buttonSendPassword.interactable = true;
     }
     
     #endregion
