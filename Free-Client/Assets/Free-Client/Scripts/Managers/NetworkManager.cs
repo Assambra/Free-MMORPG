@@ -81,6 +81,13 @@ public class NetworkManager : MonoBehaviour
         );
     }
 
+    public void Disconnect()
+    {
+        EzyClients.getInstance().getClient(zoneName).disconnect();
+    }
+
+    #region REQUESTS
+
     public void Login(string username, string password)
     {
         this.username = username;
@@ -116,17 +123,11 @@ public class NetworkManager : MonoBehaviour
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
     }
 
-    public void Disconnect()
-    {
-        EzyClients.getInstance().getClient(zoneName).disconnect();
-    }
-
     public void CreateAccount(string email, string username, string password)
     {
         createAccount = true;
 
-        // Todo only if(!isConnected)
-        Login("Guest", "Guest");
+        Login("Guest#" + RandomString.GetNumericString(1000001), "");
 
         this.email = email;
         this.username = username;
@@ -137,11 +138,14 @@ public class NetworkManager : MonoBehaviour
     {
         forgotPassword = true;
 
-        // Todo only if(!isConnected)
-        Login("Guest", "Guest");
+        Login("Guest#" + RandomString.GetNumericString(1000001), "");
 
         this.usernameOrEMail = usernameoremail;
     }
+
+    #endregion
+
+    #region SERVER RESPONSE
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
     {
@@ -149,16 +153,11 @@ public class NetworkManager : MonoBehaviour
         socketProxy.send(new EzyAppAccessRequest(appName));
     }
 
-    private void OnLoginSucess(EzySocketProxy proxy, Object data)
-    {
-        Debug.Log("OnLoginSucess");
-    }
-
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
         Debug.Log("App access successfully");
 
-        if(createAccount)
+        if (createAccount)
         {
             createAccount = false;
 
@@ -170,7 +169,7 @@ public class NetworkManager : MonoBehaviour
             .build();
 
             appProxy.send(Commands.CREATE_ACCOUNT, accountdata);
-            
+
             email = "";
             username = "";
             password = "";
@@ -186,12 +185,15 @@ public class NetworkManager : MonoBehaviour
             .build();
 
             appProxy.send(Commands.FORGOT_PASSWORD, usernameoremail);
-            
+
             usernameOrEMail = "";
         }
     }
 
-    #region SERVER RESPONSE
+    private void OnLoginSucess(EzySocketProxy proxy, Object data)
+    {
+        Debug.Log("OnLoginSucess");
+    }
 
     private void OnCreateAccountResponse(EzyAppProxy proxy, EzyObject data)
     {
@@ -212,8 +214,12 @@ public class NetworkManager : MonoBehaviour
                 UIClientLog.ServerLogMessageError("E-Mail already registered, please use the Forgot password function");      
                 break;
             case "username_already_in_use":
+                Debug.Log("Username already in use");
+                UIClientLog.ServerLogMessageError("Username are not allowed");
+                break;
+            case "username_are_not_allowed":
                 Debug.Log("Username not allowed");
-                UIClientLog.ServerLogMessageError("Username not allowed");
+                UIClientLog.ServerLogMessageError("Username are not allowed");
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");

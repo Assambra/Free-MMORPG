@@ -34,8 +34,15 @@ public class AccountController extends EzyLoggable {
         if(account == null)
         {
             getLogger().info("Account doesn't exist in db, create new one -> E-Mail: {}, Username: {}, Password: {}", request.getEmail(), request.getUsername(), request.getPassword());
-            accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()));
-            resultmessage = "successfully";
+            if(!request.getUsername().toLowerCase().contains("guest"))
+            {
+                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()));
+                resultmessage = "successfully";
+            }
+            else
+            {
+                resultmessage = "username_are_not_allowed";
+            }
         }
         else
         {
