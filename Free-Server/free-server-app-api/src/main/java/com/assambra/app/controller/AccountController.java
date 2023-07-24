@@ -25,8 +25,11 @@ public class AccountController extends EzyLoggable {
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
     public void createAccount(EzyUser user, CreateAccountRequest request)
     {
-        Account account = accountService.getAccountByUsername(request.getUsername());
         String resultmessage = "";
+
+        Account account = accountService.getAccountByUsername(request.getUsername());
+        if(account == null)
+            account = accountService.getAccountByEMail(request.getEmail());
 
         if(account == null)
         {
@@ -64,11 +67,8 @@ public class AccountController extends EzyLoggable {
         logger.info("Reseive forgot password request for user {}, username or email {}", user.getName(), request.getUsernameOrEMail());
 
         Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
-
         if(account == null)
-        {
             account = accountService.getAccountByEMail(request.getUsernameOrEMail().toLowerCase());
-        }
 
         if (account == null)
         {
