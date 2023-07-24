@@ -21,6 +21,8 @@ public class UILogin : MonoBehaviour
 
     public void OnButtonQuit()
     {
+        networkManager.Disconnect();
+
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else

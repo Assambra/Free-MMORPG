@@ -119,6 +119,11 @@ public class NetworkManager : MonoBehaviour
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
     }
 
+    public void Disconnect()
+    {
+        EzyClients.getInstance().getClient(zoneName).disconnect();
+    }
+
     public void CreateAccount(string email, string username, string password)
     {
         createAccount = true;
@@ -133,6 +138,8 @@ public class NetworkManager : MonoBehaviour
 
     public void ForgotPassword(string usernameoremail)
     {
+        forgotPassword = true;
+
         // Todo only if(isConnected)
         Login("Guest", "Guest");
 
@@ -220,6 +227,9 @@ public class NetworkManager : MonoBehaviour
 
         uICreateAccount.buttonForgotPassword.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
+
+        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
+        Disconnect();
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
@@ -242,7 +252,10 @@ public class NetworkManager : MonoBehaviour
                 Debug.LogError("Forgot Password: Unknown result: " + result);
                 break;
         }
+        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
+        Disconnect();
     }
+    
 
     #endregion
 
