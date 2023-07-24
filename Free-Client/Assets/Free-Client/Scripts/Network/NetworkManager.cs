@@ -25,8 +25,7 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private string password;
     [SerializeField] private string usernameOrEMail;
 
-    public bool CreateAccountError = false;
-    
+
     public UIClientLog UIClientLog;
 
     private SceneHandler sceneHandler;
@@ -134,8 +133,6 @@ public class NetworkManager : MonoBehaviour
 
     public void ForgotPassword(string usernameoremail)
     {
-        forgotPassword = true;
-
         // Todo only if(isConnected)
         Login("Guest", "Guest");
 
@@ -194,6 +191,10 @@ public class NetworkManager : MonoBehaviour
 
     private void OnCreateAccountResponse(EzyAppProxy proxy, EzyObject data)
     {
+        UICreateAccount uICreateAccount = GameObject.FindAnyObjectByType<UICreateAccount>();
+        if (uICreateAccount == null)
+            Debug.LogError("UICreateAccount not found!");
+
         string result = data.get<string>("result");
 
         switch(result)
@@ -201,24 +202,24 @@ public class NetworkManager : MonoBehaviour
             case "successfully":
                 Debug.Log("Account successfully created");
                 UIClientLog.ServerLogMessageSuccess("Account successfully created");
-                CreateAccountError = false;
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
-                UIClientLog.ServerLogMessageError("E-Mail already registered");
-                CreateAccountError = true;
+                UIClientLog.ServerLogMessageError("E-Mail already registered, please use the Forgot password function");
+                uICreateAccount.buttonCreate.interactable = true;
                 break;
             case "username_already_in_use":
                 Debug.Log("Username not allowed");
                 UIClientLog.ServerLogMessageError("Username not allowed");
-                CreateAccountError = true;
+                uICreateAccount.buttonCreate.interactable = true;
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
                 break;
         }
 
-        // Todo Need to disconnect from server
+        uICreateAccount.buttonForgotPassword.interactable = true;
+        uICreateAccount.buttonBack.interactable = true;
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)

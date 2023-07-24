@@ -1,13 +1,18 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UICreateAccount : MonoBehaviour
 {
+    public Button buttonCreate;
+    public Button buttonBack;
+    public Button buttonForgotPassword;
+
     [SerializeField] TMP_InputField inputFieldEmail;
     [SerializeField] TMP_InputField inputFieldUsername;
     [SerializeField] TMP_InputField inputFieldPassword;
-    [SerializeField] Button buttonCreate;
+    
 
     private string email;
     private string password;
@@ -23,15 +28,11 @@ public class UICreateAccount : MonoBehaviour
         sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
     }
 
-    private void Update()
-    {
-        if(networkManager.CreateAccountError)
-            buttonCreate.interactable = true;
-    }
-
     public void OnButtonCreate()
     {
         buttonCreate.interactable = false;
+        buttonBack.interactable = false;
+        buttonForgotPassword.interactable = false;
 
         email = inputFieldEmail.text;
         username = inputFieldUsername.text;
@@ -43,5 +44,10 @@ public class UICreateAccount : MonoBehaviour
     public void OnButtonBack()
     {
         sceneHandler.CurrentScene = sceneHandler.Scenes[0];
+    }
+
+    public void OnButtonForgotPassword()
+    {
+        sceneHandler.CurrentScene = sceneHandler.Scenes[2];
     }
 }
