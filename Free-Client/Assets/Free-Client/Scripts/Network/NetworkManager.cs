@@ -128,7 +128,7 @@ public class NetworkManager : MonoBehaviour
     {
         createAccount = true;
 
-        // Todo only if(isConnected)
+        // Todo only if(!isConnected)
         Login("Guest", "Guest");
 
         this.email = email;
@@ -140,7 +140,7 @@ public class NetworkManager : MonoBehaviour
     {
         forgotPassword = true;
 
-        // Todo only if(isConnected)
+        // Todo only if(!isConnected)
         Login("Guest", "Guest");
 
         this.usernameOrEMail = usernameoremail;
