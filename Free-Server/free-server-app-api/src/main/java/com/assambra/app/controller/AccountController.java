@@ -7,6 +7,7 @@ import com.assambra.app.request.CreateAccountRequest;
 import com.assambra.app.request.ForgotPasswordRequest;
 import com.assambra.app.service.AccountService;
 import com.assambra.common.entity.Account;
+import com.assambra.common.mail.SMTP_EMail;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.security.EzySHA256;
@@ -21,6 +22,7 @@ public class AccountController extends EzyLoggable {
 
     private final AccountService accountService;
     private final EzyResponseFactory responseFactory;
+    private final SMTP_EMail mail = new SMTP_EMail();
 
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
     public void createAccount(EzyUser user, CreateAccountRequest request)
@@ -107,11 +109,10 @@ public class AccountController extends EzyLoggable {
 
                 accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
 
-                // Todo sending e-mail with the new password
+                mail.sendMail(account.getEmail(),"Your new password","Your new password: " + randomstring);
 
                 resultmessage ="sending_email";
                 password = "";
-
 
                 logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
             }
