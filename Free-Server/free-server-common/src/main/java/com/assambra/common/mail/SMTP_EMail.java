@@ -123,7 +123,7 @@ public class SMTP_EMail extends EzyLoggable
             logger.info("Email message is ready");
 
             Transport.send(message);
-            System.out.println("Email sent successfully");
+            logger.info("Email sent successfully");
         }
         catch (Exception e)
         {
