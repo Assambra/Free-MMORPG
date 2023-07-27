@@ -114,11 +114,10 @@ public class SMTP_EMail extends EzyLoggable
 
             message.setSubject(subject, charset);
 
-            message.setText(mailbody, charset);
-
+            message.setContent(mailbody,contenttypeprimary+"; " + contenttypesub);
             message.setSentDate(new Date());
 
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient, false));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
             logger.info("Email message is ready");
 
@@ -133,6 +132,6 @@ public class SMTP_EMail extends EzyLoggable
 
     public void sendMail(String recipient, String subject, String mailbody)
     {
-        send(mailMode.sendMail(), recipient,subject,mailbody);
+        send(mailMode.sendMail(), recipient, subject, mailbody);
     }
 }
