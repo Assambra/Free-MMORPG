@@ -7,13 +7,19 @@ import com.assambra.app.request.CreateAccountRequest;
 import com.assambra.app.request.ForgotPasswordRequest;
 import com.assambra.app.service.AccountService;
 import com.assambra.common.entity.Account;
+import com.assambra.common.mail.MailBodyBuilder;
+import com.assambra.common.mail.SMTP_EMail;
+import com.assambra.common.mail.mailbodys.ResetPasswordMailBody;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfoxserver.entity.EzyUser;
 import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
+import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
+
+import java.io.IOException;
 
 @AllArgsConstructor
 @EzyRequestController
@@ -21,6 +27,7 @@ public class AccountController extends EzyLoggable {
 
     private final AccountService accountService;
     private final EzyResponseFactory responseFactory;
+    private final SMTP_EMail mail = new SMTP_EMail();
 
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
     public void createAccount(EzyUser user, CreateAccountRequest request)
@@ -66,8 +73,7 @@ public class AccountController extends EzyLoggable {
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
-    public void forgotPassword(EzyUser user, ForgotPasswordRequest request)
-    {
+    public void forgotPassword(EzyUser user, ForgotPasswordRequest request) throws IOException, TemplateException {
         String password;
         String resultmessage;
 
@@ -107,11 +113,17 @@ public class AccountController extends EzyLoggable {
 
                 accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
 
-                // Todo sending e-mail with the new password
+                ResetPasswordMailBody resetPasswordMailBody = new ResetPasswordMailBody();
+                MailBodyBuilder mailBuilder = new MailBodyBuilder();
+                mailBuilder.setBodyTemplate(resetPasswordMailBody);
+                mailBuilder.setVariable("password", randomstring);
+                mailBuilder.setVariable("username", account.getUsername());
+
+                // Todo set subject as variable
+                mail.sendMail(account.getEmail(), "Reset Password", mailBuilder.buildEmail());
 
                 resultmessage ="sending_email";
                 password = "";
-
 
                 logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
             }
