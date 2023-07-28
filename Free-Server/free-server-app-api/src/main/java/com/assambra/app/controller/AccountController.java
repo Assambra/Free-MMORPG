@@ -99,7 +99,7 @@ public class AccountController extends EzyLoggable {
                 String randomstring = RandomString.getAlphaNumericString(8);
                 logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
 
-                accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
+                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
                 resultmessage ="sending_password";
                 password = randomstring;
@@ -111,7 +111,7 @@ public class AccountController extends EzyLoggable {
                 String randomstring = RandomString.getAlphaNumericString(8);
                 logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
 
-                accountService.SetNewPassword(account.getId(), encodePassword(randomstring));
+                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
                 ResetPasswordMailBody resetPasswordMailBody = new ResetPasswordMailBody();
                 MailBodyBuilder mailBuilder = new MailBodyBuilder();

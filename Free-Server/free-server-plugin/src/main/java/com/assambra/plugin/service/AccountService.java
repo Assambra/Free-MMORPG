@@ -1,7 +1,7 @@
 package com.assambra.plugin.service;
 
 import com.assambra.common.entity.Account;
-import com.assambra.common.repo.AccountRepo;
+import com.assambra.common.repository.AccountRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 import lombok.Setter;

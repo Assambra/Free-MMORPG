@@ -1,7 +1,7 @@
 package com.assambra.app.service;
 
 import com.assambra.common.entity.Account;
-import com.assambra.common.repo.AccountRepo;
+import com.assambra.common.repository.AccountRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -15,13 +15,15 @@ public class AccountService
     private final MaxIdService maxIdService;
 
 
-    public Account getAccountByUsername(String username)
-    {
+    public void updateStringFieldById(Long id, String field, String value) {
+        accountRepo.updateStringFieldById(id, field, value);
+    }
+
+    public Account getAccountByUsername(String username) {
         return accountRepo.findByField("username", username);
     }
 
-    public Account getAccountByEMail(String email)
-    {
+    public Account getAccountByEMail(String email) {
         return accountRepo.findByField("email", email);
     }
 
@@ -30,13 +32,6 @@ public class AccountService
         account.setId(maxIdService.incrementAndGet("account"));
         account.setEmail(email);
         account.setUsername(username);
-        account.setPassword(password);
-        accountRepo.save(account);
-    }
-
-    public void SetNewPassword(Long id, String password)
-    {
-        Account account = accountRepo.findById(id);
         account.setPassword(password);
         accountRepo.save(account);
     }
