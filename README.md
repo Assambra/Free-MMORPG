@@ -1,20 +1,71 @@
-<a name="readme-top"></a>
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-#
-<!-- PROJECT LOGO -->
+
+<!-- HEADER -->
 <div align="center">
+<h1>Free-MMORPG</h1>
+    <!--
     <a href="https://github.com/Assambra">
         <img src="Github/Images/Assambra-Logo-512x512.png" alt="Logo" width="80" height="80">
     </a>
-    <h1 align="center">Free-MMORPG</h1>
+    -->
 </div>
 
-<br /> 
-    <h4>Key Features</h4>
+<!-- LINKS -->
+<div align="center">
+    <p align="center">
+        <a href="https://github.com/Assambra/Free-MMORPG/wiki"><strong>Explore the docs »</strong></a>
+    </p>
+    <p align="center">
+        <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>
+        ·
+        <a href="https://github.com/Assambra/Free-MMORPG/issues">Request Feature</a>
+        ·
+        <a href="https://github.com/Assambra/Free-MMORPG/issues">Report Bug</a>
+    </p>
+</div>
+
+<!-- DEMO IMAGE -->
+![Our Demo Scene][product-screenshot]
+
+<a name="readme-top"></a>
+
+<!-- TABLE OF CONTENTS -->
+<div>
+    <h2>Table of Contents</h2>
+    <ul>
+        <li><a href="#foreword">Foreword</a></li>
+        <li><a href="#key-features">Key Features</a></li>
+        <li><a href="#server">Server</a></li>
+            <ul>
+                <li><a href="#setup-database">Setup database</a></li>
+                <li><a href="#setup-mail">Setup e-mail</a></li>
+            </ul>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
+
+## Foreword
+<div>
+This project uses free resources for the server and client technology
+without the project probably wouldn't be possible,
+so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work
+and sharing their work with the community.
+Please check out our Resources Section what technologies we use and support their projects
+in some way such as donation or code so these guys can keep doing what they like,
+write good code and a great framework.
+
+For the game client we are using [Unity](https://unity.com "Unity") as game engine.
+    
+</div>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- KEY FEATURES -->
+## Key Features
+<div>
     <ul>
         <li>Account Management</li>
             <ul>
@@ -22,57 +73,18 @@
                 <li>Login</li>
                 <li>Forgot password function, sending new password</li>
             </ul>
-                <li>Email</li>
-                <ul>
-                    <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
-                    <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
-                </ul>
-    </ul>
-    <br />
-    <p align="center">
-    <a href="https://github.com/Assambra/Free-MMORPG/wiki"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>
-    ·
-    <a href="https://github.com/Assambra/Free-MMORPG/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Assambra/Free-MMORPG/issues">Request Feature</a>
-  </p>
-<br />
-
-<!-- TABLE OF CONTENTS -->
-<details>
-    <summary>Table of Contents</summary>
-    <ol>
-        <li><a href="#demo-image">Demo Image</a></li>
-        <li><a href="#foreword">Foreword</a></li>
-        <li><a href="#server">Server</a></li>
+        <li>Email</li>
             <ul>
-                <li><a href="#setup-database">Setup database</a></li>
-                <li><a href="#setup-mail">Setup e-mail</a></li>
+                <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
+                <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
             </ul>
-        <li><a href="#contact">Contact</a></li>
-    </ol>
-</details>
-
-<!-- Demo Image-->
-## Demo Image
-![Our Demo Scene][product-screenshot]
+    </ul>
+</div>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Foreword
-This project uses free resources for the server and client technology 
-without the project probably wouldn't be possible, 
-so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work 
-and sharing their work with the community. 
-Please check out our Resources Section what technologies we use and support their projects 
-in some way such as donation or code so these guys can keep doing what they like, 
-write good code and a great framework. 
-
-For the game client we are using [Unity](https://unity.com "Unity") as game engine.
-
+<!-- SERVER -->
 ## Server
+<!-- SETUP DATABASE -->
 ### Setup Database
 
 1. install mongoDB
@@ -115,7 +127,9 @@ user: root
 password 123456
 
 database: free
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- SETUP MAIL -->
 ### Setup Mail
 #### Enable or disable server sending mail via smtp
 First if you don`t have a mail server or some mail provider with an e-mail address who accept sending mails via smtp or want sending e-mails like for local development, find the file: 
@@ -154,12 +168,14 @@ mail.content.transfer.encoding=8bit
 ``Hint! Do not use SSL and TSL at the same time where both are true, there is no check and only one should be true.``
 
 Most should be self-explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Contact -->
 ## Contact
 Join us on <a href="https://discord.gg/qyCdkYSWVG">Discord</a>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- DOCUMENT VARIABLE-->
 [contributors-shield]: https://img.shields.io/github/contributors/Assambra/Free-MMORPG.svg?style=for-the-badge
 [contributors-url]: https://github.com/Assambra/Free-MMORPG/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Assambra/Free-MMORPG.svg?style=for-the-badge
