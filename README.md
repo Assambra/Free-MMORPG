@@ -76,5 +76,8 @@ mail.content.type.sub=charset=UTF-8
 mail.format=flowed
 mail.content.transfer.encoding=8bit
 ````
+
+``Hint! Do not use SSL and TSL at the same time where both are true, there is no check and only one should be true.``
+
 Most should be self explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
 
