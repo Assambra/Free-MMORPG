@@ -74,7 +74,8 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
     <li>Email</li>
         <ul>
             <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
-            <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
+            <li>Easy to create a new custom mails with our interface MailBody</li>
+            <li>HTML based email templates, you can also use your own variables</li>
         </ul>
     <li>Scene and UI Management, from our <a href="https://github.com/Assambra/Module-GameManager">Module-GameManager</a></li>
 </ul>
