@@ -1,4 +1,66 @@
-# Free-MMORPG
+<a name="readme-top"></a>
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+#
+<!-- PROJECT LOGO -->
+<div align="center">
+    <a href="https://github.com/Assambra">
+        <img src="Github/Images/Assambra-Logo-512x512.png" alt="Logo" width="80" height="80">
+    </a>
+    <h1 align="center">Free-MMORPG</h1>
+</div>
+
+<br /> 
+    <h4>Key Features</h4>
+    <ul>
+        <li>Account Management</li>
+            <ul>
+                <li>Create Account</li>
+                <li>Login</li>
+                <li>Forgot password function, sending new password</li>
+            </ul>
+                <li>Email</li>
+                <ul>
+                    <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
+                    <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
+                </ul>
+    </ul>
+    <br />
+    <p align="center">
+    <a href="https://github.com/Assambra/Free-MMORPG/wiki"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>
+    ·
+    <a href="https://github.com/Assambra/Free-MMORPG/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Assambra/Free-MMORPG/issues">Request Feature</a>
+  </p>
+<br />
+
+<!-- TABLE OF CONTENTS -->
+<details>
+    <summary>Table of Contents</summary>
+    <ol>
+        <li><a href="#demo-image">Demo Image</a></li>
+        <li><a href="#foreword">Foreword</a></li>
+        <li><a href="#server">Server</a></li>
+            <ul>
+                <li><a href="#setup-database">Setup database</a></li>
+                <li><a href="#setup-mail">Setup e-mail</a></li>
+            </ul>
+        <li><a href="#contact">Contact</a></li>
+    </ol>
+</details>
+
+<!-- Demo Image-->
+## Demo Image
+![Our Demo Scene][product-screenshot]
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Foreword
 This project uses free resources for the server and client technology 
 without the project probably wouldn't be possible, 
@@ -15,28 +77,29 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 1. install mongoDB
 2. open your mongosh
-3. Create your Database
+3. Create your Database 
 
-    ```use free```
+``use free``
 
 4. Create a new user and password and give it access to the created database 
      
-    ```db.createUser({user: "root", pwd: "123456",roles: [{role: "readWrite", db:"free" }] })```
+`` db.createUser({user: "root", pwd: "123456",roles: [{role: "readWrite", db:"free" }] })``
  
 5. Create two new collections: 
 
-    ```db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } } )```
-    ```db.account.createIndex( { username: 1 } ) ```
- 
-    ```db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )```
-    ```db.character.createIndex( { charactername: 1 } ) ```
-
-
-Add/Create this file to your Free-Server Java project:
+```` 
+db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } } ) 
+db.account.createIndex( { username: 1 } )
+````
+````
+db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )
+db.character.createIndex( { charactername: 1 } )
+````
+6. Add/Create this file to your Free-Server Java project:
 
 ``Location: Free-Server/free-server-common/src/main/resources/free-server-common-config.properties``
 
-Insert the following values for your database and change it to your needs. 
+7. Insert the following values for your database and change it to your needs. 
 
 ````
 database.mongo.uri=mongodb://root:123456@127.0.0.1:27017/free
@@ -44,6 +107,7 @@ database.mongo.database=free
 database.mongo.collection.naming.case=UNDERSCORE
 database.mongo.collection.naming.ignored_suffix=Entity
 ````
+
 In this example file we use:
 
 user: root
@@ -91,3 +155,21 @@ mail.content.transfer.encoding=8bit
 
 Most should be self-explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
 
+<!-- Contact -->
+## Contact
+Join us on <a href="https://discord.gg/qyCdkYSWVG">Discord</a>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+[contributors-shield]: https://img.shields.io/github/contributors/Assambra/Free-MMORPG.svg?style=for-the-badge
+[contributors-url]: https://github.com/Assambra/Free-MMORPG/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Assambra/Free-MMORPG.svg?style=for-the-badge
+[forks-url]: https://github.com/Assambra/Free-MMORPG/network/members
+[stars-shield]: https://img.shields.io/github/stars/Assambra/Free-MMORPG.svg?style=for-the-badge
+[stars-url]: https://github.com/Assambra/Free-MMORPG/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Assambra/Free-MMORPG.svg?style=for-the-badge
+[issues-url]: https://github.com/Assambra/Free-MMORPG/issues
+[license-shield]: https://img.shields.io/github/license/Assambra/Free-MMORPG.svg?style=for-the-badge
+[license-url]: https://github.com/Assambra/Free-MMORPG/blob/main/LICENSE
+[product-screenshot]: Github/Images/Free-MMORPG-Demo-Image.v0.7.0.jpg
+[Unity-url]: https://www.unity.com
+[Unity.com]: https://img.shields.io/badge/Unity-000000.svg?style=for-the-badge&logo=unity&logoColor=white
