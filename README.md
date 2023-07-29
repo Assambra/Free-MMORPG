@@ -34,22 +34,21 @@
 <a name="readme-top"></a>
 
 <!-- TABLE OF CONTENTS -->
-<div>
-    <h2>Table of Contents</h2>
-    <ul>
-        <li><a href="#foreword">Foreword</a></li>
-        <li><a href="#key-features">Key Features</a></li>
-        <li><a href="#server">Server</a></li>
-            <ul>
-                <li><a href="#setup-database">Setup database</a></li>
-                <li><a href="#setup-mail">Setup e-mail</a></li>
-            </ul>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</div>
+<h2>Table of Contents</h2>
+<ul>
+    <li><a href="#foreword">Foreword</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#server">Server</a></li>
+        <ul>
+            <li><a href="#setup-database">Setup database</a></li>
+            <li><a href="#setup-mail">Setup e-mail</a></li>
+        </ul>
+    <li><a href="#contact">Contact</a></li>
+</ul>
 
+<!-- FOREWORD-->
 ## Foreword
-<div>
+
 This project uses free resources for the server and client technology
 without the project probably wouldn't be possible,
 so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work
@@ -59,27 +58,26 @@ in some way such as donation or code so these guys can keep doing what they like
 write good code and a great framework.
 
 For the game client we are using [Unity](https://unity.com "Unity") as game engine.
-    
-</div>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- KEY FEATURES -->
 ## Key Features
-<div>
-    <ul>
-        <li>Account Management</li>
-            <ul>
-                <li>Create Account</li>
-                <li>Login</li>
-                <li>Forgot password function, sending new password</li>
-            </ul>
-        <li>Email</li>
-            <ul>
-                <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
-                <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
-            </ul>
-    </ul>
-</div>
+
+<ul>
+    <li>Account Management</li>
+        <ul>
+            <li>Create Account</li>
+            <li>Login</li>
+            <li>Forgot password function, sending new password</li>
+        </ul>
+    <li>Email</li>
+        <ul>
+            <li>Sending e-mails via smtp, with different authentication protocols SSL, TLS or no authentication</li>
+            <li>Mail System, easy to use sending custom html template based emails and use custom variables via smtp</li>
+        </ul>
+</ul>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- SERVER -->
