@@ -1,4 +1,14 @@
 # Free-MMORPG
+## Foreword
+This project uses free resources for the server and client technology 
+without the project probably wouldn't be possible, 
+so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work 
+and sharing their work with the community. 
+Please check out our Resources Section what technologies we use and support their projects 
+in some way such as donation or code so these guys can keep doing what they like, 
+write good code and a great framework. 
+
+For the game client we are using [Unity](https://unity.com "Unity") as game engine.
 
 ## Server
 ### Setup Database
