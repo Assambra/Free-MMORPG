@@ -53,7 +53,7 @@ and change the value to false, SERVER_CAN_SEND_MAIL = true
 Hint! ``Forgot password sending an plain password back to the client if SERVER_CAN_SEND_MAIL = false, it`s a security issue and more for local development but keep in mind set it to true and setup the mail values ``
 
 #### Setup mail values
-Same file like this one you use for your database settings and additional add to this File the following values and change to your needs:
+The same file as  like this one you used for your database settings and add additional to this file the following values and change to your needs:
 
 ``Location: Free-Server/free-server-common/src/main/resources/free-server-common-config.properties``
 
@@ -79,5 +79,5 @@ mail.content.transfer.encoding=8bit
 
 ``Hint! Do not use SSL and TSL at the same time where both are true, there is no check and only one should be true.``
 
-Most should be self explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
+Most should be self-explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
 
