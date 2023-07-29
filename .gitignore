@@ -1,3 +1,2 @@
 Free-Server/.idea/uiDesigner.xml
-
-Free-Server/free-server-common/src/main/free-server-common-config.properties
+Free-Server/free-server-common/src/main/resources/free-server-common-config.properties
