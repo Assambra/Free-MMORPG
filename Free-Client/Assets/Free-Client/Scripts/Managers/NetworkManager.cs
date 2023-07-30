@@ -235,7 +235,7 @@ public class NetworkManager : MonoBehaviour
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
     {
-        UIForgotPassword uIForgotPassword = GameObject.FindObjectOfType<UIForgotPassword>();
+        UIForgotData uIForgotPassword = GameObject.FindObjectOfType<UIForgotData>();
         if(uIForgotPassword == null)
             Debug.LogError("UICreateAccount not found!");
 
