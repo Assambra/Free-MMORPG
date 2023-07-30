@@ -228,7 +228,7 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
 
-        uICreateAccount.buttonForgotPassword.interactable = true;
+        uICreateAccount.buttonForgotData.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
         uICreateAccount.buttonCreate.interactable = true;
     }
