@@ -255,8 +255,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIForgotPassword, Assembly-CSharp
+      - m_Target: {fileID: 238311341507870337}
+        m_TargetAssemblyTypeName: UIForgotData, Assembly-CSharp
         m_MethodName: OnButtonBack
         m_Mode: 1
         m_Arguments:
@@ -707,8 +707,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIForgotPassword, Assembly-CSharp
+      - m_Target: {fileID: 238311341507870337}
+        m_TargetAssemblyTypeName: UIForgotData, Assembly-CSharp
         m_MethodName: OnButtonSendPassword
         m_Mode: 1
         m_Arguments:
