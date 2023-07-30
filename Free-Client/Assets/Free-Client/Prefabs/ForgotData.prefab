@@ -1269,7 +1269,7 @@ GameObject:
   - component: {fileID: 6723555268470530333}
   - component: {fileID: 9121935734745829481}
   m_Layer: 0
-  m_Name: ForgotPassword
+  m_Name: ForgotData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
