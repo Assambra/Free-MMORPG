@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 5848170598305083810}
   - component: {fileID: 238311341507870337}
   m_Layer: 0
-  m_Name: UIForgotPassword
+  m_Name: UIForgotData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
