@@ -43,7 +43,7 @@ public class UILogin : MonoBehaviour
         sceneHandler.CurrentScene = sceneHandler.Scenes[1];
     }
 
-    public void OnButtonForgotPassword()
+    public void OnButtonForgotData()
     {
         sceneHandler.CurrentScene = sceneHandler.Scenes[2];
     }
