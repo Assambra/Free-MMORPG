@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIForgotPassword : MonoBehaviour
+public class UIForgotData : MonoBehaviour
 {
     public Button buttonBack;
     public Button buttonSendPassword;
