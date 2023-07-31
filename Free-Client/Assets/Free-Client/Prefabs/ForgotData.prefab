@@ -2237,8 +2237,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonBack: {fileID: 2733724463887589282}
   buttonSendPassword: {fileID: 728109647335314085}
-  buttonSendUsername: {fileID: 0}
+  buttonSendUsername: {fileID: 517078961796355227}
   inputFieldUsernameOrEMail: {fileID: 4524686767786043221}
+  inputFieldEMail: {fileID: 2982322371370550464}
   gameObjectForgotPassword: {fileID: 3159275243990772556}
   gameObjectForgotUsername: {fileID: 9078798951576490099}
 --- !u!1 &5974256622084437882

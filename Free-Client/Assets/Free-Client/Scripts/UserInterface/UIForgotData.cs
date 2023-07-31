@@ -9,6 +9,8 @@ public class UIForgotData : MonoBehaviour
     public Button buttonSendUsername;
 
     [SerializeField] private TMP_InputField inputFieldUsernameOrEMail;
+    [SerializeField] private TMP_InputField inputFieldEMail;
+
     [SerializeField] private GameObject gameObjectForgotPassword;
     [SerializeField] private GameObject gameObjectForgotUsername;
 
@@ -28,17 +30,17 @@ public class UIForgotData : MonoBehaviour
 
     public void OnButtonSendPassword()
     {
+        // Todo #15
         buttonSendPassword.interactable = false;
         buttonBack.interactable = false;
 
         networkManager.ForgotPassword(inputFieldUsernameOrEMail.text);
     }
+
     public void OnButtonSendUsername()
     {
-        buttonSendUsername.interactable = false;
-        buttonBack.interactable = false;
-
-        networkManager.ForgotPassword(inputFieldUsernameOrEMail.text);
+        // Todo #15
+        networkManager.ForgotUsername(inputFieldEMail.text);
     }
 
     public void OnButtonTabPassword()
