@@ -198,7 +198,7 @@ public class NetworkManager : MonoBehaviour
             usernameOrEMail = "";
         }
 
-        if(forgotPassword)
+        if(forgotUsername)
         {
             forgotUsername = false;
 
