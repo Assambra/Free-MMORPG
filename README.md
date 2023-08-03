@@ -69,7 +69,8 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <ul>
             <li>Create Account</li>
             <li>Login</li>
-            <li>Forgot password function, sending new password</li>
+            <li>Forgot password function, sending new password to a given username/e-mail address</li>
+            <li>Forgot username function, sending the username to a given e-mail address</li>
         </ul>
     <li>Email</li>
         <ul>
