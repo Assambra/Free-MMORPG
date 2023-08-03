@@ -35,7 +35,7 @@ public class NetworkManager : MonoBehaviour
 
     private bool createAccount = false;
     private bool forgotPassword = false;
-
+    private bool forgotUsername = false;
 
     private void Start()
     {
@@ -121,6 +121,7 @@ public class NetworkManager : MonoBehaviour
 
         on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
+        on<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -141,6 +142,14 @@ public class NetworkManager : MonoBehaviour
         Login("Guest#" + RandomString.GetNumericString(1000001), "");
 
         this.usernameOrEMail = usernameoremail;
+    }
+
+    public void ForgotUsername(string email)
+    {
+        forgotUsername = true;
+
+        Login("Guest#" + RandomString.GetNumericString(1000001), "");
+        this.email = email;
     }
 
     #endregion
@@ -188,6 +197,19 @@ public class NetworkManager : MonoBehaviour
 
             usernameOrEMail = "";
         }
+
+        if(forgotUsername)
+        {
+            forgotUsername = false;
+
+            EzyObject username = EzyEntityFactory
+                .newObjectBuilder()
+                .append("email", email)
+                .build();
+            appProxy.send(Commands.FORGOT_USERNAME, username);
+
+            email = "";
+        }
     }
 
     private void OnLoginSucess(EzySocketProxy proxy, Object data)
@@ -228,16 +250,16 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
 
-        uICreateAccount.buttonForgotPassword.interactable = true;
+        uICreateAccount.buttonForgotData.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
         uICreateAccount.buttonCreate.interactable = true;
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
     {
-        UIForgotPassword uIForgotPassword = GameObject.FindObjectOfType<UIForgotPassword>();
-        if(uIForgotPassword == null)
-            Debug.LogError("UICreateAccount not found!");
+        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
+        if(uIForgotData == null)
+            Debug.LogError("UIForgotData not found!");
 
         string result = data.get<string>("result");
         string pwd = data.get<string>("password");
@@ -260,9 +282,28 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
 
-        uIForgotPassword.buttonBack.interactable = true;
-        uIForgotPassword.buttonSendPassword.interactable = true;
+        uIForgotData.buttonBack.interactable = true;
+        uIForgotData.buttonSendPassword.interactable = true;
     }
-    
+
+    private void OnForgotUsernameResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+        string username = data.get<string>("username");
+
+        if (result == "success")
+        {
+            if(username == "")
+                UIClientLog.ServerLogMessageSuccess("Your username has been sent to your email address");
+            else
+                UIClientLog.ServerLogMessageSuccess("Your username is: " + username);
+        }
+        if (result == "not_found")
+            UIClientLog.ServerLogMessageError("This e-mail address are not registered");
+
+        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
+        Disconnect();
+    }
+
     #endregion
 }

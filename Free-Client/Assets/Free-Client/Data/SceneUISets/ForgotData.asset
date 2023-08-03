@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab3f4b749507b684cbd324bccfb596a0, type: 3}
-  m_Name: ForgotPassword
+  m_Name: ForgotData
   m_EditorClassIdentifier: 
   UIElementPrefabs:
   - {fileID: 8012648060656397832, guid: d6e5d7adbb1786e4a94488dc1e244256, type: 3}

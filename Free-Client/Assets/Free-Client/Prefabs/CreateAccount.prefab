@@ -2163,7 +2163,7 @@ GameObject:
   - component: {fileID: 2864847781307551356}
   - component: {fileID: 8581675872530040511}
   m_Layer: 5
-  m_Name: ButtonForgotPassword
+  m_Name: ButtonForgotData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2273,7 +2273,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6973759587966377369}
         m_TargetAssemblyTypeName: UICreateAccount, Assembly-CSharp
-        m_MethodName: OnButtonForgotPassword
+        m_MethodName: OnButtonForgotData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2348,7 +2348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Forgot password?
+  m_text: Forgot data?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2517,7 +2517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonCreate: {fileID: 2118298}
   buttonBack: {fileID: 1526140776}
-  buttonForgotPassword: {fileID: 8581675872530040511}
+  buttonForgotData: {fileID: 8581675872530040511}
   inputFieldEmail: {fileID: 1637496621}
   inputFieldUsername: {fileID: 2124922939}
   inputFieldPassword: {fileID: 802747682}

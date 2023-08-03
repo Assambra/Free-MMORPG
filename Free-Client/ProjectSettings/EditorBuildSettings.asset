@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Free-Client/Scenes/CreateAccount.unity
     guid: 2b33625848dd67847bf6cfa732878aa2
   - enabled: 1
-    path: Assets/Free-Client/Scenes/ForgotPassword.unity
+    path: Assets/Free-Client/Scenes/ForgotData.unity
     guid: 06f41d8315fd86145a9325cab714244a
   m_configObjects: {}

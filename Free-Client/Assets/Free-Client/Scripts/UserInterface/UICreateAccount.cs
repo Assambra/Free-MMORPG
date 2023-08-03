@@ -7,7 +7,7 @@ public class UICreateAccount : MonoBehaviour
 {
     public Button buttonCreate;
     public Button buttonBack;
-    public Button buttonForgotPassword;
+    public Button buttonForgotData;
 
     [SerializeField] TMP_InputField inputFieldEmail;
     [SerializeField] TMP_InputField inputFieldUsername;
@@ -32,7 +32,7 @@ public class UICreateAccount : MonoBehaviour
     {
         buttonCreate.interactable = false;
         buttonBack.interactable = false;
-        buttonForgotPassword.interactable = false;
+        buttonForgotData.interactable = false;
 
         email = inputFieldEmail.text;
         username = inputFieldUsername.text;
@@ -46,7 +46,7 @@ public class UICreateAccount : MonoBehaviour
         sceneHandler.CurrentScene = sceneHandler.Scenes[0];
     }
 
-    public void OnButtonForgotPassword()
+    public void OnButtonForgotData()
     {
         sceneHandler.CurrentScene = sceneHandler.Scenes[2];
     }
