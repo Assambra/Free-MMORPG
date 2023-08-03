@@ -289,11 +289,20 @@ public class NetworkManager : MonoBehaviour
     private void OnForgotUsernameResponse(EzyAppProxy proxy, EzyObject data)
     {
         string result = data.get<string>("result");
+        string username = data.get<string>("username");
 
         if (result == "success")
-            UIClientLog.ServerLogMessageSuccess("Your username has been sent to your email address");
-        else if (result == "not_found")
+        {
+            if(username == "")
+                UIClientLog.ServerLogMessageSuccess("Your username has been sent to your email address");
+            else
+                UIClientLog.ServerLogMessageSuccess("Your username is: " + username);
+        }
+        if (result == "not_found")
             UIClientLog.ServerLogMessageError("This e-mail address are not registered");
+
+        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
+        Disconnect();
     }
 
     #endregion

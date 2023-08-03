@@ -10,7 +10,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MailBodyBuilder {
+public class MailBuilder {
 
     private Configuration configuration;
     private Map<String, Object> dataModel;
@@ -18,9 +18,9 @@ public class MailBodyBuilder {
     private MailBody bodyTemplate;
     private Template footerTemplate;
 
-    public MailBodyBuilder() throws IOException {
+    public MailBuilder() throws IOException {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
-        configuration.setClassForTemplateLoading(MailBodyBuilder.class, "/templates");
+        configuration.setClassForTemplateLoading(MailBuilder.class, "/templates");
 
         headerTemplate = configuration.getTemplate("header_template.ftl");
         footerTemplate = configuration.getTemplate("footer_template.ftl");

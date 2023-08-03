@@ -8,9 +8,10 @@ import com.assambra.app.request.ForgotPasswordRequest;
 import com.assambra.app.request.ForgotUsernameRequest;
 import com.assambra.app.service.AccountService;
 import com.assambra.common.entity.Account;
-import com.assambra.common.mail.MailBodyBuilder;
+import com.assambra.common.mail.MailBuilder;
 import com.assambra.common.mail.SMTP_EMail;
-import com.assambra.common.mail.mailbodys.ResetPasswordMailBody;
+import com.assambra.common.mail.mailbodys.NewPasswordMailBody;
+import com.assambra.common.mail.mailbodys.YourUsernameMailBody;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.security.EzySHA256;
@@ -94,7 +95,7 @@ public class AccountController extends EzyLoggable {
         }
         else
         {
-            if(!ServerVariables.SERVER_CAN_SEND_MAIL)
+            if(ServerVariables.SERVER_CAN_SEND_MAIL)
             {
                 logger.info("Forgot password request for account: {}", account.getUsername());
 
@@ -103,20 +104,8 @@ public class AccountController extends EzyLoggable {
 
                 accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
-                resultMessage ="sending_password";
-                password = randomstring;
-            }
-            else
-            {
-                logger.info("Forgot password request for account: {}", account.getUsername());
-
-                String randomstring = RandomString.getAlphaNumericString(8);
-                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
-
-                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
-
-                ResetPasswordMailBody resetPasswordMailBody = new ResetPasswordMailBody();
-                MailBodyBuilder mailBuilder = new MailBodyBuilder();
+                NewPasswordMailBody resetPasswordMailBody = new NewPasswordMailBody();
+                MailBuilder mailBuilder = new MailBuilder();
                 mailBuilder.setBodyTemplate(resetPasswordMailBody);
                 mailBuilder.setVariable("password", randomstring);
                 mailBuilder.setVariable("username", account.getUsername());
@@ -128,6 +117,19 @@ public class AccountController extends EzyLoggable {
                 password = "";
 
                 logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
+
+            }
+            else
+            {
+                logger.info("Forgot password request for account: {}", account.getUsername());
+
+                String randomstring = RandomString.getAlphaNumericString(8);
+                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
+
+                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
+
+                resultMessage ="sending_password";
+                password = randomstring;
             }
         }
 
@@ -140,21 +142,44 @@ public class AccountController extends EzyLoggable {
     }
 
     @EzyDoHandle(Commands.FORGOT_USERNAME)
-    public void forgotUsername(EzyUser user, ForgotUsernameRequest request)
-    {
+    public void forgotUsername(EzyUser user, ForgotUsernameRequest request) throws IOException, TemplateException {
         String resultMessage;
+        String username;
+
         Account account = accountService.getFieldValueByFieldAndValue("email", request.getEmail().toLowerCase(), "username");
 
         if(account == null)
+        {
             resultMessage = "not_found";
+            username = "";
+        }
         else
         {
-            resultMessage = "success";
+            if(ServerVariables.SERVER_CAN_SEND_MAIL)
+            {
+                resultMessage = "success";
+                username = "";
+
+                account = accountService.getAccountByUsername(account.getUsername());
+
+                YourUsernameMailBody yourUsernameMailBody = new YourUsernameMailBody();
+                MailBuilder mailBuilder = new MailBuilder();
+                mailBuilder.setBodyTemplate(yourUsernameMailBody);
+                mailBuilder.setVariable("username", account.getUsername());
+
+                mail.sendMail(account.getEmail(), "Your Username", mailBuilder.buildEmail());
+            }
+            else
+            {
+                resultMessage = "success";
+                username = account.getUsername();
+            }
         }
 
         responseFactory.newObjectResponse()
                 .command(Commands.FORGOT_USERNAME)
                 .param("result", resultMessage)
+                .param("username", username)
                 .user(user)
                 .execute();
     }
