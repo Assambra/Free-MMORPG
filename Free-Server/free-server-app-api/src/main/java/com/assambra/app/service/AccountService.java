@@ -19,6 +19,11 @@ public class AccountService
         accountRepo.updateStringFieldById(id, field, value);
     }
 
+
+    public Account getFieldValueByFieldAndValue(String field, String value, String retValue) {
+        return accountRepo.getFieldValueByFieldAndValue(field, value, retValue);
+    }
+
     public Account getAccountByUsername(String username) {
         return accountRepo.findByField("username", username);
     }

@@ -1,5 +1,4 @@
 package com.assambra.common.repository;
-
 import com.assambra.common.entity.Account;
 import com.tvd12.ezydata.mongodb.EzyMongoRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
@@ -9,5 +8,8 @@ import com.tvd12.ezyfox.database.annotation.EzyRepository;
 public interface AccountRepo extends EzyMongoRepository<Long, Account>{
 
     @EzyQuery("{$query: {_id:?0}, $update: {$set: {?1:?2}}}")
-    void updateStringFieldById(long id, String field, String value);
+    void updateStringFieldById(Long id, String field, String value);
+
+    @EzyQuery("{$query: {?0:?1}, $fields: [?2], $orderBy: {_id:0, ?2:1}}")
+    Account getFieldValueByFieldAndValue(String field, String value, String retValue);
 }

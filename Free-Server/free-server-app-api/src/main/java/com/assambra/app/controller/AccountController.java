@@ -5,6 +5,7 @@ import com.assambra.app.constant.ServerVariables;
 import com.assambra.app.helper.RandomString;
 import com.assambra.app.request.CreateAccountRequest;
 import com.assambra.app.request.ForgotPasswordRequest;
+import com.assambra.app.request.ForgotUsernameRequest;
 import com.assambra.app.service.AccountService;
 import com.assambra.common.entity.Account;
 import com.assambra.common.mail.MailBodyBuilder;
@@ -32,7 +33,7 @@ public class AccountController extends EzyLoggable {
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
     public void createAccount(EzyUser user, CreateAccountRequest request)
     {
-        String resultmessage = "";
+        String resultMessage = "";
 
         Account account = accountService.getAccountByUsername(request.getUsername());
         if(account == null)
@@ -44,11 +45,11 @@ public class AccountController extends EzyLoggable {
             if(!request.getUsername().toLowerCase().contains("guest"))
             {
                 accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()));
-                resultmessage = "successfully";
+                resultMessage = "successfully";
             }
             else
             {
-                resultmessage = "username_are_not_allowed";
+                resultMessage = "username_are_not_allowed";
             }
         }
         else
@@ -56,28 +57,29 @@ public class AccountController extends EzyLoggable {
             if(account.getEmail().equals(request.getEmail().toLowerCase()))
             {
                 logger.info("E-Mail already registered");
-                resultmessage = "email_already_registered";
+                resultMessage = "email_already_registered";
             }
             else if(account.getUsername().equals(request.getUsername()))
             {
                 logger.info("Username already in use");
-                resultmessage ="username_already_in_use";
+                resultMessage ="username_already_in_use";
             }
         }
 
         responseFactory.newObjectResponse()
                 .command(Commands.CREATE_ACCOUNT)
-                .param("result", resultmessage)
+                .param("result", resultMessage)
                 .user(user)
                 .execute();
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
-    public void forgotPassword(EzyUser user, ForgotPasswordRequest request) throws IOException, TemplateException {
+    public void forgotPassword(EzyUser user, ForgotPasswordRequest request) throws IOException, TemplateException
+    {
         String password;
-        String resultmessage;
+        String resultMessage;
 
-        logger.info("Reseive forgot password request for user {}, username or email {}", user.getName(), request.getUsernameOrEMail());
+        logger.info("Receive forgot password request for user {}, username or email {}", user.getName(), request.getUsernameOrEMail());
 
         Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
         if(account == null)
@@ -85,7 +87,7 @@ public class AccountController extends EzyLoggable {
 
         if (account == null)
         {
-            resultmessage = "no_account";
+            resultMessage = "no_account";
             password = "";
 
             logger.info("Forgot password request for user: {}, no username or email address found", user.getName());
@@ -101,7 +103,7 @@ public class AccountController extends EzyLoggable {
 
                 accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
-                resultmessage ="sending_password";
+                resultMessage ="sending_password";
                 password = randomstring;
             }
             else
@@ -122,7 +124,7 @@ public class AccountController extends EzyLoggable {
                 // Todo set subject as variable
                 mail.sendMail(account.getEmail(), "Reset Password", mailBuilder.buildEmail());
 
-                resultmessage ="sending_email";
+                resultMessage ="sending_email";
                 password = "";
 
                 logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
@@ -131,8 +133,28 @@ public class AccountController extends EzyLoggable {
 
         responseFactory.newObjectResponse()
                 .command(Commands.FORGOT_PASSWORD)
-                .param("result", resultmessage)
+                .param("result", resultMessage)
                 .param("password", password)
+                .user(user)
+                .execute();
+    }
+
+    @EzyDoHandle(Commands.FORGOT_USERNAME)
+    public void forgotUsername(EzyUser user, ForgotUsernameRequest request)
+    {
+        String resultMessage;
+        Account account = accountService.getFieldValueByFieldAndValue("email", request.getEmail().toLowerCase(), "username");
+
+        if(account == null)
+            resultMessage = "not_found";
+        else
+        {
+            resultMessage = "success";
+        }
+
+        responseFactory.newObjectResponse()
+                .command(Commands.FORGOT_USERNAME)
+                .param("result", resultMessage)
                 .user(user)
                 .execute();
     }
