@@ -42,6 +42,7 @@
         <ul>
             <li><a href="#setup-database">Setup database</a></li>
             <li><a href="#setup-mail">Setup e-mail</a></li>
+            <li><a href="#deploy-server">Deploy the Server</a></li>
         </ul>
     <li><a href="#contact">Contact</a></li>
 </ul>
@@ -84,6 +85,10 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 <!-- SERVER -->
 ## Server
+We use two servers free account server and free game server.
+You can only start and test one from your IDE at a time since they both use the same port. 
+To test both at the same time, you need to deploy the server. More information can be found in the section <a href="#deploy-server">deploy the server</a>.
+
 <!-- SETUP DATABASE -->
 ### Setup Database
 
@@ -168,6 +173,40 @@ mail.content.transfer.encoding=8bit
 ``Hint! Do not use SSL and TSL at the same time where both are true, there is no check and only one should be true.``
 
 Most should be self-explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- DEPLOY SERVER -->
+## Deploy Server
+### Download Files
+Downloading the Server
+
+- <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.8.zip">ezyfox-server-full-1.2.8.zip</a>
+
+Downloading following files for the mail capabilities
+
+- <a href="https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar">javax.mail-1.6.2.jar</a>
+- <a href="https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.32/freemarker-2.3.32.jar">freemarker-2.3.32.jar</a>
+
+### Server preparations
+In this example we use the location D:\ezyfox-server
+- extract ezyfox-server-full-1.2.8.zip and copy the extracted files in the location.
+- open the file D:\ezyfox-server\settings\ezy-settings.xml in the editor and add between ```<zones></zones>``` two new zones.
+````
+<zone>
+	<name>free-account-server</name>
+	<config-file>free-account-server-zone-settings.xml</config-file>
+	<active>true</active>
+</zone>
+````
+````
+<zone>
+  <name>free-game-server</name>
+  <config-file>free-game-server-zone-settings.xml</config-file>
+  <active>true</active>
+</zone>
+````
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Contact -->
