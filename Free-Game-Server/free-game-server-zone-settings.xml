@@ -12,7 +12,7 @@
     </streaming>
 
     <user-management>
-        <allow-guest-login>true</allow-guest-login>
+        <allow-guest-login>false</allow-guest-login>
         <guest-name-prefix>Guest#</guest-name-prefix>
         <user-max-idle-time>15</user-max-idle-time>
         <max-session-per-user>15</max-session-per-user>
