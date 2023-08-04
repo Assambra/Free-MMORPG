@@ -35,8 +35,12 @@ public class ApplicationStartup {
             .application(appSettingBuilder.build())
             .plugin(pluginSettingBuilder.build());
 
+        EzyUdpSettingBuilder udpSettingBuilder = new EzyUdpSettingBuilder()
+                .active(true);
+
         EzySimpleSettings settings = new EzySettingsBuilder()
             .zone(zoneSettingBuilder.build())
+            .udp(udpSettingBuilder.build())
             .build();
 
         EzyEmbeddedServer server = EzyEmbeddedServer.builder()
