@@ -17,13 +17,6 @@ public class UICreateAccount : MonoBehaviour
     private string password;
     private string username;
 
-    private SceneHandler sceneHandler;
-
-
-    private void Awake()
-    {
-        sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
-    }
 
     public void OnButtonCreate()
     {
@@ -40,11 +33,11 @@ public class UICreateAccount : MonoBehaviour
 
     public void OnButtonBack()
     {
-        sceneHandler.CurrentScene = sceneHandler.Scenes[0];
+        GameManager.Instance.ChangeScene(Scenes.Login);
     }
 
     public void OnButtonForgotData()
     {
-        sceneHandler.CurrentScene = sceneHandler.Scenes[2];
+        GameManager.Instance.ChangeScene(Scenes.ForgotData);
     }
 }

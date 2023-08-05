@@ -14,16 +14,10 @@ public class UIForgotData : MonoBehaviour
     [SerializeField] private GameObject gameObjectForgotPassword;
     [SerializeField] private GameObject gameObjectForgotUsername;
 
-    private SceneHandler sceneHandler;
-
-    private void Awake()
-    {
-        sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
-    }
 
     public void OnButtonBack()
     {
-        sceneHandler.CurrentScene = sceneHandler.Scenes[0];
+        GameManager.Instance.ChangeScene(Scenes.Login);
     }
 
     public void OnButtonSendPassword()

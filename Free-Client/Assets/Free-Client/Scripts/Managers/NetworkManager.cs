@@ -40,6 +40,7 @@ public class NetworkManager : MonoBehaviour
     private string currentZone = "";
     private string currentApp = "";
 
+    private bool connected = false;
     private bool nowProcessEvents = false;
 
     private string email;
@@ -93,7 +94,11 @@ public class NetworkManager : MonoBehaviour
     public void Disconnect()
     {
         nowProcessEvents = false;
-        EzyClients.getInstance().getClient(currentZone).disconnect();
+
+        if (connected)
+            EzyClients.getInstance().getClient(currentZone).disconnect();
+
+        connected = false;
     }
 
     #region REQUESTS
@@ -133,6 +138,7 @@ public class NetworkManager : MonoBehaviour
         AddServerEvents();
 
         socketProxy.connect();
+        connected = true;
 
         Debug.Log("Login: username = " + username + ", password = " + password);
     }
