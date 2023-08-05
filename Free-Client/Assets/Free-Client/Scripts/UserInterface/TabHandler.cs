@@ -54,7 +54,6 @@ public class TabHandler : MonoBehaviour
             }
                 
         }
-        //buttonGameObject.GetComponent<Image>().sprite = spriteTabActive;
     }
 
 }

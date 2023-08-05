@@ -29,6 +29,7 @@ public class NetworkManager : MonoBehaviour
     
 
     [HideInInspector] public UIClientLog UIClientLog;
+    public static NetworkManager Instance { get; private set; }
 
     // private variables
     private EzySocketProxyManager ezySocketProxyManager;
@@ -49,6 +50,14 @@ public class NetworkManager : MonoBehaviour
     private bool createAccount = false;
     private bool forgotPassword = false;
     private bool forgotUsername = false;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
 
     private void Start()
     {

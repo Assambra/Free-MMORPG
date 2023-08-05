@@ -14,12 +14,10 @@ public class UIForgotData : MonoBehaviour
     [SerializeField] private GameObject gameObjectForgotPassword;
     [SerializeField] private GameObject gameObjectForgotUsername;
 
-    private NetworkManager networkManager;
     private SceneHandler sceneHandler;
 
     private void Awake()
     {
-        networkManager = GameObject.FindObjectOfType<NetworkManager>();
         sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
     }
 
@@ -34,13 +32,13 @@ public class UIForgotData : MonoBehaviour
         buttonSendPassword.interactable = false;
         buttonBack.interactable = false;
 
-        networkManager.ForgotPassword(inputFieldUsernameOrEMail.text);
+        NetworkManager.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
     }
 
     public void OnButtonSendUsername()
     {
         // Todo #15
-        networkManager.ForgotUsername(inputFieldEMail.text);
+        NetworkManager.Instance.ForgotUsername(inputFieldEMail.text);
     }
 
     public void OnButtonTabPassword()
