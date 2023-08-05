@@ -42,7 +42,7 @@
         <ul>
             <li><a href="#setup-database">Setup database</a></li>
             <li><a href="#setup-mail">Setup e-mail</a></li>
-            <li><a href="#deploy-server">Deploy the Server</a></li>
+            <li><a href="#deploy-server">Deploy the server</a></li>
         </ul>
     <li><a href="#contact">Contact</a></li>
 </ul>
@@ -193,19 +193,42 @@ In this example we use the location D:\ezyfox-server
 - open the file D:\ezyfox-server\settings\ezy-settings.xml in the editor and add between ```<zones></zones>``` two new zones.
 ````
 <zone>
-	<name>free-account-server</name>
-	<config-file>free-account-server-zone-settings.xml</config-file>
-	<active>true</active>
+    <name>free-account-server</name>
+    <config-file>free-account-server-zone-settings.xml</config-file>
+    <active>true</active>
 </zone>
 ````
 ````
 <zone>
-  <name>free-game-server</name>
-  <config-file>free-game-server-zone-settings.xml</config-file>
-  <active>true</active>
+    <name>free-game-server</name>
+    <config-file>free-game-server-zone-settings.xml</config-file>
+    <active>true</active>
 </zone>
 ````
+1. Copy both downloaded files javax.mail-1.6.2.jar and freemarker-2.3.32.jar to location: D:\ezyfox-server\lib
+2. find line "#export EZYFOX_SERVER_HOME=" remove # and insert after = D:/ezyfox-server in the two following files (please read the hint below)
+- Free-MMORPG\Free-Account-Server\build.sh 
+- Free-MMORPG\Free-Game-Server\build.sh
 
+In this example i use windows and Git Bash command client go to the project root of:
+- Free-MMORPG\Free-Account-Server\
+- Free-MMORPG\Free-Game-Server\
+- and run command bash build.sh for both of the project.
+
+Hint: If is there some error: 
+
+``cp: cannot create regular file 'D:ezyfox-server/settings/zones/': No such file or directory``
+
+there is some problem with forward slash and backslash depends on your operating system or command client try to use instead of D:\ezyfox-server this D:/ezyfox-server.
+
+### Run the server
+Go to your server location D:\ezyfox-server
+
+Windows: execute console.bat 
+
+Linux: ``sh ./console.sh`` for console server. 
+
+Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-service.sh``. Restart the service: ``sh ./restart-service.sh``
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
