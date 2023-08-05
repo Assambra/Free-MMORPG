@@ -35,7 +35,7 @@ public class UILogin : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        networkManager.Login(username, password);
+        networkManager.Login(username, password, true);
     }
 
     public void OnButtonNeedAccount()

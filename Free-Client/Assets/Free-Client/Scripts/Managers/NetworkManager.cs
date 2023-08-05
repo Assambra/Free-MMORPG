@@ -14,19 +14,32 @@ using Object = System.Object;
 public class NetworkManager : MonoBehaviour
 {
     [Header("Server Settings")]
-    [SerializeField] private string zoneName = "free-server";
-    [SerializeField] private string appName = "free-server";
+    
     [SerializeField] private string host = "127.0.0.1";
     [SerializeField] private int tcpPort = 3005;
     [SerializeField] private int udpPort = 2611;
     [SerializeField] private bool useUdp = false;
+    [SerializeField] private string guestPassword = "Assambra";
+    [Header("Account Server Zone/App Settings")]
+    [SerializeField] private string accountZoneName = "free-account-server";
+    [SerializeField] private string accountAppName = "free-account-server";
+    [Header("Game Server Zone/App Settings")]
+    [SerializeField] private string gameZoneName = "free-game-server";
+    [SerializeField] private string gameAppName = "free-game-server";
+    
 
-    public UIClientLog UIClientLog;
+    [HideInInspector] public UIClientLog UIClientLog;
 
     // private variables
+    private EzySocketProxyManager ezySocketProxyManager;
     private EzySocketProxy socketProxy;
     private EzyAppProxy appProxy;
     private List<Tuple<String, Object>> handlers = new();
+
+    private string currentZone = "";
+    private string currentApp = "";
+
+    private bool nowProcessEvents = false;
 
     private string email;
     private string username;
@@ -40,25 +53,12 @@ public class NetworkManager : MonoBehaviour
     private void Start()
     {
         EzyUnityLoggerFactory.getLogger<EzyUnityLogger>();
-        Debug.Log("Start");
-
-        var socketProxyManager = EzySocketProxyManager.getInstance();
-        if (!socketProxyManager.hasInited())
-            socketProxyManager.init();
-
-        socketProxy = socketProxyManager.getSocketProxy(zoneName);
-        if (socketProxy.getClient() == null)
-        {
-            Debug.Log("Creating Client");
-            var config = EzyClientConfig.builder().clientName(zoneName).zoneName(zoneName).build();
-            EzyClientFactory.getInstance().getOrCreateClient(config, useUdp);
-        }
-        appProxy = socketProxy.getAppProxy(appName, true);
     }
 
     private void Update()
     {
-        EzyClients.getInstance().getClient(zoneName).processEvents();
+        if(nowProcessEvents)
+            EzyClients.getInstance().getClient(currentZone).processEvents();
     }
 
     private void OnDestroy()
@@ -83,31 +83,35 @@ public class NetworkManager : MonoBehaviour
 
     public void Disconnect()
     {
-        EzyClients.getInstance().getClient(zoneName).disconnect();
+        nowProcessEvents = false;
+        EzyClients.getInstance().getClient(currentZone).disconnect();
     }
 
     #region REQUESTS
 
-    public void Login(string username, string password)
+    public void Login(string username, string password, bool toGameServer)
     {
-        this.username = username;
-        this.password = password;
+        if(toGameServer)
+        {
+            currentZone = gameZoneName;
+            currentApp = gameAppName;
+        }
+        else 
+        {
+            currentZone = accountZoneName;
+            currentApp = accountAppName;
+        }
 
-        Debug.Log("Login username = " + username + ", password = " + password);
-        Debug.Log("Socket clientName = " + socketProxy.getClient().getName());
-
-        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
-        socketProxy.onAppAccessed<Object>(OnAppAccessed);
-
-
-        socketProxy.setLoginUsername(username);
-        socketProxy.setLoginPassword(password);
+        CreateSocketProxy();
 
         socketProxy.setHost(host);
         socketProxy.setTcpPort(tcpPort);
         socketProxy.setUdpPort(udpPort);
+        
+        socketProxy.setLoginUsername(username);
+        socketProxy.setLoginPassword(password);
 
-        socketProxy.setDefaultAppName(appName);
+        socketProxy.setDefaultAppName(currentApp);
 
         if (!useUdp)
             socketProxy.setTransportType(EzyTransportType.TCP);
@@ -117,7 +121,35 @@ public class NetworkManager : MonoBehaviour
             socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
         }
 
+        AddServerEvents();
+
         socketProxy.connect();
+
+        Debug.Log("Login: username = " + username + ", password = " + password);
+    }
+
+    private void CreateSocketProxy()
+    {
+        ezySocketProxyManager = EzySocketProxyManager.getInstance();
+        if (!ezySocketProxyManager.hasInited())
+            ezySocketProxyManager.init();
+
+        socketProxy = ezySocketProxyManager.getSocketProxy(currentZone);
+        if (socketProxy.getClient() == null)
+        {
+            Debug.Log("Creating Client");
+            var config = EzyClientConfig.builder().clientName(currentZone).zoneName(currentZone).build();
+            EzyClientFactory.getInstance().getOrCreateClient(config, useUdp);
+        }
+        appProxy = socketProxy.getAppProxy(currentApp, true);
+
+        nowProcessEvents = true;
+    }
+
+    private void AddServerEvents()
+    {
+        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
+        socketProxy.onAppAccessed<Object>(OnAppAccessed);
 
         on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
@@ -128,7 +160,7 @@ public class NetworkManager : MonoBehaviour
     {
         createAccount = true;
 
-        Login("Guest#" + RandomString.GetNumericString(1000001), "");
+        Login(CreateGuestName(), guestPassword, false);
 
         this.email = email;
         this.username = username;
@@ -139,7 +171,7 @@ public class NetworkManager : MonoBehaviour
     {
         forgotPassword = true;
 
-        Login("Guest#" + RandomString.GetNumericString(1000001), "");
+        Login(CreateGuestName(), guestPassword, false);
 
         this.usernameOrEMail = usernameoremail;
     }
@@ -148,8 +180,14 @@ public class NetworkManager : MonoBehaviour
     {
         forgotUsername = true;
 
-        Login("Guest#" + RandomString.GetNumericString(1000001), "");
+        Login(CreateGuestName(), guestPassword, false);
+
         this.email = email;
+    }
+
+    private string CreateGuestName()
+    {
+        return "Guest#" + RandomString.GetNumericString(1000001);
     }
 
     #endregion
@@ -159,7 +197,7 @@ public class NetworkManager : MonoBehaviour
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
     {
         Debug.Log("OnUdpHandshake");
-        socketProxy.send(new EzyAppAccessRequest(appName));
+        socketProxy.send(new EzyAppAccessRequest(currentApp));
     }
 
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
@@ -198,7 +236,7 @@ public class NetworkManager : MonoBehaviour
             usernameOrEMail = "";
         }
 
-        if(forgotUsername)
+        if (forgotUsername)
         {
             forgotUsername = false;
 
