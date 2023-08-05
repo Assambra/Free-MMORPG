@@ -10,18 +10,17 @@ public class UILogin : MonoBehaviour
     private string password;
     private string username;
 
-    private NetworkManager networkManager;
     private SceneHandler sceneHandler;
+
 
     private void Awake()
     {
-        networkManager = GameObject.FindObjectOfType<NetworkManager>();
         sceneHandler = GameObject.FindObjectOfType<SceneHandler>();
     }
 
     public void OnButtonQuit()
     {
-        networkManager.Disconnect();
+        NetworkManager.Instance.Disconnect();
 
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -35,7 +34,7 @@ public class UILogin : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        networkManager.Login(username, password, true);
+        NetworkManager.Instance.Login(username, password, true);
     }
 
     public void OnButtonNeedAccount()

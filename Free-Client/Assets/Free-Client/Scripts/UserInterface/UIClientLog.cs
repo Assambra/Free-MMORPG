@@ -7,13 +7,10 @@ public class UIClientLog : MonoBehaviour
     [SerializeField] TMP_Text textFieldServerLog;
     [SerializeField] ClientLogFile clientLogFile;
 
-    private NetworkManager networkManager;
-
 
     private void Awake()
     {
-        networkManager = GameObject.FindObjectOfType<NetworkManager>();
-        networkManager.UIClientLog = this;
+        NetworkManager.Instance.UIClientLog = this;
     }
 
     void Update()
