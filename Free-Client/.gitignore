@@ -72,3 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /Assets/TextMesh Pro
+
+# EzyFox Server CSharp Client Unity Client SDK
+/Assets/Free-Client/Plugins/ezyfox-server-csharp-client-unity-client/*
