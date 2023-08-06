@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.assambra.account</groupId>
+        <groupId>com.assambra.game</groupId>
         <artifactId>free-game-server</artifactId>
         <version>0.13.0</version>
     </parent>

@@ -136,7 +136,7 @@ You can take a look this guide: [Deploy EzyFox Server](https://youngmonkeys.org/
 
 1. Move to `free-game-server-startup` module 
 2. Run `mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy`
-3. Run class `com.assambra.account.tools.ExternalLibrariesExporter` in `free-game-server-startup/src/test/java`
+3. Run class `com.assambra.game.tools.ExternalLibrariesExporter` in `free-game-server-startup/src/test/java`
 
 # Documentation
 
