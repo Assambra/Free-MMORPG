@@ -38,6 +38,10 @@
 <ul>
     <li><a href="#foreword">Foreword</a></li>
     <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#client">Client</a></li>
+        <ul>
+            <li><a href="#clone-from-github">Clone from Github</a></li>
+        </ul>
     <li><a href="#server">Server</a></li>
         <ul>
             <li><a href="#setup-database">Setup database</a></li>
@@ -50,8 +54,8 @@
 <!-- FOREWORD-->
 ## Foreword
 
-This project uses free resources for the server and client technology
-without the project probably wouldn't be possible,
+This project uses free resources for the server and client technology.
+Without the project probably wouldn't be possible,
 so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work
 and sharing their work with the community.
 Please check out our Resources Section what technologies we use and support their projects
@@ -70,7 +74,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <ul>
             <li>Create Account</li>
             <li>Login</li>
-            <li>Forgot password function, sending new password to a given username/e-mail address</li>
+            <li>Forgot password function, sending new password to a given username / e-mail address</li>
             <li>Forgot username function, sending the username to a given e-mail address</li>
         </ul>
     <li>Email</li>
@@ -83,10 +87,23 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 </ul>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- CLIENT -->
+## Client
+### Clone from Github
+Clone the repo:
+
+`git clone git@github.com:Assambra/Free-MMORPG.git`
+
+Get submodules:
+
+`cd Free-MMORPG`
+
+`git submodule update --init --recursive`
+
 <!-- SERVER -->
 ## Server
 We use two servers free account server and free game server.
-You can only start and test one from your IDE at a time since they both use the same port. 
+You only can start and test one of it from your IDE at same time since they both use the same port. 
 To test both at the same time, you need to deploy the server. More information can be found in the section <a href="#deploy-server">deploy the server</a>.
 
 <!-- SETUP DATABASE -->
@@ -137,7 +154,7 @@ database: free
 <!-- SETUP MAIL -->
 ### Setup Mail
 #### Enable or disable server sending mail via smtp
-First if you don`t have a mail server or some mail provider with an e-mail address who accept sending mails via smtp or want sending e-mails like for local development, find the file: 
+First if you don`t have a mail server or some mail provider with an e-mail address who accept sending mails via smtp or didn't want to sending e-mails like for local development, find the file: 
 
 ``Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com.assambra.app\ServerVariables``
 
