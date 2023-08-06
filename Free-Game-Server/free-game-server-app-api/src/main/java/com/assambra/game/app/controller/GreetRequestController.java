@@ -1,10 +1,10 @@
 package com.assambra.game.app.controller;
 
-import com.assambra.game.app.response.HelloResponse;
 import com.assambra.game.app.constant.Commands;
 import com.assambra.game.app.constant.Errors;
 import com.assambra.game.app.request.GoRequest;
 import com.assambra.game.app.request.HelloRequest;
+import com.assambra.game.app.response.HelloResponse;
 import com.assambra.game.app.service.GreetingService;
 
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;

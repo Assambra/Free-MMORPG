@@ -10,8 +10,8 @@ import com.assambra.account.app.service.AccountService;
 import com.assambra.account.app.constant.Commands;
 import com.assambra.account.app.constant.ServerVariables;
 import com.assambra.account.common.entity.Account;
-import com.assambra.account.common.mail.mailbodys.NewPasswordMailBody;
-import com.assambra.account.common.mail.mailbodys.YourUsernameMailBody;
+import com.assambra.account.common.mail.mailbodys.ForgotPasswordMailBody;
+import com.assambra.account.common.mail.mailbodys.ForgotUsernameMailBody;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.security.EzySHA256;
@@ -104,14 +104,13 @@ public class AccountController extends EzyLoggable {
 
                 accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
-                NewPasswordMailBody resetPasswordMailBody = new NewPasswordMailBody();
+                ForgotPasswordMailBody forgotPasswordMailBody = new ForgotPasswordMailBody();
                 MailBuilder mailBuilder = new MailBuilder();
-                mailBuilder.setBodyTemplate(resetPasswordMailBody);
+                mailBuilder.setBodyTemplate(forgotPasswordMailBody);
                 mailBuilder.setVariable("password", randomstring);
-                mailBuilder.setVariable("username", account.getUsername());
 
                 // Todo set subject as variable
-                mail.sendMail(account.getEmail(), "Reset Password", mailBuilder.buildEmail());
+                mail.sendMail(account.getEmail(), "Your new password", mailBuilder.buildEmail());
 
                 resultMessage ="sending_email";
                 password = "";
@@ -162,9 +161,9 @@ public class AccountController extends EzyLoggable {
 
                 account = accountService.getAccountByUsername(account.getUsername());
 
-                YourUsernameMailBody yourUsernameMailBody = new YourUsernameMailBody();
+                ForgotUsernameMailBody forgotUsernameMailBody = new ForgotUsernameMailBody();
                 MailBuilder mailBuilder = new MailBuilder();
-                mailBuilder.setBodyTemplate(yourUsernameMailBody);
+                mailBuilder.setBodyTemplate(forgotUsernameMailBody);
                 mailBuilder.setVariable("username", account.getUsername());
 
                 mail.sendMail(account.getEmail(), "Your Username", mailBuilder.buildEmail());

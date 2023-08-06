@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
-public class YourUsernameMailBody implements MailBody {
+public class ForgotUsernameMailBody implements MailBody {
 
     private Configuration configuration;
     private Template bodyTemplate;
@@ -24,7 +24,7 @@ public class YourUsernameMailBody implements MailBody {
     @Override
     public void loadTemplate() throws IOException
     {
-        bodyTemplate = configuration.getTemplate("your_username_body.ftl");
+        bodyTemplate = configuration.getTemplate("forgot_username_body.ftl");
     }
 
     @Override

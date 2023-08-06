@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
-public class NewPasswordMailBody implements MailBody {
+public class ForgotPasswordMailBody implements MailBody {
     private Configuration configuration;
     private Template bodyTemplate;
     private Map<String, Object> dataModel;
@@ -19,7 +19,7 @@ public class NewPasswordMailBody implements MailBody {
     }
 
     public void loadTemplate() throws IOException {
-        bodyTemplate = configuration.getTemplate("new_password_body.ftl");
+        bodyTemplate = configuration.getTemplate("forgot_password_body.ftl");
     }
 
     public void setDataModel(Map<String, Object> dataModel) {

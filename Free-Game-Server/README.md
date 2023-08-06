@@ -84,9 +84,9 @@ run `ezyfox-server` or your application with a specific profile
 
 Modules which are deployed to ezyfox-server will be mapped as follows::
 
-1. free-game-server-app-api => `ezyfox-server/apps/common/free-game-server-app-api-0.9.0.jar`
+1. free-game-server-app-api => `ezyfox-server/apps/common/free-game-server-app-api-0.13.0.jar`
 2. free-game-server-app-entry => `ezyfox-server/apps/entries/free-game-server-app`
-3. free-game-server-common => `ezyfox-server/common/ free-game-server-common-0.9.0.jar`
+3. free-game-server-common => `ezyfox-server/common/ free-game-server-common-0.13.0.jar`
 4. free-game-server-plugin => `ezyfox-server/plugins/free-game-server-plugin`
 
 ## Deploy with tools
@@ -136,7 +136,7 @@ You can take a look this guide: [Deploy EzyFox Server](https://youngmonkeys.org/
 
 1. Move to `free-game-server-startup` module 
 2. Run `mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy`
-3. Run class `com.assambra.tools.ExternalLibrariesExporter` in `free-game-server-startup/src/test/java`
+3. Run class `com.assambra.game.tools.ExternalLibrariesExporter` in `free-game-server-startup/src/test/java`
 
 # Documentation
 

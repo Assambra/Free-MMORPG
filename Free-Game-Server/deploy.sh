@@ -1,5 +1,5 @@
 projectName=free-game-server
-version=0.9.0
+version=0.13.0
 # ezyfoxServerLocal=
 # ezyfoxServerRemote=
 # sshCredential=

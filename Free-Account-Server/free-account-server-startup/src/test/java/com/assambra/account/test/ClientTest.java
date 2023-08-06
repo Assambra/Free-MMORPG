@@ -1,7 +1,7 @@
 package com.assambra.account.test;
 
 import com.assambra.account.ApplicationStartup;
-import com.assambra.app.constant.Commands;
+import com.assambra.account.app.constant.Commands;
 
 import com.tvd12.ezyfox.core.constant.EzyResponseCommands;
 import com.tvd12.ezyfox.entity.EzyArray;

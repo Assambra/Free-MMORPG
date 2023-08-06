@@ -1,9 +1,9 @@
 package com.assambra.account;
 
-import com.assambra.plugin.PluginEntry;
-import com.assambra.plugin.PluginEntryLoader;
-import com.assambra.app.AppEntry;
-import com.assambra.app.AppEntryLoader;
+import com.assambra.account.plugin.PluginEntry;
+import com.assambra.account.plugin.PluginEntryLoader;
+import com.assambra.account.app.AppEntry;
+import com.assambra.account.app.AppEntryLoader;
 
 import com.tvd12.ezyfoxserver.constant.EzyEventType;
 import com.tvd12.ezyfoxserver.embedded.EzyEmbeddedServer;
@@ -35,12 +35,8 @@ public class ApplicationStartup {
             .application(appSettingBuilder.build())
             .plugin(pluginSettingBuilder.build());
 
-        EzyUdpSettingBuilder udpSettingBuilder = new EzyUdpSettingBuilder()
-                .active(true);
-
         EzySimpleSettings settings = new EzySettingsBuilder()
             .zone(zoneSettingBuilder.build())
-            .udp(udpSettingBuilder.build())
             .build();
 
         EzyEmbeddedServer server = EzyEmbeddedServer.builder()

@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.tvd12</groupId>
         <artifactId>ezyfox</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.5</version>
     </parent>
 
-    <groupId>com.assambra</groupId>
+    <groupId>com.assambra.game</groupId>
     <artifactId>free-game-server</artifactId>
-    <version>0.9.0</version>
+    <version>0.13.0</version>
     <packaging>pom</packaging>
 
     <name>free-game-server</name>
@@ -22,9 +22,9 @@
         <directory.apps>apps</directory.apps>
         <directory.entries>entries</directory.entries>
         <directory.common>common</directory.common>
-        <ezy.version>1.2.8</ezy.version>
-        <ezy.boot.version>1.1.0</ezy.boot.version>
-        <ezy.client.version>1.2.5</ezy.client.version>
+        <ezy.version>1.2.7</ezy.version>
+        <ezy.boot.version>1.0.9</ezy.boot.version>
+        <ezy.client.version>1.2.4</ezy.client.version>
     </properties>
 
     <dependencies>
@@ -43,7 +43,13 @@
             <artifactId>ezydata-mongodb</artifactId>
             <version>${ezy.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>game-box</artifactId>
+            <version>1.2.1</version>
+        </dependency>
     </dependencies>
+
     <profiles>
         <profile>
             <id>export</id>
@@ -71,6 +77,7 @@
             </build>
         </profile>
     </profiles>
+
     <modules>
         <module>free-game-server-common</module>
         <module>free-game-server-plugin</module>
@@ -78,4 +85,5 @@
         <module>free-game-server-app-entry</module>
         <module>free-game-server-startup</module>
     </modules>
+
 </project>

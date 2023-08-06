@@ -1,4 +1,4 @@
-export EZYFOX_SERVER_HOME=D:/ezyfox-server
+#export EZYFOX_SERVER_HOME=
 mvn -pl . clean install
 mvn -pl free-game-server-common -Pexport clean install
 mvn -pl free-game-server-app-api -Pexport clean install

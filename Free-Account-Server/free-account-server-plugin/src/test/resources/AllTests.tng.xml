@@ -3,7 +3,7 @@
 <suite name="AllTests">
     <test name="All">
         <packages>
-            <package name="com.assambra.plugin.test"></package>
+            <package name="com.assambra.account.plugin.test"></package>
         </packages>
     </test>
 </suite>

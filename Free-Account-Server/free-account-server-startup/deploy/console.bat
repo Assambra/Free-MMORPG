@@ -6,4 +6,4 @@ for /D %%d in (plugins\*) do (
 )
 echo classpath = %ezyclasspath%
 
-java %1 -cp %ezyclasspath% com.assambra.ApplicationStartup
+java %1 -cp %ezyclasspath% com.assambra.account.ApplicationStartup

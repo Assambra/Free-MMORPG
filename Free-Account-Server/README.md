@@ -84,9 +84,9 @@ run `ezyfox-server` or your application with a specific profile
 
 Modules which are deployed to ezyfox-server will be mapped as follows::
 
-1. free-account-server-app-api => `ezyfox-server/apps/common/free-account-server-app-api-0.1.0.jar`
+1. free-account-server-app-api => `ezyfox-server/apps/common/free-account-server-app-api-0.13.0.jar`
 2. free-account-server-app-entry => `ezyfox-server/apps/entries/free-account-server-app`
-3. free-account-server-common => `ezyfox-server/common/ free-account-server-common-0.1.0.jar`
+3. free-account-server-common => `ezyfox-server/common/ free-account-server-common-0.13.0.jar`
 4. free-account-server-plugin => `ezyfox-server/plugins/free-account-server-plugin`
 
 ## Deploy with tools
@@ -136,7 +136,7 @@ You can take a look this guide: [Deploy EzyFox Server](https://youngmonkeys.org/
 
 1. Move to `free-account-server-startup` module 
 2. Run `mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy`
-3. Run class `com.assambra.tools.ExternalLibrariesExporter` in `free-account-server-startup/src/test/java`
+3. Run class `com.assambra.account.tools.ExternalLibrariesExporter` in `free-account-server-startup/src/test/java`
 
 # Documentation
 

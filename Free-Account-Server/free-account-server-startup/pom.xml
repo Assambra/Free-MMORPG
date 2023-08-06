@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.assambra</groupId>
+        <groupId>com.assambra.account</groupId>
         <artifactId>free-account-server</artifactId>
-        <version>0.1.0</version>
+        <version>0.13.0</version>
     </parent>
 
     <artifactId>free-account-server-startup</artifactId>
@@ -15,17 +15,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.assambra</groupId>
+            <groupId>com.assambra.account</groupId>
             <artifactId>free-account-server-app-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.assambra</groupId>
+            <groupId>com.assambra.account</groupId>
             <artifactId>free-account-server-app-entry</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.assambra</groupId>
+            <groupId>com.assambra.account</groupId>
             <artifactId>free-account-server-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>

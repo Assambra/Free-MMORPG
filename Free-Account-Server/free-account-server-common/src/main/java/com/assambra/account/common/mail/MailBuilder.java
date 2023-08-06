@@ -20,7 +20,7 @@ public class MailBuilder {
 
     public MailBuilder() throws IOException {
         configuration = new Configuration(Configuration.VERSION_2_3_32);
-        configuration.setClassForTemplateLoading(MailBuilder.class, "/templates");
+        configuration.setClassForTemplateLoading(MailBuilder.class, "/mail-templates");
 
         headerTemplate = configuration.getTemplate("header_template.ftl");
         footerTemplate = configuration.getTemplate("footer_template.ftl");

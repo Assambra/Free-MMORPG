@@ -4,7 +4,7 @@
 
     <test name="All">
         <packages>
-            <package name="com.assambra.common.test"/>
+            <package name="com.assambra.account.common.test"/>
         </packages>
     </test>
 </suite>

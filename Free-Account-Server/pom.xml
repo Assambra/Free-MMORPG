@@ -10,9 +10,9 @@
         <version>1.0.6</version>
     </parent>
 
-    <groupId>com.assambra</groupId>
+    <groupId>com.assambra.account</groupId>
     <artifactId>free-account-server</artifactId>
-    <version>0.9.0</version>
+    <version>0.13.0</version>
     <packaging>pom</packaging>
 
     <name>free-account-server</name>
@@ -82,6 +82,7 @@
             </build>
         </profile>
     </profiles>
+
     <modules>
         <module>free-account-server-common</module>
         <module>free-account-server-plugin</module>
@@ -89,4 +90,5 @@
         <module>free-account-server-app-entry</module>
         <module>free-account-server-startup</module>
     </modules>
+
 </project>

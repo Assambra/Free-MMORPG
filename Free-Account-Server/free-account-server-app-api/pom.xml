@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.assambra</groupId>
+        <groupId>com.assambra.account</groupId>
         <artifactId>free-account-server</artifactId>
-        <version>0.9.0</version>
+        <version>0.13.0</version>
     </parent>
 
     <artifactId>free-account-server-app-api</artifactId>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.assambra</groupId>
+            <groupId>com.assambra.account</groupId>
             <artifactId>free-account-server-common</artifactId>
             <version>${project.version}</version>
         </dependency>
