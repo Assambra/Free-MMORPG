@@ -217,6 +217,10 @@ public class NetworkManager : MonoBehaviour
 
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
+        if ("free-game-server" == currentApp)
+            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+
+
         Debug.Log("App access successfully");
 
         if (createAccount)
