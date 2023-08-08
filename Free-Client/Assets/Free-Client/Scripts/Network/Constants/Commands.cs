@@ -6,5 +6,9 @@ public sealed class Commands
     public const String FORGOT_PASSWORD = "forgotPassword";
     public const String FORGOT_USERNAME = "forgotUsername";
 
+    public const String CHARACTER_LIST = "characterList";
+    public const String CREATE_CHARACTER = "createCharacter";
+    
+
     private Commands() { }
 }

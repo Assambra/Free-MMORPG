@@ -165,10 +165,15 @@ public class NetworkManager : MonoBehaviour
     {
         socketProxy.onLoginSuccess<Object>(OnLoginSucess);
         socketProxy.onAppAccessed<Object>(OnAppAccessed);
-
+        
+        // Account
         on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         on<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
+
+        // Game
+        on<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
+        on<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -203,6 +208,23 @@ public class NetworkManager : MonoBehaviour
     private string CreateGuestName()
     {
         return "Guest#" + RandomString.GetNumericString(1000001);
+    }
+
+    public void GetCharacterList()
+    {
+        appProxy.send(Commands.CHARACTER_LIST);
+    }
+
+    public void CreateCharacter(string name, int sex, string model)
+    {
+        EzyObject characterdata = EzyEntityFactory
+            .newObjectBuilder()
+            .append("name", name)
+            .append("sex", sex)
+            .append("model", model)
+            .build();
+
+        appProxy.send(Commands.CREATE_CHARACTER, characterdata);
     }
 
     #endregion
@@ -361,6 +383,37 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
     }
+
+    private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
+    {
+        if (data.isEmpty())
+            GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
+        
+        //if not
+        //populate the character list
+    }
+
+    private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+
+        switch (result)
+        {
+            case "success":
+                Debug.Log("Character successful created");
+                break;
+            case "charactername_already_in_use":
+                Debug.Log("Username already in use");
+                break;
+            case "max_allowed_characters":
+                Debug.Log("You have reached the maximum number of characters");
+                break;
+            default:
+                Debug.LogError("Create Account: Unknown message");
+                break;
+        }
+    }
+
 
     #endregion
 }
