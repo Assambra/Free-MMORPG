@@ -22,12 +22,12 @@ public class CharacterService extends EzyLoggable {
     private final AccountRepo accountRepo;
 
     public List<Character> getAllCharacters(EzyUser user) {
-        Account account = accountRepo.findByField("username", user);
+        Account account = accountRepo.findByField("username", user.getName());
 
         return characterRepo.findListByField("accountId", account.getId());
     }
 
-    public void createCharacter(EzyUser user, String name, String sex, String model) {
+    public void createCharacter(EzyUser user, String name, String sex, String race, String model) {
         Account account = accountRepo.findByField("username", user.getName());
         Character character = new Character();
 
@@ -35,6 +35,7 @@ public class CharacterService extends EzyLoggable {
         character.setAccountId(account.getId());
         character.setName(name);
         character.setSex(sex);
+        character.setRace(race);
         character.setModel(model);
 
         characterRepo.save(character);
@@ -43,7 +44,6 @@ public class CharacterService extends EzyLoggable {
 
         for (Character c : characters) {
             logger.info(c.getName());
-
         }
     }
 }

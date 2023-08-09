@@ -14,5 +14,6 @@ public class Character {
 
     String name;
     String sex;
+    String race;
     String model;
 }

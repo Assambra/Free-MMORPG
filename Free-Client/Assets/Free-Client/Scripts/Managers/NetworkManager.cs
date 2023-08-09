@@ -215,12 +215,13 @@ public class NetworkManager : MonoBehaviour
         appProxy.send(Commands.CHARACTER_LIST);
     }
 
-    public void CreateCharacter(string name, int sex, string model)
+    public void CreateCharacter(string name, string sex, string race, string model)
     {
         EzyObject characterdata = EzyEntityFactory
             .newObjectBuilder()
             .append("name", name)
             .append("sex", sex)
+            .append("race", race)
             .append("model", model)
             .build();
 
@@ -240,7 +241,11 @@ public class NetworkManager : MonoBehaviour
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
         if ("free-game-server" == currentApp)
+        {
+            GetCharacterList();
             GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+        }
+            
 
 
         Debug.Log("App access successfully");
@@ -386,11 +391,27 @@ public class NetworkManager : MonoBehaviour
 
     private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
     {
-        if (data.isEmpty())
+        if(data.isEmpty())
+        {
             GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
-        
-        //if not
-        //populate the character list
+        }
+        else
+        {
+            for (int i = 0; i < data.size(); i++)
+            {
+                EzyObject item = data.get<EzyObject>(i);
+                EzyArray character = item.get<EzyArray>("characters");
+
+                CharacterInfo characterInfo = new CharacterInfo();
+                characterInfo.id = character.get<string>(0);
+                characterInfo.name = character.get<string>(2);
+                characterInfo.sex = character.get<string>(3);
+                characterInfo.race = character.get<string>(4);
+                characterInfo.model = character.get<string>(5);
+
+                GameManager.Instance.characterInfos.Add(characterInfo);
+            }
+        }
     }
 
     private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
