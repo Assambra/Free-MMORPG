@@ -129,9 +129,11 @@ db.account.createIndex( { username: 1 } )
 db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )
 db.character.createIndex( { name: 1 } )
 ````
-6. Add/Create this file to your Free-Server Java project:
+6. Add/Create this files to both of your Server projects:
 
-``Location: Free-Server/free-server-common/src/main/resources/free-server-common-config.properties``
+`Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+
+`Free-Game-Server/free-game-server-common/src/main/resources/free-game-server-common-config.properties`
 
 7. Insert the following values for your database and change it to your needs. 
 
@@ -163,9 +165,9 @@ and change the value to false, SERVER_CAN_SEND_MAIL = true
 Hint! ``Forgot password sending an plain password back to the client if SERVER_CAN_SEND_MAIL = false, it`s a security issue and more for local development but keep in mind set it to true and setup the mail values ``
 
 #### Setup mail values
-The same file as  like this one you used for your database settings and add additional to this file the following values and change to your needs:
+The same file as this one we used for your database settings in the Free-Account-Server and add additional to this file the following values and change to your needs:
 
-``Location: Free-Server/free-server-common/src/main/resources/free-server-common-config.properties``
+`Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
 
 ````
 mail.host=mail.example.com
