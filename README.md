@@ -127,7 +127,7 @@ db.account.createIndex( { username: 1 } )
 ````
 ````
 db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )
-db.character.createIndex( { charactername: 1 } )
+db.character.createIndex( { name: 1 } )
 ````
 6. Add/Create this file to your Free-Server Java project:
 
