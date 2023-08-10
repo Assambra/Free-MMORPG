@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterInfo
 {
-    public string id;
+    public long id;
+    public long accountId;
     public string name;
     public string sex;
     public string race;

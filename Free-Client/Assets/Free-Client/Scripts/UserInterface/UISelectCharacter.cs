@@ -23,14 +23,16 @@ public class UISelectCharacter : MonoBehaviour
         textCharacterSexValue.text = string.Empty;
         textCharacterRaceValue.text = string.Empty;
         
-        charactersCount = characterInfos.Count;
+        charactersCount = characterInfos.Count-1;
         currentShownCharacter = 0;
+        
+        SetCharacter(currentShownCharacter);
     }
 
     public void OnButtonPreviousCharacter()
     {
         if(currentShownCharacter == 0)
-            currentShownCharacter = characterInfos.Count;
+            currentShownCharacter = charactersCount;
         else
             currentShownCharacter--;
 

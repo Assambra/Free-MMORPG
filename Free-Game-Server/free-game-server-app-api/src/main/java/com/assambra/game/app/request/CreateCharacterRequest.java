@@ -8,5 +8,6 @@ import lombok.Data;
 public class CreateCharacterRequest {
     private String name;
     private String sex;
+    private String race;
     private String model;
 }

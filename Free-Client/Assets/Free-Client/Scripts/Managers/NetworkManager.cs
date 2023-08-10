@@ -9,6 +9,7 @@ using com.tvd12.ezyfoxserver.client.request;
 using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
+using static UnityEditor.Progress;
 using Object = System.Object;
 
 public class NetworkManager : MonoBehaviour
@@ -243,11 +244,8 @@ public class NetworkManager : MonoBehaviour
         if ("free-game-server" == currentApp)
         {
             GetCharacterList();
-            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
         }
-            
-
-
+        
         Debug.Log("App access successfully");
 
         if (createAccount)
@@ -392,18 +390,18 @@ public class NetworkManager : MonoBehaviour
     private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
     {
         if(data.isEmpty())
-        {
             GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
-        }
         else
         {
+            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+            
             for (int i = 0; i < data.size(); i++)
             {
-                EzyObject item = data.get<EzyObject>(i);
-                EzyArray character = item.get<EzyArray>("characters");
+                EzyArray character = data.get<EzyArray>(i);
 
                 CharacterInfo characterInfo = new CharacterInfo();
-                characterInfo.id = character.get<string>(0);
+                characterInfo.id = character.get<long>(0);
+                characterInfo.accountId = character.get<long>(1);
                 characterInfo.name = character.get<string>(2);
                 characterInfo.sex = character.get<string>(3);
                 characterInfo.race = character.get<string>(4);
