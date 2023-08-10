@@ -9,6 +9,7 @@ using com.tvd12.ezyfoxserver.client.request;
 using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
+using static UnityEditor.Progress;
 using Object = System.Object;
 
 public class NetworkManager : MonoBehaviour
@@ -165,10 +166,15 @@ public class NetworkManager : MonoBehaviour
     {
         socketProxy.onLoginSuccess<Object>(OnLoginSucess);
         socketProxy.onAppAccessed<Object>(OnAppAccessed);
-
+        
+        // Account
         on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
         on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         on<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
+
+        // Game
+        on<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
+        on<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -205,6 +211,24 @@ public class NetworkManager : MonoBehaviour
         return "Guest#" + RandomString.GetNumericString(1000001);
     }
 
+    public void GetCharacterList()
+    {
+        appProxy.send(Commands.CHARACTER_LIST);
+    }
+
+    public void CreateCharacter(string name, string sex, string race, string model)
+    {
+        EzyObject characterdata = EzyEntityFactory
+            .newObjectBuilder()
+            .append("name", name)
+            .append("sex", sex)
+            .append("race", race)
+            .append("model", model)
+            .build();
+
+        appProxy.send(Commands.CREATE_CHARACTER, characterdata);
+    }
+
     #endregion
 
     #region SERVER RESPONSE
@@ -217,6 +241,11 @@ public class NetworkManager : MonoBehaviour
 
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
+        if ("free-game-server" == currentApp)
+        {
+            GetCharacterList();
+        }
+        
         Debug.Log("App access successfully");
 
         if (createAccount)
@@ -357,6 +386,53 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
     }
+
+    private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
+    {
+        if(data.isEmpty())
+            GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
+        else
+        {
+            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+            
+            for (int i = 0; i < data.size(); i++)
+            {
+                EzyArray character = data.get<EzyArray>(i);
+
+                CharacterInfo characterInfo = new CharacterInfo();
+                characterInfo.id = character.get<long>(0);
+                characterInfo.accountId = character.get<long>(1);
+                characterInfo.name = character.get<string>(2);
+                characterInfo.sex = character.get<string>(3);
+                characterInfo.race = character.get<string>(4);
+                characterInfo.model = character.get<string>(5);
+
+                GameManager.Instance.characterInfos.Add(characterInfo);
+            }
+        }
+    }
+
+    private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+
+        switch (result)
+        {
+            case "success":
+                Debug.Log("Character successful created");
+                break;
+            case "charactername_already_in_use":
+                Debug.Log("Username already in use");
+                break;
+            case "max_allowed_characters":
+                Debug.Log("You have reached the maximum number of characters");
+                break;
+            default:
+                Debug.LogError("Create Account: Unknown message");
+                break;
+        }
+    }
+
 
     #endregion
 }
