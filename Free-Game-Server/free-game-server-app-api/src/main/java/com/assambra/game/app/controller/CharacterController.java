@@ -14,8 +14,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-import static com.tvd12.ezyfox.collect.Lists.newArrayList;
-
 @AllArgsConstructor
 @EzyRequestController
 public class CharacterController extends EzyLoggable {
