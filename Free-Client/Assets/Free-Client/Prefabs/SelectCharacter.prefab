@@ -1395,6 +1395,7 @@ MonoBehaviour:
   textCharacterRaceValue: {fileID: 6338004750172323907}
   buttonPrevious: {fileID: 778346451920739412}
   buttonNext: {fileID: 5446112038013797950}
+  uMADynamicCharacterAvatar: {fileID: 153068, guid: 5c80fc4442f8349969abea6c1a0f1faa, type: 3}
 --- !u!1 &5961120697753961634
 GameObject:
   m_ObjectHideFlags: 0

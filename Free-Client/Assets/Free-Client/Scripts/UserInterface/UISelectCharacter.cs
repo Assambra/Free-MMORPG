@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UMA.CharacterSystem;
 
 public class UISelectCharacter : MonoBehaviour
 {
@@ -11,12 +12,20 @@ public class UISelectCharacter : MonoBehaviour
     [SerializeField] Button buttonPrevious;
     [SerializeField] Button buttonNext;
 
+    [SerializeField] GameObject uMADynamicCharacterAvatar;
+
     private List<CharacterInfo> characterInfos;
     private int charactersCount;
     private int currentShownCharacter;
 
+    private GameObject umaCharacter;
+    private DynamicCharacterAvatar avatar;
+
     private void OnEnable()
     {
+        umaCharacter = GameObject.Instantiate(uMADynamicCharacterAvatar, new Vector3(0, 0, 0), Quaternion.identity);
+        avatar = umaCharacter.GetComponent<DynamicCharacterAvatar>();
+
         characterInfos = GameManager.Instance.characterInfos;
 
         textCharacterNameValue.text = string.Empty;
@@ -25,8 +34,15 @@ public class UISelectCharacter : MonoBehaviour
         
         charactersCount = characterInfos.Count-1;
         currentShownCharacter = 0;
-        
+
+        UMAHelper.SetAvatarString(avatar, characterInfos[0].model);
+
         SetCharacter(currentShownCharacter);
+    }
+
+    private void OnDisable()
+    {
+        Destroy(umaCharacter);
     }
 
     public void OnButtonPreviousCharacter()
@@ -65,7 +81,6 @@ public class UISelectCharacter : MonoBehaviour
         textCharacterNameValue.text = info.name;
         textCharacterSexValue.text = info.sex;
         textCharacterRaceValue.text = info.race;
-
-        // Todo instantiate and set model
+        UMAHelper.SetAvatarString(avatar, info.model);
     }
 }
