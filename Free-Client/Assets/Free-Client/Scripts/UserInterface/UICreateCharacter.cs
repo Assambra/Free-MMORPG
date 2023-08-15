@@ -157,7 +157,7 @@ public class UICreateCharacter : MonoBehaviour
         {
             string cat = GetCategory(names[i].BreakupCamelCase());
  
-            if(!categories.Contains(cat))
+            if(!categories.Contains(cat) && !excludeDna.Contains(names[i]))
                 categories.Add(cat);
         }   
     }
@@ -173,7 +173,7 @@ public class UICreateCharacter : MonoBehaviour
         string[] cat = name.Split();
 
         if(cat.Length == 3)
-            return cat[1] + cat[2];
+            return cat[1] +" "+ cat[2];
         else if(cat.Length == 2)
             return cat[1];
         else
