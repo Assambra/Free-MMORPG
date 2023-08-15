@@ -66,6 +66,8 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateSliders()
     {
+        Dictionary<string, float> defaultDNA = avatar.activeRace.data.GetDefaultDNA();
+
         UMADnaBase[] DNA = avatar.GetAllDNA();
 
         foreach(UMADnaBase d in DNA)
@@ -87,7 +89,7 @@ public class UICreateCharacter : MonoBehaviour
                 {
                     if(category == GetCategory(names[i].BreakupCamelCase()))
                     {
-                        group.CreateSlider(GetSlider(names[i].BreakupCamelCase()));
+                        group.CreateSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, d);
                     }
                 }
             }
@@ -146,8 +148,6 @@ public class UICreateCharacter : MonoBehaviour
     private string GetSlider(string name)
     {
         string[] cat = name.Split();
-        Debug.Log(cat.Length + name);
-
 
         if(cat.Length == 3)
             return cat[1] + cat[2];

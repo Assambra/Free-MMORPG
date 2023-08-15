@@ -162,7 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2476dc2bb187e1f47941614d4634bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderName: {fileID: 2162431133137551595}
+  textSliderName: {fileID: 2162431133137551595}
+  slider: {fileID: 6398584382345208802}
 --- !u!114 &898982264136706978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ GameObject:
   - component: {fileID: 8196538984745654363}
   - component: {fileID: 2162431133137551595}
   m_Layer: 0
-  m_Name: SliderName
+  m_Name: TextSliderName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

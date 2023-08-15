@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UMA.CharacterSystem;
+using UMA;
 
 public class SliderGroup : MonoBehaviour
 {
@@ -13,8 +15,6 @@ public class SliderGroup : MonoBehaviour
     [SerializeField] private TMP_Text headerText;
     [SerializeField] private GameObject prefabSliderObject;
     [SerializeField] private Transform slidersHome;
-
-    [SerializeField] RectTransform layoutGroup;
 
     private bool isGroupeOpen = false;
 
@@ -30,7 +30,6 @@ public class SliderGroup : MonoBehaviour
             {
                 slider.SetActive(true);
             }
-            //LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
             LayoutRebuilder.ForceRebuildLayoutImmediate(CreateCharacterLayoutGroup);
         }
         else
@@ -41,7 +40,6 @@ public class SliderGroup : MonoBehaviour
             {
                 slider.SetActive(false);
             }
-            //LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
             LayoutRebuilder.ForceRebuildLayoutImmediate(CreateCharacterLayoutGroup);
         }
     }
@@ -51,13 +49,13 @@ public class SliderGroup : MonoBehaviour
         headerText.text = name;
     }
 
-    public void CreateSlider(string name)
+    public void CreateSlider(string sliderName, string dnaName, float currentValue, int index, DynamicCharacterAvatar avatar, UMADnaBase owner)
     {
         GameObject go = Instantiate(prefabSliderObject, slidersHome);
-        go.name = name;
+        go.name = sliderName;
         SliderObject sliderObject = go.GetComponent<SliderObject>();
 
-        sliderObject.SetSliderName(name);
+        sliderObject.InitializeSlider(sliderName, dnaName, currentValue, index, avatar, owner);
 
         sliders.Add(go);
 
