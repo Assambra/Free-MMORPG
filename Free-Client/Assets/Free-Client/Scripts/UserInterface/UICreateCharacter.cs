@@ -27,7 +27,7 @@ public class UICreateCharacter : MonoBehaviour
     private GameObject umaCharacter;
     private DynamicCharacterAvatar avatar;
 
-    private List<GameObject> uISliderGroups = new List<GameObject>();
+    private List<GameObject> sliderGroups = new List<GameObject>();
     private List<string> categories = new List<string>();
 
     private List<string> excludeDna = new List<string>();
@@ -86,6 +86,7 @@ public class UICreateCharacter : MonoBehaviour
             {
                 GameObject go = Instantiate(prefabSliderGroup, groupeHome);
                 go.name = category;
+                sliderGroups.Add(go);
                 SliderGroup group = go.GetComponent<SliderGroup>();
                 group.SetGroupName(category);
                 group.CreateCharacterLayoutGroup = layoutGroup;
@@ -101,11 +102,26 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
+    private void RemoveSliders()
+    {
+        foreach(GameObject sliderGroup in sliderGroups)
+        {
+            SliderGroup group = sliderGroup.GetComponent<SliderGroup>();
+            group.DestroySliders();
+            Destroy(sliderGroup);
+        }
+
+        sliderGroups.Clear();
+    }
+
+
     public void OnButtonMale()
     {
         if (avatar.activeRace.name != "HumanMale")
         {
             avatar.ChangeRace("HumanMale", true);
+            RemoveSliders();
+            StartCoroutine(wait());
         }
         sex = "male";
     }
@@ -115,6 +131,8 @@ public class UICreateCharacter : MonoBehaviour
         if(avatar.activeRace.name != "HumanFemale")
         {
             avatar.ChangeRace("HumanFemale", true);
+            RemoveSliders();
+            StartCoroutine(wait());
         }
         sex = "female";
     }
