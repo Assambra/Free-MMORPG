@@ -30,6 +30,7 @@ public class UICreateCharacter : MonoBehaviour
     private List<GameObject> uISliderGroups = new List<GameObject>();
     private List<string> categories = new List<string>();
 
+    private List<string> excludeDna = new List<string>();
 
     private void Awake()
     {
@@ -46,6 +47,10 @@ public class UICreateCharacter : MonoBehaviour
         raceOptions.Add("Humanoid");
 
         dropdownRaceValue.AddOptions(raceOptions);
+
+        excludeDna.Add("skinGreenness");
+        excludeDna.Add("skinBlueness");
+        excludeDna.Add("skinRedness");
     }
 
     private void Start()
@@ -133,7 +138,7 @@ public class UICreateCharacter : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             string cat = GetCategory(names[i].BreakupCamelCase());
-
+ 
             if(!categories.Contains(cat))
                 categories.Add(cat);
         }   

@@ -31,17 +31,28 @@ public class SliderObject : MonoBehaviour
         this.avatar = avatar;
         this.owner = owner;
 
+        dNARangeAsset = GetRangeAsset(dnaName);
+
+        if(dNARangeAsset.ContainsDNARange(index, dnaName))
+        {
+            slider.minValue = dNARangeAsset.means[index] - dNARangeAsset.spreads[index];
+            slider.maxValue = dNARangeAsset.means[index] + dNARangeAsset.spreads[index];
+        }
+
+        isInitialized = true;
+    }
+
+    private DNARangeAsset GetRangeAsset(string dnaName)
+    {
         DNARangeAsset[] dnaRangeAssets = avatar.activeRace.data.dnaRanges;
         foreach (DNARangeAsset d in dnaRangeAssets)
         {
             if (d.ContainsDNARange(index, dnaName))
             {
-                dNARangeAsset = d;
-                return;
+                return d;
             }
         }
-
-        isInitialized = true;
+        return null;
     }
 
     public void OnSliderValueChanged()
@@ -52,6 +63,7 @@ public class SliderObject : MonoBehaviour
 
             if (dNARangeAsset == null) //No specified DNA Range Asset for this DNA
             {
+
                 owner.SetValue(index, value);
                 avatar.ForceUpdate(true, false, false);
                 return;
@@ -59,6 +71,8 @@ public class SliderObject : MonoBehaviour
 
             if (dNARangeAsset.ValueInRange(index, value))
             {
+                Debug.Log("Found DNARangeAsset");
+
                 owner.SetValue(index, value);
                 avatar.ForceUpdate(true, false, false);
                 return;
