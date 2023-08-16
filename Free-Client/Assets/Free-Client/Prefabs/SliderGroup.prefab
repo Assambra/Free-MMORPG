@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1888038052510061196}
   - component: {fileID: 2256490021840395370}
   - component: {fileID: 6554954035317542744}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SliderGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 5665616843730636537}
   - component: {fileID: 8220881907477914449}
   - component: {fileID: 2864371777215473651}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 8518625964738584591}
   - component: {fileID: 2143579703390492933}
   - component: {fileID: 2861271667449737805}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 7778659510611487324}
   - component: {fileID: 8918760774627896122}
   - component: {fileID: 3579434897571814832}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeaderGroupButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

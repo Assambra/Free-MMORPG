@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4315540406417292046}
   - component: {fileID: 4315540406417292040}
   - component: {fileID: 4315540406417292041}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6359865217648782784}
   - component: {fileID: 6359865217648782785}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6359865218420669632}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

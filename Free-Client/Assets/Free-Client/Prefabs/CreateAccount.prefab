@@ -2429,7 +2429,7 @@ GameObject:
   - component: {fileID: 1067460881}
   - component: {fileID: 1067460880}
   - component: {fileID: 6973759587966377369}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UICreateAccount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2531,7 +2531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8950325327792555444}
   - component: {fileID: 8950325327792555445}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CreateAccount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
