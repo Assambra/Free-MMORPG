@@ -1350,7 +1350,7 @@ GameObject:
   - component: {fileID: 4338625431406351575}
   - component: {fileID: 2868096896262453744}
   m_Layer: 0
-  m_Name: ButtonQuit
+  m_Name: ButtonBackToLogin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1460,7 +1460,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 616032102840977680}
         m_TargetAssemblyTypeName: UISelectCharacter, Assembly-CSharp
-        m_MethodName: OnButtonQuit
+        m_MethodName: OnButtonBackToLogin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Back to Login
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

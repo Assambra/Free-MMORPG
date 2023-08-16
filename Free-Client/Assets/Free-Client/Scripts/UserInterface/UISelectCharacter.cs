@@ -77,15 +77,10 @@ public class UISelectCharacter : MonoBehaviour
         }
     }
 
-    public void OnButtonQuit()
+    public void OnButtonBackToLogin()
     {
+        GameManager.Instance.ChangeScene(Scenes.Login);
         NetworkManager.Instance.Disconnect();
-
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
     }
 
     public void OnButtonPlay()
