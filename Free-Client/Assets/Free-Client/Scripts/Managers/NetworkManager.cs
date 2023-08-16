@@ -31,6 +31,8 @@ public class NetworkManager : MonoBehaviour
     [HideInInspector] public UIClientLog UIClientLog;
     public static NetworkManager Instance { get; private set; }
 
+
+
     // private variables
     private EzySocketProxyManager ezySocketProxyManager;
     private EzySocketProxy socketProxy;
@@ -82,6 +84,11 @@ public class NetworkManager : MonoBehaviour
         {
             appProxy.unbind(tuple.Item1, tuple.Item2);
         }
+    }
+
+    public bool Connected()
+    {
+        return connected;
     }
 
     private void on<T>(String cmd, EzyAppProxyDataHandler<T> handler)
@@ -331,9 +338,9 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
 
+        uICreateAccount.buttonCreate.interactable = true;
         uICreateAccount.buttonForgotData.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
-        uICreateAccount.buttonCreate.interactable = true;
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
@@ -363,12 +370,17 @@ public class NetworkManager : MonoBehaviour
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
 
-        uIForgotData.buttonBack.interactable = true;
         uIForgotData.buttonSendPassword.interactable = true;
+        uIForgotData.buttonBack.interactable = true;
+        uIForgotData.buttonTabUsername.interactable = true;
     }
 
     private void OnForgotUsernameResponse(EzyAppProxy proxy, EzyObject data)
     {
+        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
+        if (uIForgotData == null)
+            Debug.LogError("UIForgotData not found!");
+
         string result = data.get<string>("result");
         string username = data.get<string>("username");
 
@@ -384,6 +396,10 @@ public class NetworkManager : MonoBehaviour
 
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
+
+        uIForgotData.buttonSendUsername.interactable = true;
+        uIForgotData.buttonBack.interactable = true;
+        uIForgotData.buttonTabPassword.interactable = true;
     }
 
     private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)

@@ -24,6 +24,7 @@ public class UILogin : MonoBehaviour
 
     public void OnButtonLogin()
     {
+        // Todo button interactable false, wait until server response or popup after timer try again to connect
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 

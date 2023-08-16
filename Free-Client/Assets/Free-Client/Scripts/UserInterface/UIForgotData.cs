@@ -7,6 +7,8 @@ public class UIForgotData : MonoBehaviour
     public Button buttonBack;
     public Button buttonSendPassword;
     public Button buttonSendUsername;
+    public Button buttonTabUsername;
+    public Button buttonTabPassword;
 
     [SerializeField] private TMP_InputField inputFieldUsernameOrEMail;
     [SerializeField] private TMP_InputField inputFieldEMail;
@@ -22,17 +24,36 @@ public class UIForgotData : MonoBehaviour
 
     public void OnButtonSendPassword()
     {
-        // Todo #15
-        buttonSendPassword.interactable = false;
-        buttonBack.interactable = false;
+        if(NetworkManager.Instance.Connected())
+        {
+            buttonSendPassword.interactable = false;
+            buttonBack.interactable = false;
+            buttonTabUsername.interactable = false;
 
-        NetworkManager.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
+            NetworkManager.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
+        }
+        else
+        {
+            //Todo inform the user/player that we aren't connected to the Server, Popup
+            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
+        }
     }
 
     public void OnButtonSendUsername()
     {
-        // Todo #15
-        NetworkManager.Instance.ForgotUsername(inputFieldEMail.text);
+        if(NetworkManager.Instance.Connected())
+        {
+            buttonSendUsername.interactable = false;
+            buttonBack.interactable = false;
+            buttonTabPassword.interactable = false;
+
+            NetworkManager.Instance.ForgotUsername(inputFieldEMail.text);
+        }
+        else
+        {
+            //Todo inform the user/player that we aren't connected to the Server, Popup
+            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
+        }
     }
 
     public void OnButtonTabPassword()

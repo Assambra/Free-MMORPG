@@ -20,15 +20,24 @@ public class UICreateAccount : MonoBehaviour
 
     public void OnButtonCreate()
     {
-        buttonCreate.interactable = false;
-        buttonBack.interactable = false;
-        buttonForgotData.interactable = false;
+        if (NetworkManager.Instance.Connected())
+        {
+            buttonCreate.interactable = false;
+            buttonForgotData.interactable = false;
+            buttonBack.interactable = false;
+            
 
-        email = inputFieldEmail.text;
-        username = inputFieldUsername.text;
-        password = inputFieldPassword.text;
+            email = inputFieldEmail.text;
+            username = inputFieldUsername.text;
+            password = inputFieldPassword.text;
 
-        NetworkManager.Instance.CreateAccount(email, username, password);
+            NetworkManager.Instance.CreateAccount(email, username, password);
+        }
+        else
+        {
+            //Todo inform the user/player that we aren't connected to the Server, Popup
+            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
+        }
     }
 
     public void OnButtonBack()

@@ -2238,6 +2238,8 @@ MonoBehaviour:
   buttonBack: {fileID: 2733724463887589282}
   buttonSendPassword: {fileID: 728109647335314085}
   buttonSendUsername: {fileID: 517078961796355227}
+  buttonTabUsername: {fileID: 4449985826113304564}
+  buttonTabPassword: {fileID: 2190580781514849505}
   inputFieldUsernameOrEMail: {fileID: 4524686767786043221}
   inputFieldEMail: {fileID: 2982322371370550464}
   gameObjectForgotPassword: {fileID: 3159275243990772556}
