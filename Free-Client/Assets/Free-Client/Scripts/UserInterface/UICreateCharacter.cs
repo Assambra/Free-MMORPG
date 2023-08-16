@@ -1,51 +1,54 @@
-using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 using UMA.CharacterSystem;
 using UMA;
-using System.Collections;
+
 
 public class UICreateCharacter : MonoBehaviour
 {
-    [SerializeField] TMP_InputField inputFieldNameValue;
-    [SerializeField] TMP_Dropdown dropdownRaceValue;
-
+    [Header("Dynamic Character Avatar")]
     [SerializeField] GameObject uMADynamicCharacterAvatar;
 
+    [Header("User Interface")]
+    [SerializeField] TMP_InputField inputFieldNameValue;
+    [SerializeField] TMP_Dropdown dropdownRaceValue;
     [SerializeField] GameObject prefabSliderGroup;
-
     [SerializeField] Transform groupeHome;
     [SerializeField] RectTransform layoutGroup;
 
+    // Private variables UMA
+    private GameObject umaCharacter;
+    private DynamicCharacterAvatar avatar;
+    private UMAData umaData;
+
+    // Private variables user interface
+    private List<string> raceOptions = new List<string>();
+    private List<GameObject> sliderGroups = new List<GameObject>();
+    private List<string> categories = new List<string>();
+    private List<string> excludeDna = new List<string>();
+
+    // Private variables network
     private string charname;
     private string sex;
     private string race;
     private string model;
 
-    private List<string> raceOptions = new List<string>();
+    // Private variables helper/general
+    private bool isInitialized = false;
 
-    private GameObject umaCharacter;
-    private DynamicCharacterAvatar avatar;
-
-    private List<GameObject> sliderGroups = new List<GameObject>();
-    private List<string> categories = new List<string>();
-
-    private List<string> excludeDna = new List<string>();
 
     private void Awake()
     {
         umaCharacter = GameObject.Instantiate(uMADynamicCharacterAvatar, new Vector3(0, 0, 0), Quaternion.identity);
-
         avatar = umaCharacter.GetComponent<DynamicCharacterAvatar>();
-
-        if (avatar == null)
-            Debug.LogError("avatar == null");
+        umaData = avatar.umaData;
 
         sex = "male";
 
         raceOptions.Add("Select race");
         raceOptions.Add("Humanoid");
-
         dropdownRaceValue.AddOptions(raceOptions);
 
         excludeDna.Add("skinGreenness");
@@ -53,20 +56,19 @@ public class UICreateCharacter : MonoBehaviour
         excludeDna.Add("skinRedness");
     }
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(wait());
+        if (!isInitialized) 
+        {
+            isInitialized = true;
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
+            avatar.ChangeRace("HumanMale", true);
+        }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         Destroy(umaCharacter);
-    }
-
-    private IEnumerator wait()
-    {
-        yield return new WaitForSeconds(2.0f);
-        CreateSliders();
     }
 
     private void CreateSliders()
@@ -114,27 +116,26 @@ public class UICreateCharacter : MonoBehaviour
         sliderGroups.Clear();
     }
 
-
     public void OnButtonMale()
     {
         if (avatar.activeRace.name != "HumanMale")
         {
+            sex = "male";
             avatar.ChangeRace("HumanMale", true);
             RemoveSliders();
-            StartCoroutine(wait());
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
         }
-        sex = "male";
     }
 
     public void OnButtonFemale()
     {
         if(avatar.activeRace.name != "HumanFemale")
         {
+            sex = "female";
             avatar.ChangeRace("HumanFemale", true);
             RemoveSliders();
-            StartCoroutine(wait());
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
         }
-        sex = "female";
     }
 
     public void ButtonBack()
@@ -178,5 +179,13 @@ public class UICreateCharacter : MonoBehaviour
             return cat[1];
         else
             return cat[0];
+    }
+
+    public void OnCharacterUpdated(UMAData data)
+    {
+        Debug.Log("OnCharacterUpdated");
+
+        CreateSliders();
+        data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterUpdated));
     }
 }

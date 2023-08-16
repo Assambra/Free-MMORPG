@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using UMA;
 using UMA.CharacterSystem;
-using Newtonsoft.Json.Linq;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class SliderObject : MonoBehaviour
 {
