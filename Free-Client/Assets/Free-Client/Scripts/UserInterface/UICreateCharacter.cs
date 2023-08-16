@@ -183,9 +183,10 @@ public class UICreateCharacter : MonoBehaviour
 
     public void OnCharacterUpdated(UMAData data)
     {
+        data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterUpdated));
+
         Debug.Log("OnCharacterUpdated");
 
         CreateSliders();
-        data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterUpdated));
     }
 }
