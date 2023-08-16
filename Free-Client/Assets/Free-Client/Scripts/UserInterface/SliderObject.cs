@@ -57,28 +57,8 @@ public class SliderObject : MonoBehaviour
     {
         if(isInitialized)
         {
-            float value = slider.value;
-
-            if (dNARangeAsset == null) //No specified DNA Range Asset for this DNA
-            {
-
-                owner.SetValue(index, value);
-                avatar.ForceUpdate(true, false, false);
-                return;
-            }
-
-            if (dNARangeAsset.ValueInRange(index, value))
-            {
-                Debug.Log("Found DNARangeAsset");
-
-                owner.SetValue(index, value);
-                avatar.ForceUpdate(true, false, false);
-                return;
-            }
-            else
-            {
-                Debug.LogWarning ("DNA Value out of range!");
-            }
+            owner.SetValue(index, slider.value);
+            avatar.ForceUpdate(true, false, false);
         }
     }
 }
