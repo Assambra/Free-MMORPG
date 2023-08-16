@@ -41,6 +41,11 @@
     <li><a href="#client">Client</a></li>
         <ul>
             <li><a href="#clone-from-github">Clone from Github</a></li>
+            <li><a href="#uma">UMA</a></li>
+                <ul>
+                    <li><a href="#get-uma">Get UMA</a></li>
+                    <li><a href="#install-uma-package">Install UMA Package</a></li>
+                </ul>
         </ul>
     <li><a href="#server">Server</a></li>
         <ul>
@@ -48,6 +53,7 @@
             <li><a href="#setup-mail">Setup e-mail</a></li>
             <li><a href="#deploy-server">Deploy the server</a></li>
         </ul>
+    <li><a href="#resource-section">Resources Section</a></li>
     <li><a href="#contact">Contact</a></li>
 </ul>
 
@@ -57,10 +63,11 @@
 This project uses free resources for the server and client technology.
 Without the project probably wouldn't be possible,
 so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work
-and sharing their work with the community.
+and sharing their work with the community. Also a special thanks to all guys of the project from [UMA](https://github.com/umasteeringgroup/UMA "UMA") 
+and there great and absolute nice Unity Multipurpose Avatar System.  
 Please check out our Resources Section what technologies we use and support their projects
 in some way such as donation or code so these guys can keep doing what they like,
-write good code and a great framework.
+write good code and a great frameworks.
 
 For the game client we are using [Unity](https://unity.com "Unity") as game engine.
 
@@ -83,8 +90,16 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
             <li>Easy to create a new custom mails with our interface MailBody</li>
             <li>HTML based email templates, you can also use your own variables</li>
         </ul>
+    <li>Character</li>
+    <ul>
+        <li>Modifiable character model thanks to UMA</li>
+        <li>Create a Character and modifying the look with sliders and save on the server</li>
+        <li>In Progress: modify Hairs and colors of the model</li>
+        <li>Character selection with all available characters</li>
+    </ul>
     <li>Scene and UI Management, from our <a href="https://github.com/Assambra/Module-GameManager">Module-GameManager</a></li>
 </ul>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CLIENT -->
@@ -99,6 +114,18 @@ Get submodules:
 `cd Free-MMORPG`
 
 `git submodule update --init --recursive`
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- UMA -->
+### UMA
+#### Get UMA
+Download the latest Pre-release unity asset pack file<a href="https://github.com/umasteeringgroup/UMA/releases/download/v2.13a4/UMA213a4.unitypackage"> UMA213a4.unitypackage</a>
+
+#### Install UMA Package
+Add the UMA213a4.unity package to your Free-Client project. To do this, simply move the package to your opened Free-Client project in Unity. Select everything and click Import.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- SERVER -->
 ## Server
@@ -240,6 +267,8 @@ Hint: If is there some error:
 
 there is some problem with forward slash and backslash depends on your operating system or command client try to use instead of D:\ezyfox-server this D:/ezyfox-server.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Run the server
 Go to your server location D:\ezyfox-server
 
@@ -250,6 +279,11 @@ Linux: ``sh ./console.sh`` for console server.
 Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-service.sh``. Restart the service: ``sh ./restart-service.sh``
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--Resources Section-->
+
+## Resources Section
+- In progress
 
 <!-- Contact -->
 ## Contact
