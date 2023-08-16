@@ -65,6 +65,17 @@ public class UISelectCharacter : MonoBehaviour
         SetCharacter(currentShownCharacter);
     }
 
+    public void OnButtonQuit()
+    {
+        NetworkManager.Instance.Disconnect();
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
     public void OnButtonPlay()
     {
         Debug.LogError("Not implemented");
