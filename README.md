@@ -53,7 +53,7 @@
             <li><a href="#setup-mail">Setup e-mail</a></li>
             <li><a href="#deploy-server">Deploy the server</a></li>
         </ul>
-    <li><a href="#resource-section">Resources Section</a></li>
+    <li><a href="#resources-section">Resources Section</a></li>
     <li><a href="#contact">Contact</a></li>
 </ul>
 
