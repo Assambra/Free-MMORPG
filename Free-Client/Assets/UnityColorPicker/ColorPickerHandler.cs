@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using static UnityEngine.Mathf;
 
 [ExecuteInEditMode, RequireComponent(typeof(Image))]
-public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class ColorPickerHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private const float recip2Pi = 0.159154943f;
     private const string colorPickerShaderName = "UI/ColorPicker";
@@ -185,7 +185,7 @@ public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     {
         GameObject go = new GameObject("Color Picker");
 
-        go.AddComponent<ColorPicker>();
+        go.AddComponent<ColorPickerHandler>();
 
         UnityEditor.GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
 
