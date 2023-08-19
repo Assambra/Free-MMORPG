@@ -1,28 +1,35 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ColorPicker : MonoBehaviour
 {
     [field: SerializeField] public Color Color { get; private set; }
     
-    [SerializeField] ColorPickerHandler colorPicker;
+    [SerializeField] ColorPickerHandler colorPickerHandler;
 
     [SerializeField] private TMP_Text headerText;
+    [SerializeField] private Button headerButton;
+    [SerializeField] private Sprite rightArrow;
+    [SerializeField] private Sprite downArrow;
+
+    private bool isOpen = false;
 
     private void OnEnable()
     {
-        colorPicker.onColorChanged += OnColorChanged;
+        colorPickerHandler.onColorChanged += OnColorChanged;
+        colorPickerHandler.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        colorPicker.onColorChanged -= OnColorChanged;
+        colorPickerHandler.onColorChanged -= OnColorChanged;
     }
 
     private void Update()
     {
         
-        Color = colorPicker.color;
+        Color = colorPickerHandler.color;
     }
 
     public void SetColorPickerName(string name)
@@ -33,5 +40,21 @@ public class ColorPicker : MonoBehaviour
     public void OnColorChanged(Color c)
     {
         Color = c;
+    }
+
+    public void OnHeaderButton()
+    {
+        if(!isOpen)
+        {
+            isOpen = true;
+            headerButton.image.sprite = downArrow;
+            colorPickerHandler.gameObject.SetActive(true);
+        }
+        else
+        {
+            isOpen = false;
+            headerButton.image.sprite = rightArrow;
+            colorPickerHandler.gameObject.SetActive(false);
+        }
     }
 }
