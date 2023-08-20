@@ -413,7 +413,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: 3
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -686,10 +686,6 @@ PrefabInstance:
     - target: {fileID: 4883510217508553387, guid: 697389ec9f47fba498875310523e2799, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883510217923666553, guid: 697389ec9f47fba498875310523e2799, type: 3}
-      propertyPath: m_VertexColorAlwaysGammaSpace
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4883510217923666553, guid: 697389ec9f47fba498875310523e2799, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

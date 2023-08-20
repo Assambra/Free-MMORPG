@@ -5,7 +5,6 @@ using TMPro;
 using UMA.CharacterSystem;
 using UMA;
 
-
 public class UICreateCharacter : MonoBehaviour
 {
     [Header("Dynamic Character Avatar")]
@@ -15,8 +14,13 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] TMP_InputField inputFieldNameValue;
     [SerializeField] TMP_Dropdown dropdownRaceValue;
     [SerializeField] GameObject prefabSliderGroup;
+    [SerializeField] GameObject prefabHeader;
+    [SerializeField] GameObject prefabColorPickerObject;
     [SerializeField] Transform groupeHome;
-    [SerializeField] RectTransform layoutGroup;
+    [SerializeField] Transform colorHome;
+    [SerializeField] RectTransform sliderLayout;
+    [SerializeField] RectTransform colorLayout;
+    
 
     // Private variables UMA
     private GameObject umaCharacter;
@@ -28,7 +32,8 @@ public class UICreateCharacter : MonoBehaviour
     private List<GameObject> sliderGroups = new List<GameObject>();
     private List<string> categories = new List<string>();
     private List<string> excludeDna = new List<string>();
-
+    [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+    
     // Private variables network
     private string charname;
     private string sex;
@@ -91,7 +96,7 @@ public class UICreateCharacter : MonoBehaviour
                 sliderGroups.Add(go);
                 SliderGroup group = go.GetComponent<SliderGroup>();
                 group.SetGroupName(category);
-                group.CreateCharacterLayoutGroup = layoutGroup;
+                group.CreateCharacterLayoutGroup = sliderLayout;
                 
                 for (int i = 0; i < names.Length; i++)
                 {
@@ -101,6 +106,20 @@ public class UICreateCharacter : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void CreateColorPicker()
+    {
+        prefabs.Add("ColorPickerObject", prefabColorPickerObject);
+
+
+        foreach(OverlayColorData colorType in avatar.characterColors.Colors)
+        {
+            GameObject ph = Instantiate(prefabHeader, colorHome);
+            HeaderElement he = ph.GetComponent<HeaderElement>();
+            he.InitializeHeaderElement(colorType.name, prefabs, colorHome.GetComponent<RectTransform>());
+            he.CreateObject("ColorPickerObject", colorType.name);
         }
     }
 
@@ -186,5 +205,6 @@ public class UICreateCharacter : MonoBehaviour
         data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterUpdated));
 
         CreateSliders();
+        CreateColorPicker();
     }
 }
