@@ -7,8 +7,10 @@ using UMA;
 
 public class SliderGroup : MonoBehaviour
 {
+    [Header("Public")]
     public RectTransform CreateCharacterLayoutGroup;
-
+    
+    [Header("User interfaces references")]
     [SerializeField] private Button headerGroupeButton;
     [SerializeField] private Sprite rightArrow;
     [SerializeField] private Sprite downArrow;
@@ -16,6 +18,7 @@ public class SliderGroup : MonoBehaviour
     [SerializeField] private GameObject prefabSliderObject;
     [SerializeField] private Transform slidersHome;
 
+    // Private variables
     private bool isGroupeOpen = false;
 
     private List<GameObject> sliders = new List<GameObject>();
@@ -62,12 +65,12 @@ public class SliderGroup : MonoBehaviour
         go.SetActive(false);
     }
 
-
     public void DestroySliders()
     {
         foreach(GameObject go in sliders) 
         {
             Destroy(go);
         }
+        sliders.Clear();
     }
 }
