@@ -46,6 +46,11 @@
                     <li><a href="#get-uma">Get UMA</a></li>
                     <li><a href="#install-uma-package">Install UMA Package</a></li>
                 </ul>
+            <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
+            <ul>
+                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
+                <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
+            </ul>
         </ul>
     <li><a href="#server">Server</a></li>
         <ul>
@@ -94,7 +99,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
     <ul>
         <li>Modifiable character model thanks to UMA</li>
         <li>Create a Character and modifying the look with sliders and save on the server</li>
-        <li>In Progress: modify Hairs and colors of the model</li>
+        <li>Colorize character, skin hairs.. (In Progress: change hairs/clothes of the model)</li>
         <li>Character selection with all available characters</li>
     </ul>
     <li>Scene and UI Management, from our <a href="https://github.com/Assambra/Module-GameManager">Module-GameManager</a></li>
@@ -126,6 +131,38 @@ Get submodules:
 
 `git submodule update --init --recursive`
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<--! NEEDED UNITY PACKAGES -->
+### Needed Unity packages
+#### Newtonsoft Json
+The EzyFox Client SDK need Newtonsoft Json package to work.
+
+Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+
+Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
+
+#### Color Picker
+To get the HSV-Color-Picker-Unity
+Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+
+Add a new dependency `"com.judahperez.hsvcolorpicker": "3.3.0"`
+and additionally add to the file.
+
+````
+"scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.judahperez.hsvcolorpicker",
+        "com.openupm"
+      ]
+    }
+  ]
+ ````
+
+`Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- UMA -->
