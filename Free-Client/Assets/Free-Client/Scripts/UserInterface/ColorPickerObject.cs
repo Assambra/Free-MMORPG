@@ -1,23 +1,51 @@
+using System;
 using UnityEngine;
+using HSVPicker;
+using UMA;
+using UnityEngine.UI;
+using TMPro;
 
 public class ColorPickerObject : MonoBehaviour
 {
     [field: SerializeField] public Color Color { get; private set; }
     
-    //[SerializeField] ColorPicker colorPicker;
+    [SerializeField] ColorPicker colorPicker;
+    [SerializeField] TMP_Text textGlossValue;
+    [SerializeField] Slider sliderGloss;
+
+    public OverlayColorData ColorData;
+
+    private UICreateCharacter uICreateCharacter;
+
+    private float lastGloss = 0;
+    private Color lastBaseColor;
+    private Color lastMetallicColor = Color.black;
+
 
     private void OnEnable()
     {
-        //colorPicker.onColorChanged += OnColorChanged;
+        lastBaseColor = ColorData.color;
+        colorPicker.CurrentColor = lastBaseColor;
+
+        uICreateCharacter = GameObject.FindObjectOfType<UICreateCharacter>();
+
+        colorPicker.onValueChanged.AddListener(color =>
+        {
+            OnColorChanged(color);
+        });
     }
 
-    private void OnDestroy()
+    public void OnColorChanged(Color baseColor)
     {
-        //colorPicker.onColorChanged -= OnColorChanged;
+        lastBaseColor = baseColor;
+
+        uICreateCharacter.SetColor(ColorData.name, baseColor, lastMetallicColor, lastGloss);
     }
 
-    public void OnColorChanged(Color c)
+    public void OnSliderValueChanged(float gloss)
     {
-        Color = c;
+        lastGloss = gloss;
+        textGlossValue.text = ((float)Math.Round((double)gloss, 2)).ToString();
+        uICreateCharacter.SetColor(ColorData.name, lastBaseColor, lastMetallicColor, gloss);
     }
 }

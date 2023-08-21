@@ -36,9 +36,9 @@ public class HeaderElement : MonoBehaviour
         this.layoutGroup = layoutGroup;
     }
 
-    public void CreateObject(string key, string name)
+    public GameObject CreateObject(string key, string name)
     {
-        foreach(KeyValuePair<string, GameObject> obj in prefabs)
+        foreach (KeyValuePair<string, GameObject> obj in prefabs)
         {
             if (obj.Key == key) 
             {
@@ -46,8 +46,10 @@ public class HeaderElement : MonoBehaviour
                 go.name = name;
                 ObjectsList.Add(go);
                 go.SetActive(false);
+                return go;
             }
         }
+        return null;
     }
 
     public void OnHeaderButton()

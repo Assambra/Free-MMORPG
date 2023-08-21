@@ -43,6 +43,7 @@ public class UICreateCharacter : MonoBehaviour
     // Private variables helper/general
     private bool isInitialized = false;
 
+    
 
     private void Awake()
     {
@@ -117,10 +118,19 @@ public class UICreateCharacter : MonoBehaviour
         foreach(OverlayColorData colorType in avatar.characterColors.Colors)
         {
             GameObject ph = Instantiate(prefabHeader, colorHome);
+            ph.name = colorType.name;
             HeaderElement he = ph.GetComponent<HeaderElement>();
-            he.InitializeHeaderElement(colorType.name, prefabs, colorHome.GetComponent<RectTransform>());
-            he.CreateObject("ColorPickerObject", colorType.name);
+            string name = colorType.name + " Color";
+            he.InitializeHeaderElement(name, prefabs, colorHome.GetComponent<RectTransform>());
+            GameObject go = he.CreateObject("ColorPickerObject", colorType.name);
+            if(go != null)
+                go.GetComponent<ColorPickerObject>().ColorData = colorType;
         }
+    }
+
+    public void SetColor(string colorName, Color basecolor, Color metalliccolor, float gloss)
+    {
+        avatar.SetColor(colorName, basecolor, Gloss: gloss, UpdateTexture: true);
     }
 
     private void RemoveSliders()
