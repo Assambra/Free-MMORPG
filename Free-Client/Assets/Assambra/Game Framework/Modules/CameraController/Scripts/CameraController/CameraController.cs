@@ -3,22 +3,29 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public bool IsOverUIElement { private get;  set;}
+    [field: SerializeField] public Camera MainCamera { get; set; }
+    [field: SerializeField] public GameObject CameraTarget { get; set; }
+    [field: SerializeField] public bool IsOverUIElement { private get; set; }
+    
 
-    [Header("Serialize fields")]
-    [SerializeField] private Camera mainCamera = null;
-    [SerializeField] private GameObject cameraTarget = null;
-
+    [Header("Automatic find")]
+    [SerializeField] private bool autoFindMainCamera = false;
+    [SerializeField] private bool autoFindPlayer = false;
+    
     [Header("Camera rotate camera target")]
     [SerializeField] private bool cameraRotateCameraTarget = false;
 
+    [Header("Block")]
+    [SerializeField] private bool blockCameraTilt;
+    [SerializeField] private bool blockCameraPan;
+
     [Header("Camera offset")]
     [SerializeField] private Vector3 CameraOffset = new Vector3(0f, 1.8f, 0f);
-    
+
     [Header("Camera distance")]
     [SerializeField] private float cameraStartDistance = 5f;
-    [SerializeField] float cameraMinDistance = 0f;
-    [SerializeField] float cameraMaxDistance = 35f;
+    [SerializeField] private float cameraMinDistance = 0f;
+    [SerializeField] private float cameraMaxDistance = 35f;
     [SerializeField] private float mouseWheelSensitivity = 10f;
 
     [Header("Camera pan and tilt")]
@@ -35,67 +42,88 @@ public class CameraController : MonoBehaviour
     private float mouseWheel = 0f;
     private float cameraPan = 0f;
     private float cameraTilt = 0f;
+
+    private float lastCameraTilt;
+    private float lastCameraPan;
+    private float lastCameraTargetRotation = 0f;
     
-    private float lastPlayerRotation = 0f;
 
     private void Awake()
     {
-        if (mainCamera == null)
+        if (MainCamera == null && autoFindMainCamera)
         {
             if (GameObject.FindGameObjectWithTag("MainCamera"))
-                mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+                MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             else
                 Debug.LogError("No Camera with Tag MainCamera found");
         }
 
-        mainCamera.transform.parent = gameObject.transform;
-        mainCamera.transform.position = Vector3.zero;
-        mainCamera.transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        MainCamera.transform.position = Vector3.zero;
+        MainCamera.transform.rotation = Quaternion.identity;
+
+        MainCamera.transform.parent = gameObject.transform;
+
         cameraDistance = cameraStartDistance;
     }
 
     void Start()
     {
-        if (cameraTarget == null)
+        if (CameraTarget == null && autoFindPlayer)
         {
             if (GameObject.FindGameObjectWithTag("Player"))
-                cameraTarget = GameObject.FindGameObjectWithTag("Player");
+                CameraTarget = GameObject.FindGameObjectWithTag("Player");
             else
                 Debug.LogError("No Player with Tag Player found");
         }
     }
 
-
     void Update()
     {
-        GetMouseInput();
-        
-        HandleCameraDistance();
-        
-        if ((Input.GetMouseButton(0) || Input.GetMouseButton(1)) && !IsOverUIElement)
+        if(!IsOverUIElement)
         {
-            CameraTiltAndPan();
+            GetMouseInput();
 
-            if(Input.GetMouseButton(1) && cameraRotateCameraTarget)
-                cameraTarget.transform.Rotate(new Vector3(0, mouseX * cameraPanSpeed));
-        }
-        else
-        {
-            CameraPan();
-        }
+            if(mouseWheel > 0 || mouseWheel < 0)
+                HandleCameraDistance();
 
-        lastPlayerRotation = cameraTarget.transform.eulerAngles.y;
+            if ((Input.GetMouseButton(0) || Input.GetMouseButton(1)))
+            {
+                if (Input.GetMouseButton(1) && cameraRotateCameraTarget)
+                    CameraTarget.transform.Rotate(new Vector3(0, mouseX * cameraPanSpeed));
+
+                if (blockCameraPan && blockCameraTilt)
+                    return;
+                else if (!blockCameraPan && !blockCameraTilt)
+                    CameraTiltAndPan();
+                else if (!blockCameraTilt && blockCameraPan)
+                    CameraTilt();
+                else if (!blockCameraPan && blockCameraTilt)
+                    CameraPan();  
+            }
+            else
+            {
+                RotateCameraWithTarget();
+            }
+
+            lastCameraPan = cameraPan;
+            lastCameraTilt = cameraTilt;
+
+            lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
+        }
     }
 
     private void LateUpdate()
     {
-        transform.position = cameraTarget.transform.position + CameraOffset - transform.forward * cameraDistance;
+        transform.position = CameraTarget.transform.position + CameraOffset - transform.forward * cameraDistance;
     }
 
     private void GetMouseInput()
     {
         mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y") ;
+        mouseY = Input.GetAxis("Mouse Y");
+
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");
     }
 
@@ -109,19 +137,54 @@ public class CameraController : MonoBehaviour
     {
         cameraPan += mouseX * cameraPanSpeed;
         cameraTilt -= mouseY * cameraTiltSpeed;
+        cameraTilt = ClampCameraTilt(cameraTilt);
+        transform.eulerAngles = new Vector3(cameraTilt, cameraPan, 0);
+    }
 
-        transform.eulerAngles = new Vector3(ClampCameraTilt(cameraTilt), cameraPan, 0);
+    private void CameraTilt()
+    {
+        cameraTilt -= mouseY * cameraTiltSpeed;
+        cameraTilt = ClampCameraTilt(cameraTilt);
+        transform.eulerAngles = new Vector3(cameraTilt, lastCameraPan, 0);
     }
 
     private void CameraPan()
     {
-        float rotDiff = lastPlayerRotation - cameraTarget.transform.eulerAngles.y;
+        cameraPan += mouseX * cameraPanSpeed;
+        transform.eulerAngles = new Vector3(lastCameraTilt, cameraPan, 0);
+    }
+
+    private void RotateCameraWithTarget()
+    {
+        float rotDiff = lastCameraTargetRotation - CameraTarget.transform.eulerAngles.y;
         cameraPan -= rotDiff;
         transform.eulerAngles = new Vector3(cameraTilt, cameraPan, 0);
     }
 
+    public void SetCameraPan(float angle)
+    {
+        cameraPan = angle;
+        CameraPan();
+    }
+
+    public float GetCameraPanAngle()
+    {
+        return cameraPan;
+    }
+
+    public void SetCameraTilt(float angle)
+    {
+        cameraTilt = angle;
+        CameraTilt();
+    }
+
+    public float GetCameraTiltAngle()
+    {
+        return cameraTilt;
+    }
+
     private float ClampCameraTilt(float tilt)
     {
-        return cameraTilt = Mathf.Clamp(cameraTilt, cameraTiltMin, cameraTiltMax);
+        return Mathf.Clamp(tilt, cameraTiltMin, cameraTiltMax);
     }
 }

@@ -7,9 +7,6 @@ using UMA;
 
 public class UICreateCharacter : MonoBehaviour
 {
-    [Header("Dynamic Character Avatar")]
-    [SerializeField] GameObject uMADynamicCharacterAvatar;
-
     [Header("User Interface")]
     [SerializeField] TMP_InputField inputFieldNameValue;
     [SerializeField] TMP_Dropdown dropdownRaceValue;
@@ -23,7 +20,7 @@ public class UICreateCharacter : MonoBehaviour
     
 
     // Private variables UMA
-    private GameObject umaCharacter;
+    //private GameObject umaCharacter;
     private DynamicCharacterAvatar avatar;
     private UMAData umaData;
 
@@ -47,8 +44,7 @@ public class UICreateCharacter : MonoBehaviour
 
     private void Awake()
     {
-        umaCharacter = GameObject.Instantiate(uMADynamicCharacterAvatar, new Vector3(0, 0, 0), Quaternion.identity);
-        avatar = umaCharacter.GetComponent<DynamicCharacterAvatar>();
+        avatar = GameManager.Instance.Avatar;
         umaData = avatar.umaData;
 
         sex = "male";
@@ -62,6 +58,15 @@ public class UICreateCharacter : MonoBehaviour
         excludeDna.Add("skinRedness");
     }
 
+    private void OnEnable()
+    {
+        CameraController cc = GameManager.Instance.cameraController;
+        if(cc.GetCameraPanAngle() != -180f)
+        {
+            cc.SetCameraPan(-180f);
+        }
+    }
+
     private void Update()
     {
         if (!isInitialized) 
@@ -70,11 +75,6 @@ public class UICreateCharacter : MonoBehaviour
             umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
             avatar.ChangeRace("HumanMale", true);
         }
-    }
-
-    private void OnDestroy()
-    {
-        Destroy(umaCharacter);
     }
 
     private void CreateSliders()
