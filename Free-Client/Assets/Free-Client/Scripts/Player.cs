@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        GetCenterOfThePlayer();
     }
 
     public Vector3 GetCenterOfThePlayer()
@@ -18,14 +17,8 @@ public class Player : MonoBehaviour
         capsuleCollider = Avatar.gameObject.GetComponent<CapsuleCollider>();
         
         if (capsuleCollider != null)
-        {
-            Debug.Log(capsuleCollider.center);
             return capsuleCollider.center;
-        }
-        else
-        {
-            Debug.Log("No Capsule Colider found!");
+        else 
             return Vector3.zero;
-        }
     }
 }
