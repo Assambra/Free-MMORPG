@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5676000884369343547}
   - component: {fileID: 1299301247817118139}
   - component: {fileID: 3700805952149843883}
-  - component: {fileID: -6866284056658360849}
   m_Layer: 0
   m_Name: MyUMADynamicCharacterAvatar
   m_TagString: Untagged
@@ -126,14 +125,11 @@ MonoBehaviour:
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: eb280940c811fab4a9e3ddf09381c343, type: 2}
     animators:
-    - raceName: ToonFemale
-      animatorControllerName: IdleTest-w-head
+    - raceName: HumanFemale
+      animatorControllerName: Humanoid Female
       animatorController: {fileID: 0}
-    - raceName: HumanMaleDCS
-      animatorControllerName: Locomotion with Head
-      animatorController: {fileID: 0}
-    - raceName: HumanFemaleResources
-      animatorControllerName: Locomotion with Head
+    - raceName: HumanMale
+      animatorControllerName: Humanoid Male
       animatorController: {fileID: 0}
     dynamicallyAddFromResources: 0
     resourcesFolderPath: 
@@ -391,16 +387,3 @@ MonoBehaviour:
   characterHeight: 2
   characterRadius: 0.25
   characterMass: 50
---- !u!114 &-6866284056658360849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850330843058739264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64964f5894153a14fb6f339a3bce7e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Avatar>k__BackingField: {fileID: 5676000884369343547}
