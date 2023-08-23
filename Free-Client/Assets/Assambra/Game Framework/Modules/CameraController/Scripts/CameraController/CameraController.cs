@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private bool blockCameraPan;
 
     [Header("Camera offset")]
-    [SerializeField] private Vector3 CameraOffset = new Vector3(0f, 1.8f, 0f);
+    [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 1.8f, 0f);
 
     [Header("Camera distance")]
     [SerializeField] private float cameraStartDistance = 5f;
@@ -125,7 +125,7 @@ public class CameraController : MonoBehaviour
 
     private void LookAtCameraTarget()
     {
-        transform.position = CameraTarget.transform.position + CameraOffset - transform.forward * cameraDistance;
+        transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
     }
 
     private void GetMouseInput()
@@ -228,6 +228,8 @@ public class CameraController : MonoBehaviour
 
         this.blockCameraTilt = camerapreset.blockCameraTilt;
         this.blockCameraPan = camerapreset.blockCameraPan;
+
+        this.cameraOffset = camerapreset.cameraOffset;
 
         this.cameraStartDistance = camerapreset.cameraStartDistance;
         this.cameraMinDistance = camerapreset.cameraMinDistance;
