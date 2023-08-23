@@ -219,6 +219,22 @@ PrefabInstance:
       propertyPath: <IsOverUIElement>k__BackingField
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 502e1cef72ded9643a5226293572d22a, type: 2}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cd3b99b3caea8e4281cd46eb3a096b5, type: 2}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a9207067f267fa4db8c1378ab7ce68d, type: 2}
     - target: {fileID: 7343386844389170552, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
       propertyPath: m_Name
       value: CameraController

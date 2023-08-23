@@ -58,15 +58,6 @@ public class UICreateCharacter : MonoBehaviour
         excludeDna.Add("skinRedness");
     }
 
-    private void OnEnable()
-    {
-        CameraController cc = GameManager.Instance.cameraController;
-        if(cc.GetCameraPanAngle() != -180f)
-        {
-            cc.SetCameraPan(-180f);
-        }
-    }
-
     private void Update()
     {
         if (!isInitialized) 

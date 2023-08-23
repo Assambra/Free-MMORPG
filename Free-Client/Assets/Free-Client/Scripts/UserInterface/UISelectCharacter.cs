@@ -21,13 +21,6 @@ public class UISelectCharacter : MonoBehaviour
 
     private void OnEnable()
     {
-        CameraController cc = GameManager.Instance.cameraController;
-        if (cc.GetCameraPanAngle() != -180f)
-        {
-            cc.SetCameraPan(-180f);
-        }
-
-
         characterInfos = GameManager.Instance.characterInfos;
 
         if (characterInfos.Count > 0)

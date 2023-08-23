@@ -1,11 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public class CameraController : MonoBehaviour
 {
+    [field: SerializeField] public bool Active { get; set; }
+    [field: SerializeField] public List<CameraPreset> CameraPresets { get; private set; }
     [field: SerializeField] public Camera MainCamera { get; set; }
     [field: SerializeField] public GameObject CameraTarget { get; set; }
     [field: SerializeField] public bool IsOverUIElement { private get; set; }
+
     
 
     [Header("Automatic find")]
@@ -81,11 +85,11 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if(!IsOverUIElement)
+        if(!IsOverUIElement && Active)
         {
             GetMouseInput();
 
-            if(mouseWheel > 0 || mouseWheel < 0)
+            if(mouseWheel != 0)
                 HandleCameraDistance();
 
             if ((Input.GetMouseButton(0) || Input.GetMouseButton(1)))
@@ -115,6 +119,11 @@ public class CameraController : MonoBehaviour
     }
 
     private void LateUpdate()
+    {
+        LookAtCameraTarget();
+    }
+
+    private void LookAtCameraTarget()
     {
         transform.position = CameraTarget.transform.position + CameraOffset - transform.forward * cameraDistance;
     }
@@ -161,10 +170,16 @@ public class CameraController : MonoBehaviour
         transform.eulerAngles = new Vector3(cameraTilt, cameraPan, 0);
     }
 
-    public void SetCameraPan(float angle)
+    private float ClampCameraTilt(float tilt)
     {
+        return Mathf.Clamp(tilt, cameraTiltMin, cameraTiltMax);
+    }
+
+    public void SetCameraPanAbsolutAngle(float angle)
+    {
+
+        transform.eulerAngles = new Vector3(lastCameraTilt, angle, 0);
         cameraPan = angle;
-        CameraPan();
     }
 
     public float GetCameraPanAngle()
@@ -172,10 +187,10 @@ public class CameraController : MonoBehaviour
         return cameraPan;
     }
 
-    public void SetCameraTilt(float angle)
+    public void SetCameraTiltAbsolutAngle(float angle)
     {
+        transform.eulerAngles = new Vector3(angle, lastCameraPan, 0);
         cameraTilt = angle;
-        CameraTilt();
     }
 
     public float GetCameraTiltAngle()
@@ -183,8 +198,58 @@ public class CameraController : MonoBehaviour
         return cameraTilt;
     }
 
-    private float ClampCameraTilt(float tilt)
+    public void ResetCameraAngles()
     {
-        return Mathf.Clamp(tilt, cameraTiltMin, cameraTiltMax);
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        cameraTilt = 0;
+        cameraPan = 0;
+    }
+
+    public void BlockCameraPan(bool value)
+    {
+        blockCameraPan = value;
+    }
+
+    public void BlockCameraTilt(bool value)
+    {
+        blockCameraTilt = value;
+    }
+
+    public void ChangeCameraPreset(string name)
+    {
+        CameraPreset camerapreset = GetCameraPreset(name);
+
+        this.Active = camerapreset.Active;
+
+        this.autoFindMainCamera = camerapreset.autofindMainCamera;
+        this.autoFindPlayer = camerapreset.autofindPlayer;
+
+        this.cameraRotateCameraTarget = camerapreset.cameraRotateCameraTarget;
+
+        this.blockCameraTilt = camerapreset.blockCameraTilt;
+        this.blockCameraPan = camerapreset.blockCameraPan;
+
+        this.cameraStartDistance = camerapreset.cameraStartDistance;
+        this.cameraMinDistance = camerapreset.cameraMinDistance;
+        this.cameraMaxDistance = camerapreset.cameraMaxDistance;
+        this.mouseWheelSensitivity= camerapreset.mouseWheelSensitivity;
+
+        this.cameraPanSpeed= camerapreset.cameraPanSpeed;
+        this.cameraTiltSpeed = camerapreset.cameraTiltSpeed;
+        this.cameraTiltMin = camerapreset.cameraTiltMin;
+        this.cameraTiltMax = camerapreset.cameraTiltMax;
+
+        cameraDistance = cameraStartDistance;
+    }
+
+    private CameraPreset GetCameraPreset(string name) 
+    {
+        foreach(CameraPreset cameraPreset in CameraPresets)
+        {
+            if(cameraPreset.name == name)
+                return cameraPreset;
+        }
+
+        return null;
     }
 }
