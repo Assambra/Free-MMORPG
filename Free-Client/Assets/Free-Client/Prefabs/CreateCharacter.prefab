@@ -2155,6 +2155,11 @@ MonoBehaviour:
   colorHome: {fileID: 2244071589721959715}
   sliderLayout: {fileID: 2808047502750686564}
   colorLayout: {fileID: 2244071589721959715}
+  buttonFemale: {fileID: 2398508886534443934}
+  buttonMale: {fileID: 2639427367177720993}
+  characterTemplates:
+  - {fileID: 11400000, guid: 81405667f4c34c7429e56fed2c3caccf, type: 2}
+  - {fileID: 11400000, guid: 87177d022c1fe0d4587fdbe3b6ef72e7, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Avatar>k__BackingField: {fileID: 2856286074098269373}
-  avatarGameObject: {fileID: 3038086426920345798}
+  CameraBoneNamesList:
+  - Head
+  - Spine
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 7023862922276637274}
+      objectReference: {fileID: 4571935353940588624}
     - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -142,7 +144,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7023862922276637274}
+      addedObject: {fileID: 4571935353940588624}
   m_SourcePrefab: {fileID: 100100000, guid: 93579e73c24e002448ca5327389c1000, type: 3}
 --- !u!114 &2856286074098269373 stripped
 MonoBehaviour:
@@ -160,7 +162,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
   m_PrefabInstance: {fileID: 7594940024289163398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7023862922276637274
+--- !u!114 &4571935353940588624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,19 +208,7 @@ MonoBehaviour:
       m_Calls: []
   CharacterBegun:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: RandomHead
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   AnimatorStateSaved:
     m_PersistentCalls:
       m_Calls: []

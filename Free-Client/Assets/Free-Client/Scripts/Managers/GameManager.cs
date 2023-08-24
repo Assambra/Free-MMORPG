@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
             )
         {
             SetCameraPreGameValues();
+            
+            if(sceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
+            {
+                //Avatar.ChangeRace("HumanMale", true);
+            }
         }
 
         if(sceneHandler.CurrentScene.name == Scenes.Login.ToString() && 

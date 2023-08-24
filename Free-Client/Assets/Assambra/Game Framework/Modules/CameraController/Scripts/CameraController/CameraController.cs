@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
 
     private float lastCameraTilt;
     private float lastCameraPan;
+    private Vector3 lastcamerOffset;
     private float lastCameraTargetRotation = 0f;
     
 
@@ -125,7 +126,19 @@ public class CameraController : MonoBehaviour
 
     private void LookAtCameraTarget()
     {
-        transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
+        if(lastcamerOffset == cameraOffset)
+        {
+            transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
+        }
+        else
+        {
+            Vector3 cameraOffsetDiff = lastcamerOffset - cameraOffset;
+            Vector3 cameraOffsetRatio = cameraOffsetDiff * 1.75f;
+            cameraDistance = cameraDistance - cameraOffsetRatio.y;
+
+            transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
+            lastcamerOffset = cameraOffset;
+        }
     }
 
     private void GetMouseInput()
@@ -213,6 +226,16 @@ public class CameraController : MonoBehaviour
     public void BlockCameraTilt(bool value)
     {
         blockCameraTilt = value;
+    }
+
+    public Vector3 GetCameraOffset()
+    { 
+        return cameraOffset; 
+    }
+
+    public void SetCameraOffset(Vector3 cameraOffset)
+    {
+        this.cameraOffset = cameraOffset;
     }
 
     public void ChangeCameraPreset(string name)
