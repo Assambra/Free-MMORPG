@@ -126,19 +126,7 @@ public class CameraController : MonoBehaviour
 
     private void LookAtCameraTarget()
     {
-        if(lastcamerOffset == cameraOffset)
-        {
-            transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
-        }
-        else
-        {
-            Vector3 cameraOffsetDiff = lastcamerOffset - cameraOffset;
-            Vector3 cameraOffsetRatio = cameraOffsetDiff * 1.75f;
-            cameraDistance = cameraDistance - cameraOffsetRatio.y;
-
-            transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
-            lastcamerOffset = cameraOffset;
-        }
+        transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
     }
 
     private void GetMouseInput()
@@ -231,6 +219,16 @@ public class CameraController : MonoBehaviour
     public Vector3 GetCameraOffset()
     { 
         return cameraOffset; 
+    }
+
+    public float GetCameraDistance()
+    {
+        return cameraDistance;
+    }
+
+    public void SetCameraDistance(float cameraDistance)
+    {
+        this.cameraDistance = cameraDistance;
     }
 
     public void SetCameraOffset(Vector3 cameraOffset)
