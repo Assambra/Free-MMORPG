@@ -36,8 +36,6 @@ public class UICreateCharacter : MonoBehaviour
     private List<string> excludeDna = new List<string>();
     [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
     
-    
-
     // Private variables network
     private string charname;
     private string sex;
@@ -45,9 +43,8 @@ public class UICreateCharacter : MonoBehaviour
     private string model;
 
     // Private variables helper/general
-    private bool doOnce = false;
+    private bool initalized = false;
 
-    
 
     private void Awake()
     {
@@ -71,11 +68,12 @@ public class UICreateCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (!doOnce) 
+        if (!initalized) 
         {
-            doOnce = true;
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
-            UMAHelper.SetAvatarString(avatar, characterTemplates[0].UmaCharacterString);
+            // To initialize the HumanMale Race with the default CharacterTemplate
+            OnButtonMale();
+
+            initalized = true;
         }
     }
 
@@ -115,7 +113,6 @@ public class UICreateCharacter : MonoBehaviour
     private void CreateColorPicker()
     {
         prefabs.Add("ColorPickerObject", prefabColorPickerObject);
-
 
         foreach(OverlayColorData colorType in avatar.characterColors.Colors)
         {
@@ -164,7 +161,7 @@ public class UICreateCharacter : MonoBehaviour
 
     public void OnButtonMale()
     {
-        if (avatar.activeRace.name != "HumanMale")
+        if (avatar.activeRace.name != "HumanMale" || !initalized)
         {
             buttonMale.interactable = false;
             buttonFemale.interactable = false;
@@ -237,13 +234,6 @@ public class UICreateCharacter : MonoBehaviour
             return cat[1];
         else
             return cat[0];
-    }
-
-    public void OnCharacterUpdated(UMAData data)
-    {
-        Debug.Log("OnCharacterUpdated");
-        data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterUpdated));
-        CreateCharacterModifiers();
     }
 
     public void OnFemaleCharacterUpdated(UMAData data)
