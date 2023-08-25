@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5bab421957dce41b8df4b518ed1306, type: 3}
   m_Name: DefaultHumanFemale
   m_EditorClassIdentifier: 
-  UmaCharacterString: 
+  UmaCharacterString: AA*|R:HumanFemale|W:FemaleUndies,|C:Hair,3=0,FFB99480;1,FFFFFFFF;2,FFFFFFFF,80000000;|C:Eyes,3=0,FF4968FF;1,FFFFFFFF;2,FFFFFFFF,80000000;|C:Skin,3=0,FFFFC1C1;1,FFFFFFFF;2,FFFFFFFF,5F000000;|C:Pants1,3=0,FFFFFFFF;1,FFFFFFFF;2,FFFFFFFF,80000000;|C:Lipstick,3=0,FFFFFFFF;1,FFFFFFFF;2,FFFFFFFF;|D:height=11EE;|

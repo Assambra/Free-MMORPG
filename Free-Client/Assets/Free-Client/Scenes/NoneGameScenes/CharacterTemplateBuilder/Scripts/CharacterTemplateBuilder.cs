@@ -1,5 +1,6 @@
 using UMA;
 using UMA.CharacterSystem;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -20,30 +21,21 @@ public class CharacterTemplateBuilder : MonoBehaviour
 
     private bool doOnce = false;
 
-    private void Awake()
-    {
-        //avatar = avatar.gameObject.GetComponent<DynamicCharacterAvatar>();
-    }
-
-    private void Start()
-    {
-        umaData = avatar.umaData;
-    }
-
     private void Update()
     {
         if(!doOnce)
         {
             doOnce = true;
+            umaData = avatar.umaData;
             umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
         }
     }
-
 
     public void OnButtonSave()
     {
         characterTemplate.UmaCharacterString = UMAHelper.GetAvatarString(avatar);
         umaCharacterString = characterTemplate.UmaCharacterString;
+        EditorUtility.SetDirty(characterTemplate);
     }
 
     public void OnButtonLoad()
