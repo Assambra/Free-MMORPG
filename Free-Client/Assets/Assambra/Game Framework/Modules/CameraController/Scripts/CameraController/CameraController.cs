@@ -49,7 +49,6 @@ public class CameraController : MonoBehaviour
 
     private float lastCameraTilt;
     private float lastCameraPan;
-    private Vector3 lastcamerOffset;
     private float lastCameraTargetRotation = 0f;
     
 
