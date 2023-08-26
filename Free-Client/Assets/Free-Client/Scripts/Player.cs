@@ -8,14 +8,11 @@ public class Player : MonoBehaviour
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
 
     private UMAData umaData;
-    private CapsuleCollider capsuleCollider;
-
-    //public delegate void PlayerEvent();
-    //public static event PlayerEvent OnPlayerHightChanged;
+    private Renderer umaRenderer;
 
     private float lastHeight = 0;
-
-    private bool doOnce;
+    private float currentHeight = 0;
+    private bool initialized = false;
     private bool isAvatarCreated = false;
 
     private void Awake()
@@ -25,39 +22,63 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(!doOnce)
+        if(!initialized)
         {
-            doOnce = true;
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterUpdated));
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterInitialize));
             Avatar.ChangeRace("HumanMale", true);
+            initialized = true;
         }
         
         if(isAvatarCreated)
         {
-            if (lastHeight != capsuleCollider.height)
-            {
-                //Debug.Log(capsuleCollider.height);
-                //OnPlayerHightChanged?.Invoke();
+            currentHeight = umaRenderer.bounds.max.y;
 
-                float heightDiff = lastHeight - capsuleCollider.height;
+            if (currentHeight > lastHeight + 0.01f || currentHeight < lastHeight - 0.01f)
+            {   
+                SetCameraOffset(lastHeight);
+                SetCameraDistance(lastHeight);
 
-                Vector3 lastOffset = GameManager.Instance.cameraController.GetCameraOffset();
-                GameManager.Instance.cameraController.SetCameraOffset(new Vector3(lastOffset.x, lastOffset.y - heightDiff, lastOffset.z));
-
-                lastHeight = capsuleCollider.height;
+                lastHeight = currentHeight;
             }
         }
     }
 
-    private void OnCharacterUpdated(UMAData data)
+    private void SetCameraOffset(float lastHeight)
     {
-        isAvatarCreated = true;
-        capsuleCollider = GetPlayerCapsuleCollider();
-        lastHeight = capsuleCollider.height;
+        Vector3 lastOffset = GameManager.Instance.cameraController.GetCameraOffset();
+        float newCameraOffsetY = (currentHeight / lastHeight) * lastOffset.y;
+        GameManager.Instance.cameraController.SetCameraOffset(new Vector3(lastOffset.x, newCameraOffsetY, lastOffset.z));
     }
 
-    private CapsuleCollider GetPlayerCapsuleCollider()
+    private void SetCameraDistance(float lastHeight)
     {
-        return Avatar.gameObject.GetComponent<CapsuleCollider>();
+        float cameraFieldOfView = GameManager.Instance.cameraController.GetCameraFieldOfView();
+        float currentCameraDistance = GameManager.Instance.cameraController.GetCameraDistance();
+        float cameraDistanceOffset = CalculateCameraDistanceOffset(cameraFieldOfView, lastHeight, currentHeight);
+
+        GameManager.Instance.cameraController.SetCameraDistance(currentCameraDistance + cameraDistanceOffset);
+    }
+
+    private float CalculateCameraDistanceOffset(float fieldOfView, float lastHeight, float currentHeight)
+    {
+        float lastCameraDistance = lastHeight / Mathf.Tan((fieldOfView / 2) * Mathf.Deg2Rad);
+        float currentCameraDistance = currentHeight / Mathf.Tan((fieldOfView / 2) * Mathf.Deg2Rad);
+        float cameraDistanceDiff = currentCameraDistance - lastCameraDistance;
+        
+        return cameraDistanceDiff;
+    }
+
+    private void OnCharacterInitialize(UMAData data)
+    {
+        umaData.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterInitialize));
+        isAvatarCreated = true;
+        umaRenderer = GetRenderer();
+
+        lastHeight = umaRenderer.bounds.max.y;
+    }
+
+    private Renderer GetRenderer()
+    {
+        return Avatar.transform.Find("UMARenderer").GetComponent<Renderer>();
     }
 }

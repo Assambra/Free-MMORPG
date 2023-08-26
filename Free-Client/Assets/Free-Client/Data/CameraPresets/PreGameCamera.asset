@@ -18,8 +18,8 @@ MonoBehaviour:
   cameraRotateCameraTarget: 1
   blockCameraTilt: 0
   blockCameraPan: 1
-  cameraOffset: {x: 0, y: 1.8, z: 0}
-  cameraStartDistance: 5
+  cameraOffset: {x: 0, y: 1, z: 0}
+  cameraStartDistance: 2
   cameraMinDistance: 0.6
   cameraMaxDistance: 5
   mouseWheelSensitivity: 2
