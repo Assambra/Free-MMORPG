@@ -38,6 +38,7 @@
 <ul>
     <li><a href="#foreword">Foreword</a></li>
     <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#playable-demo">Playble Demo</a></li>
     <li><a href="#client">Client</a></li>
         <ul>
             <li><a href="#clone-from-github">Clone from Github</a></li>
@@ -114,9 +115,22 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <li>Gives the user a visual feedback what is currently under the mouse cursor and changes the cursor look (2D UI) with Graphic Raycaster</li>
         <li>Enhanced IsOverUIElement - This stores when you press the left mouse button whether you was over a UI element or not and saves the state until you release the mouse button.</li>
     </ul>
+    <li>CameraController, from our <a href="https://github.com/Assambra/Module-CameraController">Module-CameraController</a></li>
+    <ul>
+        <li>At the moment only integrated in the create character process</li>
+        <li>The camera can orbit around the character on LMB, same on RMB but turn the target object.</li>
+        <li>A lot of options to fine tune the camera behaviour</li>
+        <li>Planed: Camera collision, more smoothing of the camera motions, distance and orbit</li>
+    </ul>
+        
 </ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- PLAYABLE DEMO -->
+## Playable Demo
+We provide a playable Demo there you can play the latest release, and check first what Free-MMORPG can do, or to test and send bug reports.
+You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as zip file. This client will connect to our game server.
 
 <!-- CLIENT -->
 ## Client
@@ -349,6 +363,6 @@ Join us on <a href="https://discord.gg/qyCdkYSWVG">Discord</a>
 [issues-url]: https://github.com/Assambra/Free-MMORPG/issues
 [license-shield]: https://img.shields.io/github/license/Assambra/Free-MMORPG.svg?style=for-the-badge
 [license-url]: https://github.com/Assambra/Free-MMORPG/blob/main/LICENSE
-[product-screenshot]: Github/Images/Free-MMORPG-Demo-Image.v0.18.0.jpg
+[product-screenshot]: Github/Images/Free-MMORPG-Demo-Image.v0.19.0.jpg
 [Unity-url]: https://www.unity.com
 [Unity.com]: https://img.shields.io/badge/Unity-000000.svg?style=for-the-badge&logo=unity&logoColor=white
