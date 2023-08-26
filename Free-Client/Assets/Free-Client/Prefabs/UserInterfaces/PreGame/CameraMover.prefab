@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 6933810337348680523}
   - component: {fileID: 2504977723984663971}
   m_Layer: 0
-  m_Name: Toggle
+  m_Name: ToggleAutoFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -992,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonCameraUp: {fileID: 5995931433960000861}
   buttonCameraDown: {fileID: 1649900196792062119}
+  toggleAutoFocus: {fileID: 2504977723984663971}
   cameraMoveSpeed: 0.25
   cameraMinOffset: 0.25
   cameraMaxOffset: 2.8

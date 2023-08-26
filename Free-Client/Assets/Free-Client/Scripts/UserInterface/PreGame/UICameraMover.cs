@@ -5,10 +5,13 @@ public class UICameraMover : MonoBehaviour
 {
     [SerializeField] private Button buttonCameraUp;
     [SerializeField] private Button buttonCameraDown;
+    [SerializeField] private Toggle toggleAutoFocus;
 
     [SerializeField] private float cameraMoveSpeed = 0.25f;
     [SerializeField] private float cameraMinOffset = 0.27f;
     [SerializeField] private float cameraMaxOffset = 2.75f;
+
+    private UICreateCharacter uICreateCharacter;
 
     private ButtonPressedChecker checkerButtonCameraUp;
     private ButtonPressedChecker checkerButtonCameraDown;
@@ -19,12 +22,19 @@ public class UICameraMover : MonoBehaviour
         checkerButtonCameraDown = buttonCameraDown.gameObject.GetComponent<ButtonPressedChecker>();
     }
 
+    private void Start()
+    {
+        uICreateCharacter = FindObjectOfType<UICreateCharacter>();
+    }
+
     void Update()
     {
         if (checkerButtonCameraUp.IsButtonPressed)
             OnButtonCameraUpPressed();
         if (checkerButtonCameraDown.IsButtonPressed)
             OnButtonCameraDownPressed();
+
+        uICreateCharacter.UseCameraAutoFocus = toggleAutoFocus.isOn;
     }
 
     private void OnButtonCameraUpPressed()

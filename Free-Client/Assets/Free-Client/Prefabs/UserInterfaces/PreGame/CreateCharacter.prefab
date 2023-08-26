@@ -2146,6 +2146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e8cbf9110d3e74e8a90d3af9239ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <UseCameraAutoFocus>k__BackingField: 0
   inputFieldNameValue: {fileID: 8535643230330604221}
   dropdownRaceValue: {fileID: 4483437250715472455}
   prefabSliderGroup: {fileID: 1428688551885063646, guid: a92809ffe94d8104c8e1990f265c163c, type: 3}
@@ -2160,6 +2161,9 @@ MonoBehaviour:
   characterTemplates:
   - {fileID: 11400000, guid: 81405667f4c34c7429e56fed2c3caccf, type: 2}
   - {fileID: 11400000, guid: 87177d022c1fe0d4587fdbe3b6ef72e7, type: 2}
+  cameraAutoFocusPoints:
+  - {fileID: 11400000, guid: 2c1531ffbcb0afa49a85ec4f90319378, type: 2}
+  - {fileID: 11400000, guid: 6d4c9df0bf7664c4092fe1936c17c476, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0

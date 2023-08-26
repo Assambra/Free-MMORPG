@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class UICreateCharacter : MonoBehaviour
 {
+    [field: SerializeField] public bool UseCameraAutoFocus { private get; set; }
+
     [Header("User Interface")]
     [SerializeField] TMP_InputField inputFieldNameValue;
     [SerializeField] TMP_Dropdown dropdownRaceValue;
@@ -27,7 +29,10 @@ public class UICreateCharacter : MonoBehaviour
 
     [Header("Default Character templates")]
     [SerializeField] private List<CharacterTemplate> characterTemplates = new List<CharacterTemplate>();
-    
+
+    [Header("Camera auto focus points")]
+    [SerializeField] private List<CameraFocusPoint> cameraAutoFocusPoints = new List<CameraFocusPoint>();
+
     // Private variables user interface
     private List<string> raceOptions = new List<string>();
     private List<GameObject> sliderGroups = new List<GameObject>();
@@ -44,7 +49,6 @@ public class UICreateCharacter : MonoBehaviour
 
     // Private variables helper/general
     private bool initalized = false;
-
 
     private void Awake()
     {
