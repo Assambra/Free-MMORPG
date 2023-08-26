@@ -40,6 +40,7 @@ public class CameraController : MonoBehaviour
 
 
     // Private variables
+    private float fieldOfView;
     private float mouseX = 0f;
     private float mouseY = 0f;
     private float cameraDistance = 0f;
@@ -50,7 +51,7 @@ public class CameraController : MonoBehaviour
     private float lastCameraTilt;
     private float lastCameraPan;
     private float lastCameraTargetRotation = 0f;
-    
+    private float lastCameraFieldOfView;
 
     private void Awake()
     {
@@ -62,6 +63,9 @@ public class CameraController : MonoBehaviour
                 Debug.LogError("No Camera with Tag MainCamera found");
         }
 
+        fieldOfView = MainCamera.fieldOfView;
+        lastCameraFieldOfView = fieldOfView;
+        
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         MainCamera.transform.position = Vector3.zero;
@@ -116,6 +120,9 @@ public class CameraController : MonoBehaviour
 
             lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
         }
+
+        if (lastCameraFieldOfView != MainCamera.fieldOfView)
+            fieldOfView = MainCamera.fieldOfView;
     }
 
     private void LateUpdate()
@@ -125,6 +132,7 @@ public class CameraController : MonoBehaviour
 
     private void LookAtCameraTarget()
     {
+        ClampCameraDistance();
         transform.position = CameraTarget.transform.position + cameraOffset - transform.forward * cameraDistance;
     }
 
@@ -139,6 +147,10 @@ public class CameraController : MonoBehaviour
     private void HandleCameraDistance()
     {
         cameraDistance -= mouseWheel * mouseWheelSensitivity;
+    }
+
+    private void ClampCameraDistance()
+    {
         cameraDistance = Mathf.Clamp(cameraDistance, cameraMinDistance, cameraMaxDistance);
     }
 
@@ -223,6 +235,11 @@ public class CameraController : MonoBehaviour
     public float GetCameraDistance()
     {
         return cameraDistance;
+    }
+
+    public float GetCameraFieldOfView()
+    {
+        return fieldOfView;
     }
 
     public void SetCameraDistance(float cameraDistance)
