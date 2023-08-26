@@ -20,7 +20,7 @@ MonoBehaviour:
   blockCameraPan: 1
   cameraOffset: {x: 0, y: 1, z: 0}
   cameraStartDistance: 2
-  cameraMinDistance: 0.6
+  cameraMinDistance: 0.65
   cameraMaxDistance: 5
   mouseWheelSensitivity: 2
   cameraPanSpeed: 5
