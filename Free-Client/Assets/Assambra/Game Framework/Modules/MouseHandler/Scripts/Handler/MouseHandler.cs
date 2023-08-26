@@ -210,4 +210,9 @@ public class MouseHandler : MonoBehaviour
 
         return returnGameObjects;
     }
+
+    public EventSystem GetEventSystem()
+    {
+        return eventSystem;
+    }
 }

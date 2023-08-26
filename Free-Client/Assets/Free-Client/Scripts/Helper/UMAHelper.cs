@@ -1,5 +1,4 @@
 using UMA.CharacterSystem;
-using UnityEngine;
 
 public static class UMAHelper 
 {
