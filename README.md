@@ -130,7 +130,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 <!-- PLAYABLE DEMO -->
 ## Playable Demo
 We provide a playable Demo there you can play the latest release, and check first what Free-MMORPG can do, or to test and send bug reports.
-You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as zip file. This client will connect to our game server.
+You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as rar file. This client will connect to our game server.
 
 <!-- CLIENT -->
 ## Client
