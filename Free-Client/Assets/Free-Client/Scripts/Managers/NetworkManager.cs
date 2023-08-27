@@ -422,7 +422,7 @@ public class NetworkManager : MonoBehaviour
                 characterInfo.race = character.get<string>(4);
                 characterInfo.model = character.get<string>(5);
 
-                GameManager.Instance.characterInfos.Add(characterInfo);
+                GameManager.Instance.CharacterInfos.Add(characterInfo);
             }
         }
     }

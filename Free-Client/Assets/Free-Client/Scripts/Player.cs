@@ -45,18 +45,18 @@ public class Player : MonoBehaviour
 
     private void SetCameraOffset(float lastHeight)
     {
-        Vector3 lastOffset = GameManager.Instance.cameraController.GetCameraOffset();
+        Vector3 lastOffset = GameManager.Instance.CameraController.GetCameraOffset();
         float newCameraOffsetY = (currentHeight / lastHeight) * lastOffset.y;
-        GameManager.Instance.cameraController.SetCameraOffset(new Vector3(lastOffset.x, newCameraOffsetY, lastOffset.z));
+        GameManager.Instance.CameraController.SetCameraOffset(new Vector3(lastOffset.x, newCameraOffsetY, lastOffset.z));
     }
 
     private void SetCameraDistance(float lastHeight)
     {
-        float cameraFieldOfView = GameManager.Instance.cameraController.GetCameraFieldOfView();
-        float currentCameraDistance = GameManager.Instance.cameraController.GetCameraDistance();
+        float cameraFieldOfView = GameManager.Instance.CameraController.GetCameraFieldOfView();
+        float currentCameraDistance = GameManager.Instance.CameraController.GetCameraDistance();
         float cameraDistanceOffset = CalculateCameraDistanceOffset(cameraFieldOfView, lastHeight, currentHeight);
 
-        GameManager.Instance.cameraController.SetCameraDistance(currentCameraDistance + cameraDistanceOffset);
+        GameManager.Instance.CameraController.SetCameraDistance(currentCameraDistance + cameraDistanceOffset);
     }
 
     private float CalculateCameraDistanceOffset(float fieldOfView, float lastHeight, float currentHeight)
