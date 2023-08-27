@@ -39,16 +39,16 @@ public class UICameraMover : MonoBehaviour
 
     private void OnButtonCameraUpPressed()
     {
-        Vector3 currentCameraOffset = GameManager.Instance.cameraController.GetCameraOffset();
+        Vector3 currentCameraOffset = GameManager.Instance.CameraController.GetCameraOffset();
         float newOffset = ClampOffset(currentCameraOffset.y + (cameraMoveSpeed * Time.deltaTime));
-        GameManager.Instance.cameraController.SetCameraOffset(new Vector3(currentCameraOffset.x, newOffset , currentCameraOffset.z));
+        GameManager.Instance.CameraController.SetCameraOffset(new Vector3(currentCameraOffset.x, newOffset , currentCameraOffset.z));
     }
 
     private void OnButtonCameraDownPressed()
     {
-        Vector3 currentCameraOffset = GameManager.Instance.cameraController.GetCameraOffset();
+        Vector3 currentCameraOffset = GameManager.Instance.CameraController.GetCameraOffset();
         float newOffset = ClampOffset(currentCameraOffset.y + (-cameraMoveSpeed * Time.deltaTime));
-        GameManager.Instance.cameraController.SetCameraOffset(new Vector3(currentCameraOffset.x, newOffset , currentCameraOffset.z));
+        GameManager.Instance.CameraController.SetCameraOffset(new Vector3(currentCameraOffset.x, newOffset , currentCameraOffset.z));
     }
 
     private float ClampOffset(float value)

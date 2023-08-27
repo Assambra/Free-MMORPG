@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [field: SerializeField] public CameraController cameraController { get; private set; }
-
-    public GameObject Player;
-    public DynamicCharacterAvatar Avatar { get; private set; }
-
-    public List<CharacterInfo> characterInfos = new List<CharacterInfo>();
     public static GameManager Instance { get; private set; }
 
-    [Header("Script references")]
-    [SerializeField] SceneHandler sceneHandler;
-    [SerializeField] MouseHandler mouseHandler;
-    
-    
-    [Header("PlayerPrefab")]
-    [SerializeField] GameObject playerPrefab;
+    [field: SerializeField] public CameraController CameraController { get; private set; }
+    [field: SerializeField] public UIHandler UIHandler { get; private set; }
+    [field: SerializeField] public SceneHandler SceneHandler { get; private set; }
+    [field: SerializeField] public MouseHandler MouseHandler { get; private set; }
 
+    public Player Player { get; private set; }
+    public DynamicCharacterAvatar Avatar { get; private set; }
+    public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
+
+    [Header("Player Prefab")]
+    [SerializeField] GameObject playerPrefab;
+    
+    // Private
+    private GameObject playerGameObject;
     private bool cameraInitialized =  false;
+
 
     private void Awake()
     {
@@ -32,9 +33,10 @@ public class GameManager : MonoBehaviour
         else
             Instance = this;
 
-        Player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        cameraController.CameraTarget = Player;
-        Avatar = Player.GetComponent<Player>().Avatar;
+        playerGameObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        CameraController.CameraTarget = playerGameObject;
+        Player = playerGameObject.GetComponent<Player>();
+        Avatar = Player.Avatar;
     }
 
     private void OnDestroy()
@@ -44,30 +46,30 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cameraController.IsOverUIElement = mouseHandler.IsOverUIElement;
+        CameraController.IsOverUIElement = MouseHandler.IsOverUIElement;
     }
 
     public void ChangeScene(Scenes scene)
     {
-        sceneHandler.CurrentScene = sceneHandler.Scenes[(int)scene];
+        SceneHandler.CurrentScene = SceneHandler.Scenes[(int)scene];
     }
 
     private void OnSceneChanged()
     {
-        if ((sceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
-            sceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString()) &&
+        if ((SceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
+            SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString()) &&
             !cameraInitialized
             )
         {
             SetCameraPreGameValues();
             
-            if(sceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
+            if(SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
             {
                 //Avatar.ChangeRace("HumanMale", true);
             }
         }
 
-        if(sceneHandler.CurrentScene.name == Scenes.Login.ToString() && 
+        if(SceneHandler.CurrentScene.name == Scenes.Login.ToString() && 
             cameraInitialized)
         {
             SetCameraDefaultValues();
@@ -76,16 +78,16 @@ public class GameManager : MonoBehaviour
 
     private void SetCameraPreGameValues()
     {
-        cameraController.ChangeCameraPreset("PreGameCamera");
-        cameraController.SetCameraPanAbsolutAngle(-180f);
+        CameraController.ChangeCameraPreset("PreGameCamera");
+        CameraController.SetCameraPanAbsolutAngle(-180f);
 
         cameraInitialized = true;
     }
 
     private void SetCameraDefaultValues()
     {
-        cameraController.ChangeCameraPreset("DefaultCamera");
-        cameraController.ResetCameraAngles();
+        CameraController.ChangeCameraPreset("DefaultCamera");
+        CameraController.ResetCameraAngles();
 
         cameraInitialized = false;
     }

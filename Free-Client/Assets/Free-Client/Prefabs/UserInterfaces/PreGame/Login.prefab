@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 904401945459121835}
   - component: {fileID: 904401945459121832}
   - component: {fileID: 904401945459121833}
+  - component: {fileID: 4207336829821323679}
   m_Layer: 5
   m_Name: InputFieldPassword
   m_TagString: Untagged
@@ -456,6 +457,21 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &4207336829821323679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904401945459121839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c29c05831df2a4a99096f78ae56e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltiptext: This is a password field
+  delayToShowInfo: 1
+  prefabTooltipObject: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
 --- !u!1 &904401945518913208
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +617,7 @@ GameObject:
   - component: {fileID: 904401945584591169}
   - component: {fileID: 904401945584591174}
   - component: {fileID: 904401945584591175}
+  - component: {fileID: 6730200281687545240}
   m_Layer: 5
   m_Name: InputFieldUsername
   m_TagString: Untagged
@@ -777,6 +794,21 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &6730200281687545240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904401945584591173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c29c05831df2a4a99096f78ae56e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltiptext: This is a username field
+  delayToShowInfo: 1
+  prefabTooltipObject: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
 --- !u!1 &904401945620390072
 GameObject:
   m_ObjectHideFlags: 0

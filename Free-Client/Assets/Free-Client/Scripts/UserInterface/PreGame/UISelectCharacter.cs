@@ -21,7 +21,7 @@ public class UISelectCharacter : MonoBehaviour
 
     private void OnEnable()
     {
-        characterInfos = GameManager.Instance.characterInfos;
+        characterInfos = GameManager.Instance.CharacterInfos;
 
         if (characterInfos.Count > 0)
         {
