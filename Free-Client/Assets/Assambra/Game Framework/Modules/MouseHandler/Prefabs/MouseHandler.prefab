@@ -30,7 +30,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -51,18 +50,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsOverUIElement: 0
   graphicRaycaster: {fileID: 0}
-  waitFramesForNextRaycast: 12
+  waitTimeInSecondsForNextRaycast: 0.25
   eventSystem: {fileID: 0}
-  arrowLeftDefault: {fileID: 2800000, guid: 712f913a38eb5e849b766e0f87982a4f, type: 3}
+  arrowLeftDefault: {fileID: 2800000, guid: 888933acfd91d9c4ea386af6e0985755, type: 3}
   hotspotArrowLeftDefault: {x: 0, y: 0}
-  cursorDrag: {fileID: 2800000, guid: 45340b6e803ca6d41a489342145d0012, type: 3}
+  cursorDrag: {fileID: 2800000, guid: a196924174d18de4b95641fd85d22097, type: 3}
   hotspotCursorDrag: {x: 12, y: 12}
-  cursorResizeN_S: {fileID: 2800000, guid: f8cf72fdf58d1a948ad72bf7ee795c73, type: 3}
+  cursorResizeN_S: {fileID: 2800000, guid: 3a4a2ee86896c9e4c995bca0f627807b, type: 3}
   hotspotCursorResizeN_S: {x: 4.5, y: 12}
-  cursorResizeW_O: {fileID: 2800000, guid: fae917cd00324aa4aad8b2b8ae4225cf, type: 3}
+  cursorResizeW_O: {fileID: 2800000, guid: c80cf7844d8503c41bfa9b77180edcf4, type: 3}
   hotspotCursorResizeW_O: {x: 12, y: 4.5}
-  cursorResizeNO_SW: {fileID: 2800000, guid: ea5fcb3f644f005489899c914f85bf91, type: 3}
+  cursorResizeNO_SW: {fileID: 2800000, guid: babd9b27e76092f4ba15c8665b01a624, type: 3}
   hotspotCursorResizeNO_SW: {x: 8.5, y: 8.5}
-  cursorResizeNW_SO: {fileID: 2800000, guid: 115232a8f0942554d94eaa5c9cb469c7, type: 3}
+  cursorResizeNW_SO: {fileID: 2800000, guid: 734ccdbe7aa9958488b6ffa8685938cd, type: 3}
   hotspotCursorResizeNW_SO: {x: 8.5, y: 8.5}
   cursorMode: 0
