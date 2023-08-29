@@ -1,7 +1,7 @@
 # Dependencies
 
 ## Game Framework Modules
- - None
+ - <a href="https://github.com/Assambra/Module-GameTextures">Module-GameTextures</a></li>
 
 ## Unity Package Manager
 

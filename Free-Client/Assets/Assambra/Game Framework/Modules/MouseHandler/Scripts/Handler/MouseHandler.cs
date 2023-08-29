@@ -11,7 +11,7 @@ public class MouseHandler : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] private GraphicRaycaster graphicRaycaster = null;
     [SerializeField] private float waitTimeInSecondsForNextRaycast = 0.25f;
-    
+
     [Header("EventSystem")]
     [SerializeField] private EventSystem eventSystem = null;
 
@@ -33,7 +33,7 @@ public class MouseHandler : MonoBehaviour
 
 
     // Private Fields
-    
+
     private PointerEventData pointerEventData;
 
     private List<GameObject> raycastedGameObjects = new List<GameObject>();
@@ -56,7 +56,7 @@ public class MouseHandler : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer > waitTimeInSecondsForNextRaycast)
+        if (timer > waitTimeInSecondsForNextRaycast)
         {
             timer = timer - waitTimeInSecondsForNextRaycast;
 
@@ -67,7 +67,7 @@ public class MouseHandler : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && !mouseMoveFromUIToWorld && !mouseMoveFromWorldToUI)
                     mouseMoveFromUIToWorld = true;
-                
+
 
                 if (mouseMoveFromWorldToUI)
                     IsOverUIElement = false;
@@ -83,7 +83,7 @@ public class MouseHandler : MonoBehaviour
             {
                 if (Input.GetMouseButton(0) && !mouseMoveFromWorldToUI && !mouseMoveFromUIToWorld)
                     mouseMoveFromWorldToUI = true;
-                
+
 
                 if (mouseMoveFromUIToWorld)
                     IsOverUIElement = true;
@@ -94,7 +94,7 @@ public class MouseHandler : MonoBehaviour
 
                 Cursor.SetCursor(arrowLeftDefault, hotspotArrowLeftDefault, cursorMode);
             }
-            
+
             if (!Input.GetMouseButton(0))
             {
                 mouseMoveFromUIToWorld = false;
@@ -122,7 +122,7 @@ public class MouseHandler : MonoBehaviour
         foreach (GameObject raycastedGameObject in listRaycastedGameObjects)
         {
             i--;
-            
+
             // First we need to go through the List and then set the cursor, why? The "Zones" sit on top of the Window (changing position in hierarchy break the function of zones). The first
             // gameObject in this list is the zone, so we cant set the cursor and after this we observe that we dont need to change the cursor.
 
@@ -162,7 +162,7 @@ public class MouseHandler : MonoBehaviour
             case "ResizeRightTopZone":
                 Cursor.SetCursor(cursorResizeNO_SW, hotspotCursorResizeNO_SW, cursorMode);
                 return true;
-            
+
             /* This cases are from our UISystem and not in use, for now we comment it out
             // Reset to default e.g on Buttons
             case "ButtonCloseWindow":
@@ -204,7 +204,7 @@ public class MouseHandler : MonoBehaviour
         foreach (RaycastResult result in results)
         {
             //only add and return GameObjects they are not in Layer 8, (Ignore Graphic Raycast)
-            if(result.gameObject.layer != 8)
+            if (result.gameObject.layer != 8)
                 returnGameObjects.Add(result.gameObject);
         }
 
