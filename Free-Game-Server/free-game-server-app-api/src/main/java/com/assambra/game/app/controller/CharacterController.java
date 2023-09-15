@@ -3,6 +3,7 @@ package com.assambra.game.app.controller;
 import com.assambra.game.app.constant.Commands;
 import com.assambra.game.app.model.CharacterListModel;
 import com.assambra.game.app.request.CreateCharacterRequest;
+import com.assambra.game.app.request.PlayRequest;
 import com.assambra.game.app.service.CharacterService;
 import com.assambra.game.common.entity.Character;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
@@ -41,6 +42,12 @@ public class CharacterController extends EzyLoggable {
         logger.info("user {} request create character", user);
 
         characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
+    }
+
+    @EzyDoHandle(Commands.PLAY)
+    public void play(EzyUser user, PlayRequest request)
+    {
+        logger.info("User {} request play with characterId {}", user.getName(), request.getCharacterId());
     }
 
     private CharacterListModel[] convert(List<Character> characters)

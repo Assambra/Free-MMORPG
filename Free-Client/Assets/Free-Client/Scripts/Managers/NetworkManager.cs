@@ -235,6 +235,16 @@ public class NetworkManager : MonoBehaviour
         appProxy.send(Commands.CREATE_CHARACTER, characterdata);
     }
 
+    public void PlayRequest(long characterId)
+    {
+        EzyObject data = EzyEntityFactory
+            .newObjectBuilder()
+            .append("characterId", characterId)
+            .build();
+
+        appProxy.send(Commands.PLAY, data);
+    }
+
     #endregion
 
     #region SERVER RESPONSE
