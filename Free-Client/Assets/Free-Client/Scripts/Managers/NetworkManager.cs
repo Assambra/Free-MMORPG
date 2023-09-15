@@ -181,6 +181,7 @@ public class NetworkManager : MonoBehaviour
         // Game
         on<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
         on<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
+        on<EzyArray>(Commands.PLAY, OnPlayResponse);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -458,6 +459,34 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    private void OnPlayResponse(EzyAppProxy proxy, EzyArray data)
+    {
+        GameManager.Instance.ChangeScene(Scenes.World);
+
+        Debug.Log("OnPlayResponse");
+
+        for (int i = 0; i < data.size(); i++)
+        {
+            EzyObject item = data.get<EzyObject>(i);
+            string accountName = item.get<string>("accountName");
+            long roomId = item.get<long>("roomId");
+            bool isLocalPlayer = item.get<bool>("isLocalPlayer");
+            string characterName = item.get<string>("characterName");
+            string characterModel = item.get<string>("characterModel");
+            EzyArray position = item.get<EzyArray>("position");
+            EzyArray rotation = item.get<EzyArray>("rotation");
+
+            GameManager.Instance.CharacterList.Add(
+                new Character(accountName, roomId, isLocalPlayer, characterName, characterModel,
+                    new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2)),
+                    new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2))));
+        }
+
+        foreach(Character c in GameManager.Instance.CharacterList)
+        {
+            c.SetPlayerGameObject(GameManager.Instance.SpawnPlayer(c));
+        }
+    }
 
     #endregion
 }

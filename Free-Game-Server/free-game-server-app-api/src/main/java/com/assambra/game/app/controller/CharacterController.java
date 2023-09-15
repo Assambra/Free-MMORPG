@@ -44,12 +44,6 @@ public class CharacterController extends EzyLoggable {
         characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
     }
 
-    @EzyDoHandle(Commands.PLAY)
-    public void play(EzyUser user, PlayRequest request)
-    {
-        logger.info("User {} request play with characterId {}", user.getName(), request.getCharacterId());
-    }
-
     private CharacterListModel[] convert(List<Character> characters)
     {
         CharacterListModel[] chars = new CharacterListModel[characters.size()];

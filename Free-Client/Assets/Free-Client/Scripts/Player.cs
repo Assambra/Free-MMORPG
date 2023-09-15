@@ -5,6 +5,11 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    public bool IsLocalPlayer = false;
+    public string PlayerName;
+    public bool Initialized = false;
+    public bool IsAvatarCreated = false;
+
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
 
     private UMAData umaData;
@@ -12,24 +17,18 @@ public class Player : MonoBehaviour
 
     private float lastHeight = 0;
     private float currentHeight = 0;
-    private bool initialized = false;
-    private bool isAvatarCreated = false;
-
-    private void Awake()
-    {
-        umaData = Avatar.umaData;            
-    }
 
     private void Update()
     {
-        if(!initialized)
+        if(!Initialized)
         {
+            umaData = Avatar.umaData;
             umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnCharacterInitialize));
             Avatar.ChangeRace("HumanMale", true);
-            initialized = true;
+            Initialized = true;
         }
         
-        if(isAvatarCreated)
+        if(IsAvatarCreated)
         {
             currentHeight = umaRenderer.bounds.max.y;
 
@@ -71,7 +70,7 @@ public class Player : MonoBehaviour
     private void OnCharacterInitialize(UMAData data)
     {
         umaData.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterInitialize));
-        isAvatarCreated = true;
+        IsAvatarCreated = true;
         umaRenderer = GetRenderer();
 
         lastHeight = umaRenderer.bounds.max.y;
