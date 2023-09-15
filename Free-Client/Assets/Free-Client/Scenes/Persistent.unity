@@ -976,7 +976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496512726802749841, guid: 6e93b7b8806bf1041a541e40f7e81279, type: 3}
       propertyPath: useUdp
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8496512726802749841, guid: 6e93b7b8806bf1041a541e40f7e81279, type: 3}
       propertyPath: appName
