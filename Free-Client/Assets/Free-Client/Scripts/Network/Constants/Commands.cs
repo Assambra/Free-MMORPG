@@ -10,6 +10,8 @@ public sealed class Commands
     public const String CREATE_CHARACTER = "createCharacter";
 
     public const String PLAY = "play";
+    public const String CHARACTER_SPAWNED = "characterSpawned";
+    public const String CHARACTER_DESPAWNED = "characterDespawned";
 
     private Commands() { }
 }

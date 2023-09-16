@@ -3,6 +3,7 @@ package com.assambra.game.app.service;
 import com.assambra.game.app.entity.CharacterEntity;
 import com.assambra.game.app.model.CharacterSpawnModel;
 import com.assambra.game.app.model.PlayModel;
+import com.assambra.game.common.entity.Character;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -96,5 +97,26 @@ public class GameService extends EzyLoggable {
         });
 
         return answer;
+    }
+
+    public CharacterSpawnModel characterSpawned(EzyUser user) {
+
+        CharacterEntity myCharacter = null;
+
+        for(CharacterEntity entity : characterList)
+        {
+            if(entity.accountUsername.equals(user.getName()))
+                myCharacter = entity;
+        }
+
+        return CharacterSpawnModel.builder()
+                .accountUsername(user.getName())
+                .roomId(myCharacter.roomId)
+                .isLocalPlayer(false)
+                .characterName(myCharacter.characterName)
+                .characterModel(myCharacter.characterModel)
+                .position(myCharacter.position.toArray())
+                .rotation(myCharacter.rotation.toArray())
+                .build();
     }
 }

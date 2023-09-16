@@ -3,7 +3,10 @@ package com.assambra.game.app.converter;
 import com.assambra.game.app.model.CharacterSpawnModel;
 import com.assambra.game.app.response.CharacterSpawnResponse;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import com.tvd12.ezyfoxserver.support.command.EzyObjectResponse;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @EzySingleton
 @AllArgsConstructor
