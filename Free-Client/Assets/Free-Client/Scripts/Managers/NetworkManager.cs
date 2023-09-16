@@ -470,7 +470,7 @@ public class NetworkManager : MonoBehaviour
         for (int i = 0; i < data.size(); i++)
         {
             EzyObject item = data.get<EzyObject>(i);
-            string accountName = item.get<string>("accountName");
+            string accountUsername = item.get<string>("accountUsername");
             long roomId = item.get<long>("roomId");
             bool isLocalPlayer = item.get<bool>("isLocalPlayer");
             string characterName = item.get<string>("characterName");
@@ -479,7 +479,7 @@ public class NetworkManager : MonoBehaviour
             EzyArray rotation = item.get<EzyArray>("rotation");
 
             GameManager.Instance.CharacterList.Add(
-                new Character(accountName, roomId, isLocalPlayer, characterName, characterModel,
+                new Character(accountUsername, roomId, isLocalPlayer, characterName, characterModel,
                     new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2)),
                     new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2))));
         }
@@ -492,7 +492,7 @@ public class NetworkManager : MonoBehaviour
 
     private void OnCharacterSpawned(EzyAppProxy proxy, EzyObject data)
     {
-        string accountName = data.get<string>("accountName");
+        string accountUsername = data.get<string>("accountUsername");
         long roomId = data.get<long>("roomId");
         bool isLocalPlayer = data.get<bool>("isLocalPlayer");
         string characterName = data.get<string>("characterName");
@@ -500,7 +500,7 @@ public class NetworkManager : MonoBehaviour
         EzyArray position = data.get<EzyArray>("position");
         EzyArray rotation = data.get<EzyArray>("rotation");
 
-        Character character = new Character(accountName, roomId, isLocalPlayer, characterName, characterModel,
+        Character character = new Character(accountUsername, roomId, isLocalPlayer, characterName, characterModel,
                     new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2)),
                     new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2)));
 
@@ -511,7 +511,22 @@ public class NetworkManager : MonoBehaviour
 
     private void OnCharacterDespawned(EzyAppProxy proxy, EzyObject data)
     {
+        string userName = data.get<string>("userName");
 
+        Character characterToRemove = null;
+
+        foreach(Character character in GameManager.Instance.CharacterList)
+        {
+            if (character.accountUsername == userName)
+            {
+                GameObject.Destroy(character.playerGameObject);
+                
+                characterToRemove = character;
+                break;
+            }
+        }
+        if(characterToRemove != null)
+            GameManager.Instance.CharacterList.Remove(characterToRemove);
     }
 
     #endregion

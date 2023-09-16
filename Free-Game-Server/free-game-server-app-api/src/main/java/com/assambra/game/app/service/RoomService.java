@@ -52,4 +52,20 @@ public class RoomService extends EzyLoggable
         MMOGridRoom currentRoom = (MMOGridRoom) getCurrentRoom(player);
         currentRoom.setPlayerPosition(player, nextPosition);
     }
+
+    public NormalRoom removePlayer(String username) {
+        Player player = globalPlayerManager.getPlayer(username);
+        if (player == null) {
+            return null;
+        }
+        NormalRoom room = globalRoomManager.getRoom(player.getCurrentRoomId());
+        if (room != null) {
+            synchronized (room) {
+                room.removePlayer(player);
+            }
+        }
+
+        globalPlayerManager.removePlayer(player);
+        return room;
+    }
 }
