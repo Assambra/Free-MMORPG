@@ -6,7 +6,6 @@ import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.gamebox.entity.MMOGridRoom;
-import com.tvd12.gamebox.entity.MMORoom;
 import com.tvd12.gamebox.entity.NormalRoom;
 import com.tvd12.gamebox.entity.Player;
 import com.tvd12.gamebox.manager.PlayerManager;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Setter
-@EzyConfigurationBefore(priority = 1)
+@EzyConfigurationBefore(priority = 3)
 public class GameConfig extends EzyLoggable {
 
     @EzyAutoBind
@@ -40,3 +39,4 @@ public class GameConfig extends EzyLoggable {
     @EzySingleton("characterList")
     public List<CharacterEntity> characterList = new ArrayList<CharacterEntity>();
 }
+
