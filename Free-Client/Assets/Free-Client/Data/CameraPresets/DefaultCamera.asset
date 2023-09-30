@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DefaultCamera
   m_EditorClassIdentifier: 
   Active: 0
-  autofindMainCamera: 0
   autofindPlayer: 0
   cameraRotateCameraTarget: 0
   blockCameraTilt: 0
   blockCameraPan: 0
+  cameraOffset: {x: 0, y: 1.8, z: 0}
   cameraStartDistance: 5
   cameraMinDistance: 0
   cameraMaxDistance: 35

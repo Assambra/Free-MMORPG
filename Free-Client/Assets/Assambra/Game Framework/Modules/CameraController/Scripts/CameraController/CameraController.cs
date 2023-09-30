@@ -10,12 +10,11 @@ public class CameraController : MonoBehaviour
     [field: SerializeField] public GameObject CameraTarget { get; set; }
     [field: SerializeField] public bool IsOverUIElement { private get; set; }
 
-    
+
 
     [Header("Automatic find")]
-    [SerializeField] private bool autoFindMainCamera = false;
     [SerializeField] private bool autoFindPlayer = false;
-    
+
     [Header("Camera rotate camera target")]
     [SerializeField] private bool cameraRotateCameraTarget = false;
 
@@ -55,25 +54,27 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        if (MainCamera == null && autoFindMainCamera)
+        if (MainCamera == null)
         {
-            if (GameObject.FindGameObjectWithTag("MainCamera"))
-                MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-            else
+            MainCamera = Camera.main;
+
+            if (MainCamera == null)
                 Debug.LogError("No Camera with Tag MainCamera found");
         }
 
-        fieldOfView = MainCamera.fieldOfView;
-        lastCameraFieldOfView = fieldOfView;
-        
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-        MainCamera.transform.position = Vector3.zero;
-        MainCamera.transform.rotation = Quaternion.identity;
+        if (MainCamera != null)
+        {
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            MainCamera.transform.position = Vector3.zero;
+            MainCamera.transform.rotation = Quaternion.identity;
 
-        MainCamera.transform.parent = gameObject.transform;
+            MainCamera.transform.parent = gameObject.transform;
+            fieldOfView = MainCamera.fieldOfView;
+            lastCameraFieldOfView = fieldOfView;
 
-        cameraDistance = cameraStartDistance;
+            cameraDistance = cameraStartDistance;
+        }
     }
 
     void Start()
@@ -89,14 +90,14 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if(!IsOverUIElement && Active)
+        if (!IsOverUIElement && Active)
         {
             GetMouseInput();
 
-            if(mouseWheel != 0)
+            if (mouseWheel != 0)
                 HandleCameraDistance();
 
-            if ((Input.GetMouseButton(0) || Input.GetMouseButton(1)))
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
                 if (Input.GetMouseButton(1) && cameraRotateCameraTarget)
                     CameraTarget.transform.Rotate(new Vector3(0, mouseX * cameraPanSpeed));
@@ -108,11 +109,7 @@ public class CameraController : MonoBehaviour
                 else if (!blockCameraTilt && blockCameraPan)
                     CameraTilt();
                 else if (!blockCameraPan && blockCameraTilt)
-                    CameraPan();  
-            }
-            else
-            {
-                RotateCameraWithTarget();
+                    CameraPan();
             }
 
             lastCameraPan = cameraPan;
@@ -122,12 +119,16 @@ public class CameraController : MonoBehaviour
         }
 
         if (lastCameraFieldOfView != MainCamera.fieldOfView)
-            fieldOfView = MainCamera.fieldOfView;
+            fieldOfView = MainCamera.fieldOfView;           
     }
 
     private void LateUpdate()
     {
-        LookAtCameraTarget();
+        if (!Input.GetMouseButton(0) || !Input.GetMouseButton(1))
+            RotateCameraWithTarget();
+
+        if (Active)
+            LookAtCameraTarget();
     }
 
     private void LookAtCameraTarget()
@@ -228,8 +229,8 @@ public class CameraController : MonoBehaviour
     }
 
     public Vector3 GetCameraOffset()
-    { 
-        return cameraOffset; 
+    {
+        return cameraOffset;
     }
 
     public float GetCameraDistance()
@@ -258,7 +259,6 @@ public class CameraController : MonoBehaviour
 
         this.Active = camerapreset.Active;
 
-        this.autoFindMainCamera = camerapreset.autofindMainCamera;
         this.autoFindPlayer = camerapreset.autofindPlayer;
 
         this.cameraRotateCameraTarget = camerapreset.cameraRotateCameraTarget;
@@ -271,9 +271,9 @@ public class CameraController : MonoBehaviour
         this.cameraStartDistance = camerapreset.cameraStartDistance;
         this.cameraMinDistance = camerapreset.cameraMinDistance;
         this.cameraMaxDistance = camerapreset.cameraMaxDistance;
-        this.mouseWheelSensitivity= camerapreset.mouseWheelSensitivity;
+        this.mouseWheelSensitivity = camerapreset.mouseWheelSensitivity;
 
-        this.cameraPanSpeed= camerapreset.cameraPanSpeed;
+        this.cameraPanSpeed = camerapreset.cameraPanSpeed;
         this.cameraTiltSpeed = camerapreset.cameraTiltSpeed;
         this.cameraTiltMin = camerapreset.cameraTiltMin;
         this.cameraTiltMax = camerapreset.cameraTiltMax;
@@ -281,11 +281,11 @@ public class CameraController : MonoBehaviour
         cameraDistance = cameraStartDistance;
     }
 
-    private CameraPreset GetCameraPreset(string name) 
+    private CameraPreset GetCameraPreset(string name)
     {
-        foreach(CameraPreset cameraPreset in CameraPresets)
+        foreach (CameraPreset cameraPreset in CameraPresets)
         {
-            if(cameraPreset.name == name)
+            if (cameraPreset.name == name)
                 return cameraPreset;
         }
 
