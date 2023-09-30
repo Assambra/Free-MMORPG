@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     public string PlayerName;
     public bool Initialized = false;
     public bool IsAvatarCreated = false;
-
+    
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
+    [field: SerializeField] public PlayerController playerController { get; private set; }
 
     private UMAData umaData;
     private Renderer umaRenderer;

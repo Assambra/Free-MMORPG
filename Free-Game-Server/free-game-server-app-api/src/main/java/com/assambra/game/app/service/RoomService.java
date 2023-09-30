@@ -68,4 +68,9 @@ public class RoomService extends EzyLoggable
         globalPlayerManager.removePlayer(player);
         return room;
     }
+
+    public MMOPlayer getPlayer(String playerName) {
+
+        return (MMOPlayer) globalPlayerManager.getPlayer(playerName);
+    }
 }

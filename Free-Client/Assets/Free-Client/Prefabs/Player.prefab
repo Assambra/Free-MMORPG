@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7552419251411878019}
   - component: {fileID: 6214107460784681592}
-  - component: {fileID: 8145176608377339204}
+  - component: {fileID: 2593902521092871263}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -51,32 +51,20 @@ MonoBehaviour:
   Initialized: 0
   IsAvatarCreated: 0
   <Avatar>k__BackingField: {fileID: 2856286074098269373}
---- !u!143 &8145176608377339204
-CharacterController:
+  <playerController>k__BackingField: {fileID: 2593902521092871263}
+--- !u!114 &2593902521092871263
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471186384214967346}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.35
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37589a1b4def7c468d8099d415ff2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6214107460784681592}
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 3485960551653631752}
+      objectReference: {fileID: 1264700573740067149}
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaAdditionalRecipes.Array.size
       value: 0
@@ -176,7 +164,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3485960551653631752}
+      addedObject: {fileID: 1264700573740067149}
   m_SourcePrefab: {fileID: 100100000, guid: 93579e73c24e002448ca5327389c1000, type: 3}
 --- !u!114 &2856286074098269373 stripped
 MonoBehaviour:
@@ -194,7 +182,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
   m_PrefabInstance: {fileID: 7594940024289163398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3485960551653631752
+--- !u!114 &1264700573740067149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

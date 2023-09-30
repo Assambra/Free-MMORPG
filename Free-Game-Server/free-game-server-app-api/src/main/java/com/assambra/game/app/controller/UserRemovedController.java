@@ -2,6 +2,7 @@ package com.assambra.game.app.controller;
 
 import com.assambra.game.app.constant.Commands;
 import com.assambra.game.app.entity.CharacterEntity;
+import com.assambra.game.app.service.CharacterService;
 import com.assambra.game.app.service.RoomService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.core.annotation.EzyEventHandler;
@@ -25,7 +26,7 @@ public class UserRemovedController extends EzyAbstractAppEventController<EzyUser
     private final RoomService roomService;
     private final EzyResponseFactory responseFactory;
     private final List<CharacterEntity> characterList;
-
+    private final CharacterService characterService;
 
     @Override
     public void handle(EzyAppContext ctx, EzyUserRemovedEvent event) {
@@ -36,6 +37,7 @@ public class UserRemovedController extends EzyAbstractAppEventController<EzyUser
         {
             if(entity.accountUsername.equals(event.getUser().getName()))
             {
+                characterService.SavePlayerPositionInDatabase(event.getUser());
                 entityToRemove = entity;
                 break;
             }

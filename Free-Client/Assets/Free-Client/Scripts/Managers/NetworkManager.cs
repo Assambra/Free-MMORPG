@@ -184,6 +184,7 @@ public class NetworkManager : MonoBehaviour
         on<EzyArray>(Commands.PLAY, OnPlayResponse);
         on<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
         on<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
+        on<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -246,6 +247,24 @@ public class NetworkManager : MonoBehaviour
             .build();
 
         appProxy.send(Commands.PLAY, data);
+    }
+
+    public void SendPlayerInput(int time, bool[] inputs, Quaternion rotation)
+    {
+        EzyObject data = EzyEntityFactory
+            .newObjectBuilder()
+            .append("t", time)
+            .append("i", inputs)
+            .append(
+                "r",
+                EzyEntityFactory.newArrayBuilder()
+                    .append(rotation.eulerAngles.x)
+                    .append(rotation.eulerAngles.y)
+                    .append(rotation.eulerAngles.z)
+                    .build()
+            )
+            .build();
+        appProxy.send(Commands.PLAYER_INPUT, data);
     }
 
     #endregion
@@ -507,6 +526,8 @@ public class NetworkManager : MonoBehaviour
         GameManager.Instance.CharacterList.Add(character);
 
         character.SetPlayerGameObject(GameManager.Instance.SpawnPlayer(character));
+
+        Debug.Log("Player spawned: " + accountUsername);
     }
 
     private void OnCharacterDespawned(EzyAppProxy proxy, EzyObject data)
@@ -527,6 +548,39 @@ public class NetworkManager : MonoBehaviour
         }
         if(characterToRemove != null)
             GameManager.Instance.CharacterList.Remove(characterToRemove);
+    }
+
+    private void OnPlayerSyncPosition(EzyAppProxy proxy, EzyArray data)
+    {
+        string playerName = data.get<string>(0);
+        EzyArray positionArray = data.get<EzyArray>(1);
+        EzyArray rotationArray = data.get<EzyArray>(2);
+        int time = data.get<int>(3);
+        Vector3 position = new Vector3(
+            positionArray.get<float>(0),
+            positionArray.get<float>(1),
+            positionArray.get<float>(2)
+        );
+        Vector3 rotation = new Vector3(
+            rotationArray.get<float>(0),
+            rotationArray.get<float>(1),
+            rotationArray.get<float>(2)
+        );
+
+        Debug.Log("SyncPosition for player: " + playerName + " reseive position: " + position + ", rotation: " + rotation + " time: " + time);
+
+        foreach(Character character in GameManager.Instance.CharacterList)
+        {
+            if (playerName == character.accountUsername)
+            {
+                GameObject pgo = character.playerGameObject;
+                pgo.transform.rotation = Quaternion.Euler(rotation);
+                Player player = pgo.GetComponent<Player>();
+                player.playerController.Move(position);
+                
+                break;
+            }
+        }
     }
 
     #endregion

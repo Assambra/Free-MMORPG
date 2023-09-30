@@ -12,6 +12,7 @@ import com.tvd12.gamebox.math.Vec3;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -58,6 +59,7 @@ public class CharacterService extends EzyLoggable {
     public void addPlayerToCharacterList(EzyUser user, Character character) {
         CharacterEntity characterEntity = new CharacterEntity(
                 user.getName(),
+                character.getAccountId(),
                 character.getRoomId(),
                 character.getName(),
                 character.getModel(),
@@ -65,5 +67,38 @@ public class CharacterService extends EzyLoggable {
                 new Vec3((float)character.getRotation()[0], (float)character.getRotation()[1], (float)character.getRotation()[2])
                 );
         characterList.add(characterEntity);
+    }
+
+    public void SavePlayerPositionInCharacterEntity(String userName, Vec3 position, Vec3 rotation)
+    {
+        for(CharacterEntity characterEntity : characterList)
+        {
+            if(characterEntity.accountUsername.contains(userName))
+            {
+                characterEntity.position = position;
+                characterEntity.rotation = rotation;
+                break;
+            }
+        }
+    }
+
+    public void SavePlayerPositionInDatabase(EzyUser user)
+    {
+        for(CharacterEntity characterEntity : characterList)
+        {
+            if(characterEntity.accountUsername.contains(user.getName()))
+            {
+                Character character = characterRepo.findByField("accountId", characterEntity.accountId);
+                double[] position = { characterEntity.position.x, characterEntity.position.y, characterEntity.position.z };
+                double[] rotation = { characterEntity.rotation.x, characterEntity.rotation.y, characterEntity.rotation.z };
+                character.setPosition(position);
+                character.setRotation(rotation);
+                character.setRoomId(characterEntity.roomId);
+
+                characterRepo.save(character);
+
+                break;
+            }
+        }
     }
 }
