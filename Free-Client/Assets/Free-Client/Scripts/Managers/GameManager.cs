@@ -54,10 +54,14 @@ public class GameManager : MonoBehaviour
         if (SceneHandler.CurrentScene.name == Scenes.Login.ToString())
         {
             SetCameraDefaultValues();
-            playerGameObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-            CameraController.CameraTarget = playerGameObject;
-            Player = playerGameObject.GetComponent<Player>();
-            Avatar = Player.Avatar;
+            
+            if(playerGameObject == null)
+            {
+                playerGameObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+                CameraController.CameraTarget = playerGameObject;
+                Player = playerGameObject.GetComponent<Player>();
+                Avatar = Player.Avatar;
+            }
         }
 
         if (SceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
