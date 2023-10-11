@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using com.tvd12.ezyfoxserver.client;
 using com.tvd12.ezyfoxserver.client.config;
 using com.tvd12.ezyfoxserver.client.constant;
@@ -11,7 +9,7 @@ using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using Object = System.Object;
 
-public class NetworkManager : MonoBehaviour
+public class NetworkManager : EzyDefaultController
 {
     [Header("Server Settings")]
     
@@ -31,18 +29,11 @@ public class NetworkManager : MonoBehaviour
     [HideInInspector] public UIClientLog UIClientLog;
     public static NetworkManager Instance { get; private set; }
 
-
-
     // private variables
-    private EzySocketProxyManager ezySocketProxyManager;
-    private EzySocketProxy socketProxy;
-    private EzyAppProxy appProxy;
-    private List<Tuple<String, Object>> handlers = new();
 
     private string currentZone = "";
     private string currentApp = "";
 
-    private bool connected = false;
     private bool nowProcessEvents = false;
 
     private string email;
@@ -62,50 +53,49 @@ public class NetworkManager : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
+    private new void OnEnable()
     {
-        EzyUnityLoggerFactory.getLogger<EzyUnityLogger>();
+        
     }
 
     private void Update()
     {
         if(nowProcessEvents)
-            EzyClients.getInstance().getClient(currentZone).processEvents();
+        {
+            EzyClients.getInstance()
+                .getClient(currentZone)
+                .processEvents();
+        }   
     }
 
-    private void OnDestroy()
+    private void AddEventHandlers()
     {
-        Debug.Log("OnDestroy");
+        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
+        socketProxy.onAppAccessed<Object>(OnAppAccessed);
+        socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
 
-        if (UIClientLog != null)
-            UIClientLog.ClearLog();
-        
-        foreach (Tuple<String, Object> tuple in handlers)
-        {
-            appProxy.unbind(tuple.Item1, tuple.Item2);
-        }
+        // Account
+        AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
+        AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
+        AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
+
+        // Game
+        AddHandler<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
+        AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
+        AddHandler<EzyArray>(Commands.PLAY, OnPlayResponse);
+        AddHandler<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
+        AddHandler<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
+        AddHandler<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
     }
 
     public bool Connected()
     {
-        return connected;
+        return socketProxy.getClient().isConnected();
     }
 
-    private void on<T>(String cmd, EzyAppProxyDataHandler<T> handler)
+    public new void Disconnect()
     {
-        handlers.Add(
-            new Tuple<String, Object>(cmd, appProxy.on(cmd, handler))
-        );
-    }
-
-    public void Disconnect()
-    {
-        nowProcessEvents = false;
-
-        if (connected)
-            EzyClients.getInstance().getClient(currentZone).disconnect();
-
-        connected = false;
+        base.Disconnect();
     }
 
     #region REQUESTS
@@ -124,6 +114,7 @@ public class NetworkManager : MonoBehaviour
         }
 
         CreateSocketProxy();
+        AddEventHandlers();
 
         socketProxy.setHost(host);
         socketProxy.setTcpPort(tcpPort);
@@ -139,52 +130,45 @@ public class NetworkManager : MonoBehaviour
         else
         {
             socketProxy.setTransportType(EzyTransportType.UDP);
-            socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
         }
 
-        AddServerEvents();
-
         socketProxy.connect();
-        connected = true;
 
         Debug.Log("Login: username = " + username + ", password = " + password);
     }
 
     private void CreateSocketProxy()
     {
-        ezySocketProxyManager = EzySocketProxyManager.getInstance();
-        if (!ezySocketProxyManager.hasInited())
-            ezySocketProxyManager.init();
-
-        socketProxy = ezySocketProxyManager.getSocketProxy(currentZone);
+        LOGGER.debug("OnEnable");
+        
+        var socketProxyManager = EzySocketProxyManager.getInstance();
+        if (!socketProxyManager.hasInited())
+        {
+            socketProxyManager.init();
+        }
+        socketProxy = socketProxyManager.getSocketProxy(
+            currentZone
+        );
         if (socketProxy.getClient() == null)
         {
-            Debug.Log("Creating Client");
-            var config = EzyClientConfig.builder().clientName(currentZone).zoneName(currentZone).build();
-            EzyClientFactory.getInstance().getOrCreateClient(config, useUdp);
+            LOGGER.debug("Creating ezyClient");
+            var config = EzyClientConfig.builder()
+                .clientName(currentZone)
+                .zoneName(currentZone)
+                .build();
+            EzyClientFactory
+                .getInstance()
+                .getOrCreateClient(
+                    config,
+                    useUdp
+                );
         }
-        appProxy = socketProxy.getAppProxy(currentApp, true);
+        appProxy = socketProxy.getAppProxy(
+            currentApp,
+            true
+        );
 
         nowProcessEvents = true;
-    }
-
-    private void AddServerEvents()
-    {
-        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
-        socketProxy.onAppAccessed<Object>(OnAppAccessed);
-        
-        // Account
-        on<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
-        on<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
-        on<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
-
-        // Game
-        on<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
-        on<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
-        on<EzyArray>(Commands.PLAY, OnPlayResponse);
-        on<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
-        on<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
-        on<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
     }
 
     public void CreateAccount(string email, string username, string password)
@@ -279,12 +263,12 @@ public class NetworkManager : MonoBehaviour
 
     private void OnAppAccessed(EzyAppProxy proxy, Object data)
     {
+        Debug.Log("App access successfully");
+
         if ("free-game-server" == currentApp)
         {
             GetCharacterList();
         }
-        
-        Debug.Log("App access successfully");
 
         if (createAccount)
         {
