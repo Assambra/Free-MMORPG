@@ -6,13 +6,12 @@ import org.apache.commons.math3.util.Precision;
 
 public final class PlayerMovementUtils {
 
-    public static Vec3 getNextPosition(Vec3 currentPosition, Vec3 nextRotation, PlayerInputModel model)
+    public static Vec3 getNextPosition(Vec3 currentPosition, Vec3 rotation, PlayerInputModel model)
     {
         Vec3 movement = getMoveDirection(model.getInputs());
-        movement.multiply(0.1 * 2);
+        movement.multiply(0.02 * 5.424);
 
-        //Vec3 rotation = new Vec3(model.getRotation());
-        Vec3 forward = GetForwardDirection(nextRotation);
+        Vec3 forward = GetForwardDirection(rotation);
 
         forward.multiply(movement.z);
         Vec3 nextPosition = new Vec3(currentPosition);
@@ -27,7 +26,7 @@ public final class PlayerMovementUtils {
         Vec3 movement = getMoveDirection(model.getInputs());
 
         Vec3 nextRotation = new Vec3(0, movement.x, 0);
-        nextRotation.multiply(0.075 * 150f);
+        nextRotation.multiply(0.02 * 100f);
         nextRotation.add(currentRotation);
 
         return nextRotation;

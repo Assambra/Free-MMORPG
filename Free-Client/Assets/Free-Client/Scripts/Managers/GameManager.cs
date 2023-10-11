@@ -122,7 +122,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("WaitForCharacterCreated");
             yield return new WaitForSeconds(0.05f);
         }
-
+        
+        player.Animator = player.Avatar.GetComponent<Animator>();
+        
         UMAHelper.SetAvatarString(player.Avatar, model);
     }
 }

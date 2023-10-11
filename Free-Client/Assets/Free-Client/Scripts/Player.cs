@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public string PlayerName;
     public bool Initialized = false;
     public bool IsAvatarCreated = false;
-    
+    public Animator Animator;
+
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
     [field: SerializeField] public PlayerController playerController { get; private set; }
 
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
         umaData.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterInitialize));
         IsAvatarCreated = true;
         umaRenderer = GetRenderer();
-
+        
         lastHeight = umaRenderer.bounds.max.y;
     }
 

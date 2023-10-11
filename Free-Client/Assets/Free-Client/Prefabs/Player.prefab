@@ -50,6 +50,7 @@ MonoBehaviour:
   PlayerName: 
   Initialized: 0
   IsAvatarCreated: 0
+  Animator: {fileID: 0}
   <Avatar>k__BackingField: {fileID: 2856286074098269373}
   <playerController>k__BackingField: {fileID: 2593902521092871263}
 --- !u!114 &2593902521092871263
@@ -65,6 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6214107460784681592}
+  characterController: {fileID: 0}
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +114,11 @@ PrefabInstance:
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 1264700573740067149}
+      objectReference: {fileID: 5312735126619514966}
+    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+      propertyPath: RecreateAnimatorOnRaceChange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaAdditionalRecipes.Array.size
       value: 0
@@ -164,7 +170,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1264700573740067149}
+      addedObject: {fileID: 5312735126619514966}
   m_SourcePrefab: {fileID: 100100000, guid: 93579e73c24e002448ca5327389c1000, type: 3}
 --- !u!114 &2856286074098269373 stripped
 MonoBehaviour:
@@ -182,7 +188,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
   m_PrefabInstance: {fileID: 7594940024289163398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1264700573740067149
+--- !u!114 &5312735126619514966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

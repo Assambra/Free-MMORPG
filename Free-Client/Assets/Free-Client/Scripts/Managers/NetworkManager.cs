@@ -567,17 +567,17 @@ public class NetworkManager : MonoBehaviour
             rotationArray.get<float>(2)
         );
 
-        Debug.Log("SyncPosition for player: " + playerName + " reseive position: " + position + ", rotation: " + rotation + " time: " + time);
+        //Debug.Log("SyncPosition for player: " + playerName + " reseive position: " + position + ", rotation: " + rotation + " time: " + time);
 
         foreach(Character character in GameManager.Instance.CharacterList)
         {
             if (playerName == character.accountUsername)
             {
                 GameObject pgo = character.playerGameObject;
-                pgo.transform.rotation = Quaternion.Euler(rotation);
+
                 Player player = pgo.GetComponent<Player>();
                 player.playerController.Move(position);
-                
+                player.playerController.Rotate(rotation);
                 break;
             }
         }

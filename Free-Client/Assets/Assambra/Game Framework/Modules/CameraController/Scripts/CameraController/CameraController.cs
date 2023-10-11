@@ -115,7 +115,7 @@ public class CameraController : MonoBehaviour
             lastCameraPan = cameraPan;
             lastCameraTilt = cameraTilt;
 
-            lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
+            
         }
 
         if (lastCameraFieldOfView != MainCamera.fieldOfView)
@@ -126,6 +126,8 @@ public class CameraController : MonoBehaviour
     {
         if (!Input.GetMouseButton(0) || !Input.GetMouseButton(1))
             RotateCameraWithTarget();
+
+        lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
 
         if (Active)
             LookAtCameraTarget();
