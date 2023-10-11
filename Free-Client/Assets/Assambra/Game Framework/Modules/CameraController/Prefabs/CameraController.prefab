@@ -44,20 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f57936886d73b549994475018fc2536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Active>k__BackingField: 0
+  <CameraPresets>k__BackingField:
+  - {fileID: 11400000, guid: adecf391fa811cd488c3613ce96246f1, type: 2}
+  - {fileID: 11400000, guid: 1ef3cf32fc481c744913182389a4abf8, type: 2}
+  - {fileID: 11400000, guid: 7a9207067f267fa4db8c1378ab7ce68d, type: 2}
+  <MainCamera>k__BackingField: {fileID: 0}
   <CameraTarget>k__BackingField: {fileID: 0}
   <IsOverUIElement>k__BackingField: 0
   autoFindPlayer: 0
-  autoFindMainCamera: 0
-  mainCamera: {fileID: 0}
-  cameraRotateCameraTarget: 1
-  CameraOffset: {x: 0, y: 1.8, z: 0}
-  blockCameraTilt: 1
-  blockCameraPan: 1
+  cameraRotateCameraTarget: 0
+  blockCameraTilt: 0
+  blockCameraPan: 0
+  cameraOffset: {x: 0, y: 1.8, z: 0}
   cameraStartDistance: 5
   cameraMinDistance: 0
   cameraMaxDistance: 35
   mouseWheelSensitivity: 10
   cameraPanSpeed: 9
   cameraTiltSpeed: 9
-  cameraTiltMin: -35
-  cameraTiltMax: 80
+  cameraTiltMin: -80
+  cameraTiltMax: 35

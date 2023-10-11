@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UMA.CharacterSystem;
 using UnityEngine;
@@ -15,14 +16,13 @@ public class GameManager : MonoBehaviour
     public Player Player { get; private set; }
     public DynamicCharacterAvatar Avatar { get; private set; }
     public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
+    public List<Character> CharacterList { get; set; } = new List<Character>();
 
     [Header("Player Prefab")]
     [SerializeField] GameObject playerPrefab;
     
     // Private
     private GameObject playerGameObject;
-    private bool cameraInitialized =  false;
-
 
     private void Awake()
     {
@@ -32,11 +32,6 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         else
             Instance = this;
-
-        playerGameObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        CameraController.CameraTarget = playerGameObject;
-        Player = playerGameObject.GetComponent<Player>();
-        Avatar = Player.Avatar;
     }
 
     private void OnDestroy()
@@ -56,39 +51,80 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneChanged()
     {
-        if ((SceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
-            SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString()) &&
-            !cameraInitialized
-            )
-        {
-            SetCameraPreGameValues();
-            
-            if(SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
-            {
-                //Avatar.ChangeRace("HumanMale", true);
-            }
-        }
-
-        if(SceneHandler.CurrentScene.name == Scenes.Login.ToString() && 
-            cameraInitialized)
+        if (SceneHandler.CurrentScene.name == Scenes.Login.ToString())
         {
             SetCameraDefaultValues();
+            playerGameObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            CameraController.CameraTarget = playerGameObject;
+            Player = playerGameObject.GetComponent<Player>();
+            Avatar = Player.Avatar;
+        }
+
+        if (SceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
+            SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
+        {
+            SetCameraPreGameValues();
+        }
+
+        if(SceneHandler.CurrentScene.name == Scenes.World.ToString())
+        {
+            SetCameraGameCameraValues();
+            Destroy(playerGameObject);
         }
     }
 
     private void SetCameraPreGameValues()
     {
         CameraController.ChangeCameraPreset("PreGameCamera");
+        CameraController.ResetCameraAngles();
         CameraController.SetCameraPanAbsolutAngle(-180f);
-
-        cameraInitialized = true;
     }
 
     private void SetCameraDefaultValues()
     {
         CameraController.ChangeCameraPreset("DefaultCamera");
         CameraController.ResetCameraAngles();
+    }
 
-        cameraInitialized = false;
+    private void SetCameraGameCameraValues()
+    {
+        CameraController.ChangeCameraPreset("GameCamera");
+        CameraController.ResetCameraAngles();
+    }
+
+    public GameObject SpawnPlayer(Character character)
+    {
+        GameObject pgo = GameObject.Instantiate(playerPrefab, character.position, Quaternion.Euler(character.rotation));
+        pgo.name = character.characterName;
+
+        Player player = pgo.GetComponent<Player>();
+        player.PlayerName = pgo.name;
+        
+
+
+        if(character.isLocalPlayer)
+        {
+            player.IsLocalPlayer = true;
+            
+            CameraController.CameraTarget = pgo;
+            CameraController.ResetCameraAngles();
+        }
+        
+        StartCoroutine(WaitForCharacterCreated(player, character.characterModel));
+
+        return pgo;
+    }
+
+    IEnumerator WaitForCharacterCreated(Player player, string model)
+    {
+        while (!player.Initialized && !player.IsAvatarCreated)
+        {
+            Debug.Log("WaitForCharacterCreated");
+            yield return new WaitForSeconds(0.05f);
+        }
+        
+        player.Animator = player.Avatar.GetComponent<Animator>();
+        
+        UMAHelper.SetAvatarString(player.Avatar, model);
     }
 }

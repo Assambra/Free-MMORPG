@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db76e6dc290b7fa4b8b7cb419d32bbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CameraController>k__BackingField: {fileID: 0}
+  <UIHandler>k__BackingField: {fileID: 0}
+  <SceneHandler>k__BackingField: {fileID: 0}
+  <MouseHandler>k__BackingField: {fileID: 0}
+  playerPrefab: {fileID: 471186384214967346, guid: 2a94f1e2c8fc8b345a63e02b872b940b, type: 3}

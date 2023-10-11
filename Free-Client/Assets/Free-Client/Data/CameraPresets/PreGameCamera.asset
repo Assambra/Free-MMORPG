@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PreGameCamera
   m_EditorClassIdentifier: 
   Active: 1
-  autofindMainCamera: 0
   autofindPlayer: 0
   cameraRotateCameraTarget: 1
   blockCameraTilt: 0

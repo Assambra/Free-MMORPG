@@ -10,11 +10,12 @@ import lombok.Data;
 public class Character {
     @EzyId
     Long id;
-
     Long accountId;
-
     String name;
     String sex;
     String race;
     String model;
+    Long roomId;
+    double[] position;
+    double[] rotation;
 }

@@ -76,7 +76,7 @@ public class UISelectCharacter : MonoBehaviour
 
     public void OnButtonPlay()
     {
-        Debug.LogError("Not implemented");
+        NetworkManager.Instance.PlayRequest(characterInfos[currentShownCharacter].id);
     }
 
     public void OnButtonNewCharacter()
