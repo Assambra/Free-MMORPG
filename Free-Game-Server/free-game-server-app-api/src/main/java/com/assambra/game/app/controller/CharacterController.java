@@ -44,6 +44,7 @@ public class CharacterController extends EzyLoggable {
         characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
     }
 
+    // Todo move to ModelToResponseConverter
     private CharacterListModel[] convert(List<Character> characters)
     {
         CharacterListModel[] chars = new CharacterListModel[characters.size()];

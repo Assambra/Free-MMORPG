@@ -71,12 +71,16 @@ public class NetworkManager : EzyDefaultController
 
     public bool Connected()
     {
-        return socketProxy.getClient().isConnected();
+        if (socketProxy != null)
+            return socketProxy.getClient().isConnected();
+        else
+            return false;
     }
 
     public new void Disconnect()
     {
-        base.Disconnect();
+        if(Connected())
+            base.Disconnect();
     }
 
     #region REQUESTS
