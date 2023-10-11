@@ -55,7 +55,8 @@ public class NetworkManager : EzyDefaultController
 
     private new void OnEnable()
     {
-        
+        // empty override, dont delete we use a other way as the base class
+        // we canot create the socket OnEnabled because we have different server for account/game
     }
 
     private void Update()
@@ -66,26 +67,6 @@ public class NetworkManager : EzyDefaultController
                 .getClient(currentZone)
                 .processEvents();
         }   
-    }
-
-    private void AddEventHandlers()
-    {
-        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
-        socketProxy.onAppAccessed<Object>(OnAppAccessed);
-        socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
-
-        // Account
-        AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
-        AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
-        AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
-
-        // Game
-        AddHandler<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
-        AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
-        AddHandler<EzyArray>(Commands.PLAY, OnPlayResponse);
-        AddHandler<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
-        AddHandler<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
-        AddHandler<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
     }
 
     public bool Connected()
@@ -171,6 +152,26 @@ public class NetworkManager : EzyDefaultController
         nowProcessEvents = true;
     }
 
+    private void AddEventHandlers()
+    {
+        socketProxy.onLoginSuccess<Object>(OnLoginSucess);
+        socketProxy.onAppAccessed<Object>(OnAppAccessed);
+        socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
+
+        // Account
+        AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
+        AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
+        AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
+
+        // Game
+        AddHandler<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
+        AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
+        AddHandler<EzyArray>(Commands.PLAY, OnPlayResponse);
+        AddHandler<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
+        AddHandler<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
+        AddHandler<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
+    }
+
     public void CreateAccount(string email, string username, string password)
     {
         createAccount = true;
@@ -248,6 +249,7 @@ public class NetworkManager : EzyDefaultController
                     .build()
             )
             .build();
+
         appProxy.send(Commands.PLAYER_INPUT, data);
     }
 
