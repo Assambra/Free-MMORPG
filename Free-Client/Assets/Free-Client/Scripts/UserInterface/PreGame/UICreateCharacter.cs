@@ -22,6 +22,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] RectTransform colorLayout;
     [SerializeField] Button buttonFemale;
     [SerializeField] Button buttonMale;
+    [SerializeField] Button buttonPlay;
 
     // Private variables UMA
     private DynamicCharacterAvatar avatar;
@@ -70,6 +71,14 @@ public class UICreateCharacter : MonoBehaviour
         umaData = avatar.umaData;
     }
 
+    private void OnDestroy()
+    {
+        GameManager.Instance.CharacterCreatedAndReadyToPlay = false;
+        GameManager.Instance.CharacterId = 0;
+        if(buttonPlay.gameObject.activeSelf)
+            buttonPlay.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         if (!initalized) 
@@ -78,6 +87,11 @@ public class UICreateCharacter : MonoBehaviour
             OnButtonMale();
 
             initalized = true;
+        }
+        
+        if(GameManager.Instance.CharacterCreatedAndReadyToPlay && !buttonPlay.gameObject.activeSelf)
+        {
+            buttonPlay.gameObject.SetActive(true);
         }
     }
 
@@ -197,18 +211,23 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
-    public void ButtonBack()
+    public void OnButtonBack()
     {
         GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
     }
 
-    public void ButtonCreate()
+    public void OnButtonCreate()
     {
         model = UMAHelper.GetAvatarString(avatar);
         charname = inputFieldNameValue.text;
         race = raceOptions[dropdownRaceValue.value];
 
         NetworkManager.Instance.CreateCharacter(charname, sex, race, model);
+    }
+
+    public void OnButtonPlay()
+    {
+        NetworkManager.Instance.PlayRequest(GameManager.Instance.CharacterId);
     }
 
     private void CreateCategoryList(string[] names)

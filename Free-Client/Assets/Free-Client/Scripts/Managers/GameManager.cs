@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
     public List<Character> CharacterList { get; set; } = new List<Character>();
 
+    public bool CharacterCreatedAndReadyToPlay = false;
+    public long CharacterId = 0;
+
     [Header("Player Prefab")]
     [SerializeField] GameObject playerPrefab;
     

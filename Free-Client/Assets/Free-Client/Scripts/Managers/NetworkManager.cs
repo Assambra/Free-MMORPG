@@ -45,6 +45,8 @@ public class NetworkManager : EzyDefaultController
     private bool forgotPassword = false;
     private bool forgotUsername = false;
 
+    private bool characterListReseived;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -81,6 +83,8 @@ public class NetworkManager : EzyDefaultController
     {
         if(Connected())
             base.Disconnect();
+
+        characterListReseived = false;
     }
 
     #region REQUESTS
@@ -273,6 +277,8 @@ public class NetworkManager : EzyDefaultController
 
         if ("free-game-server" == currentApp)
         {
+            GameManager.Instance.CharacterInfos.Clear();
+
             GetCharacterList();
         }
 
@@ -426,11 +432,12 @@ public class NetworkManager : EzyDefaultController
 
     private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
     {
-        if(data.isEmpty())
+        if (data.isEmpty())
             GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
         else
         {
-            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+            if (GameManager.Instance.CharacterInfos.Count > 0)
+                GameManager.Instance.CharacterInfos.Clear();
             
             for (int i = 0; i < data.size(); i++)
             {
@@ -446,19 +453,26 @@ public class NetworkManager : EzyDefaultController
 
                 GameManager.Instance.CharacterInfos.Add(characterInfo);
             }
+
+            if(!characterListReseived)
+                GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
         }
+        characterListReseived = true;
     }
 
     private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
     {
         string result = data.get<string>("result");
+        long characterId = data.get<long>("characterId");
 
         switch (result)
         {
-            case "success":
-                Debug.Log("Character successful created");
+            case "successfully":
+                Debug.Log("successfully");
+                GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
+                GameManager.Instance.CharacterId = characterId;
                 break;
-            case "charactername_already_in_use":
+            case "name_already_in_use":
                 Debug.Log("Username already in use");
                 break;
             case "max_allowed_characters":
