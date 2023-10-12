@@ -17,11 +17,12 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera rotate camera target")]
     [SerializeField] private bool cameraRotateCameraTarget = false;
+    [SerializeField] private bool rotateCameraWithCameraTarget = false;
 
     [Header("Block")]
     [SerializeField] private bool blockCameraTilt;
     [SerializeField] private bool blockCameraPan;
-
+    
     [Header("Camera offset")]
     [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 1.8f, 0f);
 
@@ -114,8 +115,6 @@ public class CameraController : MonoBehaviour
 
             lastCameraPan = cameraPan;
             lastCameraTilt = cameraTilt;
-
-            
         }
 
         if (lastCameraFieldOfView != MainCamera.fieldOfView)
@@ -124,7 +123,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!Input.GetMouseButton(0) || !Input.GetMouseButton(1))
+        if (rotateCameraWithCameraTarget && !Input.GetMouseButton(0) || !Input.GetMouseButton(1))
             RotateCameraWithTarget();
 
         lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
@@ -264,7 +263,7 @@ public class CameraController : MonoBehaviour
         this.autoFindPlayer = camerapreset.autofindPlayer;
 
         this.cameraRotateCameraTarget = camerapreset.cameraRotateCameraTarget;
-
+        this.rotateCameraWithCameraTarget = camerapreset.rotateCameraWithCameraTarget;
         this.blockCameraTilt = camerapreset.blockCameraTilt;
         this.blockCameraPan = camerapreset.blockCameraPan;
 

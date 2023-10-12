@@ -6,6 +6,8 @@ import com.assambra.game.app.request.CreateCharacterRequest;
 import com.assambra.game.app.request.PlayRequest;
 import com.assambra.game.app.service.CharacterService;
 import com.assambra.game.common.entity.Character;
+import com.assambra.game.common.repository.AccountRepo;
+import com.assambra.game.common.repository.CharacterRepo;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -21,6 +23,8 @@ public class CharacterController extends EzyLoggable {
 
     private final EzyResponseFactory responseFactory;
     private final CharacterService characterService;
+    private final CharacterRepo characterRepo;
+    private final AccountRepo accountRepo;
 
     @EzyDoHandle(Commands.CHARACTER_LIST)
     public void characterList(EzyUser user)
@@ -41,7 +45,33 @@ public class CharacterController extends EzyLoggable {
     {
         logger.info("user {} request create character", user);
 
-        characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
+        String resultMessage = "";
+        Long characterId = null;
+        Character character = characterRepo.findByField("name", request.getName());
+
+        if(character == null)
+        {
+            characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
+
+            character = characterRepo.findByField("name", request.getName());
+            characterId = character.getId();
+
+            resultMessage = "successfully";
+
+            characterList(user);
+        }
+        else
+        {
+            resultMessage = "name_already_in_use";
+            characterId = 0L;
+        }
+
+        responseFactory.newObjectResponse()
+                .command(Commands.CREATE_CHARACTER)
+                .param("result", resultMessage)
+                .param("characterId", characterId)
+                .user(user)
+                .execute();
     }
 
     // Todo move to ModelToResponseConverter

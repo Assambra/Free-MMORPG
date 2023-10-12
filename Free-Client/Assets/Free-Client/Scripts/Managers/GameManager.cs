@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
     public List<Character> CharacterList { get; set; } = new List<Character>();
 
+    public bool CharacterCreatedAndReadyToPlay = false;
+    public long CharacterId = 0;
+
     [Header("Player Prefab")]
     [SerializeField] GameObject playerPrefab;
     
@@ -100,10 +103,13 @@ public class GameManager : MonoBehaviour
     {
         GameObject pgo = GameObject.Instantiate(playerPrefab, character.position, Quaternion.Euler(character.rotation));
         pgo.name = character.characterName;
+        PlayerController playerController = pgo.AddComponent<PlayerController>();
 
         Player player = pgo.GetComponent<Player>();
+        playerController.Player = player;
+
         player.PlayerName = pgo.name;
-        
+        player.PlayerController = playerController;
 
 
         if(character.isLocalPlayer)
