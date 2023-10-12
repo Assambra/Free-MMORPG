@@ -580,8 +580,12 @@ public class NetworkManager : EzyDefaultController
                 GameObject pgo = character.playerGameObject;
 
                 Player player = pgo.GetComponent<Player>();
-                player.playerController.Move(position);
-                player.playerController.Rotate(rotation);
+                player.PlayerController.Move(position);
+                player.PlayerController.Rotate(rotation);
+
+                if (time == 0 && player.IsLocalPlayer)
+                    GameManager.Instance.CameraController.SetCameraPanAbsolutAngle(rotation.y);
+
                 break;
             }
         }

@@ -11,6 +11,7 @@ public class CameraPreset : ScriptableObject
 
     [Header("Camera rotate camera target")]
     public bool cameraRotateCameraTarget = false;
+    public bool rotateCameraWithCameraTarget = false;
 
     [Header("Block Camera Pan/Tilt")]
     public bool blockCameraTilt = false;

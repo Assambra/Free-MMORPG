@@ -103,10 +103,13 @@ public class GameManager : MonoBehaviour
     {
         GameObject pgo = GameObject.Instantiate(playerPrefab, character.position, Quaternion.Euler(character.rotation));
         pgo.name = character.characterName;
+        PlayerController playerController = pgo.AddComponent<PlayerController>();
 
         Player player = pgo.GetComponent<Player>();
+        playerController.Player = player;
+
         player.PlayerName = pgo.name;
-        
+        player.PlayerController = playerController;
 
 
         if(character.isLocalPlayer)

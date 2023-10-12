@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Player player;
-    [SerializeField] CharacterController characterController;
+    public Player Player;
 
     private bool[] inputs;
     private int clientTick;
@@ -23,25 +22,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(player.IsLocalPlayer)
+        if(Player.IsLocalPlayer)
         {
             if (currentRotation != nextRotation)
             {
                 var step = Time.fixedDeltaTime * 100f;
-                player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, nextRotation, step);
-                currentRotation = player.transform.rotation;
+                Player.transform.rotation = Quaternion.RotateTowards(Player.transform.rotation, nextRotation, step);
+                currentRotation = Player.transform.rotation;
             }
 
             if (currentPosition != nextPosition)
             {
                 var step = Time.fixedDeltaTime * 5.424f;
-                player.transform.position = Vector3.MoveTowards(player.transform.position, nextPosition, step);
-                currentPosition = player.transform.position;
+                Player.transform.position = Vector3.MoveTowards(Player.transform.position, nextPosition, step);
+                currentPosition = Player.transform.position;
             }
         }
         else
         {
-            player.transform.rotation = nextRotation;
+            Player.transform.rotation = nextRotation;
             /*
             if (currentRotation != nextRotation)
             {
@@ -53,8 +52,8 @@ public class PlayerController : MonoBehaviour
             if (currentPosition != nextPosition)
             {
                 var step = Time.fixedDeltaTime * 5.424f;
-                player.transform.position = Vector3.MoveTowards(player.transform.position, nextPosition, step);
-                currentPosition = player.transform.position;
+                Player.transform.position = Vector3.MoveTowards(Player.transform.position, nextPosition, step);
+                currentPosition = Player.transform.position;
             }
             
             //player.transform.position = nextPosition;
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         }
         */
 
-        if (!player.IsLocalPlayer)
+        if (!Player.IsLocalPlayer)
             return;
 
         GetUserInput();
@@ -87,10 +86,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CalculateAnimations();
+        if(Player.Animator != null)
+            CalculateAnimations();
+        
         lastPosition = transform.position;
 
-        if (!player.IsLocalPlayer)
+        if (!Player.IsLocalPlayer)
             return;
     }
 
@@ -117,9 +118,9 @@ public class PlayerController : MonoBehaviour
         if (Vector3.Dot(forward.normalized, movement.normalized) != 0)
         {
             if (Vector3.Dot(forward.normalized, movement.normalized) < 0)
-                player.Animator.SetFloat("Vertical", 1f);
+                Player.Animator.SetFloat("Vertical", 1f);
             else if (Vector3.Dot(forward.normalized, movement.normalized) > 0)
-                player.Animator.SetFloat("Vertical", -1f);
+                Player.Animator.SetFloat("Vertical", -1f);
 
             animcounter = 0;
         }
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
             animcounter++;
             if (animcounter > 3)
             {
-                player.Animator.SetFloat("Vertical", 0f);
+                Player.Animator.SetFloat("Vertical", 0f);
                 animcounter = 0;
             }
         }  
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void SendInput()
     {
-        NetworkManager.Instance.SendPlayerInput(clientTick, inputs, player.transform.rotation);
+        NetworkManager.Instance.SendPlayerInput(clientTick, inputs, Player.transform.rotation);
     }
 
     public void Move(Vector3 nextPosition)

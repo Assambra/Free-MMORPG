@@ -995,6 +995,18 @@ PrefabInstance:
       propertyPath: <MainCamera>k__BackingField
       value: 
       objectReference: {fileID: 1270917037}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: adecf391fa811cd488c3613ce96246f1, type: 2}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ef3cf32fc481c744913182389a4abf8, type: 2}
+    - target: {fileID: 6397863408651152547, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
+      propertyPath: <CameraPresets>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a9207067f267fa4db8c1378ab7ce68d, type: 2}
     - target: {fileID: 7343386844389170552, guid: 805cc252a345b9b4a8c0c623d41975e1, type: 3}
       propertyPath: m_Name
       value: CameraController

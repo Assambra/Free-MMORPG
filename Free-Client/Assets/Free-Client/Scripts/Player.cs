@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
     public bool Initialized = false;
     public bool IsAvatarCreated = false;
     public Animator Animator;
+    public PlayerController PlayerController;
 
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
-    [field: SerializeField] public PlayerController playerController { get; private set; }
+    
 
     private UMAData umaData;
     private Renderer umaRenderer;
