@@ -10,7 +10,7 @@ public class UIClientLog : MonoBehaviour
 
     private void Awake()
     {
-        NetworkManager.Instance.UIClientLog = this;
+        NetworkManagerAccount.Instance.UIClientLog = this;
     }
 
     void Update()

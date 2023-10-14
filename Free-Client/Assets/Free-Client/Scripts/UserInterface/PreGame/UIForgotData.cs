@@ -24,13 +24,13 @@ public class UIForgotData : MonoBehaviour
 
     public void OnButtonSendPassword()
     {
-        if(NetworkManager.Instance.Connected())
+        if(NetworkManagerAccount.Instance.Connected())
         {
             buttonSendPassword.interactable = false;
             buttonBack.interactable = false;
             buttonTabUsername.interactable = false;
 
-            NetworkManager.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
+            NetworkManagerAccount.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
         }
         else
         {
@@ -41,13 +41,13 @@ public class UIForgotData : MonoBehaviour
 
     public void OnButtonSendUsername()
     {
-        if(NetworkManager.Instance.Connected())
+        if(NetworkManagerAccount.Instance.Connected())
         {
             buttonSendUsername.interactable = false;
             buttonBack.interactable = false;
             buttonTabPassword.interactable = false;
 
-            NetworkManager.Instance.ForgotUsername(inputFieldEMail.text);
+            NetworkManagerAccount.Instance.ForgotUsername(inputFieldEMail.text);
         }
         else
         {

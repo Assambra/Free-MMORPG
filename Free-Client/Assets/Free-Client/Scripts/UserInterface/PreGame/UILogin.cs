@@ -13,13 +13,14 @@ public class UILogin : MonoBehaviour
 
     public void OnButtonQuit()
     {
-        NetworkManager.Instance.Disconnect();
+        NetworkManagerGame.Instance.Disconnect();
+        NetworkManagerAccount.Instance.Disconnect();
 
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
-            Application.Quit();
-        #endif
+                Application.Quit();
+         #endif
     }
 
     public void OnButtonLogin()
@@ -28,7 +29,7 @@ public class UILogin : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        NetworkManager.Instance.Login(username, password, true);
+        NetworkManagerGame.Instance.Login(username, password);
     }
 
     public void OnButtonNeedAccount()

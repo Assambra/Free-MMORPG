@@ -222,12 +222,12 @@ public class UICreateCharacter : MonoBehaviour
         charname = inputFieldNameValue.text;
         race = raceOptions[dropdownRaceValue.value];
 
-        NetworkManager.Instance.CreateCharacter(charname, sex, race, model);
+        NetworkManagerGame.Instance.CreateCharacter(charname, sex, race, model);
     }
 
     public void OnButtonPlay()
     {
-        NetworkManager.Instance.PlayRequest(GameManager.Instance.CharacterId);
+        NetworkManagerGame.Instance.PlayRequest(GameManager.Instance.CharacterId);
     }
 
     private void CreateCategoryList(string[] names)

@@ -71,12 +71,12 @@ public class UISelectCharacter : MonoBehaviour
     public void OnButtonBackToLogin()
     {
         GameManager.Instance.ChangeScene(Scenes.Login);
-        NetworkManager.Instance.Disconnect();
+        NetworkManagerGame.Instance.Disconnect();
     }
 
     public void OnButtonPlay()
     {
-        NetworkManager.Instance.PlayRequest(characterInfos[currentShownCharacter].id);
+        NetworkManagerGame.Instance.PlayRequest(characterInfos[currentShownCharacter].id);
     }
 
     public void OnButtonNewCharacter()

@@ -247,7 +247,7 @@ database: free
 #### Enable or disable server sending mail via smtp
 First if you don`t have a mail server or some mail provider with an e-mail address who accept sending mails via smtp or didn't want to sending e-mails like for local development, find the file: 
 
-``Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com.assambra.app\ServerVariables``
+``Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com.assambra.app\constant\ServerVariables``
 
 and change the value to false, SERVER_CAN_SEND_MAIL = true
 
@@ -294,6 +294,9 @@ Downloading following files for the mail capabilities
 
 - <a href="https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar">javax.mail-1.6.2.jar</a>
 - <a href="https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.32/freemarker-2.3.32.jar">freemarker-2.3.32.jar</a>
+
+Downloading following math library
+- <a href="https://repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar">commons-math3-3.6.1.jar</a>
 
 ### Server preparations
 In this example we use the location D:\ezyfox-server

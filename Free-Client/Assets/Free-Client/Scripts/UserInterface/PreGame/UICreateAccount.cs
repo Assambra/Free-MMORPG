@@ -20,7 +20,7 @@ public class UICreateAccount : MonoBehaviour
 
     public void OnButtonCreate()
     {
-        if (NetworkManager.Instance.Connected())
+        if (NetworkManagerAccount.Instance.Connected())
         {
             buttonCreate.interactable = false;
             buttonForgotData.interactable = false;
@@ -31,7 +31,7 @@ public class UICreateAccount : MonoBehaviour
             username = inputFieldUsername.text;
             password = inputFieldPassword.text;
 
-            NetworkManager.Instance.CreateAccount(email, username, password);
+            NetworkManagerAccount.Instance.CreateAccount(email, username, password);
         }
         else
         {

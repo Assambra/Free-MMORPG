@@ -8,5 +8,6 @@ import lombok.Data;
 public class AppConfig {
     private String helloPrefix;
     private String goPrefix;
+    private Boolean SERVER_CAN_SEND_MAIL = true;
 }
 

@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void SendInput()
     {
-        NetworkManager.Instance.SendPlayerInput(clientTick, inputs, Player.transform.rotation);
+        NetworkManagerGame.Instance.SendPlayerInput(clientTick, inputs, Player.transform.rotation);
     }
 
     public void Move(Vector3 nextPosition)
