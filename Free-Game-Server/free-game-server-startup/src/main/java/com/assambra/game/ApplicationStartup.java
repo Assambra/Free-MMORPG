@@ -42,7 +42,7 @@ public class ApplicationStartup {
                 = new EzySessionManagementSettingBuilder()
                 .sessionMaxRequestPerSecond(
                         new EzySessionManagementSettingBuilder.EzyMaxRequestPerSecondBuilder()
-                                .value(250)
+                                .value(100)
                                 .build()
                 );
 
