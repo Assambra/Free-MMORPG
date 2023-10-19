@@ -45,7 +45,7 @@ public class ApplicationStartup {
                                 .value(250)
                                 .build()
                 );
-
+        
         EzySimpleSettings settings = new EzySettingsBuilder()
             .zone(zoneSettingBuilder.build())
             .udp(udpSettingBuilder.build())
