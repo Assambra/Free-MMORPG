@@ -72,12 +72,8 @@ public class NetworkManagerAccount : EzyDefaultController
         socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
 
         if (socketConfigVariable.Value.UdpUsage)
-        {
-            socketProxy.setTransportType(EzyTransportType.UDP);
             socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
-        }
-        else
-            socketProxy.setTransportType(EzyTransportType.TCP);
+
 
         socketProxy.connect();
     }
