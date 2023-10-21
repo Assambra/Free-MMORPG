@@ -139,6 +139,10 @@ public class ClientTest {
             System.out.println("play: " + data);
             startSyncPositionSchedule(app);
         });
+        appSetup.addDataHandler("reconnect", (app, data) -> {
+            System.out.println("reconnect: " + data);
+            startSyncPositionSchedule(app);
+        });
         appSetup.addDataHandler("s", (app, data) ->
             System.out.println("position: " + data)
         );
