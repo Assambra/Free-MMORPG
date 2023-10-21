@@ -30,7 +30,7 @@ public class UserRemovedController extends EzyAbstractAppEventController<EzyUser
 
     @Override
     public void handle(EzyAppContext ctx, EzyUserRemovedEvent event) {
-        logger.info("EzySmashers app: user {} removed", event.getUser());
+        logger.info("Free-Game-Server: user {} removed", event.getUser());
 
         CharacterEntity entityToRemove = null;
         for(CharacterEntity entity : characterList)

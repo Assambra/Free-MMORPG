@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.tvd12</groupId>
             <artifactId>ezyfox-server-embedded</artifactId>
-            <version>${ezy.version}</version>
+            <version>${ezy.server.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tvd12</groupId>
