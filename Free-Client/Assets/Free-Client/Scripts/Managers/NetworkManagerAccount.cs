@@ -5,6 +5,7 @@ using com.tvd12.ezyfoxserver.client.request;
 using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
+using Object = System.Object;
 
 public class NetworkManagerAccount : EzyDefaultController
 {
