@@ -19,8 +19,11 @@ public final class ExternalLibrariesExporter {
     private static final String FOLDER_COMMON = "common";
     private static final Set<String> EXCLUSIVE_LIBRARY_PREFIXES =
         Sets.newHashSet(
-            "ezyfox-server",
-            "free-game-server"
+                "free-game-server-entry",
+                "free-game-server-plugin",
+                "free-game-server-api",
+                "free-game-server-startup",
+                "ezyfox-server-embedded"
         );
 
     public static void main(String[] args) throws Exception {
