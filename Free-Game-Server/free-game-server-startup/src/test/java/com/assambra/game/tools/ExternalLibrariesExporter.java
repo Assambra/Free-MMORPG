@@ -19,11 +19,8 @@ public final class ExternalLibrariesExporter {
     private static final String FOLDER_COMMON = "common";
     private static final Set<String> EXCLUSIVE_LIBRARY_PREFIXES =
         Sets.newHashSet(
-                "free-game-server-entry",
-                "free-game-server-plugin",
-                "free-game-server-api",
-                "free-game-server-startup",
-                "ezyfox-server-embedded"
+            "ezyfox-server",
+            "free-game-server"
         );
 
     public static void main(String[] args) throws Exception {
@@ -119,7 +116,6 @@ public final class ExternalLibrariesExporter {
             .filter(it -> !containsLibrary(currentLibraries, it))
             .collect(Collectors.toSet());
         for (String libName : needExportLibraries) {
-            System.out.println("libName: " + libName);
             final Path toPath = Paths.get(ezyfoxServerHome, FOLDER_COMMON, libName);
             Files.copy(deployLibFolderPath.resolve(libName), toPath);
             System.out.println("exported to: " + toPath);
@@ -150,3 +146,4 @@ public final class ExternalLibrariesExporter {
         return false;
     }
 }
+
