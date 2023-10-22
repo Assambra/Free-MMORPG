@@ -39,7 +39,7 @@ public final class ExternalLibrariesExporter {
             System.err.println(
                 "you must run: "
                     + "'mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy' "
-                    + "on my-app-name-startup module to export all libraries first"
+                    + "on free-account-server-startup module to export all libraries first"
             );
             return;
         }
@@ -82,7 +82,7 @@ public final class ExternalLibrariesExporter {
         Path deployLibFolderPath = Paths.get("deploy/lib");
         if (!Files.exists(deployLibFolderPath)) {
             deployLibFolderPath = Paths.get(
-                "my-app-name-startup/deploy/lib"
+                "free-account-server-startup/deploy/lib"
             );
         }
         return deployLibFolderPath;
