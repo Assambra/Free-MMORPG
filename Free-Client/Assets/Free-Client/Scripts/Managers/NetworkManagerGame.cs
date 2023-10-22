@@ -123,7 +123,7 @@ public class NetworkManagerGame : EzyDefaultController
             )
             .build();
 
-        appProxy.send(Commands.PLAYER_INPUT, data);
+        appProxy.udpSend(Commands.PLAYER_INPUT, data);
     }
 
     #endregion
