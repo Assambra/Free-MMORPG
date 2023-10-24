@@ -1,4 +1,5 @@
 using com.tvd12.ezyfoxserver.client;
+using com.tvd12.ezyfoxserver.client.constant;
 using com.tvd12.ezyfoxserver.client.entity;
 using com.tvd12.ezyfoxserver.client.factory;
 using com.tvd12.ezyfoxserver.client.request;
@@ -72,7 +73,12 @@ public class NetworkManagerAccount : EzyDefaultController
         socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
 
         if (socketConfigVariable.Value.UdpUsage)
+        {
+            socketProxy.setTransportType(EzyTransportType.UDP);
             socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
+        }
+        else
+            socketProxy.setTransportType(EzyTransportType.TCP);
 
 
         socketProxy.connect();

@@ -1,4 +1,5 @@
 using com.tvd12.ezyfoxserver.client;
+using com.tvd12.ezyfoxserver.client.constant;
 using com.tvd12.ezyfoxserver.client.entity;
 using com.tvd12.ezyfoxserver.client.factory;
 using com.tvd12.ezyfoxserver.client.request;
@@ -73,8 +74,12 @@ public class NetworkManagerGame : EzyDefaultController
         socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
         
         if (socketConfigVariable.Value.UdpUsage)
+        {
+            socketProxy.setTransportType(EzyTransportType.UDP);
             socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
-       
+        }
+        else
+            socketProxy.setTransportType(EzyTransportType.TCP);
 
         socketProxy.connect();
     }
@@ -123,7 +128,7 @@ public class NetworkManagerGame : EzyDefaultController
             )
             .build();
 
-        appProxy.udpSend(Commands.PLAYER_INPUT, data);
+        appProxy.send(Commands.PLAYER_INPUT, data);
     }
 
     #endregion
