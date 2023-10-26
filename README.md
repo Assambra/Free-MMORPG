@@ -52,6 +52,10 @@
                 <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
             </ul>
+            <li><a href="#unity-asset-store">Assets from the Unity asset store</a></li>
+            <ul>
+                <li><a href="#mapmagic-2">MapMagic 2</a></li>
+            </ul>
         </ul>
     <li><a href="#server">Server</a></li>
         <ul>
@@ -147,7 +151,8 @@ Get submodules:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<--! NEEDED UNITY PACKAGES -->
+
+<!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
 #### Newtonsoft Json
 The EzyFox Client SDK need Newtonsoft Json package to work.
@@ -188,6 +193,12 @@ Download the latest Pre-release unity asset pack file<a href="https://github.com
 Add the UMA213a4.unity package to your Free-Client project. To do this, simply move the package to your opened Free-Client project in Unity. Select everything and click Import.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Unity asset store -->
+### Unity Asset Store
+### MapMagic 2
+Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
+after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
 
 <!-- SERVER -->
 ## Server
