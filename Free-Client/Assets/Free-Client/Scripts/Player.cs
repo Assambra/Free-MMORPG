@@ -2,11 +2,11 @@ using UnityEngine;
 using UMA.CharacterSystem;
 using UMA;
 using UnityEngine.Events;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public bool IsLocalPlayer = false;
-    public string PlayerName;
     public bool Initialized = false;
     public bool IsAvatarCreated = false;
     public Animator Animator;
@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
     
+    [SerializeField] private TMP_Text textPlayerName;
 
     private UMAData umaData;
     private Renderer umaRenderer;
@@ -43,6 +44,11 @@ public class Player : MonoBehaviour
                 lastHeight = currentHeight;
             }
         }
+    }
+
+    public void SetPlayerName(string playerName)
+    {
+        textPlayerName.text = playerName;
     }
 
     private void SetCameraOffset(float lastHeight)
@@ -83,4 +89,5 @@ public class Player : MonoBehaviour
     {
         return Avatar.transform.Find("UMARenderer").GetComponent<Renderer>();
     }
+
 }

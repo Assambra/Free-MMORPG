@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         Player player = pgo.GetComponent<Player>();
         playerController.Player = player;
 
-        player.PlayerName = pgo.name;
+        player.SetPlayerName(character.characterName);
         player.PlayerController = playerController;
 
 
