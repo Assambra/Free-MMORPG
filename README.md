@@ -62,6 +62,13 @@
             <li><a href="#setup-database">Setup database</a></li>
             <li><a href="#setup-mail">Setup e-mail</a></li>
             <li><a href="#deploy-server">Deploy the server</a></li>
+            <ul>
+                <li><a href="#download-server">Download the Server</a></li>
+                <li><a href="#server-preparations">Server preparations</a></li>
+                <li><a href="#export-external-libraries">Export external libraries</a></li>
+                <li><a href="#build-the-server">Build the server</a></li>
+                <li><a href="#run-the-server">Run the server</a></li>
+            </ul>
         </ul>
     <li><a href="#resources-section">Resources Section</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -126,7 +133,6 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <li>A lot of options to fine tune the camera behaviour</li>
         <li>Planed: Camera collision, more smoothing of the camera motions, distance and orbit</li>
     </ul>
-        
 </ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -199,6 +205,8 @@ Add the UMA213a4.unity package to your Free-Client project. To do this, simply m
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- SERVER -->
 ## Server
@@ -296,22 +304,14 @@ Most should be self-explanatory, if not go to the class: SMTP_EMail and look at 
 
 <!-- DEPLOY SERVER -->
 ## Deploy Server
-### Download Files
-Downloading the Server
+### Download Server
+- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.8.1.zip">ezyfox-server-full-1.2.8.1.zip</a>
 
-- <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.8.zip">ezyfox-server-full-1.2.8.zip</a>
-
-Downloading following files for the mail capabilities
-
-- <a href="https://repo1.maven.org/maven2/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar">javax.mail-1.6.2.jar</a>
-- <a href="https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.32/freemarker-2.3.32.jar">freemarker-2.3.32.jar</a>
-
-Downloading following math library
-- <a href="https://repo1.maven.org/maven2/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar">commons-math3-3.6.1.jar</a>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Server preparations
 In this example we use the location D:\ezyfox-server
-- extract ezyfox-server-full-1.2.8.zip and copy the extracted files in the location.
+- extract ezyfox-server-full-1.2.8.1.zip and copy the extracted files in the location.
 - open the file D:\ezyfox-server\settings\ezy-settings.xml in the editor and add between ```<zones></zones>``` two new zones.
 ````
 <zone>
@@ -327,8 +327,27 @@ In this example we use the location D:\ezyfox-server
     <active>true</active>
 </zone>
 ````
-1. Copy both downloaded files javax.mail-1.6.2.jar and freemarker-2.3.32.jar to location: D:\ezyfox-server\lib
-2. find line "#export EZYFOX_SERVER_HOME=" remove # and insert after = D:/ezyfox-server in the two following files (please read the hint below)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Export external Libraries
+Steps for Account Server
+- Open gitbash and go to the folder free-account-server-startup
+- Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
+- Execute: ExternalLibrariesExporter in free-account-server-startup/src/test/java in your IDE
+- Insert: D:/ezyfox-server hit enter
+
+Repeat the steps for the Game Server
+- Open gitbash and go to the folder free-game-server-startup
+- Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
+- Execute: ExternalLibrariesExporter in free-game-server-startup/src/test/java in your IDE
+- Insert: D:/ezyfox-server hit enter
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Build the Server
+
+find line "#export EZYFOX_SERVER_HOME=" remove # and insert after = D:/ezyfox-server in the two following files (please read the hint below)
 - Free-MMORPG\Free-Account-Server\build.sh 
 - Free-MMORPG\Free-Game-Server\build.sh
 
