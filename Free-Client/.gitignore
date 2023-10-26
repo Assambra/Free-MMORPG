@@ -78,3 +78,6 @@ crashlytics-build.properties
 
 #UMA Unity Multipurpose Avatar System
 /Assets/Free-Client/UMA/*
+
+#MapMagic 2
+/Assets/MapMagic
