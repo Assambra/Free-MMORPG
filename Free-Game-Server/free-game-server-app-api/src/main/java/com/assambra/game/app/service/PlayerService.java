@@ -1,6 +1,7 @@
 package com.assambra.game.app.service;
 
 import com.assambra.game.app.model.PlayerInputModel;
+import com.assambra.game.app.terrain.Terrain;
 import com.assambra.game.app.utils.PlayerMovementUtils;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.core.exception.EzyBadRequestException;
@@ -19,6 +20,8 @@ public class PlayerService extends EzyLoggable {
 
     private final CharacterService characterService;
 
+    private final Terrain worldTerrain;
+
     public void handlePlayerInput(String playerName, PlayerInputModel model) {
         MMOPlayer player = roomService.getPlayer(playerName);
         // if user hasn't joined any game, reject the request
@@ -36,13 +39,13 @@ public class PlayerService extends EzyLoggable {
             Vec3 currentPosition = player.getPosition();
 
             Vec3 nextPosition = PlayerMovementUtils.getNextPosition(currentPosition, nextRotation, model);
+            
+            nextPosition = new Vec3(nextPosition.x, worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z), nextPosition.z );
+
             roomService.setPlayerPosition(player, nextPosition);
             player.setClientTimeTick(model.getTime());
 
             characterService.SavePlayerPositionInCharacterEntity(playerName, nextPosition, currentRotation);
-
-            //logger.info("Forward: {}", PlayerMovementUtils.GetForwardDirection(nextRotation));
-            //logger.info("next position = {}", nextPosition);
         }
     }
 }

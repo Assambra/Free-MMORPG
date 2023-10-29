@@ -1,6 +1,7 @@
 package com.assambra.game.app.config;
 
 import com.assambra.game.app.entity.CharacterEntity;
+import com.assambra.game.app.terrain.Terrain;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -38,5 +39,12 @@ public class GameConfig extends EzyLoggable {
 
     @EzySingleton("characterList")
     public List<CharacterEntity> characterList = new ArrayList<CharacterEntity>();
+
+    @EzySingleton("worldTerrain")
+    public Terrain worldTerrain()
+    {
+        logger.info("Initialize world terrain");
+        return new Terrain(1000,1000, 150,1, 513, 1);
+    }
 }
 
