@@ -9,17 +9,17 @@ import java.nio.ByteBuffer;
 public class Terrain {
 
     private int terrainWidth;
-    private int terrainHeight;
-    private float maxHeight;
+    private int terrainLength;
+    private float terrainHeight;
     private int numTiles;
     private int tileResolution;
     private int overlap;
     private float[][] heightmap;
 
-    public Terrain(int terrainWidth, int terrainHeight, float maxHeight, int numTiles, int tileResolution, int overlap) {
+    public Terrain(int terrainWidth, int terrainLength, float terrainHeight, int numTiles, int tileResolution, int overlap) {
         this.terrainWidth = terrainWidth;
+        this.terrainLength = terrainLength;
         this.terrainHeight = terrainHeight;
-        this.maxHeight = maxHeight;
         this.numTiles = numTiles;
         this.tileResolution = tileResolution;
         this.overlap = overlap;
@@ -28,7 +28,7 @@ public class Terrain {
     }
 
     private float[][] loadHeightmap() {
-        float[][] heightmap = new float[terrainWidth][terrainHeight];
+        float[][] heightmap = new float[terrainWidth][terrainLength];
         int tileSize = tileResolution - overlap;
 
         for (int tileZ = 0; tileZ < numTiles; tileZ++) {
@@ -63,7 +63,7 @@ public class Terrain {
                     for (int x = 0; x < tileResolution; x++) {
                         dis.read(buffer.array());
                         short rawHeightValue = buffer.getShort(0);
-                        float adjustedHeightValue = (rawHeightValue / 32767.0f) * (maxHeight / 2.0f);
+                        float adjustedHeightValue = (rawHeightValue / 32767.0f) * (terrainHeight / 2.0f);
                         tile[x][z] = adjustedHeightValue;
                     }
                 }
@@ -76,15 +76,15 @@ public class Terrain {
     }
 
     public float getHeightValue(float x, float z) {
-        if (x < 0.0f || x >= terrainWidth || z < 0.0f || z >= terrainHeight) {
+        if (x < 0.0f || x >= terrainWidth || z < 0.0f || z >= terrainLength) {
             return -1.0f;
         }
         int x0 = (int) (x / (terrainWidth - 1) * (tileResolution - 1));
         int x1 = Math.min(x0 + 1, tileResolution - 1);
-        int z0 = (int) (z / (terrainHeight - 1) * (tileResolution - 1));
+        int z0 = (int) (z / (terrainLength - 1) * (tileResolution - 1));
         int z1 = Math.min(z0 + 1, tileResolution - 1);
         float tX = (x / (terrainWidth - 1) * (tileResolution - 1)) - x0;
-        float tZ = (z / (terrainHeight - 1) * (tileResolution - 1)) - z0;
+        float tZ = (z / (terrainLength - 1) * (tileResolution - 1)) - z0;
         float height00 = heightmap[x0][z0];
         float height01 = heightmap[x0][z1];
         float height10 = heightmap[x1][z0];
