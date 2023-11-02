@@ -61,7 +61,7 @@ public class Terrain {
                     for (int x = 0; x < tileResolution; x++) {
                         dis.read(buffer.array());
                         short rawHeightValue = buffer.getShort(0);
-                        float adjustedHeightValue = (rawHeightValue / 32767.0f) * (terrainHeight / 2.0f);
+                        float adjustedHeightValue = (rawHeightValue + 32768) * (terrainHeight / 65535.0f);
                         tile[x][z] = adjustedHeightValue;
                     }
                 }
