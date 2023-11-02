@@ -8,17 +8,15 @@ import java.nio.ByteBuffer;
 
 public class Terrain {
 
-    private int terrainWidth;
-    private int terrainLength;
+    private int terrainSize;
     private float terrainHeight;
     private int numTiles;
     private int tileResolution;
     private int overlap;
     private float[][] heightmap;
 
-    public Terrain(int terrainWidth, int terrainLength, float terrainHeight, int numTiles, int tileResolution, int overlap) {
-        this.terrainWidth = terrainWidth;
-        this.terrainLength = terrainLength;
+    public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileResolution, int overlap) {
+        this.terrainSize = terrainSize;
         this.terrainHeight = terrainHeight;
         this.numTiles = numTiles;
         this.tileResolution = tileResolution;
@@ -28,7 +26,7 @@ public class Terrain {
     }
 
     private float[][] loadHeightmap() {
-        float[][] heightmap = new float[terrainWidth][terrainLength];
+        float[][] heightmap = new float[terrainSize][terrainSize];
         int tileSize = tileResolution - overlap;
 
         for (int tileZ = 0; tileZ < numTiles; tileZ++) {
@@ -76,15 +74,15 @@ public class Terrain {
     }
 
     public float getHeightValue(float x, float z) {
-        if (x < 0.0f || x >= terrainWidth || z < 0.0f || z >= terrainLength) {
+        if (x < 0.0f || x >= terrainSize || z < 0.0f || z >= terrainSize) {
             return -1.0f;
         }
-        int x0 = (int) (x / (terrainWidth - 1) * (tileResolution - 1));
+        int x0 = (int) (x / (terrainSize - 1) * (tileResolution - 1));
         int x1 = Math.min(x0 + 1, tileResolution - 1);
-        int z0 = (int) (z / (terrainLength - 1) * (tileResolution - 1));
+        int z0 = (int) (z / (terrainSize - 1) * (tileResolution - 1));
         int z1 = Math.min(z0 + 1, tileResolution - 1);
-        float tX = (x / (terrainWidth - 1) * (tileResolution - 1)) - x0;
-        float tZ = (z / (terrainLength - 1) * (tileResolution - 1)) - z0;
+        float tX = (x / (terrainSize - 1) * (tileResolution - 1)) - x0;
+        float tZ = (z / (terrainSize - 1) * (tileResolution - 1)) - z0;
         float height00 = heightmap[x0][z0];
         float height01 = heightmap[x0][z1];
         float height10 = heightmap[x1][z0];
