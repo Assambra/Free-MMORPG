@@ -11,15 +11,15 @@ public class Terrain {
     private int terrainSize;
     private float terrainHeight;
     private int numTiles;
-    private int tileResolution;
+    private int tileSize;
     private int overlap;
     private float[][] heightmap;
 
-    public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileResolution, int overlap) {
+    public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileSize, int overlap) {
         this.terrainSize = terrainSize;
         this.terrainHeight = terrainHeight;
         this.numTiles = numTiles;
-        this.tileResolution = tileResolution;
+        this.tileSize = tileSize;
         this.overlap = overlap;
 
         heightmap = loadHeightmap();
@@ -27,7 +27,7 @@ public class Terrain {
 
     private float[][] loadHeightmap() {
         float[][] heightmap = new float[terrainSize][terrainSize];
-        int tileSize = tileResolution - overlap;
+        int tileSize = this.tileSize - overlap;
 
         for (int tileZ = 0; tileZ < numTiles; tileZ++) {
             for (int tileX = 0; tileX < numTiles; tileX++) {
@@ -37,8 +37,8 @@ public class Terrain {
                 int startX = tileX * tileSize - (tileX > 0 ? overlap : 0);
                 int startY = tileZ * tileSize - (tileZ > 0 ? overlap : 0);
 
-                for (int z = 0; z < tileResolution; z++) {
-                    for (int x = 0; x < tileResolution; x++) {
+                for (int z = 0; z < this.tileSize; z++) {
+                    for (int x = 0; x < this.tileSize; x++) {
                         heightmap[startX + x][startY + z] = tile[x][z];
                     }
                 }
@@ -49,7 +49,7 @@ public class Terrain {
     }
 
     private float[][] loadTile(String fileName) {
-        float[][] tile = new float[tileResolution][tileResolution];
+        float[][] tile = new float[tileSize][tileSize];
         InputStream inputStream = getClass().getResourceAsStream("/" + fileName);
 
         if (inputStream != null) {
@@ -57,8 +57,8 @@ public class Terrain {
                 ByteBuffer buffer = ByteBuffer.allocate(2);
                 buffer.order(ByteOrder.LITTLE_ENDIAN); // Set the byte order to IBM PC format
 
-                for (int z = 0; z < tileResolution; z++) {
-                    for (int x = 0; x < tileResolution; x++) {
+                for (int z = 0; z < tileSize; z++) {
+                    for (int x = 0; x < tileSize; x++) {
                         dis.read(buffer.array());
                         short rawHeightValue = buffer.getShort(0);
                         float adjustedHeightValue = (rawHeightValue + 32768) * (terrainHeight / 65535.0f);
@@ -77,12 +77,12 @@ public class Terrain {
         if (x < 0.0f || x >= terrainSize || z < 0.0f || z >= terrainSize) {
             return -1.0f;
         }
-        int x0 = (int) (x / (terrainSize - 1) * (tileResolution - 1));
-        int x1 = Math.min(x0 + 1, tileResolution - 1);
-        int z0 = (int) (z / (terrainSize - 1) * (tileResolution - 1));
-        int z1 = Math.min(z0 + 1, tileResolution - 1);
-        float tX = (x / (terrainSize - 1) * (tileResolution - 1)) - x0;
-        float tZ = (z / (terrainSize - 1) * (tileResolution - 1)) - z0;
+        int x0 = (int) (x / (terrainSize - 1) * (tileSize - 1));
+        int x1 = Math.min(x0 + 1, tileSize - 1);
+        int z0 = (int) (z / (terrainSize - 1) * (tileSize - 1));
+        int z1 = Math.min(z0 + 1, tileSize - 1);
+        float tX = (x / (terrainSize - 1) * (tileSize - 1)) - x0;
+        float tZ = (z / (terrainSize - 1) * (tileSize - 1)) - z0;
         float height00 = heightmap[x0][z0];
         float height01 = heightmap[x0][z1];
         float height10 = heightmap[x1][z0];
