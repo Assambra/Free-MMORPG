@@ -1,18 +1,21 @@
 package com.assambra.game.app.terrain;
 
+import com.tvd12.ezyfox.util.EzyLoggable;
+
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class Terrain {
+public class Terrain extends EzyLoggable {
 
     private int terrainSize;
     private float terrainHeight;
     private int numTiles;
     private int tileSize;
     private float[][] heightmap;
-    private float[][] finalHeightmap;
+    private static final int BUFFER_SIZE = 4096;
 
     public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileSize) {
         this.terrainSize = terrainSize;
@@ -48,14 +51,14 @@ public class Terrain {
         InputStream inputStream = getClass().getResourceAsStream("/" + fileName);
 
         if (inputStream != null) {
-            try (InputStream is = inputStream) {
+            try (BufferedInputStream bis = new BufferedInputStream(inputStream, BUFFER_SIZE)) {
                 ByteBuffer buffer = ByteBuffer.allocate(2);
                 buffer.order(ByteOrder.LITTLE_ENDIAN);
 
                 for (int z = 0; z < tileSize; z++) {
                     for (int x = 0; x < tileSize; x++) {
                         buffer.clear();
-                        if (is.read(buffer.array()) != 2) {
+                        if (bis.read(buffer.array()) != 2) {
                             throw new IOException("Not enough data available.");
                         }
                         int rawHeightValue = buffer.getShort(0) & 0xFFFF;
@@ -64,8 +67,10 @@ public class Terrain {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Failed to load heightmap: ", e.getMessage());
             }
+        } else {
+            logger.error("Input stream for heightmap is null. Check if the file {} exists and is accessible.", fileName);
         }
         return tile;
     }
