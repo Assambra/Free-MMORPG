@@ -11,40 +11,36 @@ public class Terrain {
     private float terrainHeight;
     private int numTiles;
     private int tileSize;
-    private int overlap;
     private float[][] heightmap;
+    private float[][] finalHeightmap;
 
-    public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileSize, int overlap) {
+    public Terrain(int terrainSize, float terrainHeight, int numTiles, int tileSize) {
         this.terrainSize = terrainSize;
         this.terrainHeight = terrainHeight;
         this.numTiles = numTiles;
         this.tileSize = tileSize;
-        this.overlap = overlap;
 
-        heightmap = loadHeightmap();
+        this.heightmap = new float[terrainSize][terrainSize];
+        loadHeightmap();
+        scaleHeightmap();
     }
 
-    private float[][] loadHeightmap() {
-        float[][] heightmap = new float[terrainSize][terrainSize];
-        int tileSize = this.tileSize - overlap;
-
+    private void loadHeightmap() {
         for (int tileZ = 0; tileZ < numTiles; tileZ++) {
             for (int tileX = 0; tileX < numTiles; tileX++) {
                 String fileName = "Tile " + tileX + "," + tileZ + ".raw";
                 float[][] tile = loadTile(fileName);
 
-                int startX = tileX * tileSize - (tileX > 0 ? overlap : 0);
-                int startY = tileZ * tileSize - (tileZ > 0 ? overlap : 0);
+                int startX = tileX * tileSize;
+                int startY = tileZ * tileSize;
 
-                for (int z = 0; z < this.tileSize; z++) {
-                    for (int x = 0; x < this.tileSize; x++) {
+                for (int z = 0; z < tileSize; z++) {
+                    for (int x = 0; x < tileSize; x++) {
                         heightmap[startX + x][startY + z] = tile[x][z];
                     }
                 }
             }
         }
-
-        return heightmap;
     }
 
     private float[][] loadTile(String fileName) {
@@ -71,26 +67,65 @@ public class Terrain {
                 e.printStackTrace();
             }
         }
-
         return tile;
     }
 
-    public float getHeightValue(float x, float z) {
-        if (x < 0.0f || x >= terrainSize || z < 0.0f || z >= terrainSize) {
-            return -1.0f;
+    private void scaleHeightmap() {
+        float scaleX = (float) terrainSize / (tileSize * numTiles);
+        float scaleY = scaleX; // Assuming uniform scaling
+
+        float[][] newHeightmap = new float[terrainSize][terrainSize];
+
+        for (int z = 0; z < terrainSize; z++) {
+            for (int x = 0; x < terrainSize; x++) {
+                // Convert the scaled indices back to the original heightmap's space
+                float xOrig = x / scaleX;
+                float zOrig = z / scaleY;
+
+                // Calculate the indices of the top-left corner
+                int xFloor = (int) Math.floor(xOrig);
+                int zFloor = (int) Math.floor(zOrig);
+
+                // Calculate the fractional part to determine the weights for interpolation
+                float xFrac = xOrig - xFloor;
+                float zFrac = zOrig - zFloor;
+
+                // Ensure we don't go out of bounds
+                int xCeil = xFloor + (xFloor < tileSize * numTiles - 1 ? 1 : 0);
+                int zCeil = zFloor + (zFloor < tileSize * numTiles - 1 ? 1 : 0);
+
+                // Perform bilinear interpolation
+                float top = (1 - xFrac) * heightmap[xFloor][zFloor] + xFrac * heightmap[xCeil][zFloor];
+                float bottom = (1 - xFrac) * heightmap[xFloor][zCeil] + xFrac * heightmap[xCeil][zCeil];
+                newHeightmap[x][z] = (1 - zFrac) * top + zFrac * bottom;
+            }
         }
-        int x0 = (int) (x / (terrainSize - 1) * (tileSize - 1));
-        int x1 = Math.min(x0 + 1, tileSize - 1);
-        int z0 = (int) (z / (terrainSize - 1) * (tileSize - 1));
-        int z1 = Math.min(z0 + 1, tileSize - 1);
-        float tX = (x / (terrainSize - 1) * (tileSize - 1)) - x0;
-        float tZ = (z / (terrainSize - 1) * (tileSize - 1)) - z0;
-        float height00 = heightmap[x0][z0];
-        float height01 = heightmap[x0][z1];
-        float height10 = heightmap[x1][z0];
-        float height11 = heightmap[x1][z1];
-        float heightX0 = height00 * (1 - tZ) + height01 * tZ;
-        float heightX1 = height10 * (1 - tZ) + height11 * tZ;
-        return heightX0 * (1 - tX) + heightX1 * tX;
+
+        heightmap = newHeightmap;
+    }
+
+
+
+    public float getHeightValue(float worldX, float worldZ) {
+        // Scale from world coordinates to heightmap coordinates
+        float xCoord = (worldX / terrainSize) * (heightmap.length - 1);
+        float zCoord = (worldZ / terrainSize) * (heightmap[0].length - 1);
+
+        // Calculate the indices of the bottom left corner
+        int xFloor = (int) Math.floor(xCoord);
+        int zFloor = (int) Math.floor(zCoord);
+
+        // Calculate the fractional part to determine the weights for interpolation
+        float xFrac = xCoord - xFloor;
+        float zFrac = zCoord - zFloor;
+
+        // Ensure we don't go out of bounds
+        int xCeil = xFloor + (xFloor < heightmap.length - 1 ? 1 : 0);
+        int zCeil = zFloor + (zFloor < heightmap[0].length - 1 ? 1 : 0);
+
+        // Perform bilinear interpolation
+        float top = (1 - xFrac) * heightmap[xFloor][zFloor] + xFrac * heightmap[xCeil][zFloor];
+        float bottom = (1 - xFrac) * heightmap[xFloor][zCeil] + xFrac * heightmap[xCeil][zCeil];
+        return (1 - zFrac) * top + zFrac * bottom;
     }
 }
