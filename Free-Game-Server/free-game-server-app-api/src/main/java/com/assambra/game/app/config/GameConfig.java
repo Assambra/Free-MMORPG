@@ -44,7 +44,7 @@ public class GameConfig extends EzyLoggable {
     public Terrain worldTerrain()
     {
         logger.info("Initialize world terrain");
-        return new Terrain(1000,1000, 150,1, 513, 1);
+        return new Terrain(1000,250, 1,513);
     }
 }
 
