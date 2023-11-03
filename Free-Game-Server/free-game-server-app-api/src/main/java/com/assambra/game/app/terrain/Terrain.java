@@ -1,10 +1,9 @@
 package com.assambra.game.app.terrain;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteOrder;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class Terrain {
 
@@ -53,15 +52,18 @@ public class Terrain {
         InputStream inputStream = getClass().getResourceAsStream("/" + fileName);
 
         if (inputStream != null) {
-            try (DataInputStream dis = new DataInputStream(inputStream)) {
+            try (InputStream is = inputStream) {
                 ByteBuffer buffer = ByteBuffer.allocate(2);
-                buffer.order(ByteOrder.LITTLE_ENDIAN); // Set the byte order to IBM PC format
+                buffer.order(ByteOrder.LITTLE_ENDIAN);
 
                 for (int z = 0; z < tileSize; z++) {
                     for (int x = 0; x < tileSize; x++) {
-                        dis.read(buffer.array());
-                        short rawHeightValue = buffer.getShort(0);
-                        float adjustedHeightValue = (rawHeightValue + 32768) * (terrainHeight / 65535.0f);
+                        buffer.clear();
+                        if (is.read(buffer.array()) != 2) {
+                            throw new IOException("Not enough data available.");
+                        }
+                        int rawHeightValue = buffer.getShort(0) & 0xFFFF;
+                        float adjustedHeightValue = (rawHeightValue / 65535.0f) * terrainHeight;
                         tile[x][z] = adjustedHeightValue;
                     }
                 }
