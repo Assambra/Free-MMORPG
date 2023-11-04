@@ -2,7 +2,6 @@ using UnityEngine;
 using UMA.CharacterSystem;
 using UMA;
 using UnityEngine.Events;
-using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -14,10 +13,9 @@ public class Player : MonoBehaviour
 
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
     
-    [SerializeField] private TMP_Text textPlayerName;
+    [SerializeField] private PlayerHeadInfo playerHeadInfo;
 
     private UMAData umaData;
-    //private Renderer umaRenderer;
     private CapsuleCollider capsuleCollider;
 
     private float lastHeight = 0;
@@ -35,14 +33,13 @@ public class Player : MonoBehaviour
         
         if(IsAvatarCreated)
         {
-            if (capsuleCollider == null)
-                Debug.LogError("no capsule collider found!");
-            //currentHeight = umaRenderer.bounds.max.y;
             currentHeight = capsuleCollider.height;
-            if (currentHeight > lastHeight + 0.01f || currentHeight < lastHeight - 0.01f)
-            {   
+            if (currentHeight > lastHeight || currentHeight < lastHeight)
+            {
                 SetCameraOffset(lastHeight);
                 SetCameraDistance(lastHeight);
+
+                playerHeadInfo.SetPlayerInfoPosition(lastHeight - currentHeight);
 
                 lastHeight = currentHeight;
             }
@@ -51,7 +48,7 @@ public class Player : MonoBehaviour
 
     public void SetPlayerName(string playerName)
     {
-        textPlayerName.text = playerName;
+        playerHeadInfo.SetPlayername(playerName);
     }
 
     private void SetCameraOffset(float lastHeight)
@@ -83,17 +80,10 @@ public class Player : MonoBehaviour
     {
         umaData.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterInitialize));
         IsAvatarCreated = true;
-        //umaRenderer = GetRenderer();
         capsuleCollider = GetCapsuleCollider();
-        //lastHeight = umaRenderer.bounds.max.y;
         lastHeight = capsuleCollider.height;
     }
-    /*
-    private Renderer GetRenderer()
-    {
-        return Avatar.transform.Find("UMARenderer").GetComponent<Renderer>();
-    }
-    */
+
     public CapsuleCollider GetCapsuleCollider()
     {
         return Avatar.transform.GetComponent<CapsuleCollider>();

@@ -175,7 +175,7 @@ MonoBehaviour:
   Animator: {fileID: 0}
   PlayerController: {fileID: 0}
   <Avatar>k__BackingField: {fileID: 2856286074098269373}
-  textPlayerName: {fileID: 2083948034734061145}
+  playerHeadInfo: {fileID: 6095457073473621084}
 --- !u!1 &2221156034622628282
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4dcfc7b6f3666428375b1aee19b852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 6214107460784681592}
+  playerNameText: {fileID: 2083948034734061145}
+  playerInfoPositionOffset: 0.5
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0
