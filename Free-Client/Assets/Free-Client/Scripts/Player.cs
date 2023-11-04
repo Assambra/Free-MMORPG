@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text textPlayerName;
 
     private UMAData umaData;
-    private Renderer umaRenderer;
+    //private Renderer umaRenderer;
+    private CapsuleCollider capsuleCollider;
 
     private float lastHeight = 0;
     private float currentHeight = 0;
@@ -34,8 +35,10 @@ public class Player : MonoBehaviour
         
         if(IsAvatarCreated)
         {
-            currentHeight = umaRenderer.bounds.max.y;
-
+            if (capsuleCollider == null)
+                Debug.LogError("no capsule collider found!");
+            //currentHeight = umaRenderer.bounds.max.y;
+            currentHeight = capsuleCollider.height;
             if (currentHeight > lastHeight + 0.01f || currentHeight < lastHeight - 0.01f)
             {   
                 SetCameraOffset(lastHeight);
@@ -80,14 +83,19 @@ public class Player : MonoBehaviour
     {
         umaData.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnCharacterInitialize));
         IsAvatarCreated = true;
-        umaRenderer = GetRenderer();
-        
-        lastHeight = umaRenderer.bounds.max.y;
+        //umaRenderer = GetRenderer();
+        capsuleCollider = GetCapsuleCollider();
+        //lastHeight = umaRenderer.bounds.max.y;
+        lastHeight = capsuleCollider.height;
     }
-
+    /*
     private Renderer GetRenderer()
     {
         return Avatar.transform.Find("UMARenderer").GetComponent<Renderer>();
     }
-
+    */
+    public CapsuleCollider GetCapsuleCollider()
+    {
+        return Avatar.transform.GetComponent<CapsuleCollider>();
+    }
 }
