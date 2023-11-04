@@ -93,7 +93,7 @@ public class NetworkManagerAccount : EzyDefaultController
         .append("password", password)
         .build();
 
-        appProxy.send(Commands.CREATE_ACCOUNT, data);
+        appProxy.send(Commands.CREATE_ACCOUNT, data, true);
     }
 
     public void ForgotPassword(string usernameOrEmail)
