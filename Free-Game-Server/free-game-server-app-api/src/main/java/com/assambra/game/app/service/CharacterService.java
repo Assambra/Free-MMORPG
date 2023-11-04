@@ -35,8 +35,8 @@ public class CharacterService extends EzyLoggable {
         Account account = accountRepo.findByField("username", user.getName());
         Character character = new Character();
 
-        double[] startPosition = new double[]{0,0,0};
-        double[] startRotation = new double[]{0,0,0};
+        double[] startPosition = new double[]{280.0,50.0,254.0};
+        double[] startRotation = new double[]{0,-130,0};
 
         character.setId(maxIdService.incrementAndGet("character"));
         character.setAccountId(account.getId());

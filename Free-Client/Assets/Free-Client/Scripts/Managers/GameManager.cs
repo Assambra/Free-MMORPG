@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         }
         
         player.Animator = player.Avatar.GetComponent<Animator>();
-        
+        player.GetCapsuleCollider();
         UMAHelper.SetAvatarString(player.Avatar, model);
     }
 }

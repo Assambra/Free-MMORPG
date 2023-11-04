@@ -41,7 +41,8 @@ public class PlayerService extends EzyLoggable {
             Vec3 nextPosition = PlayerMovementUtils.getNextPosition(currentPosition, nextRotation, model);
             
             nextPosition = new Vec3(nextPosition.x, worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z), nextPosition.z );
-            logger.info("Player: {} current y position: {}", player.getName(), worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z));
+            //logger.info("Player: {} current y position: {}", player.getName(), worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z));
+
             roomService.setPlayerPosition(player, nextPosition);
             player.setClientTimeTick(model.getTime());
 

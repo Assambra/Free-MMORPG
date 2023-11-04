@@ -833,6 +833,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 862561444672602720, guid: 77743c60453740a46902b378a099d8bc, type: 3}
+      propertyPath: socketConfigHolderVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: bfcd5f65aef8a7744b1e2d0fb9d5094f, type: 2}
     - target: {fileID: 8549932763517218162, guid: 77743c60453740a46902b378a099d8bc, type: 3}
       propertyPath: m_Name
       value: NetworkManagerAccount
@@ -1088,6 +1092,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7611846352833161362, guid: d5532d5628729304e878486723862edd, type: 3}
+      propertyPath: socketConfigHolderVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: cf76a0a858f49fc4681b74e92ada7340, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
