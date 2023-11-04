@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public UIHandler UIHandler { get; private set; }
     [field: SerializeField] public SceneHandler SceneHandler { get; private set; }
     [field: SerializeField] public MouseHandler MouseHandler { get; private set; }
+    [field: SerializeField] public Light DirectionalLight { get; private set; }
+    [field: SerializeField] public Camera MainCamera { get; private set; }
 
     public Player Player { get; private set; }
     public DynamicCharacterAvatar Avatar { get; private set; }

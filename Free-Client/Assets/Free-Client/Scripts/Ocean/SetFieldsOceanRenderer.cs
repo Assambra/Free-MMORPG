@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Crest;
+
+public class SetFieldsOceanRenderer : MonoBehaviour
+{
+    [SerializeField] OceanRenderer oceanRenderer;
+
+    void Start()
+    {
+        oceanRenderer.Viewpoint = GameManager.Instance.MainCamera.transform;
+        oceanRenderer.ViewCamera = GameManager.Instance.MainCamera;
+        oceanRenderer._primaryLight = GameManager.Instance.DirectionalLight;
+    }
+}
