@@ -41,12 +41,20 @@
     <li><a href="#playable-demo">Playble Demo</a></li>
     <li><a href="#client">Client</a></li>
         <ul>
-            <li><a href="#clone-from-github">Clone from Github</a></li>
+            <li><a href="#clone-from-github">Clone Free-MMORPG from Github</a></li>
+            <li><a href="#clone-assets-and-projects-from-github">Clone Unity Assets from Github</a></li>
+            <ul>
             <li><a href="#uma">UMA</a></li>
                 <ul>
                     <li><a href="#get-uma">Get UMA</a></li>
                     <li><a href="#install-uma-package">Install UMA Package</a></li>
                 </ul>
+            <li><a href="#crest-ocean-system">Crest Ocean System</a></li>
+                <ul>
+                    <li><a href="#get-crest-ocean-system">Get Crest Ocean System</a></li>
+                    <li><a href="#install-crest-ocean-system">Install Crest Ocean System</a></li>
+                </ul>
+            </ul>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
                 <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
@@ -190,6 +198,9 @@ and additionally add to the file.
 `Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- CLONE ASSETS AND PROJECTS FROM GITHUB -->
+## Clone Assets and projects from github
+
 <!-- UMA -->
 ### UMA
 #### Get UMA
@@ -198,10 +209,18 @@ Download the latest Pre-release unity asset pack file<a href="https://github.com
 #### Install UMA Package
 Add the UMA213a4.unity package to your Free-Client project. To do this, simply move the package to your opened Free-Client project in Unity. Select everything and click Import.
 
+<!-- CREST OCEAN SYSTEM -->
+### Crest Ocean System
+#### Get Crest Ocean System
+Download the latest source code with tag 4.19 as zip file <a href="https://github.com/wave-harmonic/crest/releases/tag/4.19">4.19</a>
+
+#### Install Crest Ocean System
+Unzip and drag the second crest folder into unity ./crest-4.19/crest-4.19/crest/Assets/Crest/Crest
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Unity asset store -->
-### Unity Asset Store
+## Unity Asset Store
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
