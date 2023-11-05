@@ -6,7 +6,7 @@ public class PlayerHeadInfo : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private TMP_Text playerNameText;
 
-    private void Update()
+    private void LateUpdate()
     {
         transform.rotation = GameManager.Instance.CameraController.transform.rotation;
     }

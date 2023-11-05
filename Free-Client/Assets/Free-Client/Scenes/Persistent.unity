@@ -903,6 +903,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 259245152}
     - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
+      propertyPath: <MainCamera>k__BackingField
+      value: 
+      objectReference: {fileID: 1270917037}
+    - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
       propertyPath: <MouseHandler>k__BackingField
       value: 
       objectReference: {fileID: 925862877}
@@ -914,6 +918,10 @@ PrefabInstance:
       propertyPath: <CameraController>k__BackingField
       value: 
       objectReference: {fileID: 1053508431}
+    - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
+      propertyPath: <DirectionalLight>k__BackingField
+      value: 
+      objectReference: {fileID: 1771442717}
     - target: {fileID: 6290596155333837070, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
       propertyPath: m_Name
       value: GameManager
