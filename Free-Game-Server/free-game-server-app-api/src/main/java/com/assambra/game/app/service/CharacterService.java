@@ -88,9 +88,11 @@ public class CharacterService extends EzyLoggable {
         {
             if(characterEntity.accountUsername.contains(user.getName()))
             {
-                Character character = characterRepo.findByField("accountId", characterEntity.accountId);
+                Character character = characterRepo.findByField("name", characterEntity.characterName);
+
                 double[] position = { characterEntity.position.x, characterEntity.position.y, characterEntity.position.z };
                 double[] rotation = { characterEntity.rotation.x, characterEntity.rotation.y, characterEntity.rotation.z };
+
                 character.setPosition(position);
                 character.setRotation(rotation);
                 character.setRoomId(characterEntity.roomId);
