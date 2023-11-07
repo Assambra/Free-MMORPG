@@ -9,7 +9,7 @@ public final class PlayerMovementUtils {
     public static Vec3 getNextPosition(Vec3 currentPosition, Vec3 rotation, PlayerInputModel model)
     {
         Vec3 movement = getMoveDirection(model.getInputs());
-        movement.multiply(0.0333333 * 5.424);
+        movement.multiply(0.1 * 5.424);
 
         Vec3 forward = GetForwardDirection(rotation);
 
@@ -26,7 +26,7 @@ public final class PlayerMovementUtils {
         Vec3 movement = getMoveDirection(model.getInputs());
 
         Vec3 nextRotation = new Vec3(0, movement.x, 0);
-        nextRotation.multiply(0.0333333 * 100f);
+        nextRotation.multiply(0.1 * 120f);
         nextRotation.add(currentRotation);
 
         return nextRotation;

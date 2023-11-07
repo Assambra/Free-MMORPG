@@ -304,22 +304,9 @@ public class NetworkManagerGame : EzyDefaultController
 
         //Debug.Log("SyncPosition for player: " + playerName + " reseive position: " + position + ", rotation: " + rotation + " time: " + time);
 
-        foreach(Character character in GameManager.Instance.CharacterList)
-        {
-            if (playerName == character.accountUsername)
-            {
-                GameObject pgo = character.playerGameObject;
-
-                Player player = pgo.GetComponent<Player>();
-                player.PlayerController.Move(position);
-                player.PlayerController.Rotate(rotation);
-
-                if (time == 0 && player.IsLocalPlayer)
-                    GameManager.Instance.CameraController.SetCameraPanAbsolutAngle(rotation.y);
-
-                break;
-            }
-        }
+        PlayerController playerController = GameManager.Instance.PlayerSyncPositionDictionary[playerName];
+        playerController.Move(position);
+        playerController.Rotate(rotation);
     }
 
     #endregion

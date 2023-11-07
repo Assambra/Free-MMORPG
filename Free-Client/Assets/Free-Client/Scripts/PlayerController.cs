@@ -6,13 +6,15 @@ public class PlayerController : MonoBehaviour
 
     private bool[] inputs;
     private int clientTick;
+    
+    private Vector3 nextPosition;
+    private Quaternion nextRotation;
 
-    private Vector3 lastPosition;
-    private int animcounter;
 
     private void Start()
     {
-        inputs = new bool[4];
+        if(Player.IsLocalPlayer)
+            inputs = new bool[4];
     }
 
     private void Update()
@@ -20,24 +22,34 @@ public class PlayerController : MonoBehaviour
         if (Player.Animator != null)
             CalculateAnimations();
 
-        lastPosition = transform.position;
+        if (transform.position != nextPosition)
+        {
+            float step = Time.deltaTime * 5.424f;
+            transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
+        }
 
-        if (!Player.IsLocalPlayer)
-            return;
+        if (transform.rotation != nextRotation)
+        {
+            float step = Time.deltaTime * 120f;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, nextRotation, step);
+        }
     }
 
     private void FixedUpdate()
     {
-        clientTick++;
-
-        GetUserInput();
-
-        if (inputs[0] || inputs[1] || inputs[2] || inputs[3])
+        if (Player.IsLocalPlayer)
         {
-            SendInput();
+            clientTick++;
+            
+            GetUserInput();
 
-            for (int i = 0; i < inputs.Length; i++)
-                inputs[i] = false;
+            if (inputs[0] || inputs[1] || inputs[2] || inputs[3])
+            {
+                SendInput();
+
+                for (int i = 0; i < inputs.Length; i++)
+                    inputs[i] = false;
+            }
         }
     }
 
@@ -59,7 +71,7 @@ public class PlayerController : MonoBehaviour
     private void CalculateAnimations()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 movement = lastPosition - transform.position;
+        Vector3 movement = transform.position - nextPosition;
 
         if (Vector3.Dot(forward.normalized, movement.normalized) != 0)
         {
@@ -67,18 +79,9 @@ public class PlayerController : MonoBehaviour
                 Player.Animator.SetFloat("Vertical", 1f);
             else if (Vector3.Dot(forward.normalized, movement.normalized) > 0)
                 Player.Animator.SetFloat("Vertical", -1f);
-
-            animcounter = 0;
         }
         else
-        {
-            animcounter++;
-            if (animcounter > 5)
-            {
-                Player.Animator.SetFloat("Vertical", 0f);
-                animcounter = 0;
-            }
-        }  
+            Player.Animator.SetFloat("Vertical", 0f);
     }
 
     private void SendInput()
@@ -88,11 +91,11 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector3 nextPosition)
     {
-        Player.transform.position = nextPosition;
+        this.nextPosition = nextPosition;
     }
 
-    public void Rotate(Vector3 rotation)
+    public void Rotate(Vector3 nextRotation)
     {
-        Player.transform.rotation = Quaternion.Euler(rotation);
+        this.nextRotation = Quaternion.Euler(nextRotation);
     }
 }

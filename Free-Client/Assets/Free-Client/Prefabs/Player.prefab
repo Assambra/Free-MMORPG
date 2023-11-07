@@ -227,7 +227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6214107460784681592}
   playerNameText: {fileID: 2083948034734061145}
-  playerInfoPositionOffset: 0.5
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 2952857175856430862}
+      objectReference: {fileID: 3591977708517095481}
     - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       propertyPath: RecreateAnimatorOnRaceChange
       value: 0
@@ -465,7 +464,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2952857175856430862}
+      addedObject: {fileID: 3591977708517095481}
   m_SourcePrefab: {fileID: 100100000, guid: 93579e73c24e002448ca5327389c1000, type: 3}
 --- !u!114 &2856286074098269373 stripped
 MonoBehaviour:
@@ -483,7 +482,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
   m_PrefabInstance: {fileID: 7594940024289163398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2952857175856430862
+--- !u!114 &3591977708517095481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     public bool Initialized = false;
     public bool IsAvatarCreated = false;
     public Animator Animator;
-    public PlayerController PlayerController;
 
     [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
     

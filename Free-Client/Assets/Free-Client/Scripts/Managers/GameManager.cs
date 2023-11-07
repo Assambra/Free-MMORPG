@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     public DynamicCharacterAvatar Avatar { get; private set; }
     public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
     public List<Character> CharacterList { get; set; } = new List<Character>();
-
+    public Dictionary<string, PlayerController> PlayerSyncPositionDictionary = new Dictionary<string, PlayerController>();
+    
     public bool CharacterCreatedAndReadyToPlay = false;
     public long CharacterId = 0;
 
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+
         SceneHandler.OnSceneChanged += OnSceneChanged;
 
         if (Instance != null && Instance != this)
@@ -107,12 +110,12 @@ public class GameManager : MonoBehaviour
         pgo.name = character.characterName;
         PlayerController playerController = pgo.AddComponent<PlayerController>();
 
+        PlayerSyncPositionDictionary.Add(character.accountUsername, playerController);
+
         Player player = pgo.GetComponent<Player>();
         playerController.Player = player;
 
         player.SetPlayerName(character.characterName);
-        player.PlayerController = playerController;
-
 
         if(character.isLocalPlayer)
         {
