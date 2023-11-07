@@ -77,7 +77,7 @@ crashlytics-build.properties
 /Assets/Free-Client/Plugins/ezyfox-server-csharp-client-unity-client/*
 
 #UMA Unity Multipurpose Avatar System
-/Assets/Free-Client/UMA/*
+/Assets/UMA
 
 #MapMagic 2
 /Assets/MapMagic
