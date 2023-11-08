@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8fad4bd6059c3347bfdd9281e6483c1, type: 3}
-  m_Name: Account Ezy Socket Config Variable
+  m_Script: {fileID: 11500000, guid: 9da51901cf9fae54f977843e821b0b5e, type: 3}
+  m_Name: GameSocketConfigVariable
   m_EditorClassIdentifier: 
   developerDescription: 
   <Value>k__BackingField:
-    zoneName: free-account-server
-    appName: free-account-server
+    zoneName: free-game-server
+    appName: free-game-server
     webSocketUrl: 
     tcpUrl: 127.0.0.1:3005
     udpPort: 2611
     udpUsage: 0
-    enableSSL: 0
+    enableSSL: 1

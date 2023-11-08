@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8aae32a3d4c294ab92e640444d3cc9, type: 3}
-  m_Name: Account Ezy Socket Config Holder Variable
+  m_Script: {fileID: 11500000, guid: f0fd7b63c1a589f48b1f619231928e0f, type: 3}
+  m_Name: GameSocketConfigHolderVariable
   m_EditorClassIdentifier: 
   developerDescription: 
-  <Value>k__BackingField: {fileID: 11400000, guid: 39aab61dcb820c249a277e39ff696797, type: 2}
+  <Value>k__BackingField: {fileID: 11400000, guid: 27d06c797498eb744bb7b99263064063, type: 2}
