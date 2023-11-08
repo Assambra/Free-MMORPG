@@ -29,6 +29,12 @@ public final class PlayerMovementUtils {
         nextRotation.multiply(0.1 * 120f);
         nextRotation.add(currentRotation);
 
+
+        if(nextRotation.y > 180.0f)
+            nextRotation.y -= 360.0f;
+        if(nextRotation.y < -180.0f)
+            nextRotation.y += 360.0f;
+
         return nextRotation;
     }
 
