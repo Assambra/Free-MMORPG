@@ -79,7 +79,7 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     private void CreateToolTip()
     {
-        tooltipGameObject = Instantiate(prefabTooltipObject, GameManager.Instance.UIHandler.canvas.transform);
+        tooltipGameObject = Instantiate(prefabTooltipObject, GameManager.Instance.UIHandler.Canvas.transform);
         TooltipObject to = tooltipGameObject.GetComponent<TooltipObject>();
         to.SetTooltipText(tooltiptext);
         
