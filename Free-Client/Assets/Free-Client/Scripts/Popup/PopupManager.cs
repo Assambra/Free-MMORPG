@@ -21,6 +21,7 @@ public class PopupManager : MonoBehaviour
         popupFactories = new Dictionary<Type, IPopupFactory>();
 
         popupFactories[typeof(InformationPopup)] = new PopupFactory<InformationPopup>();
+        popupFactories[typeof(ErrorPopup)] = new PopupFactory<ErrorPopup>();
     }
 
     public T ShowInformationPopup<T>(string title, string information, Action onOK) where T : InformationPopup
@@ -33,7 +34,22 @@ public class PopupManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Keine Factory für Popup-Typ {typeof(T)} gefunden.");
+            Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
+            return null;
+        }
+    }
+
+    public T ShowErrorPopup<T>(string title, string information, Action onOK) where T : ErrorPopup
+    {
+        if (popupFactories.TryGetValue(typeof(T), out var factory))
+        {
+            T popup = factory.CreatePopup() as T;
+            popup.Setup(title, information, onOK);
+            return popup;
+        }
+        else
+        {
+            Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
             return null;
         }
     }

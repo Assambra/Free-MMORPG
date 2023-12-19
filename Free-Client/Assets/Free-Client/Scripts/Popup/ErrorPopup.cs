@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InformationPopup : BasePopup
+public class ErrorPopup : BasePopup
 {
     [SerializeField] Button _oKButton;
     [SerializeField] private TMP_Text titleText;

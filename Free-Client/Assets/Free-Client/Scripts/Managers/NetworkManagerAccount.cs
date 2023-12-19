@@ -157,15 +157,15 @@ public class NetworkManagerAccount : EzyDefaultController
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
-                InformationPopup("E-Mail already registered, please use the Forgot password function");
+                ErrorPopup("E-Mail already registered, please use the Forgot password function");
                 break;
             case "username_already_in_use":
                 Debug.Log("Username already in use");
-                InformationPopup("Username are not allowed");
+                ErrorPopup("Username are not allowed");
                 break;
             case "username_are_not_allowed":
                 Debug.Log("Username not allowed");
-                InformationPopup("Username are not allowed");
+                ErrorPopup("Username are not allowed");
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
@@ -257,7 +257,21 @@ public class NetworkManagerAccount : EzyDefaultController
         popup.Setup(
             title,
             info,
-            () => { popup.Close(); }
+            () => { popup.Destroy(); }
+        );
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
         );
     }
 
