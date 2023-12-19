@@ -10,8 +10,6 @@ using Object = System.Object;
 
 public class NetworkManagerAccount : EzyDefaultController
 {
-    [HideInInspector] public UIClientLog UIClientLog;
-
     [SerializeField] private string guestPassword = "Assambra";
 
     public static NetworkManagerAccount Instance { get; private set; }
@@ -155,19 +153,19 @@ public class NetworkManagerAccount : EzyDefaultController
         {
             case "successfully":
                 Debug.Log("Account successfully created");
-                UIClientLog.ServerLogMessageSuccess("Account successfully created");
+                InformationPopup("Account successfully created");
                 break;
             case "email_already_registered":
                 Debug.Log("E-Mail already registered");
-                UIClientLog.ServerLogMessageError("E-Mail already registered, please use the Forgot password function");
+                ErrorPopup("E-Mail already registered, please use the Forgot password function");
                 break;
             case "username_already_in_use":
                 Debug.Log("Username already in use");
-                UIClientLog.ServerLogMessageError("Username are not allowed");
+                ErrorPopup("Username are not allowed");
                 break;
             case "username_are_not_allowed":
                 Debug.Log("Username not allowed");
-                UIClientLog.ServerLogMessageError("Username are not allowed");
+                ErrorPopup("Username are not allowed");
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
@@ -193,13 +191,13 @@ public class NetworkManagerAccount : EzyDefaultController
         switch (result)
         {
             case "no_account":
-                UIClientLog.ServerLogMessageError("No Account found for given username or email address");
+                InformationPopup("No Account found for given username or email address");
                 break;
             case "sending_password":
-                UIClientLog.ServerLogMessageSuccess("Your new password is: " + pwd);
+                InformationPopup("Your new password is: " + pwd);
                 break;
             case "sending_email":
-                UIClientLog.ServerLogMessageSuccess("Your new password has been sent to your registered e-mail address");
+                InformationPopup("Your new password has been sent to your registered e-mail address");
                 break;
             default:
                 Debug.LogError("Forgot Password: Unknown result: " + result);
@@ -225,12 +223,12 @@ public class NetworkManagerAccount : EzyDefaultController
         if (result == "success")
         {
             if (username == "")
-                UIClientLog.ServerLogMessageSuccess("Your username has been sent to your email address");
+            InformationPopup("Your username has been sent to your email address");
             else
-                UIClientLog.ServerLogMessageSuccess("Your username is: " + username);
+                InformationPopup("Your username is: " + username);
         }
         if (result == "not_found")
-            UIClientLog.ServerLogMessageError("This e-mail address are not registered");
+            InformationPopup("This e-mail address are not registered");
 
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
@@ -246,4 +244,36 @@ public class NetworkManagerAccount : EzyDefaultController
     {
         return "Guest#" + RandomString.GetNumericString(1000001);
     }
+
+    #region POPUP
+    
+    private void InformationPopup(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
+    }
+
+    #endregion
 }

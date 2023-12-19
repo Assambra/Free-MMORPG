@@ -137,8 +137,9 @@ public class NetworkManagerGame : EzyDefaultController
 
     private void OnLoginError(EzySocketProxy proxy, Object data)
     {
-        Debug.Log("OnLoginError");
-        //Todo capture the error and handle
+        string error = data.ToString();
+        if (error.Contains("invalid password") || error.Contains("invalid user name"))
+            ErrorPopup("Invalid username or password");
     }
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
@@ -200,14 +201,15 @@ public class NetworkManagerGame : EzyDefaultController
         {
             case "successfully":
                 Debug.Log("successfully");
+                InformationPopup("Character created successfully");
                 GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
                 GameManager.Instance.CharacterId = characterId;
                 break;
             case "name_already_in_use":
-                Debug.Log("Username already in use");
+                ErrorPopup("Username already in use");
                 break;
             case "max_allowed_characters":
-                Debug.Log("You have reached the maximum number of characters");
+                ErrorPopup("You have reached the maximum number of characters");
                 break;
             default:
                 Debug.LogError("Create Account: Unknown message");
@@ -307,6 +309,38 @@ public class NetworkManagerGame : EzyDefaultController
         PlayerController playerController = GameManager.Instance.PlayerSyncPositionDictionary[playerName];
         playerController.Move(position);
         playerController.Rotate(rotation);
+    }
+
+    #endregion
+
+    #region POPUP
+
+    private void InformationPopup(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 
     #endregion
