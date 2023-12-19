@@ -249,7 +249,7 @@ public class NetworkManagerAccount : EzyDefaultController
     
     private void InformationPopup(string information)
     {
-        string title = "Information";
+        string title = "Info";
         string info = information;
 
         InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);

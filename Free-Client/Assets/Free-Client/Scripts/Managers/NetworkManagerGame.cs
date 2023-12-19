@@ -137,8 +137,9 @@ public class NetworkManagerGame : EzyDefaultController
 
     private void OnLoginError(EzySocketProxy proxy, Object data)
     {
-        Debug.Log("OnLoginError");
-        //Todo capture the error and handle
+        string error = data.ToString();
+        if (error.Contains("invalid password") || error.Contains("invalid user name"))
+            InformationPopup("Invalid username or password");
     }
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)
@@ -307,6 +308,24 @@ public class NetworkManagerGame : EzyDefaultController
         PlayerController playerController = GameManager.Instance.PlayerSyncPositionDictionary[playerName];
         playerController.Move(position);
         playerController.Rotate(rotation);
+    }
+
+    #endregion
+
+    #region POPUP
+
+    private void InformationPopup(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Close(); }
+        );
     }
 
     #endregion

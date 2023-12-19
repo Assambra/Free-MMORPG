@@ -8,10 +8,10 @@ public class PopupFactory<T> : IPopupFactory where T : BasePopup
     {
         if (popupInstance == null || popupInstance.gameObject == null)
         {
-            var prefab = Resources.Load<T>(typeof(T).Name);
+            var prefab = Resources.Load<T>("Popups/" + typeof(T).Name);
             if (prefab == null)
             {
-                Debug.LogError("Prefab konnte nicht geladen werden: " + "Prefabs/" + typeof(T).Name);
+                Debug.LogError("Can't load: " + "Popups/" + typeof(T).Name);
                 return null;
             }
             popupInstance = GameObject.Instantiate(prefab, PopupManager.Instance.UIHandler.Canvas);
