@@ -38,7 +38,7 @@
 <ul>
     <li><a href="#foreword">Foreword</a></li>
     <li><a href="#key-features">Key Features</a></li>
-    <li><a href="#playable-demo">Playble Demo</a></li>
+    <li><a href="#playable-demo">Playable Demo</a></li>
     <li><a href="#client">Client</a></li>
         <ul>
             <li><a href="#clone-from-github">Clone Free-MMORPG from Github</a></li>
@@ -78,6 +78,8 @@
                 <li><a href="#run-the-server">Run the server</a></li>
             </ul>
         </ul>
+    <li><a href="#thank-you">Thank you</a></li>
+    <li><a href="#credits">Credits</a></li>
     <li><a href="#resources-section">Resources Section</a></li>
     <li><a href="#contact">Contact</a></li>
 </ul>
@@ -85,14 +87,9 @@
 <!-- FOREWORD-->
 ## Foreword
 
-This project uses free resources for the server and client technology.
-Without the project probably wouldn't be possible,
-so my special thanks go to the guys from [Young Monkeys](https://youngmonkeys.org/ "Young Monkeys") for their great preliminary work
-and sharing their work with the community. Also a special thanks to all guys of the project from [UMA](https://github.com/umasteeringgroup/UMA "UMA") 
-and there great and absolute nice Unity Multipurpose Avatar System.  
-Please check out our Resources Section what technologies we use and support their projects
-in some way such as donation or code so these guys can keep doing what they like,
-write good code and a great frameworks.
+This project utilizes free resources for both server and client technology. Without these, the project likely wouldn't have been possible, so I extend my special thanks to the team at [Young Monkeys](https://youngmonkeys.org/) for their excellent foundational work, particularly for the [EzyFox Server](https://youngmonkeys.org/projects/ezyfox-server) framework, and for sharing it with the community. Also, special thanks to all the contributors to the [UMA](https://github.com/umasteeringgroup/UMA) project and their outstanding Unity Multipurpose Avatar System. Please check out our Resources Section to see what technologies we use and consider supporting their projects in some way, such as through donations or code contributions, to help these talented individuals continue doing what they love: writing great code and developing fantastic frameworks.
+
+
 
 For the game client we are using [Unity](https://unity.com "Unity") as game engine.
 
@@ -108,6 +105,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
             <li>Login</li>
             <li>Forgot password function, sending new password to a given username / e-mail address</li>
             <li>Forgot username function, sending the username to a given e-mail address</li>
+            <li>SSL encryption for creating accounts this is feature from the EzyFox Server framework <a href="https://youngmonkeys.org/ezyfox-server-ssl/">EzyFox Server SSL</a></li>
         </ul>
     <li>Email</li>
         <ul>
@@ -141,6 +139,10 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <li>A lot of options to fine tune the camera behaviour</li>
         <li>Planed: Camera collision, more smoothing of the camera motions, distance and orbit</li>
     </ul>
+    <li>Popup System</li>
+        <ul>
+            <li>Create your own popups for different use-cases</li>
+        </ul>
 </ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -398,6 +400,14 @@ Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-servi
 
 ## Resources Section
 - In progress
+
+<!-- Thank you -->
+## Thank you
+- A special thanks to tvd12 for fixing a variety of bugs and providing great help with other issues.
+
+<!-- Credits -->
+##Credits
+- 
 
 <!-- Contact -->
 ## Contact
