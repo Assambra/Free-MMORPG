@@ -406,7 +406,7 @@ Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-servi
 - A special thanks to tvd12 for fixing a variety of bugs and providing great help with other issues.
 
 <!-- Credits -->
-##Credits
+## Credits
 - 
 
 <!-- Contact -->
