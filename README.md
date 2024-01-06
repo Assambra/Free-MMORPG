@@ -353,13 +353,13 @@ In this example we use the location D:\ezyfox-server
 Steps for Account Server
 - Open gitbash and go to the folder free-account-server-startup
 - Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
-- Execute: ExternalLibrariesExporter in free-account-server-startup/src/test/java in your IDE
+- Run: ExternalLibrariesExporter in free-account-server-startup/src/test/java/com.assambra.account/tools your IDE
 - Insert: D:/ezyfox-server hit enter
 
 Repeat the steps for the Game Server
 - Open gitbash and go to the folder free-game-server-startup
 - Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
-- Execute: ExternalLibrariesExporter in free-game-server-startup/src/test/java in your IDE
+- Run: ExternalLibrariesExporter in free-game-server-startup/src/test/java/com.assambra.game/tools in your IDE
 - Insert: D:/ezyfox-server hit enter
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
