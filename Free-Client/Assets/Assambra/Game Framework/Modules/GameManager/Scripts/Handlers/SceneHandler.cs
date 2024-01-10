@@ -1,42 +1,59 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class SceneHandler : MonoBehaviour
 {
+    public static event Action<Scene, Scene> OnSceneChanged;
+
     public List<Scene> Scenes = new List<Scene>();
-    public Scene CurrentScene = null;
-    public Scene LastScene = null;
 
-    public delegate void SceneAction();
-    public static event SceneAction OnSceneChanged;
+    private Scene lastScene = null;
 
-    private void Awake()
+    private void Start()
     {
-        foreach (Scene scene in Scenes)
+        ChangeScene(GetFirstScene());
+    }
+
+    public void ChangeScene(Scene newScene)
+    {
+        if (lastScene != newScene)
         {
-            if (scene.IsFirstScene)
-                CurrentScene = scene;
+            OnSceneChanged?.Invoke(lastScene, newScene);
+            UnloadScenesInSceneObject(lastScene);
+            LoadScenesInSceneObject(newScene);
+            lastScene = newScene;
         }
     }
 
-    void Update()
+    private void LoadScenesInSceneObject(Scene scene)
     {
-        if (CurrentScene != LastScene)
+        if (scene != null)
         {
-            OnSceneChanged?.Invoke();
-
-            foreach (Scene scene in Scenes)
+            foreach (string scenePath in scene.scenePaths)
             {
-                if (scene == CurrentScene)
-                    LoadSceneAsync(scene.ScenePath, LoadSceneMode.Additive);
+                LoadSceneAsync(scenePath, LoadSceneMode.Additive);
             }
-
-            if (LastScene != null)
-                UnloadSceneAsync(LastScene.ScenePath);
-
-            LastScene = CurrentScene;
         }
+    }
+
+    private void UnloadScenesInSceneObject(Scene scene)
+    {
+        if (scene != null)
+        {
+            foreach (string scenePath in scene.scenePaths)
+            {
+                UnloadSceneAsync(scenePath);
+            }
+        }
+    }
+
+    private Scene GetFirstScene()
+    {
+        Debug.Log(Scenes.Find(scene => scene.IsFirstScene).name);
+        return Scenes.Find(scene => scene.IsFirstScene);
     }
 
     private void LoadSceneAsync(string scene, LoadSceneMode mode)

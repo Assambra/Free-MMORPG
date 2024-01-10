@@ -220,6 +220,7 @@ public class NetworkManagerGame : EzyDefaultController
     private void OnPlayResponse(EzyAppProxy proxy, EzyArray data)
     {
         GameManager.Instance.ChangeScene(Scenes.World);
+        GameManager.Instance.ChangeState(GameState.Game);
 
         Debug.Log("OnPlayResponse");
 

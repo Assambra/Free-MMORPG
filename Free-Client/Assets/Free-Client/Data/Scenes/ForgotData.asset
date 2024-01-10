@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc5b32f8af3c3e42bb19b1e24d4a59c, type: 3}
   m_Name: ForgotData
   m_EditorClassIdentifier: 
-  ScenePath: Assets/Free-Client/Scenes/ForgotData.unity
   IsFirstScene: 0
+  scenePaths:
+  - Assets/Free-Client/Scenes/ForgotData.unity
   SceneUISets:
   - {fileID: 11400000, guid: 9e885254756bb1742a8411c4ee944fb4, type: 2}
   - {fileID: 11400000, guid: 5ffdbd40cc62a0947bf84a17715634cc, type: 2}

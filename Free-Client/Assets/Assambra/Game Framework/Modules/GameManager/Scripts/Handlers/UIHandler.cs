@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     [SerializeField] SceneHandler sceneHandler;
-    [field: SerializeField] public Transform Canvas { get; private set; }
+    [SerializeField] public Transform Canvas;
 
     private List<GameObject> uIElements = new List<GameObject>();
 
@@ -19,35 +19,39 @@ public class UIHandler : MonoBehaviour
         SceneHandler.OnSceneChanged -= SceneChanged;
     }
 
-    private void SceneChanged()
+    private void SceneChanged(Scene lastScenen, Scene newScene)
     {
-        bool isTheSameSet = false;
+        HashSet<string> lastUIElements = new HashSet<string>();
 
-        if (sceneHandler.LastScene != null)
+        if (lastScenen != null)
         {
-            isTheSameSet = Enumerable.SequenceEqual(sceneHandler.LastScene.SceneUISets.OrderBy(e => e.name), sceneHandler.CurrentScene.SceneUISets.OrderBy(e => e.name));
-            
-            if (!isTheSameSet)
+            lastUIElements = lastScenen.SceneUISets
+                .SelectMany(set => set.UIElementPrefabs)
+                .Select(obj => obj.name)
+                .ToHashSet();
+        }
+
+        HashSet<string> newUIElements = newScene.SceneUISets
+            .SelectMany(set => set.UIElementPrefabs)
+            .Select(obj => obj.name)
+            .ToHashSet();
+
+        foreach (var uIElement in uIElements.ToList())
+        {
+            if (!newUIElements.Contains(uIElement.name))
             {
-                DestroyLastUIElements();
-                uIElements.Clear();
+                Destroy(uIElement);
+                uIElements.Remove(uIElement);
             }
         }
 
-        if (!isTheSameSet)
+        foreach (var sceneUISet in newScene.SceneUISets)
         {
-            foreach (Scene scene in sceneHandler.Scenes)
+            foreach (var obj in sceneUISet.UIElementPrefabs)
             {
-                if (scene == sceneHandler.CurrentScene)
+                if (lastScenen == null || !lastUIElements.Contains(obj.name))
                 {
-                    foreach (SceneUISet sceneUISet in scene.SceneUISets)
-                    {
-                        foreach (GameObject obj in sceneUISet.UIElementPrefabs)
-                        {
-                            InstantiateCurrentSceneUI(obj);
-                        }
-                    }
-                    return;
+                    InstantiateCurrentSceneUI(obj);
                 }
             }
         }
@@ -58,13 +62,5 @@ public class UIHandler : MonoBehaviour
         GameObject go = Instantiate(obj, Canvas);
         go.name = obj.name;
         uIElements.Add(go);
-    }
-
-    private void DestroyLastUIElements()
-    {
-        foreach (GameObject uIElement in uIElements)
-        {
-            Destroy(uIElement);
-        }
     }
 }
