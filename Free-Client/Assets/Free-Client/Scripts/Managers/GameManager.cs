@@ -4,10 +4,8 @@ using UMA.CharacterSystem;
 using UnityEngine;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : BaseGameManager
 {
-    public static GameManager Instance { get; private set; }
-
     [field: SerializeField] public CameraController CameraController { get; private set; }
     [field: SerializeField] public UIHandler UIHandler { get; private set; }
     [field: SerializeField] public SceneHandler SceneHandler { get; private set; }
@@ -30,36 +28,22 @@ public class GameManager : MonoBehaviour
     // Private
     private GameObject playerGameObject;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         Application.targetFrameRate = 60;
-
-        SceneHandler.OnSceneChanged += OnSceneChanged;
-
-        if (Instance != null && Instance != this)
-            Destroy(this);
-        else
-            Instance = this;
     }
 
-    private void OnDestroy()
-    {
-        SceneHandler.OnSceneChanged -= OnSceneChanged;
-    }
 
     private void Update()
     {
         CameraController.IsOverUIElement = MouseHandler.IsOverUIElement;
     }
 
-    public void ChangeScene(Scenes scene)
+    protected override void OnSceneChanged(Scene lastScene, Scene newScene)
     {
-        SceneHandler.CurrentScene = SceneHandler.Scenes[(int)scene];
-    }
-
-    private void OnSceneChanged()
-    {
-        if (SceneHandler.CurrentScene.name == Scenes.Login.ToString())
+        if (newScene.name == Scenes.Login.ToString())
         {
             SetCameraDefaultValues();
             
@@ -72,13 +56,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (SceneHandler.CurrentScene.name == Scenes.SelectCharacter.ToString() ||
-            SceneHandler.CurrentScene.name == Scenes.CreateCharacter.ToString())
+        if (newScene.name == Scenes.SelectCharacter.ToString() ||
+            newScene.name == Scenes.CreateCharacter.ToString())
         {
             SetCameraPreGameValues();
         }
 
-        if(SceneHandler.CurrentScene.name == Scenes.World.ToString())
+        if(newScene.name == Scenes.World.ToString())
         {
             SetCameraGameCameraValues();
             Destroy(playerGameObject);
