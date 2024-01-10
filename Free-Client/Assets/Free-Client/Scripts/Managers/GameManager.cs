@@ -18,13 +18,13 @@ public class GameManager : BaseGameManager
     public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
     public List<Character> CharacterList { get; set; } = new List<Character>();
     public Dictionary<string, PlayerController> PlayerSyncPositionDictionary = new Dictionary<string, PlayerController>();
-    
+
     public bool CharacterCreatedAndReadyToPlay = false;
     public long CharacterId = 0;
 
     [Header("Player Prefab")]
     [SerializeField] GameObject playerPrefab;
-    
+
     // Private
     private GameObject playerGameObject;
 
@@ -35,10 +35,24 @@ public class GameManager : BaseGameManager
         Application.targetFrameRate = 60;
     }
 
+    private void Start()
+    {
+        ChangeState(GameState.Lobby);
+    }
 
     private void Update()
     {
         CameraController.IsOverUIElement = MouseHandler.IsOverUIElement;
+
+        switch (_currentState)
+        {
+            case GameState.Lobby:
+                //Debug.Log("GameManager::Update() Demo GameState Lobby");
+                break;
+            case GameState.Game:
+                //Debug.Log("GameManager::Update() Demo GameState Game");
+                break;
+        }
     }
 
     protected override void OnSceneChanged(Scene lastScene, Scene newScene)

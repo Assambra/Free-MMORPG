@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc5b32f8af3c3e42bb19b1e24d4a59c, type: 3}
   m_Name: SelectCharacter
   m_EditorClassIdentifier: 
-  ScenePath: Assets/Free-Client/Scenes/SelectCharacter.unity
   IsFirstScene: 0
+  scenePaths:
+  - Assets/Free-Client/Scenes/SelectCharacter.unity
   SceneUISets:
   - {fileID: 11400000, guid: b5ec7d52770e2474a9b9bc1d9374c1d4, type: 2}
