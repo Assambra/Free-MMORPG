@@ -15,5 +15,6 @@ MonoBehaviour:
   IsFirstScene: 0
   scenePaths:
   - Assets/Free-Client/Scenes/World.unity
+  - Assets/Free-Client/Scenes/WorldEnvironment.unity
   SceneUISets:
   - {fileID: 11400000, guid: aeffebd1ff8d6a44faed6d93c5ff9cf4, type: 2}

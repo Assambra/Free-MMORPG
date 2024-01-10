@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneHandler: {fileID: 0}
-  Canvas: {fileID: 4883510217923666554}
+  <Canvas>k__BackingField: {fileID: 4883510217923666554}
 --- !u!1 &4883510217923666549
 GameObject:
   m_ObjectHideFlags: 0
