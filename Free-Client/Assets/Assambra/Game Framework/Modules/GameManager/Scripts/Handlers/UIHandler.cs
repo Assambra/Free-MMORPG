@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     [SerializeField] SceneHandler sceneHandler;
-    [SerializeField] public Transform Canvas;
+    [field: SerializeField] public Transform Canvas { get; private set; }
 
     private List<GameObject> uIElements = new List<GameObject>();
 
