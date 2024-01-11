@@ -824,7 +824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.data[0]
@@ -837,17 +837,21 @@ PrefabInstance:
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 664d164319697654dbc608374dff12e9, type: 2}
+      objectReference: {fileID: 11400000, guid: f51a5a3bfdfaec94393b19e4a2f0c49b, type: 2}
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 7094d1a44d34bd94ea82f2c486a89159, type: 2}
+      objectReference: {fileID: 11400000, guid: 664d164319697654dbc608374dff12e9, type: 2}
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 580a3701a29492d4d939bcc6cfcd2faf, type: 2}
+      objectReference: {fileID: 11400000, guid: 7094d1a44d34bd94ea82f2c486a89159, type: 2}
     - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
       propertyPath: Scenes.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 580a3701a29492d4d939bcc6cfcd2faf, type: 2}
+    - target: {fileID: 2810307544624843600, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
+      propertyPath: Scenes.Array.data[6]
       value: 
       objectReference: {fileID: 11400000, guid: d8cdd5b3e19011a4e9e0aae9c6e2e65b, type: 2}
     - target: {fileID: 2810307544624843601, guid: fa4a424469a793a47a06180fc2feec08, type: 3}
