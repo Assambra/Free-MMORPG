@@ -91,7 +91,7 @@ public class NetworkManagerAccount : EzyDefaultController
         .append("password", password)
         .build();
 
-        appProxy.send(Commands.CREATE_ACCOUNT, socketConfigVariable.Value.EnableSSL);
+        appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
     }
 
     public void ForgotPassword(string usernameOrEmail)
