@@ -27,10 +27,11 @@ public class NetworkManagerAccount : EzyDefaultController
         base.OnEnable();
 
         AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
+        AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateAccountResponse);
         AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
-        
-        
+
+
         Login();
     }
 
@@ -92,6 +93,19 @@ public class NetworkManagerAccount : EzyDefaultController
         .build();
 
         appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
+<<<<<<< HEAD
+    }
+
+    public void ActivateAccount(string activationcode)
+    {
+        EzyObject data = EzyEntityFactory
+        .newObjectBuilder()
+        .append("activationcode", activationcode)
+        .build();
+
+        appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
+=======
+>>>>>>> 614543d02b997fa1245ae9e80e81ce863a588910
     }
 
     public void ForgotPassword(string usernameOrEmail)
@@ -151,20 +165,16 @@ public class NetworkManagerAccount : EzyDefaultController
 
         switch (result)
         {
-            case "successfully":
-                Debug.Log("Account successfully created");
-                InformationPopup("Account successfully created");
+            case "successful":
+                InformationPopupCrateAccount("Account successfully created");
                 break;
             case "email_already_registered":
-                Debug.Log("E-Mail already registered");
                 ErrorPopup("E-Mail already registered, please use the Forgot password function");
                 break;
             case "username_already_in_use":
-                Debug.Log("Username already in use");
                 ErrorPopup("Username are not allowed");
                 break;
             case "username_are_not_allowed":
-                Debug.Log("Username not allowed");
                 ErrorPopup("Username are not allowed");
                 break;
             default:
@@ -179,6 +189,20 @@ public class NetworkManagerAccount : EzyDefaultController
         uICreateAccount.buttonBack.interactable = true;
     }
 
+    private void OnActivateAccountResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+        switch (result)
+        {
+            case "successful":
+                InformationPopupAccountActivation("Your account has been successfully activated");
+                break;
+            case "wrong_activation_code":
+                ErrorPopup("Wrong activation code");
+                break;
+        }
+    }
+
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
     {
         UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
@@ -186,18 +210,14 @@ public class NetworkManagerAccount : EzyDefaultController
             Debug.LogError("UIForgotData not found!");
 
         string result = data.get<string>("result");
-        string pwd = data.get<string>("password");
 
         switch (result)
         {
+            case "successful":
+                InformationPopup("Your new password has been sent to your registered e-mail address");
+                break;
             case "no_account":
                 InformationPopup("No Account found for given username or email address");
-                break;
-            case "sending_password":
-                InformationPopup("Your new password is: " + pwd);
-                break;
-            case "sending_email":
-                InformationPopup("Your new password has been sent to your registered e-mail address");
                 break;
             default:
                 Debug.LogError("Forgot Password: Unknown result: " + result);
@@ -218,17 +238,18 @@ public class NetworkManagerAccount : EzyDefaultController
             Debug.LogError("UIForgotData not found!");
 
         string result = data.get<string>("result");
-        string username = data.get<string>("username");
-
-        if (result == "success")
+        switch (result)
         {
-            if (username == "")
-            InformationPopup("Your username has been sent to your email address");
-            else
-                InformationPopup("Your username is: " + username);
+            case "successful":
+                InformationPopup("Your username has been sent to your email address");
+                break;
+            case "not_found":
+                InformationPopup("This e-mail address are not registered");
+                break;
+            default:
+                Debug.LogError("Forgot Username: Unknown result: " + result);
+                break;
         }
-        if (result == "not_found")
-            InformationPopup("This e-mail address are not registered");
 
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();
@@ -246,7 +267,7 @@ public class NetworkManagerAccount : EzyDefaultController
     }
 
     #region POPUP
-    
+
     private void InformationPopup(string information)
     {
         string title = "Info";
@@ -259,6 +280,44 @@ public class NetworkManagerAccount : EzyDefaultController
             info,
             () => { popup.Destroy(); }
         );
+    }
+
+    private void InformationPopupCrateAccount(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { OnInformationPopupCrateAccountOK(); popup.Destroy(); }
+        );
+    }
+
+    private void OnInformationPopupCrateAccountOK()
+    {
+        GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+    }
+
+    private void InformationPopupAccountActivation(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { OnInformationPopupAccountActivationOK(); popup.Destroy(); }
+        );
+    }
+
+    private void OnInformationPopupAccountActivationOK()
+    {
+        GameManager.Instance.ChangeScene(Scenes.Login);
     }
 
     private void ErrorPopup(string error)
