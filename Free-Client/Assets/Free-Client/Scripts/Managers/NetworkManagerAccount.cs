@@ -151,20 +151,16 @@ public class NetworkManagerAccount : EzyDefaultController
 
         switch (result)
         {
-            case "successfully":
-                Debug.Log("Account successfully created");
+            case "successful":
                 InformationPopup("Account successfully created");
                 break;
             case "email_already_registered":
-                Debug.Log("E-Mail already registered");
                 ErrorPopup("E-Mail already registered, please use the Forgot password function");
                 break;
             case "username_already_in_use":
-                Debug.Log("Username already in use");
                 ErrorPopup("Username are not allowed");
                 break;
             case "username_are_not_allowed":
-                Debug.Log("Username not allowed");
                 ErrorPopup("Username are not allowed");
                 break;
             default:
@@ -186,19 +182,15 @@ public class NetworkManagerAccount : EzyDefaultController
             Debug.LogError("UIForgotData not found!");
 
         string result = data.get<string>("result");
-        string pwd = data.get<string>("password");
 
         switch (result)
         {
-            case "no_account":
-                InformationPopup("No Account found for given username or email address");
-                break;
-            case "sending_password":
-                InformationPopup("Your new password is: " + pwd);
-                break;
-            case "sending_email":
+            case "successful":
                 InformationPopup("Your new password has been sent to your registered e-mail address");
                 break;
+            case "no_account":
+                InformationPopup("No Account found for given username or email address");
+                break;            
             default:
                 Debug.LogError("Forgot Password: Unknown result: " + result);
                 break;
@@ -218,17 +210,18 @@ public class NetworkManagerAccount : EzyDefaultController
             Debug.LogError("UIForgotData not found!");
 
         string result = data.get<string>("result");
-        string username = data.get<string>("username");
-
-        if (result == "success")
+        switch (result)
         {
-            if (username == "")
-            InformationPopup("Your username has been sent to your email address");
-            else
-                InformationPopup("Your username is: " + username);
+            case "successful":
+                InformationPopup("Your username has been sent to your email address");
+                break;
+            case "not_found":
+                InformationPopup("This e-mail address are not registered");
+                break;
+            default:
+                Debug.LogError("Forgot Username: Unknown result: " + result);
+                break;
         }
-        if (result == "not_found")
-            InformationPopup("This e-mail address are not registered");
 
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
         Disconnect();

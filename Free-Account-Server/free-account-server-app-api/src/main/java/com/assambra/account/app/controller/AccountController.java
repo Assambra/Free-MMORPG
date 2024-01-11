@@ -69,7 +69,7 @@ public class AccountController extends EzyLoggable {
                     logger.info("Activation code: {} for account: {}", randomstring, request.getUsername());
                 }
 
-                resultMessage = "successfully";
+                resultMessage = "successful";
                 logger.info("Account: {} created successfully a new account", request.getUsername());
             }
             else
@@ -132,17 +132,15 @@ public class AccountController extends EzyLoggable {
                 // Todo set subject as variable
                 mail.sendMail(account.getEmail(), "Your new password", mailBuilder.buildEmail());
 
-                resultMessage = "sending_email";
-
                 logger.info("Account: Send new password to {} for account: {}", account.getEmail(), account.getUsername());
             }
             else
             {
-                resultMessage = "";
-
                 logger.warn("Warning: Setup the server to send emails!");
                 logger.info("Account: New password: {} for user or e-mail-address: {}", randomstring, request.getUsernameOrEMail());
             }
+
+            resultMessage = "successful";
         }
 
         responseFactory.newObjectResponse()
@@ -168,7 +166,6 @@ public class AccountController extends EzyLoggable {
         }
         else
         {
-            resultMessage = "success";
             String username = account.getUsername();
 
             if(ServerVariables.SERVER_CAN_SEND_MAIL)
@@ -187,6 +184,8 @@ public class AccountController extends EzyLoggable {
                 logger.warn("Warning: Setup the server to send emails!");
                 logger.info("Account: Username: {} for e-mail-address: {}", username, request.getEmail());
             }
+
+            resultMessage = "successful";
         }
 
         responseFactory.newObjectResponse()
