@@ -27,6 +27,7 @@ public class NetworkManagerAccount : EzyDefaultController
         base.OnEnable();
 
         AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
+        AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateAccountResponse);
         AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
         
@@ -94,6 +95,16 @@ public class NetworkManagerAccount : EzyDefaultController
         appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
     }
 
+    public void ActivateAccount(string activationcode)
+    {
+        EzyObject data = EzyEntityFactory
+        .newObjectBuilder()
+        .append("activationcode", activationcode)
+        .build();
+
+        appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
+    }
+
     public void ForgotPassword(string usernameOrEmail)
     {
         EzyObject data = EzyEntityFactory
@@ -152,7 +163,7 @@ public class NetworkManagerAccount : EzyDefaultController
         switch (result)
         {
             case "successful":
-                InformationPopup("Account successfully created");
+                InformationPopupCrateAccount("Account successfully created");
                 break;
             case "email_already_registered":
                 ErrorPopup("E-Mail already registered, please use the Forgot password function");
@@ -173,6 +184,20 @@ public class NetworkManagerAccount : EzyDefaultController
         uICreateAccount.buttonCreate.interactable = true;
         uICreateAccount.buttonForgotData.interactable = true;
         uICreateAccount.buttonBack.interactable = true;
+    }
+
+    private void OnActivateAccountResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+        switch (result)
+        {
+            case "successful":
+                InformationPopupAccountActivation("Your account has been successfully activated");
+                break;
+            case "wrong_activation_code":
+                ErrorPopup("Wrong activation code");
+                break;
+        }
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
@@ -252,6 +277,44 @@ public class NetworkManagerAccount : EzyDefaultController
             info,
             () => { popup.Destroy(); }
         );
+    }
+
+    private void InformationPopupCrateAccount(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { OnInformationPopupCrateAccountOK(); popup.Destroy(); }
+        );
+    }
+
+    private void OnInformationPopupCrateAccountOK()
+    {
+        GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+    }
+
+    private void InformationPopupAccountActivation(string information)
+    {
+        string title = "Info";
+        string info = information;
+
+        InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { OnInformationPopupAccountActivationOK(); popup.Destroy(); }
+        );
+    }
+
+    private void OnInformationPopupAccountActivationOK()
+    {
+        GameManager.Instance.ChangeScene(Scenes.Login);
     }
 
     private void ErrorPopup(string error)
