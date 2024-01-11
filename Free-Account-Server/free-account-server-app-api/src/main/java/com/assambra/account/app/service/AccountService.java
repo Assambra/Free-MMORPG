@@ -6,6 +6,8 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @AllArgsConstructor
 @EzySingleton("accountService")
@@ -32,12 +34,21 @@ public class AccountService
         return accountRepo.findByField("email", email);
     }
 
-    public void createAccount(String email, String username, String password) {
+    public void createAccount(String email, String username, String password, String activationcode) {
         Account account = new Account();
         account.setId(maxIdService.incrementAndGet("account"));
         account.setEmail(email);
         account.setUsername(username);
         account.setPassword(password);
+        account.setActivated(false);
+        account.setActivationCode(activationcode);
+
+        Date date = new Date();
+        account.setCreationDate(date);
+
+        account.setRole("Player");
+        account.setMaxAllowedCharacters(3);
+
         accountRepo.save(account);
     }
 }

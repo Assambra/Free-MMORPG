@@ -27,6 +27,7 @@ public class NetworkManagerGame : EzyDefaultController
     {
         base.OnEnable();
 
+        AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
         AddHandler<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
         AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
         AddHandler<EzyArray>(Commands.PLAY, OnPlayResponse);
@@ -82,6 +83,11 @@ public class NetworkManagerGame : EzyDefaultController
             socketProxy.setTransportType(EzyTransportType.TCP);
 
         socketProxy.connect();
+    }
+
+    public void Check()
+    {
+        appProxy.send(Commands.CHECK);
     }
 
     public void GetCharacterList()
@@ -152,14 +158,28 @@ public class NetworkManagerGame : EzyDefaultController
     {
         Debug.Log("Game: App access successfully");
 
-        GameManager.Instance.CharacterInfos.Clear();
-
-        GetCharacterList();
+        Check();
     }
 
     private void OnLoginSucess(EzySocketProxy proxy, Object data)
     {
         Debug.Log("OnLoginSucess");
+    }
+
+    private void OnCheckResponse(EzyAppProxy proxy, EzyObject data)
+    {
+        string result = data.get<string>("result");
+
+        switch (result)
+        {
+            case "OK":
+                GameManager.Instance.CharacterInfos.Clear();
+                GetCharacterList();
+                break;
+            case "need_activation":
+                GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+                break;
+        }
     }
 
     private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)

@@ -2,8 +2,9 @@ public enum Scenes
 {
     Login = 0,
     CreateAccount = 1,
-    ForgotData = 2,
-    SelectCharacter = 3,
-    CreateCharacter = 4,
-    World = 5
+    AccountActivation = 2,
+    ForgotData = 3,
+    SelectCharacter = 4,
+    CreateCharacter = 5,
+    World = 6
 }

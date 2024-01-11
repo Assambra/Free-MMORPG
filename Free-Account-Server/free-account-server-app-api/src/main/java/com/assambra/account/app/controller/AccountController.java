@@ -10,6 +10,7 @@ import com.assambra.account.app.service.AccountService;
 import com.assambra.account.app.constant.Commands;
 import com.assambra.account.app.constant.ServerVariables;
 import com.assambra.account.common.entity.Account;
+import com.assambra.account.common.mail.mailbodys.AccountActivationCodeMailBody;
 import com.assambra.account.common.mail.mailbodys.ForgotPasswordMailBody;
 import com.assambra.account.common.mail.mailbodys.ForgotUsernameMailBody;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
@@ -32,8 +33,10 @@ public class AccountController extends EzyLoggable {
     private final SMTP_EMail mail = new SMTP_EMail();
 
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
-    public void createAccount(EzyUser user, CreateAccountRequest request)
+    public void createAccount(EzyUser user, CreateAccountRequest request) throws IOException, TemplateException
     {
+        logger.info("Account: Receive CREATE_ACCOUNT for new user {}", request.getUsername());
+
         String resultMessage = "";
 
         Account account = accountService.getAccountByUsername(request.getUsername());
@@ -42,28 +45,50 @@ public class AccountController extends EzyLoggable {
 
         if(account == null)
         {
-            getLogger().info("Account doesn't exist in db, create new one -> E-Mail: {}, Username: {}, Password: {}", request.getEmail(), request.getUsername(), request.getPassword());
             if(!request.getUsername().toLowerCase().contains("guest"))
             {
-                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()));
-                resultMessage = "successfully";
+                String randomstring = RandomString.getAlphaNumericString(8);
+
+                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()), randomstring);
+
+                if(ServerVariables.SERVER_CAN_SEND_MAIL)
+                {
+                    AccountActivationCodeMailBody accountActivationCodeMailBody = new AccountActivationCodeMailBody();
+                    MailBuilder mailBuilder = new MailBuilder();
+                    mailBuilder.setBodyTemplate(accountActivationCodeMailBody);
+                    mailBuilder.setVariable("activationCode", randomstring);
+
+                    // Todo set subject as variable
+                    mail.sendMail(account.getEmail(), "Your activation code", mailBuilder.buildEmail());
+
+                    logger.info("Account: Send activation code to {} for account: {}", request.getEmail(), request.getUsername());
+                }
+                else
+                {
+                    logger.warn("Warning: Setup the server to send emails!");
+                    logger.info("Activation code: {} for account: {}", randomstring, request.getUsername());
+                }
+
+                resultMessage = "successful";
+                logger.info("Account: {} created successfully a new account", request.getUsername());
             }
             else
             {
                 resultMessage = "username_are_not_allowed";
+                logger.info("Account: {} tried to create a new account but username are not allowed!", request.getUsername());
             }
         }
         else
         {
             if(account.getEmail().equals(request.getEmail().toLowerCase()))
             {
-                logger.info("E-Mail already registered");
                 resultMessage = "email_already_registered";
+                logger.info("Account: {} tried to create a new account but email already registered!", request.getUsername());
             }
             else if(account.getUsername().equals(request.getUsername()))
             {
-                logger.info("Username already in use");
                 resultMessage ="username_already_in_use";
+                logger.info("Account: {} tried to create a new account but username already in use!", request.getUsername());
             }
         }
 
@@ -77,10 +102,9 @@ public class AccountController extends EzyLoggable {
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
     public void forgotPassword(EzyUser user, ForgotPasswordRequest request) throws IOException, TemplateException
     {
-        String password;
-        String resultMessage;
+        logger.info("Account: Receive FORGOT_PASSWORD for user or email-address {}", request.getUsernameOrEMail());
 
-        logger.info("Receive forgot password request for user {}, username or email {}", user.getName(), request.getUsernameOrEMail());
+        String resultMessage;
 
         Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
         if(account == null)
@@ -89,21 +113,17 @@ public class AccountController extends EzyLoggable {
         if (account == null)
         {
             resultMessage = "no_account";
-            password = "";
 
-            logger.info("Forgot password request for user: {}, no username or email address found", user.getName());
+            logger.info("Account: User or email-address {} tried to get a new password but no username or email address found!", request.getUsernameOrEMail());
         }
         else
         {
+            String randomstring = RandomString.getAlphaNumericString(8);
+
+            accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
+
             if(ServerVariables.SERVER_CAN_SEND_MAIL)
             {
-                logger.info("Forgot password request for account: {}", account.getUsername());
-
-                String randomstring = RandomString.getAlphaNumericString(8);
-                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
-
-                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
-
                 ForgotPasswordMailBody forgotPasswordMailBody = new ForgotPasswordMailBody();
                 MailBuilder mailBuilder = new MailBuilder();
                 mailBuilder.setBodyTemplate(forgotPasswordMailBody);
@@ -112,73 +132,65 @@ public class AccountController extends EzyLoggable {
                 // Todo set subject as variable
                 mail.sendMail(account.getEmail(), "Your new password", mailBuilder.buildEmail());
 
-                resultMessage ="sending_email";
-                password = "";
-
-                logger.info("Forgot password request for user: {}, found account: {}, sending email to: {}",user.getName(), account.getUsername(), account.getEmail());
-
+                logger.info("Account: Send new password to {} for account: {}", account.getEmail(), account.getUsername());
             }
             else
             {
-                logger.info("Forgot password request for account: {}", account.getUsername());
-
-                String randomstring = RandomString.getAlphaNumericString(8);
-                logger.info("Create random password {} for account: {}", randomstring, account.getUsername());
-
-                accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
-
-                resultMessage ="sending_password";
-                password = randomstring;
+                logger.warn("Warning: Setup the server to send emails!");
+                logger.info("Account: New password: {} for user or e-mail-address: {}", randomstring, request.getUsernameOrEMail());
             }
+
+            resultMessage = "successful";
         }
 
         responseFactory.newObjectResponse()
                 .command(Commands.FORGOT_PASSWORD)
                 .param("result", resultMessage)
-                .param("password", password)
                 .user(user)
                 .execute();
     }
 
     @EzyDoHandle(Commands.FORGOT_USERNAME)
-    public void forgotUsername(EzyUser user, ForgotUsernameRequest request) throws IOException, TemplateException {
+    public void forgotUsername(EzyUser user, ForgotUsernameRequest request) throws IOException, TemplateException
+    {
+        logger.info("Account: Receive FORGOT_USERNAME for email {}", request.getEmail());
+
         String resultMessage;
-        String username;
 
         Account account = accountService.getFieldValueByFieldAndValue("email", request.getEmail().toLowerCase(), "username");
 
         if(account == null)
         {
             resultMessage = "not_found";
-            username = "";
+            logger.info("Account: {} tried to get username but no email address found!", request.getEmail());
         }
         else
         {
+            String username = account.getUsername();
+
             if(ServerVariables.SERVER_CAN_SEND_MAIL)
             {
-                resultMessage = "success";
-                username = "";
-
-                account = accountService.getAccountByUsername(account.getUsername());
-
                 ForgotUsernameMailBody forgotUsernameMailBody = new ForgotUsernameMailBody();
                 MailBuilder mailBuilder = new MailBuilder();
                 mailBuilder.setBodyTemplate(forgotUsernameMailBody);
-                mailBuilder.setVariable("username", account.getUsername());
+                mailBuilder.setVariable("username", username);
 
                 mail.sendMail(account.getEmail(), "Your Username", mailBuilder.buildEmail());
+
+                logger.info("Account: Send username to {} for account: {}", account.getEmail(), account.getUsername());
             }
             else
             {
-                resultMessage = "success";
-                username = account.getUsername();
+                logger.warn("Warning: Setup the server to send emails!");
+                logger.info("Account: Username: {} for e-mail-address: {}", username, request.getEmail());
             }
+
+            resultMessage = "successful";
         }
 
         responseFactory.newObjectResponse()
                 .command(Commands.FORGOT_USERNAME)
                 .param("result", resultMessage)
-                .param("username", username)
                 .user(user)
                 .execute();
     }
