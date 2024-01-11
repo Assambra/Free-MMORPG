@@ -17,6 +17,7 @@ public class Account {
     String password;
     Boolean activated;
     String activationCode;
+    Date activationTimer;
     String role;
     Integer maxAllowedCharacters;
     Date creationOn;
