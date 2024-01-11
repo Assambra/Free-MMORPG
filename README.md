@@ -283,18 +283,20 @@ database: free
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- SETUP MAIL -->
-### Setup Mail
-#### Enable or disable server sending mail via smtp
-First if you don`t have a mail server or some mail provider with an e-mail address who accept sending mails via smtp or didn't want to sending e-mails like for local development, find the file: 
+# Setup Mail
+Enable or disable server sending mail via SMTP.
 
-``Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com.assambra.app\constant\ServerVariables``
+## Basic Configuration
+If you don't have a mail server or a mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
 
-and change the value to false, SERVER_CAN_SEND_MAIL = true
+`Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com\assambra\app\constant\ServerVariables`
 
-Hint! ``Forgot password sending an plain password back to the client if SERVER_CAN_SEND_MAIL = false, it`s a security issue and more for local development but keep in mind set it to true and setup the mail values ``
+Change the value to `false`: `SERVER_CAN_SEND_MAIL = true`.
 
-#### Setup mail values
-The same file as this one we used for your database settings in the Free-Account-Server and add additional to this file the following values and change to your needs:
+**Important:** When `SERVER_CAN_SEND_MAIL = false` is set, only a log message in your IDE is generated on the server side. This setting is mainly intended for local development. However, it is strongly recommended to complete the email setup for production environments to ensure full functionality. Without email setup, clients will not be able to use features like "Forgot Password", "Forgot Username", and "Account Activation".
+
+## Setup Mail Values
+For configuring the email functionality, use the same file you employed for your database settings in the Free-Account-Server. Add or modify the following values as required:
 
 `Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
 
@@ -309,8 +311,8 @@ mail.tls=true
 mail.ssl=false
 mail.mail.address=account@example.com
 mail.mail.sender.name=YourCompany Account Management
-mail.use.replay.address=false;
-mail.mail.replay.address=account@example.com
+mail.use.reply.address=false
+mail.mail.reply.address=account@example.com
 mail.charset=UTF-8
 mail.content.type.primary=text/HTML
 mail.content.type.sub=charset=UTF-8
@@ -318,9 +320,10 @@ mail.format=flowed
 mail.content.transfer.encoding=8bit
 ````
 
-``Hint! Do not use SSL and TSL at the same time where both are true, there is no check and only one should be true.``
+**Hint:** Do not use SSL and TLS simultaneously with both set to `true`. There is no check in place, and only one should be set to `true`.
 
-Most should be self-explanatory, if not go to the class: SMTP_EMail and look at the variables comments.
+Most settings should be self-explanatory. If not, refer to the `SMTP_EMail` class and review the comments for each variable.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEPLOY SERVER -->
