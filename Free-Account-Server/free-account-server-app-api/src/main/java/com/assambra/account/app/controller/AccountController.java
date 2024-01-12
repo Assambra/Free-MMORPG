@@ -1,5 +1,6 @@
 package com.assambra.account.app.controller;
 
+import com.assambra.account.app.request.ActivateAccountRequest;
 import com.assambra.account.common.mail.MailBuilder;
 import com.assambra.account.common.mail.SMTP_EMail;
 import com.assambra.account.app.helper.RandomString;
@@ -95,6 +96,24 @@ public class AccountController extends EzyLoggable {
         responseFactory.newObjectResponse()
                 .command(Commands.CREATE_ACCOUNT)
                 .param("result", resultMessage)
+                .user(user)
+                .execute();
+    }
+
+    @EzyDoHandle(Commands.ACTIVATE_ACCOUNT)
+    public void activateAccount(EzyUser user, ActivateAccountRequest request)
+    {
+        boolean activated = accountService.activateAccount(request.getUsername(), request.getActivationCode());
+        String result;
+
+        if(activated)
+            result = "successful";
+        else
+            result = "wrong_activation_code";
+
+        responseFactory.newObjectResponse()
+                .command(Commands.ACTIVATE_ACCOUNT)
+                .param("result", result)
                 .user(user)
                 .execute();
     }

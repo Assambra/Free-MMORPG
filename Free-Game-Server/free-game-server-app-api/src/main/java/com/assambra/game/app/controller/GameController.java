@@ -37,6 +37,25 @@ public class GameController extends EzyLoggable {
     private final ModelToResponseConverter modelToResponseConverter;
     private final AccountRepo accountRepo;
 
+    @EzyDoHandle(Commands.CHECK)
+    public void check(EzyUser user)
+    {
+
+        Account account = accountRepo.findByField("username", user.getName());
+        String result;
+
+        if(account.getActivated())
+            result = "ok";
+        else
+            result = "need_activation";
+
+        responseFactory.newObjectResponse()
+                .command(Commands.CHECK)
+                .param("result", result)
+                .user(user)
+                .execute();
+    }
+
     @EzyDoHandle(Commands.PLAY)
     public void play(EzyUser user, PlayRequest request) {
         Character character = characterRepo.findById(request.getCharacterId());

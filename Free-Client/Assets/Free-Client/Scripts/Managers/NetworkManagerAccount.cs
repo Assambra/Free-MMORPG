@@ -14,6 +14,8 @@ public class NetworkManagerAccount : EzyDefaultController
 
     public static NetworkManagerAccount Instance { get; private set; }
 
+    private string _username;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -85,6 +87,8 @@ public class NetworkManagerAccount : EzyDefaultController
 
     public void CreateAccount(string email, string username, string password)
     {
+        _username = username;
+
         EzyObject data = EzyEntityFactory
         .newObjectBuilder()
         .append("email", email)
@@ -99,6 +103,7 @@ public class NetworkManagerAccount : EzyDefaultController
     {
         EzyObject data = EzyEntityFactory
         .newObjectBuilder()
+        .append("username", _username)
         .append("activationcode", activationcode)
         .build();
 

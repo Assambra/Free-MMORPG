@@ -34,14 +34,14 @@ public class AccountService
         return accountRepo.findByField("email", email);
     }
 
-    public void createAccount(String email, String username, String password, String activationcode) {
+    public void createAccount(String email, String username, String password, String activationCode) {
         Account account = new Account();
         account.setId(maxIdService.incrementAndGet("account"));
         account.setEmail(email);
         account.setUsername(username);
         account.setPassword(password);
         account.setActivated(false);
-        account.setActivationCode(activationcode);
+        account.setActivationCode(activationCode);
 
         Date date = new Date();
         account.setCreationDate(date);
@@ -50,5 +50,17 @@ public class AccountService
         account.setMaxAllowedCharacters(3);
 
         accountRepo.save(account);
+    }
+
+    public Boolean activateAccount(String username, String activationCode)
+    {
+        Account account = getAccountByUsername(username);
+        if(account.getActivationCode().contains(activationCode))
+        {
+            account.setActivated(true);
+            return true;
+        }
+        else
+            return false;
     }
 }
