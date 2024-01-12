@@ -60,7 +60,7 @@ public class AccountController extends EzyLoggable {
                     mailBuilder.setVariable("activationCode", randomstring);
 
                     // Todo set subject as variable
-                    mail.sendMail(account.getEmail(), "Your activation code", mailBuilder.buildEmail());
+                    mail.sendMail(request.getEmail(), "Your activation code", mailBuilder.buildEmail());
 
                     logger.info("Account: Send activation code to {} for account: {}", request.getEmail(), request.getUsername());
                 }
@@ -88,7 +88,7 @@ public class AccountController extends EzyLoggable {
             }
             else if(account.getUsername().equals(request.getUsername()))
             {
-                resultMessage ="username_already_in_use";
+                resultMessage = "username_already_in_use";
                 logger.info("Account: {} tried to create a new account but username already in use!", request.getUsername());
             }
         }

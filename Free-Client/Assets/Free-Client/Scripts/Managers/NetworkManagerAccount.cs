@@ -87,7 +87,7 @@ public class NetworkManagerAccount : EzyDefaultController
 
     public void CreateAccount(string email, string username, string password)
     {
-        _username = username;
+        GameManager.Instance.Account = username;
 
         EzyObject data = EzyEntityFactory
         .newObjectBuilder()
@@ -103,8 +103,8 @@ public class NetworkManagerAccount : EzyDefaultController
     {
         EzyObject data = EzyEntityFactory
         .newObjectBuilder()
-        .append("username", _username)
-        .append("activationcode", activationcode)
+        .append("username", GameManager.Instance.Account)
+        .append("activationCode", activationcode)
         .build();
 
         appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
@@ -184,7 +184,7 @@ public class NetworkManagerAccount : EzyDefaultController
                 break;
         }
         // Todo Disconnect from server until we dont have a solution to communicate with the server without login
-        Disconnect();
+        //Disconnect();
 
         uICreateAccount.buttonCreate.interactable = true;
         uICreateAccount.buttonForgotData.interactable = true;
@@ -319,7 +319,10 @@ public class NetworkManagerAccount : EzyDefaultController
 
     private void OnInformationPopupAccountActivationOK()
     {
-        GameManager.Instance.ChangeScene(Scenes.Login);
+        if (NetworkManagerGame.Instance.Connected())
+            NetworkManagerGame.Instance.GetCharacterList();
+        else
+            GameManager.Instance.ChangeScene(Scenes.Login);
     }
 
     private void ErrorPopup(string error)

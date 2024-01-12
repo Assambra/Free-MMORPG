@@ -10,7 +10,8 @@ public class UIAccountActivation : MonoBehaviour
 
     public void OnButtonSendActivationCode()
     {
-        NetworkManagerAccount.Instance.ActivateAccount(_inputFieldActivationCode.text);
+        string activationCode = _inputFieldActivationCode.text;
+        NetworkManagerAccount.Instance.ActivateAccount(activationCode);
     }
 
     public void OnButtonQuit()

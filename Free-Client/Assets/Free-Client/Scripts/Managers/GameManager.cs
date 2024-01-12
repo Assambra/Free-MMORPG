@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : BaseGameManager
 {
+    public string Account;
     [field: SerializeField] public CameraController CameraController { get; private set; }
     [field: SerializeField] public UIHandler UIHandler { get; private set; }
     [field: SerializeField] public SceneHandler SceneHandler { get; private set; }

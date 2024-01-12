@@ -63,6 +63,8 @@ public class NetworkManagerGame : EzyDefaultController
 
     public void Login(string username, string password)
     {
+        GameManager.Instance.Account = username;
+
         socketProxy.onLoginSuccess<Object>(OnLoginSucess);
         socketProxy.onLoginError<Object>(OnLoginError);
         socketProxy.onAppAccessed<Object>(OnAppAccessed);

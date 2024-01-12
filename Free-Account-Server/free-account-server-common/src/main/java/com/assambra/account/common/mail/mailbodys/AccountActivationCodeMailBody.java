@@ -26,14 +26,14 @@ public class AccountActivationCodeMailBody implements MailBody {
     }
 
     @Override
+    public void setDataModel(Map<String, Object> dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    @Override
     public String buildBody() throws IOException, TemplateException {
         StringWriter bodyWriter = new StringWriter();
         bodyTemplate.process(dataModel, bodyWriter);
         return bodyWriter.toString();
-    }
-
-    @Override
-    public void setDataModel(Map<String, Object> dataModel) {
-        this.dataModel = dataModel;
     }
 }

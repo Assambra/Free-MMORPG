@@ -58,6 +58,8 @@ public class AccountService
         if(account.getActivationCode().contains(activationCode))
         {
             account.setActivated(true);
+            accountRepo.save(account);
+
             return true;
         }
         else
