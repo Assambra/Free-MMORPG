@@ -93,7 +93,6 @@ public class NetworkManagerAccount : EzyDefaultController
         .build();
 
         appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
-<<<<<<< HEAD
     }
 
     public void ActivateAccount(string activationcode)
@@ -104,8 +103,6 @@ public class NetworkManagerAccount : EzyDefaultController
         .build();
 
         appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
-=======
->>>>>>> 614543d02b997fa1245ae9e80e81ce863a588910
     }
 
     public void ForgotPassword(string usernameOrEmail)
