@@ -172,7 +172,7 @@ public class NetworkManagerGame : EzyDefaultController
 
         switch (result)
         {
-            case "OK":
+            case "ok":
                 GameManager.Instance.CharacterInfos.Clear();
                 GetCharacterList();
                 break;

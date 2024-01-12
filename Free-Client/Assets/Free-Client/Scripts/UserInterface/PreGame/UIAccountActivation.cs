@@ -8,12 +8,12 @@ public class UIAccountActivation : MonoBehaviour
     [SerializeField] Button _buttonQuit;
     [SerializeField] TMP_InputField _inputFieldActivationCode;
 
-    private void OnButtonSendActivationCode()
+    public void OnButtonSendActivationCode()
     {
         NetworkManagerAccount.Instance.ActivateAccount(_inputFieldActivationCode.text);
     }
 
-    private void OnButtonQuit()
+    public void OnButtonQuit()
     {
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
