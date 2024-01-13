@@ -35,6 +35,13 @@ public class NetworkManagerAccount : EzyDefaultController
         Login();
     }
 
+    private void OnDisable()
+    {
+        Disconnect();
+        UnbindSocketHandlers();
+        UnbindAppHandlers();
+    }
+
     private void Update()
     {
         EzyClients.getInstance()

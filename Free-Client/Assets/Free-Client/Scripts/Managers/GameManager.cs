@@ -7,6 +7,8 @@ using UnityEngine;
 public class GameManager : BaseGameManager
 {
     public string Account;
+    [SerializeField] private NetworkManagerAccount _networkManagerAccount;
+
     [field: SerializeField] public CameraController CameraController { get; private set; }
     [field: SerializeField] public UIHandler UIHandler { get; private set; }
     [field: SerializeField] public SceneHandler SceneHandler { get; private set; }
@@ -85,12 +87,19 @@ public class GameManager : BaseGameManager
 
                 SetCameraGameCameraValues();
                 Destroy(playerGameObject);
+
+                _networkManagerAccount.enabled = false;
             }  
         }
         else
         {
             if(_currentState != GameState.Lobby)
+            {
                 ChangeState(GameState.Lobby);
+
+                if (!_networkManagerAccount.enabled)
+                    _networkManagerAccount.enabled = true;
+            }
         }
     }
 

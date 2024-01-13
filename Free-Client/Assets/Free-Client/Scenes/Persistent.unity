@@ -268,6 +268,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
+      propertyPath: _networkManagerAccount
+      value: 
+      objectReference: {fileID: 536559551}
+    - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
       propertyPath: <UIHandler>k__BackingField
       value: 
       objectReference: {fileID: 259245152}
@@ -344,6 +348,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
+--- !u!114 &536559551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 862561444672602720, guid: 77743c60453740a46902b378a099d8bc, type: 3}
+  m_PrefabInstance: {fileID: 4249343769848489974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e312d6e8484c96408ef7c0c5cbaf9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &705190407
 PrefabInstance:
   m_ObjectHideFlags: 0
