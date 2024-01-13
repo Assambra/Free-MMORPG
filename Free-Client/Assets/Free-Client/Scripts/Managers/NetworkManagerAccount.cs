@@ -30,6 +30,7 @@ public class NetworkManagerAccount : EzyDefaultController
 
         AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
         AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateAccountResponse);
+        AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
         AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
 
@@ -108,6 +109,16 @@ public class NetworkManagerAccount : EzyDefaultController
         .build();
 
         appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
+    }
+
+    public void ResendActivationCodeEmail()
+    {
+        EzyObject data = EzyEntityFactory
+            .newObjectBuilder()
+            .append ("username", GameManager.Instance.Account)
+            .build();
+
+        appProxy.send(Commands.RESEND_ACTIVATION_MAIL, data);
     }
 
     public void ForgotPassword(string usernameOrEmail)
@@ -203,6 +214,11 @@ public class NetworkManagerAccount : EzyDefaultController
                 ErrorPopup("Wrong activation code");
                 break;
         }
+    }
+
+    private void OnResendActivationMail(EzyAppProxy proxy, EzyObject data)
+    {
+        InformationPopup("Your account activation code has been sent again to your email address.");
     }
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)

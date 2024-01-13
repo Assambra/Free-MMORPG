@@ -1,12 +1,9 @@
 package com.assambra.account.app.controller;
 
-import com.assambra.account.app.request.ActivateAccountRequest;
+import com.assambra.account.app.request.*;
 import com.assambra.account.common.mail.MailBuilder;
 import com.assambra.account.common.mail.SMTP_EMail;
 import com.assambra.account.app.helper.RandomString;
-import com.assambra.account.app.request.CreateAccountRequest;
-import com.assambra.account.app.request.ForgotPasswordRequest;
-import com.assambra.account.app.request.ForgotUsernameRequest;
 import com.assambra.account.app.service.AccountService;
 import com.assambra.account.app.constant.Commands;
 import com.assambra.account.app.constant.ServerVariables;
@@ -116,6 +113,44 @@ public class AccountController extends EzyLoggable {
                 .param("result", result)
                 .user(user)
                 .execute();
+    }
+
+    @EzyDoHandle(Commands.RESEND_ACTIVATION_MAIL)
+    public void resendActivationMail(EzyUser user, ResendActivationMailRequest request) throws IOException, TemplateException
+    {
+        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", request.getUsername());
+
+        Account account =  accountService.getAccountByUsername(request.getUsername());
+
+        if(account != null)
+        {
+            String activationCode = account.getActivationCode();
+
+            if(ServerVariables.SERVER_CAN_SEND_MAIL)
+            {
+                AccountActivationCodeMailBody accountActivationCodeMailBody = new AccountActivationCodeMailBody();
+                MailBuilder mailBuilder = new MailBuilder();
+                mailBuilder.setBodyTemplate(accountActivationCodeMailBody);
+                mailBuilder.setVariable("activationCode", activationCode);
+
+                // Todo set subject as variable
+                mail.sendMail(account.getEmail(), "Your activation code", mailBuilder.buildEmail());
+
+                logger.info("Account: Send activation code to {} for account: {}", account.getEmail(), account.getUsername());
+            }
+            else
+            {
+                logger.warn("Warning: Setup the server to send emails!");
+                logger.info("Activation code: {} for account: {}", activationCode, account.getUsername());
+            }
+
+            responseFactory.newObjectResponse()
+                    .command(Commands.RESEND_ACTIVATION_MAIL)
+                    .user(user)
+                    .execute();
+        }
+        else
+            logger.error("Account: Resend activation code user {} unknown user!", request.getUsername());
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)

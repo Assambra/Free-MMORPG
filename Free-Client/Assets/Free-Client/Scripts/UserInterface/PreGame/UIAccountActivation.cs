@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIAccountActivation : MonoBehaviour
 {
     [SerializeField] Button _buttonSendActivationCode;
+    [SerializeField] Button _buttonResendActivationEmail;
     [SerializeField] Button _buttonQuit;
     [SerializeField] TMP_InputField _inputFieldActivationCode;
 
@@ -12,6 +13,12 @@ public class UIAccountActivation : MonoBehaviour
     {
         string activationCode = _inputFieldActivationCode.text;
         NetworkManagerAccount.Instance.ActivateAccount(activationCode);
+    }
+
+    public void OnButtonResendActivationEmail()
+    {
+        _buttonResendActivationEmail.interactable = false;
+        NetworkManagerAccount.Instance.ResendActivationCodeEmail();
     }
 
     public void OnButtonQuit()
