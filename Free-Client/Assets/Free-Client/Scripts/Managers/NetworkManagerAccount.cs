@@ -14,8 +14,6 @@ public class NetworkManagerAccount : EzyDefaultController
 
     public static NetworkManagerAccount Instance { get; private set; }
 
-    private string _username;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,7 +31,6 @@ public class NetworkManagerAccount : EzyDefaultController
         AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
         AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
         AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
-
 
         Login();
     }
