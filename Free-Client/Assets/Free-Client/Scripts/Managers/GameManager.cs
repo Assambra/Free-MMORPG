@@ -77,10 +77,20 @@ public class GameManager : BaseGameManager
             SetCameraPreGameValues();
         }
 
-        if(newScene.name == Scenes.World.ToString())
+        if(newScene.name == Scenes.World.ToString()) 
         {
-            SetCameraGameCameraValues();
-            Destroy(playerGameObject);
+            if(_currentState != GameState.Game)
+            {
+                ChangeState(GameState.Game);
+
+                SetCameraGameCameraValues();
+                Destroy(playerGameObject);
+            }  
+        }
+        else
+        {
+            if(_currentState != GameState.Lobby)
+                ChangeState(GameState.Lobby);
         }
     }
 
