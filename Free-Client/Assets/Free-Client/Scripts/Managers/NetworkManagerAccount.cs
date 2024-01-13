@@ -191,8 +191,6 @@ public class NetworkManagerAccount : EzyDefaultController
                 Debug.LogError("Create Account: Unknown message");
                 break;
         }
-        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
-        //Disconnect();
 
         uICreateAccount.buttonCreate.interactable = true;
         uICreateAccount.buttonForgotData.interactable = true;
@@ -238,8 +236,6 @@ public class NetworkManagerAccount : EzyDefaultController
                 Debug.LogError("Forgot Password: Unknown result: " + result);
                 break;
         }
-        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
-        Disconnect();
 
         uIForgotData.buttonSendPassword.interactable = true;
         uIForgotData.buttonBack.interactable = true;
@@ -265,9 +261,6 @@ public class NetworkManagerAccount : EzyDefaultController
                 Debug.LogError("Forgot Username: Unknown result: " + result);
                 break;
         }
-
-        // Todo Disconnect from server until we dont have a solution to communicate with the server without login
-        Disconnect();
 
         uIForgotData.buttonSendUsername.interactable = true;
         uIForgotData.buttonBack.interactable = true;
