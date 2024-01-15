@@ -20,4 +20,4 @@ MonoBehaviour:
     tcpUrl: 127.0.0.1:3005
     udpPort: 2611
     udpUsage: 0
-    enableSSL: 1
+    enableSSL: 0
