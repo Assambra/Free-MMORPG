@@ -132,7 +132,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         prefabs.Add("ColorPickerObject", prefabColorPickerObject);
 
-        foreach(OverlayColorData colorType in avatar.characterColors.Colors)
+        foreach(OverlayColorData colorType in avatar.CurrentSharedColors)
         {
             GameObject ph = Instantiate(prefabHeader, colorHome);
             ph.name = colorType.name;
