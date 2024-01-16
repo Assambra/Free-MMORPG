@@ -12,9 +12,13 @@ public class UICreateCharacter : MonoBehaviour
 
     [Header("User Interface")]
     [SerializeField] TMP_InputField inputFieldNameValue;
-    [SerializeField] TMP_Dropdown dropdownRaceValue;
+    [SerializeField] Slider sliderHeight;
+    [SerializeField] Transform height;
+    [SerializeField] TMP_Dropdown dropdownRace;
+    [SerializeField] TMP_Dropdown dropdownProfession;
     [SerializeField] GameObject prefabSliderGroup;
     [SerializeField] GameObject prefabHeader;
+    [SerializeField] GameObject prefabSliderObject;
     [SerializeField] GameObject prefabColorPickerObject;
     [SerializeField] GameObject prefabWardrobeObject;
     [SerializeField] Transform groupeHome;
@@ -35,12 +39,15 @@ public class UICreateCharacter : MonoBehaviour
     [Header("Camera auto focus points")]
     [SerializeField] private List<CameraFocusPoint> cameraAutoFocusPoints = new List<CameraFocusPoint>();
 
+    [Header("UMA")]
+    [SerializeField] private List<string> excludeDna = new List<string>();
+
     // Private variables user interface
     private List<string> raceOptions = new List<string>();
     private List<GameObject> sliderGroups = new List<GameObject>();
     private List<GameObject> headerElements = new List<GameObject>();
     private List<string> categories = new List<string>();
-    private List<string> excludeDna = new List<string>();
+    
     [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
     
     // Private variables network
@@ -60,11 +67,7 @@ public class UICreateCharacter : MonoBehaviour
 
         raceOptions.Add("Select race");
         raceOptions.Add("Humanoid");
-        dropdownRaceValue.AddOptions(raceOptions);
-
-        excludeDna.Add("skinGreenness");
-        excludeDna.Add("skinBlueness");
-        excludeDna.Add("skinRedness");
+        dropdownRace.AddOptions(raceOptions);
     }
 
     private void Start()
@@ -98,31 +101,47 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateSliders()
     {
-        Dictionary<string, float> defaultDNA = avatar.activeRace.data.GetDefaultDNA();
-
         UMADnaBase[] DNA = avatar.GetAllDNA();
 
-        foreach(UMADnaBase d in DNA)
+        foreach(UMADnaBase dna in DNA)
         {
-            string[] names = d.Names;
-            float[] values = d.Values;
+            string[] names = dna.Names;
+            float[] values = dna.Values;
 
             CreateCategoryList(names);
             
             foreach(string category in categories)
             {
-                GameObject go = Instantiate(prefabSliderGroup, groupeHome);
-                go.name = category;
-                sliderGroups.Add(go);
-                SliderGroup group = go.GetComponent<SliderGroup>();
-                group.SetGroupName(category);
-                group.CreateCharacterLayoutGroup = sliderLayout;
-                
-                for (int i = 0; i < names.Length; i++)
+                if(category == "Height")
                 {
-                    if(category == GetCategory(names[i].BreakupCamelCase()))
+                    GameObject go = Instantiate(prefabSliderObject, height);
+                    SliderObject heightSlider = go.GetComponent<SliderObject>();
+                    
+                    for (int i = 0; i < names.Length; i++)
                     {
-                        group.CreateSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, d);
+                        Debug.Log("Counter: " + i);
+                        if (category == GetCategory(names[i].BreakupCamelCase()))
+                        {
+                            heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna, true, 150f);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    GameObject go = Instantiate(prefabSliderGroup, groupeHome);
+                    go.name = category;
+                    sliderGroups.Add(go);
+                    SliderGroup group = go.GetComponent<SliderGroup>();
+                    group.SetGroupName(category);
+                    group.CreateCharacterLayoutGroup = sliderLayout;
+
+                    for (int i = 0; i < names.Length; i++)
+                    {
+                        if (category == GetCategory(names[i].BreakupCamelCase()))
+                        {
+                            group.CreateSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna);
+                        }
                     }
                 }
             }
@@ -251,7 +270,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         model = UMAHelper.GetAvatarString(avatar);
         charname = inputFieldNameValue.text;
-        race = raceOptions[dropdownRaceValue.value];
+        race = raceOptions[dropdownRace.value];
 
         NetworkManagerGame.Instance.CreateCharacter(charname, sex, race, model);
     }

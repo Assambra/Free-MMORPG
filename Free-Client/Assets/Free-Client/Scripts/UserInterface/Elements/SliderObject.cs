@@ -21,13 +21,21 @@ public class SliderObject : MonoBehaviour
         slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(); });
     }
 
-    public void InitializeSlider(string sliderName, string dnaName, float currentValue, int index, DynamicCharacterAvatar avatar, UMADnaBase owner)
+    public void InitializeSlider(string sliderName, string dnaName, float currentValue, int index, DynamicCharacterAvatar avatar, UMADnaBase owner, bool disableName = false, float width = 220f)
     {
+        RectTransform sliderObjectRectTransform = this.gameObject.GetComponent<RectTransform>();
+        sliderObjectRectTransform.sizeDelta = new Vector2(width, sliderObjectRectTransform.rect.height);
+        RectTransform sliderRectTransform = slider.GetComponent<RectTransform>();
+        sliderRectTransform.sizeDelta = new Vector2(width, sliderRectTransform.rect.height);
+
         textSliderName.text = sliderName;
         slider.value = currentValue;
         this.index = index;
         this.avatar = avatar;
         this.owner = owner;
+
+        if(disableName)
+            DisableName();
 
         dNARangeAsset = GetRangeAsset(dnaName);
 
@@ -38,6 +46,11 @@ public class SliderObject : MonoBehaviour
         }
 
         isInitialized = true;
+    }
+
+    private void DisableName()
+    {
+        textSliderName.gameObject.SetActive(false);
     }
 
     private DNARangeAsset GetRangeAsset(string dnaName)
@@ -53,7 +66,7 @@ public class SliderObject : MonoBehaviour
         return null;
     }
 
-    public void OnSliderValueChanged()
+    private void OnSliderValueChanged()
     {
         if(isInitialized)
         {
