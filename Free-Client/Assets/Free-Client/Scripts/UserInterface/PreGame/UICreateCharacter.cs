@@ -12,8 +12,9 @@ public class UICreateCharacter : MonoBehaviour
 
     [Header("User Interface")]
     [SerializeField] TMP_InputField inputFieldNameValue;
-    [SerializeField] Slider sliderHeight;
-    [SerializeField] Transform height;
+    [SerializeField] Button buttonFemale;
+    [SerializeField] Button buttonMale;
+    [SerializeField] Transform heightHome;
     [SerializeField] TMP_Dropdown dropdownRace;
     [SerializeField] TMP_Dropdown dropdownProfession;
     [SerializeField] GameObject prefabSliderGroup;
@@ -25,8 +26,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] Transform colorHome;
     [SerializeField] RectTransform sliderLayout;
     [SerializeField] RectTransform colorLayout;
-    [SerializeField] Button buttonFemale;
-    [SerializeField] Button buttonMale;
+
     [SerializeField] Button buttonPlay;
 
     // Private variables UMA
@@ -114,12 +114,11 @@ public class UICreateCharacter : MonoBehaviour
             {
                 if(category == "Height")
                 {
-                    GameObject go = Instantiate(prefabSliderObject, height);
+                    GameObject go = Instantiate(prefabSliderObject, heightHome);
                     SliderObject heightSlider = go.GetComponent<SliderObject>();
                     
                     for (int i = 0; i < names.Length; i++)
                     {
-                        Debug.Log("Counter: " + i);
                         if (category == GetCategory(names[i].BreakupCamelCase()))
                         {
                             heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna, true, 150f);
