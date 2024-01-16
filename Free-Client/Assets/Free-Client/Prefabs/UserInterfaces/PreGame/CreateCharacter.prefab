@@ -2289,6 +2289,7 @@ MonoBehaviour:
   prefabSliderGroup: {fileID: 1428688551885063646, guid: a92809ffe94d8104c8e1990f265c163c, type: 3}
   prefabHeader: {fileID: 1098748422007398625, guid: 2d659ee9dca4a2749ad00dea6f8f7508, type: 3}
   prefabColorPickerObject: {fileID: 2751488393992071486, guid: 80bae979976276c4996cab65a0496d75, type: 3}
+  prefabWardrobeObject: {fileID: 6252550602972366327, guid: 767960cda782c8744a11af2b91ca8a7f, type: 3}
   groupeHome: {fileID: 2808047502750686564}
   colorHome: {fileID: 2244071589721959715}
   sliderLayout: {fileID: 2808047502750686564}
@@ -2337,7 +2338,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 55}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6704062673115008074
 MonoBehaviour:

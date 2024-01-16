@@ -16,6 +16,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] GameObject prefabSliderGroup;
     [SerializeField] GameObject prefabHeader;
     [SerializeField] GameObject prefabColorPickerObject;
+    [SerializeField] GameObject prefabWardrobeObject;
     [SerializeField] Transform groupeHome;
     [SerializeField] Transform colorHome;
     [SerializeField] RectTransform sliderLayout;
@@ -147,6 +148,27 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
+    private void CreateWardrobe()
+    {
+        prefabs.Add("Wardrobe", prefabWardrobeObject);
+        Dictionary<string, List<UMATextRecipe>> recipes = avatar.AvailableRecipes;
+
+        GameObject ph = Instantiate(prefabHeader, colorHome);
+        ph.name = "Wardrobe";
+        headerElements.Add(ph);
+
+        HeaderElement he = ph.GetComponent<HeaderElement>();
+        string name = "Warderobe";
+        he.InitializeHeaderElement(name, prefabs, colorHome.GetComponent<RectTransform>());
+        
+
+        foreach (string s in recipes.Keys)
+        {
+            GameObject go = he.CreateObject("Wardrobe", s);
+            go.GetComponent<WardrobeObject>().InitializeWardrobe(avatar, s);
+        }
+    }
+
     public void SetColor(string colorName, Color basecolor, Color metalliccolor, float gloss)
     {
         avatar.SetColor(colorName, basecolor, Gloss: gloss, UpdateTexture: true);
@@ -177,6 +199,13 @@ public class UICreateCharacter : MonoBehaviour
         headerElements.Clear();
     }
 
+    private void RemoveWardrobe()
+    {
+        prefabs.Remove("Wardrobe");
+
+        //We use Header elements
+    }
+
     public void OnButtonMale()
     {
         if (avatar.activeRace.name != "HumanMale" || !initalized)
@@ -189,6 +218,7 @@ public class UICreateCharacter : MonoBehaviour
 
             RemoveSliders();
             RemoveColorPicker();
+            RemoveWardrobe();
 
             sex = "male";
         }
@@ -206,6 +236,7 @@ public class UICreateCharacter : MonoBehaviour
 
             RemoveSliders();
             RemoveColorPicker();
+            RemoveWardrobe();
 
             sex = "female";
         }
@@ -287,5 +318,6 @@ public class UICreateCharacter : MonoBehaviour
     {
         CreateSliders();
         CreateColorPicker();
+        CreateWardrobe();
     }
 }
