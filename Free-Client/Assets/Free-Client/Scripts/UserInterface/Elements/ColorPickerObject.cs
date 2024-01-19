@@ -1,51 +1,71 @@
 using System;
 using UnityEngine;
-using HSVPicker;
-using UMA;
 using UnityEngine.UI;
 using TMPro;
+using HSVPicker;
+using UMA;
+using UMA.CharacterSystem;
 
 public class ColorPickerObject : MonoBehaviour
 {
-    [field: SerializeField] public Color Color { get; private set; }
-    
-    [SerializeField] ColorPicker colorPicker;
-    [SerializeField] TMP_Text textGlossValue;
-    [SerializeField] Slider sliderGloss;
+    [SerializeField] ColorPicker _colorPicker;
+    [SerializeField] TMP_Text _textPickerName;
+    [SerializeField] Slider _sliderGloss;
+    [SerializeField] TMP_Text _textGlossValue;
+    [SerializeField] Slider _sliderMetallic;
+    [SerializeField] TMP_Text _textMetallicValue;
 
-    public OverlayColorData ColorData;
+    private DynamicCharacterAvatar _avatar;
+    private OverlayColorData _colorType;
+    private string _pickerName;
 
-    private UICreateCharacter uICreateCharacter;
-
-    private float lastGloss = 0;
-    private Color lastBaseColor;
-    private Color lastMetallicColor = Color.black;
-
-
-    private void OnEnable()
+    public void Initalize(DynamicCharacterAvatar avatar, OverlayColorData colorType, string name)
     {
-        lastBaseColor = ColorData.color;
-        colorPicker.CurrentColor = lastBaseColor;
+        this._avatar = avatar;
+        this._colorType = colorType;
+        this._pickerName = name;
 
-        uICreateCharacter = GameObject.FindObjectOfType<UICreateCharacter>();
+        _textPickerName.text = _pickerName;
 
-        colorPicker.onValueChanged.AddListener(color =>
+        _colorPicker.CurrentColor = colorType.color;
+        _sliderGloss.value = _colorType.channelAdditiveMask[2].a;
+        _textGlossValue.text = ((float)Math.Round((double)_sliderGloss.value, 2)).ToString();
+        _sliderMetallic.value = _colorType.channelAdditiveMask[2].r;
+        _textMetallicValue.text = ((float)Math.Round((double)_sliderMetallic.value, 2)).ToString();
+
+        _sliderGloss.onValueChanged.AddListener(delegate { OnSliderGlossValueChanged(); });
+        _sliderMetallic.onValueChanged.AddListener(delegate { OnSliderMetallicValueChanged(); });
+        
+        _colorPicker.onValueChanged.AddListener(color =>
         {
             OnColorChanged(color);
         });
     }
 
-    public void OnColorChanged(Color baseColor)
+    public void OnColorChanged(Color color)
     {
-        lastBaseColor = baseColor;
-
-        uICreateCharacter.SetColor(ColorData.name, baseColor, lastMetallicColor, lastGloss);
+        Debug.Log("OnColorChanged");
+        SetColor(_colorType.name, color, new Color(_colorType.channelAdditiveMask[2].r, 0, 0), _colorType.channelAdditiveMask[2].a);
     }
 
-    public void OnSliderValueChanged(float gloss)
+    private void OnSliderGlossValueChanged()
     {
-        lastGloss = gloss;
-        textGlossValue.text = ((float)Math.Round((double)gloss, 2)).ToString();
-        uICreateCharacter.SetColor(ColorData.name, lastBaseColor, lastMetallicColor, gloss);
+        float gloss = _sliderGloss.value;
+        _textGlossValue.text = ((float)Math.Round((double)gloss, 2)).ToString();
+
+        SetColor(_colorType.name, _colorType.color, new Color(_colorType.channelAdditiveMask[2].r, 0, 0), gloss);
+    }
+
+    private void OnSliderMetallicValueChanged()
+    {
+        float metallic = _sliderMetallic.value;
+        _textMetallicValue.text = ((float)Math.Round((double)metallic, 2)).ToString();
+        Color metallicColor = new Color(metallic, 0, 0);
+        SetColor(_colorType.name, _colorType.color, metallicColor, _colorType.channelAdditiveMask[2].a);
+    }
+
+    private void SetColor(string colorName, Color color, Color metallic, float gloss)
+    {
+        _avatar.SetColor(colorName, color, metallic, gloss, true);
     }
 }

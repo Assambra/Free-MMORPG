@@ -15,6 +15,8 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] Button buttonFemale;
     [SerializeField] Button buttonMale;
     [SerializeField] Transform heightHome;
+    [SerializeField] Transform skinHome;
+    [SerializeField] Transform allwaysOnTop;
     [SerializeField] TMP_Dropdown dropdownRace;
     [SerializeField] TMP_Dropdown dropdownProfession;
     [SerializeField] GameObject prefabSliderGroup;
@@ -22,6 +24,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] GameObject prefabSliderObject;
     [SerializeField] GameObject prefabColorPickerObject;
     [SerializeField] GameObject prefabWardrobeObject;
+    [SerializeField] GameObject prefabColorObject;
     [SerializeField] Transform groupeHome;
     [SerializeField] Transform colorHome;
     [SerializeField] RectTransform sliderLayout;
@@ -47,7 +50,9 @@ public class UICreateCharacter : MonoBehaviour
     private List<GameObject> sliderGroups = new List<GameObject>();
     private List<GameObject> headerElements = new List<GameObject>();
     private List<string> categories = new List<string>();
-    
+
+    private List<GameObject> _activeColorObjects = new List<GameObject>();
+
     [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
     
     // Private variables network
@@ -149,6 +154,7 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateColorPicker()
     {
+        /*
         prefabs.Add("ColorPickerObject", prefabColorPickerObject);
 
         foreach(OverlayColorData colorType in avatar.CurrentSharedColors)
@@ -163,6 +169,21 @@ public class UICreateCharacter : MonoBehaviour
             GameObject go = he.CreateObject("ColorPickerObject", colorType.name);
             if(go != null)
                 go.GetComponent<ColorPickerObject>().ColorData = colorType;
+        }
+        */
+    }
+
+    private void CreateColors()
+    {
+        foreach(OverlayColorData colorType in avatar.CurrentSharedColors)
+        {
+            if(colorType.name == "Skin")
+            {
+                GameObject goColor = Instantiate(prefabColorObject, skinHome);
+                _activeColorObjects.Add(goColor);
+                ColorObject color = goColor.GetComponent<ColorObject>();
+                color.Initialize(avatar, colorType, "Skin Color", allwaysOnTop);
+            }
         }
     }
 
@@ -187,9 +208,16 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
-    public void SetColor(string colorName, Color basecolor, Color metalliccolor, float gloss)
+    private void RemoveColorObjects()
     {
-        avatar.SetColor(colorName, basecolor, Gloss: gloss, UpdateTexture: true);
+        foreach(GameObject color in _activeColorObjects)
+        {
+            ColorObject co = color.GetComponent<ColorObject>();
+            co.RemoveColorPicker();
+            Destroy(color);
+        }
+
+        _activeColorObjects.Clear();
     }
 
     private void RemoveSliders()
@@ -224,61 +252,6 @@ public class UICreateCharacter : MonoBehaviour
         //We use Header elements
     }
 
-    public void OnButtonMale()
-    {
-        if (avatar.activeRace.name != "HumanMale" || !initalized)
-        {
-            buttonMale.interactable = false;
-            buttonFemale.interactable = false;
-
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
-            avatar.ChangeRace("HumanMale", true);
-
-            RemoveSliders();
-            RemoveColorPicker();
-            RemoveWardrobe();
-
-            sex = "male";
-        }
-    }
-
-    public void OnButtonFemale()
-    {
-        if(avatar.activeRace.name != "HumanFemale")
-        {
-            buttonMale.interactable = false;
-            buttonFemale.interactable = false;
-
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnFemaleCharacterUpdated));
-            avatar.ChangeRace("HumanFemale", true);
-
-            RemoveSliders();
-            RemoveColorPicker();
-            RemoveWardrobe();
-
-            sex = "female";
-        }
-    }
-
-    public void OnButtonBack()
-    {
-        GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
-    }
-
-    public void OnButtonCreate()
-    {
-        model = UMAHelper.GetAvatarString(avatar);
-        charname = inputFieldNameValue.text;
-        race = raceOptions[dropdownRace.value];
-
-        NetworkManagerGame.Instance.CreateCharacter(charname, sex, race, model);
-    }
-
-    public void OnButtonPlay()
-    {
-        NetworkManagerGame.Instance.PlayRequest(GameManager.Instance.CharacterId);
-    }
-
     private void CreateCategoryList(string[] names)
     {
         for (int i = 0; i < names.Length; i++)
@@ -308,6 +281,80 @@ public class UICreateCharacter : MonoBehaviour
             return cat[0];
     }
 
+    private void CreateCharacterModifiers()
+    {
+        CreateColors();
+        CreateSliders();
+        CreateColorPicker();
+        CreateWardrobe();
+    }
+
+    private void RemoveCharacterModifiers()
+    {
+        RemoveSliders();
+        RemoveColorPicker();
+        RemoveWardrobe();
+
+        RemoveColorObjects();
+    }
+
+    #region BUTTON HANDLER
+
+    public void OnButtonMale()
+    {
+        if (avatar.activeRace.name != "HumanMale" || !initalized)
+        {
+            buttonMale.interactable = false;
+            buttonFemale.interactable = false;
+
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
+            avatar.ChangeRace("HumanMale", true);
+
+            RemoveCharacterModifiers();
+
+            sex = "male";
+        }
+    }
+
+    public void OnButtonFemale()
+    {
+        if (avatar.activeRace.name != "HumanFemale")
+        {
+            buttonMale.interactable = false;
+            buttonFemale.interactable = false;
+
+            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnFemaleCharacterUpdated));
+            avatar.ChangeRace("HumanFemale", true);
+
+            RemoveCharacterModifiers();
+
+            sex = "female";
+        }
+    }
+
+    public void OnButtonBack()
+    {
+        GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+    }
+
+    public void OnButtonCreate()
+    {
+        model = UMAHelper.GetAvatarString(avatar);
+        charname = inputFieldNameValue.text;
+        race = raceOptions[dropdownRace.value];
+
+        NetworkManagerGame.Instance.CreateCharacter(charname, sex, race, model);
+    }
+
+    public void OnButtonPlay()
+    {
+        NetworkManagerGame.Instance.PlayRequest(GameManager.Instance.CharacterId);
+    }
+
+    #endregion
+
+    #region UMA EVENT HANDLER
+
     public void OnFemaleCharacterUpdated(UMAData data)
     {
         Debug.Log("OnFemaleCharacterUpdated");
@@ -332,10 +379,5 @@ public class UICreateCharacter : MonoBehaviour
         buttonFemale.interactable = true;
     }
 
-    private void CreateCharacterModifiers()
-    {
-        CreateSliders();
-        CreateColorPicker();
-        CreateWardrobe();
-    }
+    #endregion
 }
