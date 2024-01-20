@@ -1484,6 +1484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5201675874810547228}
   - component: {fileID: 6791089520147038480}
+  - component: {fileID: 7430140656750607284}
   - component: {fileID: 6792437940703628329}
   - component: {fileID: 314004159753884834}
   - component: {fileID: 7076841178504825263}
@@ -1532,6 +1533,19 @@ MonoBehaviour:
   _textGlossValue: {fileID: 4996536947515845333}
   _sliderMetallic: {fileID: 3402695109368114537}
   _textMetallicValue: {fileID: 7755909969458657247}
+--- !u!114 &7430140656750607284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2751488393992071486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e2c414a8287f745a8de0e1130c88a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragRectTransform: {fileID: 5201675874810547228}
 --- !u!114 &6792437940703628329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9451,7 +9465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6968027401123336882, guid: 47bf5784961d75649826be38aad478e0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6968027401123336882, guid: 47bf5784961d75649826be38aad478e0, type: 3}
       propertyPath: m_SizeDelta.y
