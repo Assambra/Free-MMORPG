@@ -52,6 +52,7 @@ public class UICreateCharacter : MonoBehaviour
     private List<string> categories = new List<string>();
 
     private List<GameObject> _activeColorObjects = new List<GameObject>();
+    private GameObject _heightSlider;
 
     [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
     
@@ -120,6 +121,7 @@ public class UICreateCharacter : MonoBehaviour
                 if(category == "Height")
                 {
                     GameObject go = Instantiate(prefabSliderObject, heightHome);
+                    _heightSlider = go;
                     SliderObject heightSlider = go.GetComponent<SliderObject>();
                     
                     for (int i = 0; i < names.Length; i++)
@@ -222,7 +224,9 @@ public class UICreateCharacter : MonoBehaviour
 
     private void RemoveSliders()
     {
-        foreach(GameObject sliderGroup in sliderGroups)
+        Destroy(_heightSlider);
+
+        foreach (GameObject sliderGroup in sliderGroups)
         {
             SliderGroup group = sliderGroup.GetComponent<SliderGroup>();
             group.DestroySliders();
