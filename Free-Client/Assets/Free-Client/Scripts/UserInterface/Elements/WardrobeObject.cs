@@ -85,8 +85,6 @@ public class WardrobeObject : MonoBehaviour
 
     private void OnDropdownValueChanged(TMP_Dropdown change)
     {
-        Debug.Log(change.value);
-
         foreach(KeyValuePair<UMATextRecipe, int> recipe in recipies)
         {
             if(change.value != 0)

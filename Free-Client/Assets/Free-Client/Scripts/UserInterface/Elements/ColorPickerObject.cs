@@ -44,7 +44,6 @@ public class ColorPickerObject : MonoBehaviour
 
     public void OnColorChanged(Color color)
     {
-        Debug.Log("OnColorChanged");
         SetColor(_colorType.name, color, new Color(_colorType.channelAdditiveMask[2].r, 0, 0), _colorType.channelAdditiveMask[2].a);
     }
 
