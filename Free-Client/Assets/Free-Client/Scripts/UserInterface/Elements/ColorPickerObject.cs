@@ -14,6 +14,7 @@ public class ColorPickerObject : MonoBehaviour
     [SerializeField] TMP_Text _textGlossValue;
     [SerializeField] Slider _sliderMetallic;
     [SerializeField] TMP_Text _textMetallicValue;
+    [SerializeField] Button _buttonClose;
 
     private DynamicCharacterAvatar _avatar;
     private OverlayColorData _colorType;
@@ -66,5 +67,10 @@ public class ColorPickerObject : MonoBehaviour
     private void SetColor(string colorName, Color color, Color metallic, float gloss)
     {
         _avatar.SetColor(colorName, color, metallic, gloss, true);
+    }
+
+    public void OnButtonClose()
+    {
+        Destroy(this.gameObject);
     }
 }
