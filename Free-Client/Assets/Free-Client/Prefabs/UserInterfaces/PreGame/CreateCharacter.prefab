@@ -2603,6 +2603,7 @@ MonoBehaviour:
   prefabColorPickerObject: {fileID: 2751488393992071486, guid: 80bae979976276c4996cab65a0496d75, type: 3}
   prefabWardrobeObject: {fileID: 6252550602972366327, guid: 767960cda782c8744a11af2b91ca8a7f, type: 3}
   prefabColorObject: {fileID: 9011336172872189380, guid: 38950e51f4fdcd24caa507da1557ca94, type: 3}
+  prefabButtonObject: {fileID: 7595214023674429999, guid: 40ba4d7688f752f47b4a4e5b11f6d264, type: 3}
   groupeHome: {fileID: 2808047502750686564}
   colorHome: {fileID: 2244071589721959715}
   sliderLayout: {fileID: 2808047502750686564}
@@ -2653,7 +2654,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6704062673115008074
 MonoBehaviour:
@@ -2670,10 +2671,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 20
     m_Right: 0
-    m_Top: 0
+    m_Top: 5
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 10
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

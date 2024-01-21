@@ -62,6 +62,7 @@ public class HeaderElement : MonoBehaviour
             {
                 obj.SetActive(true);
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(objectHome.GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
         }
         else
@@ -72,6 +73,7 @@ public class HeaderElement : MonoBehaviour
             {
                 obj.SetActive(false);
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(objectHome.GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
         }
     }

@@ -25,6 +25,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] GameObject prefabColorPickerObject;
     [SerializeField] GameObject prefabWardrobeObject;
     [SerializeField] GameObject prefabColorObject;
+    [SerializeField] GameObject prefabButtonObject;
     [SerializeField] Transform groupeHome;
     [SerializeField] Transform colorHome;
     [SerializeField] RectTransform sliderLayout;
@@ -103,6 +104,45 @@ public class UICreateCharacter : MonoBehaviour
         {
             buttonPlay.gameObject.SetActive(true);
         }
+    }
+
+    private void CreateLeftPanelHeaders()
+    {
+        prefabs.Add("ButtonObject", prefabButtonObject);
+
+        GameObject ph = Instantiate(prefabHeader, colorHome);
+        ph.name = "Character modifiers";
+        headerElements.Add(ph);
+        HeaderElement he = ph.GetComponent<HeaderElement>();
+        string headerName = "Character Modifiers";
+        he.InitializeHeaderElement(headerName, prefabs, colorHome.GetComponent<RectTransform>());
+
+        GameObject goHead = he.CreateObject("ButtonObject", "Head");
+        ButtonObject boHeader = goHead.GetComponent<ButtonObject>();
+        boHeader.Initialize("Head", OnButtonHeadClick);
+
+        GameObject goUpperBody = he.CreateObject("ButtonObject", "Upper Body");
+        ButtonObject boUpperBody = goUpperBody.GetComponent<ButtonObject>();
+        boUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
+
+        GameObject goLowerBody = he.CreateObject("ButtonObject", "Lower Body");
+        ButtonObject boLowerBody = goLowerBody.GetComponent<ButtonObject>();
+        boLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
+    }
+
+    private void OnButtonHeadClick()
+    {
+        Debug.Log("Head button clicked");
+    }
+
+    private void OnButtonUpperBodyClick()
+    {
+        Debug.Log("UpperBody button clicked");
+    }
+
+    private void OnButtonLowerBodyClick()
+    {
+        Debug.Log("LowerBody button clicked");
     }
 
     private void CreateSliders()
@@ -287,6 +327,8 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateCharacterModifiers()
     {
+        CreateLeftPanelHeaders();
+
         CreateColors();
         CreateSliders();
         CreateColorPicker();
