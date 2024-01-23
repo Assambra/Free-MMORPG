@@ -250,6 +250,11 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
+    private void RemoveLeftPanelHeaders()
+    {
+        prefabs.Remove("ButtonObject");
+    }
+
     private void RemoveColorObjects()
     {
         foreach(GameObject color in _activeColorObjects)
@@ -337,6 +342,8 @@ public class UICreateCharacter : MonoBehaviour
 
     private void RemoveCharacterModifiers()
     {
+        RemoveLeftPanelHeaders();
+
         RemoveSliders();
         RemoveColorPicker();
         RemoveWardrobe();
