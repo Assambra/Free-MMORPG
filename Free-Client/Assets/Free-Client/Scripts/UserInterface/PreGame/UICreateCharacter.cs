@@ -373,14 +373,10 @@ public class UICreateCharacter : MonoBehaviour
     {
         CreateSkinColor();
         CreateHeightSlider();
-        
+        CreateLeftPanelHeaders();
         CreateWardrobe();
 
-        CreateLeftPanelHeaders();
-        
-
         CreateColorPicker();
-        
     }
 
     private void RemoveCharacterModifiers()
