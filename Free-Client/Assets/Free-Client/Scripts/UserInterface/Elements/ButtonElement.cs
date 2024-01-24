@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonObject : MonoBehaviour
+public class ButtonElement : MonoBehaviour
 {
     [SerializeField] Button button;
     [SerializeField] TMP_Text text;

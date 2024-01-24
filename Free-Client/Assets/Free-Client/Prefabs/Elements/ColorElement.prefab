@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 7389066922895420532}
   - component: {fileID: 7266124546395120842}
   m_Layer: 0
-  m_Name: ColorObject
+  m_Name: ColorElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,4 +259,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buttonColor: {fileID: 1992729142937678626}
   _imageColor: {fileID: 8234942972266104627}
-  _prefabColorPickerObject: {fileID: 2751488393992071486, guid: 80bae979976276c4996cab65a0496d75, type: 3}
+  _prefabColorPicker: {fileID: 2751488393992071486, guid: 80bae979976276c4996cab65a0496d75, type: 3}

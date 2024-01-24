@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class TooltipObject : MonoBehaviour
+public class TooltipElement : MonoBehaviour
 {
     [SerializeField] TMP_Text textTooltip;
 

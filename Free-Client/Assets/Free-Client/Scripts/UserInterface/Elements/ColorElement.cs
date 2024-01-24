@@ -1,15 +1,13 @@
-using System.Collections.Generic;
-using TMPro;
 using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorObject : MonoBehaviour
+public class ColorElement : MonoBehaviour
 {
     [SerializeField] Button _buttonColor;
     [SerializeField] Image _imageColor;
-    [SerializeField] GameObject _prefabColorPickerObject;
+    [SerializeField] GameObject _prefabColorPicker;
 
     private DynamicCharacterAvatar _avatar;
 
@@ -41,8 +39,8 @@ public class ColorObject : MonoBehaviour
     {
         if(_colorPicker == null)
         {
-            _colorPicker = Instantiate(_prefabColorPickerObject, _colorPickerHome);
-            ColorPickerObject cpo = _colorPicker.GetComponent<ColorPickerObject>();
+            _colorPicker = Instantiate(_prefabColorPicker, _colorPickerHome);
+            ColorPicker cpo = _colorPicker.GetComponent<ColorPicker>();
             cpo.Initalize(_avatar, _colorType, _name);
         }
         else

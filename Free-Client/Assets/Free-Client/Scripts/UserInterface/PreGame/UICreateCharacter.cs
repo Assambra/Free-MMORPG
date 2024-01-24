@@ -19,16 +19,16 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] Transform allwaysOnTop;
     [SerializeField] TMP_Dropdown dropdownRace;
     [SerializeField] TMP_Dropdown dropdownProfession;
-    [SerializeField] GameObject prefabSliderGroup;
-    [SerializeField] GameObject prefabHeader;
-    [SerializeField] GameObject prefabSliderObject;
-    [SerializeField] GameObject prefabColorPickerObject;
-    [SerializeField] GameObject prefabWardrobeObject;
-    [SerializeField] GameObject prefabColorObject;
-    [SerializeField] GameObject prefabButtonObject;
-    [SerializeField] Transform groupeHome;
+    [SerializeField] private GameObject _prefabTitleElement;
+    [SerializeField] private GameObject _prefabSubtitleElement;
+    [SerializeField] private GameObject _prefabButtonElement;
+    [SerializeField] private GameObject _prefabSliderElement;
+    [SerializeField] private GameObject _prefabColorElement;
+    [SerializeField] private GameObject _prefabWardrobeElement;
+    
+    [SerializeField] Transform _modifiersHome;
     [SerializeField] Transform colorHome;
-    [SerializeField] RectTransform sliderLayout;
+    [SerializeField] RectTransform _modifiersLayout;
     [SerializeField] RectTransform colorLayout;
 
     [SerializeField] Button buttonPlay;
@@ -44,18 +44,17 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private List<CameraFocusPoint> cameraAutoFocusPoints = new List<CameraFocusPoint>();
 
     [Header("UMA")]
-    [SerializeField] private List<string> excludeDna = new List<string>();
+    [SerializeField] private List<string> _heightDNA = new List<string>();
+    [SerializeField] private List<string> _headDNA = new List<string>();
+    [SerializeField] private List<string> _upperBodyDNA = new List<string>();
+    [SerializeField] private List<string> _lowerBodyDNA = new List<string>();
 
     // Private variables user interface
     private List<string> raceOptions = new List<string>();
-    private List<GameObject> sliderGroups = new List<GameObject>();
     private List<GameObject> headerElements = new List<GameObject>();
-    private List<string> categories = new List<string>();
 
     private List<GameObject> _activeColorObjects = new List<GameObject>();
-    private GameObject _heightSlider;
-
-    [SerializeField] private Dictionary<string, GameObject> prefabs = new Dictionary<string, GameObject>();
+    
     
     // Private variables network
     private string charname;
@@ -65,6 +64,11 @@ public class UICreateCharacter : MonoBehaviour
 
     // Private variables helper/general
     private bool initalized = false;
+
+    private GameObject _heightSlider;
+    private GameObject _headSliderGroup = null;
+    private GameObject _upperBodySliderGroup = null;
+    private GameObject _lowerBodySliderGroup = null;
 
     private void Awake()
     {
@@ -106,46 +110,21 @@ public class UICreateCharacter : MonoBehaviour
         }
     }
 
-    private void CreateLeftPanelHeaders()
+    private void CreateSkinColor()
     {
-        prefabs.Add("ButtonObject", prefabButtonObject);
-
-        GameObject ph = Instantiate(prefabHeader, colorHome);
-        ph.name = "Character modifiers";
-        headerElements.Add(ph);
-        HeaderElement he = ph.GetComponent<HeaderElement>();
-        string headerName = "Character Modifiers";
-        he.InitializeHeaderElement(headerName, prefabs, colorHome.GetComponent<RectTransform>());
-
-        GameObject goHead = he.CreateObject("ButtonObject", "Head");
-        ButtonObject boHeader = goHead.GetComponent<ButtonObject>();
-        boHeader.Initialize("Head", OnButtonHeadClick);
-
-        GameObject goUpperBody = he.CreateObject("ButtonObject", "Upper Body");
-        ButtonObject boUpperBody = goUpperBody.GetComponent<ButtonObject>();
-        boUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
-
-        GameObject goLowerBody = he.CreateObject("ButtonObject", "Lower Body");
-        ButtonObject boLowerBody = goLowerBody.GetComponent<ButtonObject>();
-        boLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
+        foreach (OverlayColorData colorType in avatar.CurrentSharedColors)
+        {
+            if (colorType.name == "Skin")
+            {
+                GameObject goColor = Instantiate(_prefabColorElement, skinHome);
+                _activeColorObjects.Add(goColor);
+                ColorElement color = goColor.GetComponent<ColorElement>();
+                color.Initialize(avatar, colorType, "Skin Color", allwaysOnTop);
+            }
+        }
     }
 
-    private void OnButtonHeadClick()
-    {
-        Debug.Log("Head button clicked");
-    }
-
-    private void OnButtonUpperBodyClick()
-    {
-        Debug.Log("UpperBody button clicked");
-    }
-
-    private void OnButtonLowerBodyClick()
-    {
-        Debug.Log("LowerBody button clicked");
-    }
-
-    private void CreateSliders()
+    private void CreateHeightSlider()
     {
         UMADnaBase[] DNA = avatar.GetAllDNA();
 
@@ -154,44 +133,119 @@ public class UICreateCharacter : MonoBehaviour
             string[] names = dna.Names;
             float[] values = dna.Values;
 
-            CreateCategoryList(names);
+            List<string> categories = new List<string>();
+            categories = CreateCategoryList(names, _heightDNA);
             
             foreach(string category in categories)
             {
-                if(category == "Height")
-                {
-                    GameObject go = Instantiate(prefabSliderObject, heightHome);
-                    _heightSlider = go;
-                    SliderObject heightSlider = go.GetComponent<SliderObject>();
+                _heightSlider = Instantiate(_prefabSliderElement, heightHome);
+                SliderElement heightSlider = _heightSlider.GetComponent<SliderElement>();
                     
-                    for (int i = 0; i < names.Length; i++)
-                    {
-                        if (category == GetCategory(names[i].BreakupCamelCase()))
-                        {
-                            heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna, true, 150f);
-                            break;
-                        }
-                    }
-                }
-                else
+                for (int i = 0; i < names.Length; i++)
                 {
-                    GameObject go = Instantiate(prefabSliderGroup, groupeHome);
-                    go.name = category;
-                    sliderGroups.Add(go);
-                    SliderGroup group = go.GetComponent<SliderGroup>();
-                    group.SetGroupName(category);
-                    group.CreateCharacterLayoutGroup = sliderLayout;
-
-                    for (int i = 0; i < names.Length; i++)
+                    if (category == GetCategory(names[i].BreakupCamelCase()))
                     {
-                        if (category == GetCategory(names[i].BreakupCamelCase()))
-                        {
-                            group.CreateSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna);
-                        }
+                        heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna, true, 150f);
+                        break;
                     }
                 }
             }
         }
+    }
+
+    private void CreateLeftPanelHeaders()
+    {
+        GameObject ph = Instantiate(_prefabTitleElement, colorHome);
+        ph.name = "Character modifiers";
+        headerElements.Add(ph);
+        TitleElement he = ph.GetComponent<TitleElement>();
+        string headerName = "Character Modifiers";
+        he.InitializeHeaderElement(headerName, colorHome.GetComponent<RectTransform>());
+
+        GameObject goHead = he.CreateObject(_prefabButtonElement, "Head");
+        ButtonElement boHeader = goHead.GetComponent<ButtonElement>();
+        boHeader.Initialize("Head", OnButtonHeadClick);
+
+        GameObject goUpperBody = he.CreateObject(_prefabButtonElement, "Upper Body");
+        ButtonElement boUpperBody = goUpperBody.GetComponent<ButtonElement>();
+        boUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
+
+        GameObject goLowerBody = he.CreateObject(_prefabButtonElement, "Lower Body");
+        ButtonElement boLowerBody = goLowerBody.GetComponent<ButtonElement>();
+        boLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
+    }
+
+    private void OnButtonHeadClick()
+    {
+        if(_headSliderGroup == null)
+        {
+            _headSliderGroup = CreateSlidersGroup("Head", _headDNA);
+        }
+        else
+            Destroy(_headSliderGroup);
+    }
+
+    private void OnButtonUpperBodyClick()
+    {
+        if(_upperBodySliderGroup == null)
+        {
+            _upperBodySliderGroup = CreateSlidersGroup("Upper Body", _upperBodyDNA);
+        }
+        else 
+            Destroy(_upperBodySliderGroup);
+    }
+
+    private void OnButtonLowerBodyClick()
+    {
+        if(_lowerBodySliderGroup == null)
+        {
+            _lowerBodySliderGroup = CreateSlidersGroup("Lower Body", _lowerBodyDNA);
+        }
+        else
+            Destroy(_lowerBodySliderGroup);
+    }
+    
+    private GameObject CreateSlidersGroup(string title, List<string> dnaToShow)
+    {
+        GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
+        gotitle.name = title;
+        headerElements.Add(gotitle);
+
+        TitleElement he = gotitle.GetComponent<TitleElement>();
+        he.InitializeHeaderElement(title, _modifiersLayout);
+
+        RectTransform parentLayout = he.GetParentLayout();
+        RectTransform layout = he.GetLayout();
+
+        UMADnaBase[] DNA = avatar.GetAllDNA();
+
+        foreach (UMADnaBase dna in DNA)
+        {
+            string[] names = dna.Names;
+            float[] values = dna.Values;
+
+            List<string> categories = new List<string>();
+            categories = CreateCategoryList(names, dnaToShow);
+
+            foreach (string category in categories)
+            {
+                GameObject subtitle = he.CreateObject(_prefabSubtitleElement, category);
+                TitleElement subhe = subtitle.GetComponent<TitleElement>();
+                subhe.InitializeHeaderElement(category, layout, true, parentLayout);
+
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (category == GetCategory(names[i].BreakupCamelCase()))
+                    {
+                        GameObject slider = subhe.CreateObject(_prefabSliderElement, GetSlider(names[i].BreakupCamelCase()));
+                        SliderElement so = slider.GetComponent<SliderElement>();
+                        so.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna);
+                    }
+                }
+            }
+        }
+
+        return gotitle;
     }
 
     private void CreateColorPicker()
@@ -215,51 +269,48 @@ public class UICreateCharacter : MonoBehaviour
         */
     }
 
-    private void CreateColors()
-    {
-        foreach(OverlayColorData colorType in avatar.CurrentSharedColors)
-        {
-            if(colorType.name == "Skin")
-            {
-                GameObject goColor = Instantiate(prefabColorObject, skinHome);
-                _activeColorObjects.Add(goColor);
-                ColorObject color = goColor.GetComponent<ColorObject>();
-                color.Initialize(avatar, colorType, "Skin Color", allwaysOnTop);
-            }
-        }
-    }
-
     private void CreateWardrobe()
     {
-        prefabs.Add("Wardrobe", prefabWardrobeObject);
         Dictionary<string, List<UMATextRecipe>> recipes = avatar.AvailableRecipes;
 
-        GameObject ph = Instantiate(prefabHeader, colorHome);
+        GameObject ph = Instantiate(_prefabTitleElement, colorHome);
         ph.name = "Wardrobe";
         headerElements.Add(ph);
 
-        HeaderElement he = ph.GetComponent<HeaderElement>();
+        TitleElement he = ph.GetComponent<TitleElement>();
         string name = "Warderobe";
-        he.InitializeHeaderElement(name, prefabs, colorHome.GetComponent<RectTransform>());
-        
+        he.InitializeHeaderElement(name, colorHome.GetComponent<RectTransform>());
+
 
         foreach (string s in recipes.Keys)
         {
-            GameObject go = he.CreateObject("Wardrobe", s);
+            GameObject go = he.CreateObject(_prefabWardrobeElement, s);
             go.GetComponent<WardrobeObject>().InitializeWardrobe(avatar, s);
         }
     }
 
+    private void RemoveSkinColor()
+    {
+
+    }
+
+    private void RemoveHeightSlider()
+    {
+        Destroy(_heightSlider);
+    }
+
     private void RemoveLeftPanelHeaders()
     {
-        prefabs.Remove("ButtonObject");
+        Destroy(_headSliderGroup);
+        Destroy(_upperBodySliderGroup);
+        Destroy(_lowerBodySliderGroup);
     }
 
     private void RemoveColorObjects()
     {
         foreach(GameObject color in _activeColorObjects)
         {
-            ColorObject co = color.GetComponent<ColorObject>();
+            ColorElement co = color.GetComponent<ColorElement>();
             co.RemoveColorPicker();
             Destroy(color);
         }
@@ -267,27 +318,11 @@ public class UICreateCharacter : MonoBehaviour
         _activeColorObjects.Clear();
     }
 
-    private void RemoveSliders()
-    {
-        Destroy(_heightSlider);
-
-        foreach (GameObject sliderGroup in sliderGroups)
-        {
-            SliderGroup group = sliderGroup.GetComponent<SliderGroup>();
-            group.DestroySliders();
-            Destroy(sliderGroup);
-        }
-
-        sliderGroups.Clear();
-    }
-
     private void RemoveColorPicker()
     {
-        prefabs.Remove("ColorPickerObject");
-
         foreach (GameObject headerElement in headerElements)
         {
-            HeaderElement he = headerElement.GetComponent<HeaderElement>();
+            TitleElement he = headerElement.GetComponent<TitleElement>();
             he.DestroyObjects();
             Destroy(headerElement);
         }
@@ -296,20 +331,24 @@ public class UICreateCharacter : MonoBehaviour
 
     private void RemoveWardrobe()
     {
-        prefabs.Remove("Wardrobe");
-
-        //We use Header elements
     }
 
-    private void CreateCategoryList(string[] names)
+    private List<string> CreateCategoryList(string[] names, List<string> toShow)
     {
+        var list = new List<string>();
+
         for (int i = 0; i < names.Length; i++)
         {
-            string cat = GetCategory(names[i].BreakupCamelCase());
- 
-            if(!categories.Contains(cat) && !excludeDna.Contains(names[i]))
-                categories.Add(cat);
-        }   
+            if (toShow.Contains(names[i]) )
+            {
+                string cat = GetCategory(names[i].BreakupCamelCase());
+                
+                if(!list.Contains(cat))
+                    list.Add(cat);
+            }
+        }
+        
+        return list;
     }
 
     private string GetCategory(string name)
@@ -332,22 +371,27 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateCharacterModifiers()
     {
-        CreateLeftPanelHeaders();
-
-        CreateColors();
-        CreateSliders();
-        CreateColorPicker();
+        CreateSkinColor();
+        CreateHeightSlider();
+        
         CreateWardrobe();
+
+        CreateLeftPanelHeaders();
+        
+
+        CreateColorPicker();
+        
     }
 
     private void RemoveCharacterModifiers()
     {
+        RemoveSkinColor();
+        RemoveHeightSlider();
         RemoveLeftPanelHeaders();
 
-        RemoveSliders();
+
         RemoveColorPicker();
         RemoveWardrobe();
-
         RemoveColorObjects();
     }
 

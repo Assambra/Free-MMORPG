@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UMA;
 using UMA.CharacterSystem;
 
-public class SliderObject : MonoBehaviour
+public class SliderElement : MonoBehaviour
 {
     [SerializeField] TMP_Text textSliderName;
     [SerializeField] Slider slider;

@@ -1621,7 +1621,7 @@ GameObject:
   - component: {fileID: 314004159753884834}
   - component: {fileID: 7076841178504825263}
   m_Layer: 5
-  m_Name: ColorPickerObject
+  m_Name: ColorPicker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

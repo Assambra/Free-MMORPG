@@ -1,5 +1,3 @@
-using System.Threading;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,7 +6,7 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 {
     [SerializeField] private string tooltiptext;
     [SerializeField] private float delayToShowInfo = 1f;
-    [SerializeField] private GameObject prefabTooltipObject;
+    [SerializeField] private GameObject _prefabTooltipElement;
 
     private float timer;
     private bool startTimer;
@@ -79,14 +77,14 @@ public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     private void CreateToolTip()
     {
-        tooltipGameObject = Instantiate(prefabTooltipObject, GameManager.Instance.UIHandler.Canvas.transform);
-        TooltipObject to = tooltipGameObject.GetComponent<TooltipObject>();
-        to.SetTooltipText(tooltiptext);
+        tooltipGameObject = Instantiate(_prefabTooltipElement, GameManager.Instance.UIHandler.Canvas.transform);
+        TooltipElement te = tooltipGameObject.GetComponent<TooltipElement>();
+        te.SetTooltipText(tooltiptext);
         
         RectTransform rectTransform = tooltipGameObject.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
 
-        Vector2 tooltipSize = to.GetTooltipSize();
+        Vector2 tooltipSize = te.GetTooltipSize();
 
         float newTooltipX = tooltipSize.x / 2;
         float newTooltipY = tooltipSize.y / 2;

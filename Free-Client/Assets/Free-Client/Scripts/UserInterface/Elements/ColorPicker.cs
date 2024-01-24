@@ -2,13 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using HSVPicker;
 using UMA;
 using UMA.CharacterSystem;
 
-public class ColorPickerObject : MonoBehaviour
+public class ColorPicker : MonoBehaviour
 {
-    [SerializeField] ColorPicker _colorPicker;
+    [SerializeField] HSVPicker.ColorPicker _colorPicker;
     [SerializeField] TMP_Text _textPickerName;
     [SerializeField] Slider _sliderGloss;
     [SerializeField] TMP_Text _textGlossValue;
