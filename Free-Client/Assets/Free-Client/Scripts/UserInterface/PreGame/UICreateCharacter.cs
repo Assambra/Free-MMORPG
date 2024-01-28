@@ -43,12 +43,21 @@ public class UICreateCharacter : MonoBehaviour
     [Header("Camera auto focus points")]
     [SerializeField] private List<CameraFocusPoint> cameraAutoFocusPoints = new List<CameraFocusPoint>();
 
-    [Header("UMA")]
+    [Header("UMA DNA")]
     [SerializeField] private List<string> _heightDNA = new List<string>();
     [SerializeField] private List<string> _headDNA = new List<string>();
     [SerializeField] private List<string> _upperBodyDNA = new List<string>();
     [SerializeField] private List<string> _lowerBodyDNA = new List<string>();
 
+    [Header("UMA Recipes Female")]
+    [SerializeField] private List<UMATextRecipe> _femaleHairRecipes = new List<UMATextRecipe>();
+    [SerializeField] private List<UMATextRecipe> _femaleEyebrowsRecipes = new List<UMATextRecipe>();
+
+    [Header("UMA Recipes Male")]
+    [SerializeField] private List<UMATextRecipe> _maleHairRecipes = new List<UMATextRecipe>();
+    [SerializeField] private List<UMATextRecipe> _maleEyebrowsRecipes = new List<UMATextRecipe>();
+    [SerializeField] private List<UMATextRecipe> _maleBeardRecipes = new List<UMATextRecipe>();
+    
     // Private variables user interface
     private List<string> raceOptions = new List<string>();
     private List<GameObject> headerElements = new List<GameObject>();
@@ -152,8 +161,10 @@ public class UICreateCharacter : MonoBehaviour
             }
         }
     }
+    
+    #region CHARACTER MODIFIER BUTTON HANDLERS AND SLIDERGROUPS
 
-    private void CreateLeftPanelHeaders()
+    private void CreateModifierButtons()
     {
         GameObject ph = Instantiate(_prefabTitleElement, colorHome);
         ph.name = "Character modifiers";
@@ -248,6 +259,8 @@ public class UICreateCharacter : MonoBehaviour
         return gotitle;
     }
 
+    #endregion
+
     private void CreateColorPicker()
     {
         /*
@@ -299,7 +312,7 @@ public class UICreateCharacter : MonoBehaviour
         Destroy(_heightSlider);
     }
 
-    private void RemoveLeftPanelHeaders()
+    private void RemoveModifierButtons()
     {
         Destroy(_headSliderGroup);
         Destroy(_upperBodySliderGroup);
@@ -373,7 +386,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         CreateSkinColor();
         CreateHeightSlider();
-        CreateLeftPanelHeaders();
+        CreateModifierButtons();
         CreateWardrobe();
 
         CreateColorPicker();
@@ -383,7 +396,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         RemoveSkinColor();
         RemoveHeightSlider();
-        RemoveLeftPanelHeaders();
+        RemoveModifierButtons();
 
 
         RemoveColorPicker();

@@ -2667,6 +2667,30 @@ MonoBehaviour:
   - legsSize
   - waist
   - gluteusSize
+  _femaleHairRecipes:
+  - {fileID: 11400000, guid: 53a236a7ccb00374dbbed2f13dc8509d, type: 2}
+  - {fileID: 11400000, guid: 967f84b71a1548d4580a76c279ec5389, type: 2}
+  - {fileID: 11400000, guid: bdae23dff0f3d3648882f2f087840fef, type: 2}
+  - {fileID: 11400000, guid: f23297b636ef1bf41b5df17f140d9553, type: 2}
+  - {fileID: 11400000, guid: b1cd665aba1e0b1419a57a38c1f4d3dc, type: 2}
+  _femaleEyebrowsRecipes: []
+  _maleHairRecipes:
+  - {fileID: 11400000, guid: 4acc51a73e0e5884eb7e770d8f803e81, type: 2}
+  - {fileID: 11400000, guid: bc2ac8c776a97fa46a5a1a9455599f2c, type: 2}
+  - {fileID: 11400000, guid: cbac10d2bc6792c43b0d89e71534cf77, type: 2}
+  - {fileID: 11400000, guid: aba961e2f47032e41a87472b6a41306a, type: 2}
+  - {fileID: 11400000, guid: 75611b25b76dfcd4facf747f35d19f26, type: 2}
+  - {fileID: 11400000, guid: 8e67f8d6f30659a4d9202b2e6b8809b1, type: 2}
+  - {fileID: 11400000, guid: d5470e7076173334fbd1b341e385bef0, type: 2}
+  _maleEyebrowsRecipes:
+  - {fileID: 11400000, guid: 1d55460160bc861428e67152c0019388, type: 2}
+  - {fileID: 11400000, guid: 9d8d16d74d7897e4caae12ca4d56f223, type: 2}
+  - {fileID: 11400000, guid: 3a1edb5d395b68f4089d59c1f1217d81, type: 2}
+  - {fileID: 11400000, guid: af0f5dedaabf3e946b78b4552139b9a3, type: 2}
+  _maleBeardRecipes:
+  - {fileID: 11400000, guid: a2b1f4c9b2ad40f4b8a68144700342f8, type: 2}
+  - {fileID: 11400000, guid: 506e811243229714bb4e2386dcbc08d3, type: 2}
+  - {fileID: 11400000, guid: 1df4eb647357a74498fa7e6b4672ad8d, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0
