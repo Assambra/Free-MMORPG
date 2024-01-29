@@ -78,6 +78,7 @@
                 <li><a href="#run-the-server">Run the server</a></li>
             </ul>
         </ul>
+    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#thank-you">Thank you</a></li>
     <li><a href="#credits">Credits</a></li>
     <li><a href="#resources-section">Resources Section</a></li>
@@ -401,16 +402,61 @@ Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-servi
 
 <!--Resources Section-->
 
+<!--Contributing-->
+## Contributing
+
+Thank you for your interest in our project! We welcome contributions in various forms, whether it's through code contributions, reporting bugs, submitting feature requests, or spreading the word to your friends and colleagues. Your contribution is invaluable and helps us continuously improve our project.
+
+### Code Contributions
+
+If you have experience in programming and would like to contribute to the development of our project, pull requests are always welcome! Please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch for your changes.
+3. Implement your changes and thoroughly test them.
+4. Submit a pull request to our repository.
+
+We will review your pull request and collaborate with you to ensure your changes are properly integrated.
+
+### Reporting Bugs
+
+If you come across a bug in our project, please don't hesitate to report it. Use our GitHub issue tracking system for this purpose. Be sure to provide as many details as possible to assist us in troubleshooting.
+
+### Feature Requests
+
+Do you have a great idea for a new feature? Share it with us! Simply create an issue on GitHub and describe your idea in detail. We'll review and discuss your request.
+
+### Try the Playable Demo
+
+Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.37.1/Free-Client-Live-0.37.1.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.
+
+### Spread the Word
+
+An easy yet effective way to support us is by sharing our project with your friends, colleagues, and on social media. The more people learn about our work, the better!
+
+### Wiki and Documentation
+
+Our Wiki page and documentation are places where you can share your knowledge and expertise. If you'd like to make improvements, please feel free to do so. Your contributions are valuable to the entire community.
+
+Thank you for your support and interest in our project! Together, we can make it even better.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Resources Section
 - In progress
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Thank you -->
 ## Thank you
 - A special thanks to tvd12 for fixing a variety of bugs and providing great help with other issues.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 <!-- Credits -->
 ## Credits
-- 
+
 
 <!-- Contact -->
 ## Contact
