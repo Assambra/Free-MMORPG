@@ -443,7 +443,7 @@ Thank you for your support and interest in our project! Together, we can make it
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Resources Section
-- For the Server/Client we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/) you can support there great project. More information at https://youngmonkeys.org/donate/
+- For the server/client, we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/) you can support there great project. For more information visit https://youngmonkeys.org/donate/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
