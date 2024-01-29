@@ -456,7 +456,7 @@ Thank you for your support and interest in our project! Together, we can make it
 
 <!-- Credits -->
 ## Credits
-
+We use Textures created by João Paulo https://3dtextures.me he published it under the CC0 license. You can buy him a <a href="https://ko-fi.com/katsukagi">Ko-fi</a> or support him as a <a href="https://www.patreon.com/gendo">patreon</a>.  
 
 <!-- Contact -->
 ## Contact
