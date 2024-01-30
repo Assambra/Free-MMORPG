@@ -102,7 +102,8 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 <ul>
     <li>Account Management</li>
         <ul>
-            <li>Create Account</li>
+            <li>Create a new account</li>
+            <li>Account activation, sending activation code via email, login checks if account activated if not needed to insert the code, resend code possible.</li>
             <li>Login</li>
             <li>Forgot password function, sending new password to a given username / e-mail address</li>
             <li>Forgot username function, sending the username to a given e-mail address</li>
@@ -114,12 +115,24 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
             <li>Easy to create a new custom mails with our interface MailBody</li>
             <li>HTML based email templates, you can also use your own variables</li>
         </ul>
-    <li>Character</li>
+    <li>Character Creation</li>
     <ul>
-        <li>Modifiable character model thanks to UMA</li>
-        <li>Create a Character and modifying the look with sliders and save on the server</li>
-        <li>Colorize character, skin hairs.. (In Progress: change hairs/clothes of the model)</li>
+        <li>Creating a new character</li>
+        <li>Modifiable character model thanks to UMA, modifying the look of the character with sliders</li>
+        <li>Colorize character, skin, hairs underwear.</li>
+        <li>Change Hair, Beard Eyebrows, Underwear</li>
+        <li>Save the character server/database</li>
+    </ul>
+    <li>Character Movement</li>
+    <ul>
+        <li>Server Authoritative, movement (no client side prediction, server reconciliation or entity interpolation, simple send input compute position on the server send back to client)</li>
+        <li>Simple but working animation based by the position the player getting from the server</li>
+        <li>Server: Read from unity exported heightmaps format: .raw file, 16-bit, byte order: windows to compute the players Y position</li>
+    </ul>
+    <li>Character Selection</li>
+    <ul>
         <li>Character selection with all available characters</li>
+        <li>(Todo) Delete a Character</li>
     </ul>
     <li>Scene and UI Management, from our <a href="https://github.com/Assambra/Module-GameManager">Module-GameManager</a></li>
     <ul>
@@ -135,7 +148,6 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
     </ul>
     <li>CameraController, from our <a href="https://github.com/Assambra/Module-CameraController">Module-CameraController</a></li>
     <ul>
-        <li>At the moment only integrated in the create character process</li>
         <li>The camera can orbit around the character on LMB, same on RMB but turn the target object.</li>
         <li>A lot of options to fine tune the camera behaviour</li>
         <li>Planed: Camera collision, more smoothing of the camera motions, distance and orbit</li>
@@ -144,6 +156,10 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <ul>
             <li>Create your own popups for different use-cases</li>
         </ul>
+    <li>World Scene</li>
+    <ul>
+        <li>Nice looking Island surrounded by an ocean</li>
+    </ul>
 </ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
