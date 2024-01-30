@@ -88,7 +88,7 @@
 <!-- FOREWORD-->
 ## Foreword
 
-This project utilizes free resources for both server and client technology. Without these, the project likely wouldn't have been possible, so I extend my special thanks to the team at [Young Monkeys](https://youngmonkeys.org/) for their excellent foundational work, particularly for the [EzyFox Server](https://youngmonkeys.org/projects/ezyfox-server) framework, and for sharing it with the community. Also, special thanks to all the contributors to the [UMA](https://github.com/umasteeringgroup/UMA) project and their outstanding Unity Multipurpose Avatar System. Please check out our Resources Section to see what technologies we use and consider supporting their projects in some way, such as through donations or code contributions, to help these talented individuals continue doing what they love: writing great code and developing fantastic frameworks.
+This project utilizes free resources for both server and client technology. Without these, the project likely wouldn't have been possible, so I extend my special thanks to the team at [Young Monkeys](https://youngmonkeys.org/) for their excellent foundational work, particularly for the [EzyFox Server](https://youngmonkeys.org/projects/ezyfox-server) framework, and for sharing it with the community. Also, special thanks to all the contributors to the [UMA](https://github.com/umasteeringgroup/UMA) project and their outstanding Unity Multipurpose Avatar System. For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in my personal opinion, is the best available ocean system for Unity. Please check out our Resources Section to see what technologies we use and consider supporting their projects in some way, such as through donations or code contributions, to help these talented individuals continue doing what they love: writing great code and developing fantastic frameworks.
 
 
 
@@ -443,7 +443,7 @@ Thank you for your support and interest in our project! Together, we can make it
 <!-- Resources Section -->
 ## Resources Section
 - For the server/client, we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/) you can support there great project. For more information visit https://youngmonkeys.org/donate/
-
+- For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in my personal opinion, is the best available ocean system for Unity. You can become a sponsor for this project on [GitHub Sponsors](https://github.com/sponsors/wave-harmonic?o=esb).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Credits -->
