@@ -1,21 +1,48 @@
-MIT License
+License (Use without a headache license)
 
-Copyright (c) 2023 Philipp Leutner
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Copyright (c) 2024 Lädle e.K., Assambra (Philipp Leutner)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Short version:
+
+You can use it to create and build commercial and non-commercial games/software. You are allowed to modify it as needed for your game development. You can earn money without paying license fees, provided that your use does not violate the terms outlined in the full version of this license.
+We want to stop the marketing of our software that is not aimed at pure game development and reserve the right to do so ourselves.
+
+
+Long version:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software within the limits of the following conditions, subject to the following terms:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+Use of Code Under MIT License:
+
+Parts of this software are built using code available under the MIT License. When using such code, adherence to the terms and conditions of the MIT License is required, including but not limited to the preservation of copyright notices and permission notices included with the original code.
+
+Allowed:
+
+- Use the Software to creating games (commercial and non-commercial), modified, and adapted to needs, without the necessity of obtaining permission from the copyright holder or paying licensing fees, subject to the conditions listed herein.
+- A personal copyright tag may be added above the copyright of the original software.
+- It is permitted to host this code in a public repository for the purpose of developing a game or using this software legally(see Limitations below) provided that this license is included.
+
+
+Limitations:
+
+- The software may be used exclusively for creating games (commercial and non-commercial) or software subject to not breaching the terms and conditions set out herein.
+- It is not permitted to remove the copyright notice of the original software or any software used within this project that is licensed under the MIT License.
+- It is not permitted to offer the Software as an asset package for game engines (profit and non-profit) nor as a derivative as a downloadable software package that has the same goal as this Software.
+- It is also not permitted to market our modules marked with “Module MODULE NAME” as individual products or the entire project as an independent product.
+- A public fork or clone of this project may only be created to support the project Free-MMORPG / Omnia, or with the aim of creating a variation of one's own game from it, and must include a copy of this license.
+
+Liability:
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR AUTHORS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE COPYRIGHT HOLDER OR AUTHORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Trademark and Branding:
+
+Upon the release of your game to end-users, it is absolutely necessary to remove any trademarks, symbols (such as our "A symbol"), and any text passages that are associated with us, terms like (Assambra, Omnia, Free-MMORPG). In addition, the name of the game, currently 'Free-MMORPG', must be changed, and if later renamed to 'Omnia', the new name must also not be used in any way. If you wish to mention us in the credits, these are exempt from the aforementioned requirements.
