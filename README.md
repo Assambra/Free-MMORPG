@@ -123,16 +123,16 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
         <li>Change Hair, Beard Eyebrows, Underwear</li>
         <li>Save the character server/database</li>
     </ul>
+    <li>Character Selection</li>
+    <ul>
+        <li>Character selection with all available characters</li>
+        <li>(Todo) Delete a Character</li>
+    </ul>
     <li>Character Movement</li>
     <ul>
         <li>Server Authoritative, movement (no client side prediction, server reconciliation or entity interpolation, simple send input compute position on the server send back to client)</li>
         <li>Simple but working animation based by the position the player getting from the server</li>
         <li>Server: Read from unity exported heightmaps format: .raw file, 16-bit, byte order: windows to compute the players Y position</li>
-    </ul>
-    <li>Character Selection</li>
-    <ul>
-        <li>Character selection with all available characters</li>
-        <li>(Todo) Delete a Character</li>
     </ul>
     <li>Scene and UI Management, from our <a href="https://github.com/Assambra/Module-GameManager">Module-GameManager</a></li>
     <ul>
