@@ -79,9 +79,9 @@
             </ul>
         </ul>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#resources-section">Resources Section</a></li>
     <li><a href="#credits">Credits</a></li>
     <li><a href="#thank-you">Thank you</a></li>
-    <li><a href="#resources-section">Resources Section</a></li>
     <li><a href="#contact">Contact</a></li>
 </ul>
 
@@ -400,8 +400,6 @@ Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-servi
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!--Resources Section-->
-
 <!--Contributing-->
 ## Contributing
 
@@ -442,6 +440,7 @@ Thank you for your support and interest in our project! Together, we can make it
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Resources Section -->
 ## Resources Section
 - For the server/client, we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/) you can support there great project. For more information visit https://youngmonkeys.org/donate/
 
@@ -449,7 +448,9 @@ Thank you for your support and interest in our project! Together, we can make it
 
 <!-- Credits -->
 ## Credits
-We use Textures created by João Paulo https://3dtextures.me he published it under the CC0 license. You can buy him a <a href="https://ko-fi.com/katsukagi">Ko-fi</a> or support him as a <a href="https://www.patreon.com/gendo">patreon</a>.  
+- We use Textures created by João Paulo https://3dtextures.me he published it under the CC0 license. You can buy him a <a href="https://ko-fi.com/katsukagi">Ko-fi</a> or support him as a <a href="https://www.patreon.com/gendo">patreon</a>.  
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Thank you -->
 ## Thank you
@@ -459,7 +460,8 @@ We use Textures created by João Paulo https://3dtextures.me he published it und
 
 <!-- Contact -->
 ## Contact
-Join us on <a href="https://discord.gg/qyCdkYSWVG">Discord</a>
+Join us on <a href="https://discord.gg/vjPWk5FSYj">Discord</a>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DOCUMENT VARIABLE-->
