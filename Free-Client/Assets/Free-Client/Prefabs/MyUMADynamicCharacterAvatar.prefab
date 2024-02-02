@@ -127,14 +127,11 @@ MonoBehaviour:
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: eb280940c811fab4a9e3ddf09381c343, type: 2}
     animators:
-    - raceName: ToonFemale
-      animatorControllerName: IdleTest-w-head
+    - raceName: HumanFemale
+      animatorControllerName: Humanoid Female
       animatorController: {fileID: 0}
-    - raceName: HumanMaleDCS
-      animatorControllerName: Locomotion with Head
-      animatorController: {fileID: 0}
-    - raceName: HumanFemaleResources
-      animatorControllerName: Locomotion with Head
+    - raceName: HumanMale
+      animatorControllerName: Humanoid Male
       animatorController: {fileID: 0}
     dynamicallyAddFromResources: 0
     resourcesFolderPath: 
