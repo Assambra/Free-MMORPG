@@ -64,6 +64,7 @@
             <ul>
                 <li><a href="#mapmagic-2">MapMagic 2</a></li>
             </ul>
+            <li><a href="#play-the-client">Play the client</a></li>
         </ul>
     <li><a href="#server">Server</a></li>
         <ul>
@@ -247,6 +248,13 @@ Unzip and drag the second crest folder into unity ./crest-4.19/crest-4.19/crest/
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- PLAY THE CLIENT -->
+### Play the client
+In your Unity project (FREE-Client) double-click the Persistent scene in the folder location Assets/Free-Client/Scenes/. This is our persistent scene with all Manager/Handlers ... all other scenes will automatically load additive async if needed and also the User Interfaces for the actual scene. More about the Module-GameManager please visit our wiki page [Module-GameManager](https://github.com/Assambra/Free-MMORPG/wiki/Module-GameManager).
+Now you are ready to play the game from the Unity Editor, press play, if the server setup steps done see below.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
