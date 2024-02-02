@@ -173,7 +173,7 @@ MonoBehaviour:
   Initialized: 0
   IsAvatarCreated: 0
   Animator: {fileID: 0}
-  <Avatar>k__BackingField: {fileID: 2856286074098269373}
+  <Avatar>k__BackingField: {fileID: 6421357417252951630}
   playerHeadInfo: {fileID: 6095457073473621084}
 --- !u!1 &2221156034622628282
 GameObject:
@@ -255,7 +255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4550627486360164879}
+  - {fileID: 6421357417258754576}
   m_Father: {fileID: 7552419251411878019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7565123300110053175
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &7594940024289163398
+--- !u!1001 &6421357417258308334
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -400,102 +400,85 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2479443068352586371}
     m_Modifications:
-    - target: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_Name
       value: MyUMADynamicCharacterAvatar
       objectReference: {fileID: 0}
-    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-      propertyPath: umaData
-      value: 
-      objectReference: {fileID: 3591977708517095481}
-    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-      propertyPath: RecreateAnimatorOnRaceChange
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-      propertyPath: umaAdditionalRecipes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-      propertyPath: preloadWardrobeRecipes.recipes.Array.data[0]._recipeName
-      value: FemaleDefaultUnderwear
-      objectReference: {fileID: 0}
-    - target: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-      propertyPath: preloadWardrobeRecipes.recipes.Array.data[1]._recipeName
-      value: MaleDefaultUnderwear
-      objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3700805952149843883, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+      propertyPath: umaData
+      value: 
+      objectReference: {fileID: 4027037068767187597}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3591977708517095481}
-  m_SourcePrefab: {fileID: 100100000, guid: 93579e73c24e002448ca5327389c1000, type: 3}
---- !u!114 &2856286074098269373 stripped
+      addedObject: {fileID: 4027037068767187597}
+  m_SourcePrefab: {fileID: 100100000, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+--- !u!114 &6421357417252951630 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5676000884369343547, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-  m_PrefabInstance: {fileID: 7594940024289163398}
+  m_CorrespondingSourceObject: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+  m_PrefabInstance: {fileID: 6421357417258308334}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038086426920345798}
+  m_GameObject: {fileID: 6421357417258419970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcffb0a198605474c8a4d1c67c1515fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3038086426920345798 stripped
+--- !u!1 &6421357417258419970 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4850330843058739264, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-  m_PrefabInstance: {fileID: 7594940024289163398}
+  m_CorrespondingSourceObject: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+  m_PrefabInstance: {fileID: 6421357417258308334}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3591977708517095481
+--- !u!114 &4027037068767187597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038086426920345798}
+  m_GameObject: {fileID: 6421357417258419970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15ee0e75ac30e964b8dcd0ad5f953c15, type: 3}
@@ -535,7 +518,19 @@ MonoBehaviour:
       m_Calls: []
   CharacterBegun:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: RandomHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   AnimatorStateSaved:
     m_PersistentCalls:
       m_Calls: []
@@ -556,8 +551,8 @@ MonoBehaviour:
   characterHeight: 2
   characterRadius: 0.25
   characterMass: 50
---- !u!4 &4550627486360164879 stripped
+--- !u!4 &6421357417258754576 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6215449213388890761, guid: 93579e73c24e002448ca5327389c1000, type: 3}
-  m_PrefabInstance: {fileID: 7594940024289163398}
+  m_CorrespondingSourceObject: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+  m_PrefabInstance: {fileID: 6421357417258308334}
   m_PrefabAsset: {fileID: 0}
