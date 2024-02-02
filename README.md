@@ -41,8 +41,13 @@
     <li><a href="#playable-demo">Playable Demo</a></li>
     <li><a href="#client">Client</a></li>
         <ul>
-            <li><a href="#clone-from-github">Clone Free-MMORPG from Github</a></li>
-            <li><a href="#clone-assets-and-projects-from-github">Clone Unity Assets from Github</a></li>
+            <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
+            <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
+            <ul>
+                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
+                <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
+            </ul>
+            <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
             <ul>
             <li><a href="#uma">UMA</a></li>
                 <ul>
@@ -55,12 +60,7 @@
                     <li><a href="#install-crest-ocean-system">Install Crest Ocean System</a></li>
                 </ul>
             </ul>
-            <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
-            <ul>
-                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
-                <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
-            </ul>
-            <li><a href="#unity-asset-store">Assets from the Unity asset store</a></li>
+            <li><a href="#needed-unity-packages-from-the-unity-asset-store">Needed Unity packages from the Unity asset store</a></li>
             <ul>
                 <li><a href="#mapmagic-2">MapMagic 2</a></li>
             </ul>
@@ -171,7 +171,7 @@ You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases"
 
 <!-- CLIENT -->
 ## Client
-### Clone from Github
+### Clone from GitHub
 Clone the repo:
 
 `git clone git@github.com:Assambra/Free-MMORPG.git`
@@ -187,6 +187,8 @@ Get submodules:
 
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
+To add this two packages (Newtonsoft Json and HSV-Color-Picker-Unity) manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
+
 #### Newtonsoft Json
 The EzyFox Client SDK need Newtonsoft Json package to work.
 
@@ -217,16 +219,18 @@ and additionally add to the file.
 `Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CLONE ASSETS AND PROJECTS FROM GITHUB -->
-## Clone Assets and projects from github
+<!-- NEEDED PROJECTS FROM GITHUB -->
+## Needed projects from GitHub
 
 <!-- UMA -->
 ### UMA
 #### Get UMA
-Download the latest Pre-release unity asset pack file<a href="https://github.com/umasteeringgroup/UMA/releases/download/v2.13a4/UMA213a4.unitypackage"> UMA213a4.unitypackage</a>
+Download the latest UMA Unity Asset Pack [UMA 2.13 Beta 1](https://github.com/umasteeringgroup/UMA/releases/download/v2.13b1/UMA213b.unitypackage) from the UMA GitHub repository.
 
 #### Install UMA Package
-Add the UMA213a4.unity package to your Free-Client project. To do this, simply move the package to your opened Free-Client project in Unity. Select everything and click Import.
+Open with Unity the Free-MMORPG Unity project. Simple drag and drop the downloaded UMA213b.unitypackage from your download folder into the opened Unity project. Let all selected and click import.
+
+They are some extra steps required please visit our wiki page [UMA](https://github.com/Assambra/Free-MMORPG/wiki/UMA)
 
 <!-- CREST OCEAN SYSTEM -->
 ### Crest Ocean System
@@ -239,7 +243,7 @@ Unzip and drag the second crest folder into unity ./crest-4.19/crest-4.19/crest/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Unity asset store -->
-## Unity Asset Store
+## Needed Unity packages from the Unity Asset Store
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
