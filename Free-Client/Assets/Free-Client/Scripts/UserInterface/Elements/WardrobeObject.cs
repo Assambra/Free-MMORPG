@@ -14,8 +14,8 @@ public class WardrobeObject : MonoBehaviour
 
     private Dictionary<string, int> options = new Dictionary<string, int>();
     
-    private Dictionary<UMATextRecipe, int> recipies = new Dictionary<UMATextRecipe, int>();
-
+    private Dictionary<UMATextRecipe, int> recipes = new Dictionary<UMATextRecipe, int>();
+    private List<UMATextRecipe> _recipesToShow = new List<UMATextRecipe>();
     private UMATextRecipe lastRecipe;
 
     private void Awake()
@@ -23,15 +23,26 @@ public class WardrobeObject : MonoBehaviour
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, List<UMATextRecipe>[] recipesToShow = null, bool useCustomRecipesList = false)
     {
         textWardrobeName.text = slotname;
         this.avatar = avatar;
-
-        CreateOptions(slotname);
+        
+        if(recipesToShow != null)
+        {
+            for (int i = 0; i < recipesToShow.Length; i++)
+            {
+                foreach (UMATextRecipe r in recipesToShow[i])
+                {
+                    _recipesToShow.Add(r);
+                }
+            }
+        }
+        
+        CreateOptions(slotname, useCustomRecipesList);
     }
 
-    private void CreateOptions(string slotname)
+    private void CreateOptions(string slotname, bool useCustomRecipesList)
     {
         List<UMATextRecipe> slotRecipes = avatar.AvailableRecipes[slotname];
         
@@ -40,12 +51,15 @@ public class WardrobeObject : MonoBehaviour
         int i = 1;
         foreach (UMATextRecipe utr in slotRecipes)
         {
-            string name = GetRecipeNameOrDisplayValue(utr);
-            
-            recipies.Add(utr, i);
-            options.Add(name, i);
+            if(_recipesToShow.Contains(utr) || !useCustomRecipesList)
+            {
+                string name = GetRecipeNameOrDisplayValue(utr);
 
-            i++;
+                recipes.Add(utr, i);
+                options.Add(name, i);
+
+                i++;
+            }
         }
 
         dropdownWardrobe.AddOptions(options.Keys.ToList());
@@ -85,7 +99,7 @@ public class WardrobeObject : MonoBehaviour
 
     private void OnDropdownValueChanged(TMP_Dropdown change)
     {
-        foreach(KeyValuePair<UMATextRecipe, int> recipe in recipies)
+        foreach(KeyValuePair<UMATextRecipe, int> recipe in recipes)
         {
             if(change.value != 0)
             {

@@ -2605,9 +2605,7 @@ MonoBehaviour:
   _prefabColorElement: {fileID: 9011336172872189380, guid: 38950e51f4fdcd24caa507da1557ca94, type: 3}
   _prefabWardrobeElement: {fileID: 6252550602972366327, guid: 767960cda782c8744a11af2b91ca8a7f, type: 3}
   _modifiersHome: {fileID: 2808047502750686564}
-  colorHome: {fileID: 2244071589721959715}
-  _modifiersLayout: {fileID: 2808047502750686564}
-  colorLayout: {fileID: 2244071589721959715}
+  _modifiersButtonHome: {fileID: 2244071589721959715}
   buttonPlay: {fileID: 1750342234005899599}
   characterTemplates:
   - {fileID: 11400000, guid: 81405667f4c34c7429e56fed2c3caccf, type: 2}
@@ -2667,6 +2665,17 @@ MonoBehaviour:
   - legsSize
   - waist
   - gluteusSize
+  _femaleHairWardropeTypes:
+  - Hair
+  - Eyebrows
+  _maleHairWardropeTypes:
+  - Hair
+  - Eyebrows
+  - Beard
+  _femaleClothesWardropeTypes:
+  - Underwear
+  _maleClothesWardropeTypes:
+  - Underwear
   _femaleHairRecipes:
   - {fileID: 11400000, guid: 53a236a7ccb00374dbbed2f13dc8509d, type: 2}
   - {fileID: 11400000, guid: 967f84b71a1548d4580a76c279ec5389, type: 2}
@@ -2674,6 +2683,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f23297b636ef1bf41b5df17f140d9553, type: 2}
   - {fileID: 11400000, guid: b1cd665aba1e0b1419a57a38c1f4d3dc, type: 2}
   _femaleEyebrowsRecipes: []
+  _femaleUnderwearRecipes:
+  - {fileID: 11400000, guid: 9050e005ddce44d4f89dc6158808b409, type: 2}
+  - {fileID: 11400000, guid: d40e65714e237a3499a2eada8f3411c6, type: 2}
   _maleHairRecipes:
   - {fileID: 11400000, guid: 4acc51a73e0e5884eb7e770d8f803e81, type: 2}
   - {fileID: 11400000, guid: bc2ac8c776a97fa46a5a1a9455599f2c, type: 2}
@@ -2691,6 +2703,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2b1f4c9b2ad40f4b8a68144700342f8, type: 2}
   - {fileID: 11400000, guid: 506e811243229714bb4e2386dcbc08d3, type: 2}
   - {fileID: 11400000, guid: 1df4eb647357a74498fa7e6b4672ad8d, type: 2}
+  _maleUnderwearRecipes:
+  - {fileID: 11400000, guid: fd65ba08e9f303242809809d1fcb4307, type: 2}
+  - {fileID: 11400000, guid: 5bbd4dc2ec713f24a84512ef4f9ffe00, type: 2}
+  - {fileID: 11400000, guid: 71e3ef35d8b941d4ab538b01f57dbb79, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,7 +2719,7 @@ GameObject:
   - component: {fileID: 6704062673115008074}
   - component: {fileID: 650830674635297512}
   m_Layer: 5
-  m_Name: ColorHome
+  m_Name: ModifiersButtonHome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
