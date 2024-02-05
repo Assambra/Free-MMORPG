@@ -1,3 +1,4 @@
+using TMPro;
 using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
@@ -5,10 +6,11 @@ using UnityEngine.UI;
 
 public class ColorElement : MonoBehaviour
 {
-    [SerializeField] Button _buttonColor;
-    [SerializeField] Image _imageColor;
-    [SerializeField] GameObject _prefabColorPicker;
-
+    [SerializeField] private Button _buttonColor;
+    [SerializeField] private Image _imageColor;
+    [SerializeField] private GameObject _prefabColorPicker;
+    [SerializeField] private TMP_Text _textColorName;
+    
     private DynamicCharacterAvatar _avatar;
 
     private OverlayColorData _colorType;
@@ -18,7 +20,7 @@ public class ColorElement : MonoBehaviour
 
     void Update()
     {
-        _imageColor.color = _colorType.color; 
+        _imageColor.color = _colorType.color;
     }
 
     public void Initialize(DynamicCharacterAvatar avatar, OverlayColorData colorType, string name, Transform colorPickerHome)
@@ -28,6 +30,7 @@ public class ColorElement : MonoBehaviour
 
         this._colorPickerHome = colorPickerHome;
         this._name = name;
+        _textColorName.text = name;
     }
 
     public void RemoveColorPicker()
