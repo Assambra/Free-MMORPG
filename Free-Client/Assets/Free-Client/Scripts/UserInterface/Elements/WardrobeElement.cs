@@ -5,7 +5,7 @@ using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
 
-public class WardrobeObject : MonoBehaviour
+public class WardrobeElement : MonoBehaviour
 {
     [SerializeField] TMP_Text textWardrobeName;
     [SerializeField] TMP_Dropdown dropdownWardrobe;
@@ -14,7 +14,6 @@ public class WardrobeObject : MonoBehaviour
     private DynamicCharacterAvatar _avatar;
 
     private Dictionary<string, int> options = new Dictionary<string, int>();
-    
     private Dictionary<UMATextRecipe, int> recipes = new Dictionary<UMATextRecipe, int>();
     private List<UMATextRecipe> _recipesToShow = new List<UMATextRecipe>();
     private UMATextRecipe lastRecipe;
@@ -112,13 +111,13 @@ public class WardrobeObject : MonoBehaviour
             {
                 if (change.value == recipe.Value)
                 {   
-                    ClearColors();
-                    OverlayColorData[] colors = recipe.Key.SharedColors;
-                    CreateColorSelectors(colors, _allwaysOnTop);
-                    
                     _avatar.SetSlot(recipe.Key);
                     _avatar.BuildCharacter(true);
                     lastRecipe = recipe.Key;
+                    
+                    ClearColors();
+                    OverlayColorData[] sharedColors = recipe.Key.SharedColors;
+                    CreateColorSelectors(sharedColors, _allwaysOnTop);
                 }
             }
             else

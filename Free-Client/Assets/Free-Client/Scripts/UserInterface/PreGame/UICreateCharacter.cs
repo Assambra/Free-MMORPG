@@ -342,7 +342,7 @@ public class UICreateCharacter : MonoBehaviour
                 if (r == wardrobeType[i])
                 {
                     GameObject go = te.CreateObject(_prefabWardrobeElement, r);
-                    go.GetComponent<WardrobeObject>().InitializeWardrobe(avatar, r, allwaysOnTop, recipesToShow, true);
+                    go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, r, allwaysOnTop, recipesToShow, true);
                 }
                 i++;
             }
@@ -390,7 +390,7 @@ public class UICreateCharacter : MonoBehaviour
         foreach (string s in recipes.Keys)
         {
             GameObject go = he.CreateObject(_prefabWardrobeElement, s);
-            go.GetComponent<WardrobeObject>().InitializeWardrobe(avatar, s, allwaysOnTop);
+            go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, s, allwaysOnTop);
         }
     }
 
