@@ -81,6 +81,8 @@ public class UICreateCharacter : MonoBehaviour
     private bool initalized = false;
 
     private GameObject _heightSlider;
+    private GameObject _skinColorSelector;
+
     private GameObject _headSliderGroup = null;
     private GameObject _upperBodySliderGroup = null;
     private GameObject _lowerBodySliderGroup = null;
@@ -133,9 +135,8 @@ public class UICreateCharacter : MonoBehaviour
         {
             if (colorType.name == "Skin")
             {
-                GameObject goColor = Instantiate(_prefabColorElement, skinHome);
-                _activeColorObjects.Add(goColor);
-                ColorElement color = goColor.GetComponent<ColorElement>();
+                _skinColorSelector = Instantiate(_prefabColorElement, skinHome);
+                ColorSelectorElement color = _skinColorSelector.GetComponent<ColorSelectorElement>();
                 color.Initialize(avatar, colorType, "Skin", allwaysOnTop);
             }
         }
@@ -393,10 +394,12 @@ public class UICreateCharacter : MonoBehaviour
             go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, s, allwaysOnTop);
         }
     }
-
+    
     private void RemoveSkinColor()
     {
-
+        ColorSelectorElement co = _skinColorSelector.GetComponent<ColorSelectorElement>();
+        co.RemoveColorPicker();
+        Destroy(_skinColorSelector);
     }
 
     private void RemoveHeightSlider()
@@ -415,7 +418,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         foreach(GameObject color in _activeColorObjects)
         {
-            ColorElement co = color.GetComponent<ColorElement>();
+            ColorSelectorElement co = color.GetComponent<ColorSelectorElement>();
             co.RemoveColorPicker();
             Destroy(color);
         }
@@ -478,6 +481,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         CreateSkinColor();
         CreateHeightSlider();
+
         CreateModifierButtons();
         CreateWardrobe();
 
@@ -488,6 +492,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         RemoveSkinColor();
         RemoveHeightSlider();
+
         RemoveModifierButtons();
 
 

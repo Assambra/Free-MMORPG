@@ -4,7 +4,7 @@ using UMA.CharacterSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorElement : MonoBehaviour
+public class ColorSelectorElement : MonoBehaviour
 {
     [SerializeField] private Button _buttonColor;
     [SerializeField] private Image _imageColor;
@@ -35,7 +35,8 @@ public class ColorElement : MonoBehaviour
 
     public void RemoveColorPicker()
     {
-        Destroy(_colorPicker);
+        if(_colorPicker != null)
+            Destroy(_colorPicker);
     }
 
     public void OnButtonColor()

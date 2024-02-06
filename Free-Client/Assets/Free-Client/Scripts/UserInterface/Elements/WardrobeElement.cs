@@ -135,7 +135,7 @@ public class WardrobeElement : MonoBehaviour
         {
             GameObject go = Instantiate(_prefabColorElement, _colorHome);
             _activeColorElements.Add(go);
-            ColorElement color = go.GetComponent<ColorElement>();
+            ColorSelectorElement color = go.GetComponent<ColorSelectorElement>();
             color.Initialize(_avatar, sharedColors[i], sharedColors[i].name, allwaysOnTop);
         }
     }
@@ -144,7 +144,7 @@ public class WardrobeElement : MonoBehaviour
     {
         foreach(GameObject go in _activeColorElements)
         {
-            ColorElement color = go.GetComponent<ColorElement>();
+            ColorSelectorElement color = go.GetComponent<ColorSelectorElement>();
             color.RemoveColorPicker();
 
             Destroy(go);
