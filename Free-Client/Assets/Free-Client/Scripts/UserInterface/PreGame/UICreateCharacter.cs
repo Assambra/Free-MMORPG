@@ -512,8 +512,9 @@ public class UICreateCharacter : MonoBehaviour
 
             umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
             avatar.ChangeRace("HumanMale", true);
-
-            RemoveCharacterModifiers();
+            
+            if(initalized)
+                RemoveCharacterModifiers();
 
             sex = "male";
         }
