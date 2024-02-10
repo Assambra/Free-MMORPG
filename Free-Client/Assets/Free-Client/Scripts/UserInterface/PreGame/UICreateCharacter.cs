@@ -131,7 +131,7 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateSkinColor()
     {
-        foreach (OverlayColorData colorType in avatar.CurrentSharedColors)
+        foreach (OverlayColorData colorType in avatar.ActiveColors)
         {
             if (colorType.name == "Skin")
             {

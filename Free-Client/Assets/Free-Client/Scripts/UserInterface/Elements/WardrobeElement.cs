@@ -131,12 +131,17 @@ public class WardrobeElement : MonoBehaviour
 
     private void CreateColorSelectors(OverlayColorData[] sharedColors, Transform allwaysOnTop)
     {
+        
         for (int i = 0; i < sharedColors.Length; i++)
         {
             GameObject go = Instantiate(_prefabColorElement, _colorHome);
             _activeColorElements.Add(go);
             ColorSelectorElement color = go.GetComponent<ColorSelectorElement>();
-            color.Initialize(_avatar, sharedColors[i], sharedColors[i].name, allwaysOnTop);
+            foreach (OverlayColorData ocd in _avatar.ActiveColors)
+            {
+                if (ocd.name == sharedColors[i].name)
+                    color.Initialize(_avatar, ocd, sharedColors[i].name, allwaysOnTop);
+            }
         }
     }
 
