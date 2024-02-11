@@ -471,7 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltiptext: This is a password field
   delayToShowInfo: 1
-  prefabTooltipObject: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
+  _prefabTooltipElement: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
 --- !u!1 &904401945518913208
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltiptext: This is a username field
   delayToShowInfo: 1
-  prefabTooltipObject: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
+  _prefabTooltipElement: {fileID: 3904200426874187280, guid: d8205511dc104924bb38334643fe152b, type: 3}
 --- !u!1 &904401945620390072
 GameObject:
   m_ObjectHideFlags: 0

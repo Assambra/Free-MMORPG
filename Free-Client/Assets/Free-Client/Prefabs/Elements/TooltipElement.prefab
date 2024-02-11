@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 2588905363342137458}
   - component: {fileID: 3217515068609524890}
   m_Layer: 0
-  m_Name: TooltipObject
+  m_Name: TooltipElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

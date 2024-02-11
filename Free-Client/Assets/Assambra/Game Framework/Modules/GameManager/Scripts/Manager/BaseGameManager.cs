@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public abstract class BaseGameManager : Singleton<GameManager>
+public abstract class BaseGameManager : MonoBehaviour
 {
     public static event Action<GameState> OnStateChanged;
     [field: SerializeField] public SceneHandler sceneHandler { get; private set; }
@@ -19,11 +19,6 @@ public abstract class BaseGameManager : Singleton<GameManager>
     private void OnDisable()
     {
         SceneHandler.OnSceneChanged -= OnSceneChanged;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
     }
 
     public void ChangeState(GameState newState)

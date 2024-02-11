@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : BaseGameManager
 {
+    public static GameManager Instance;
+
     public string Account;
     [SerializeField] private NetworkManagerAccount _networkManagerAccount;
 
@@ -30,10 +32,13 @@ public class GameManager : BaseGameManager
 
     // Private
     private GameObject playerGameObject;
-
-    protected override void Awake()
+    
+    private void Awake()
     {
-        base.Awake();
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
 
         Application.targetFrameRate = 60;
     }

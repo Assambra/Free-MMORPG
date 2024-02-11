@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4850330843058739264
+--- !u!1 &153068
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6215449213388890761}
-  - component: {fileID: 5676000884369343547}
-  - component: {fileID: 1299301247817118139}
-  - component: {fileID: 3700805952149843883}
+  - component: {fileID: 487678}
+  - component: {fileID: 11453600}
+  - component: {fileID: 114399585086637844}
+  - component: {fileID: 4757962627389437816}
   m_Layer: 0
   m_Name: MyUMADynamicCharacterAvatar
   m_TagString: Untagged
@@ -19,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6215449213388890761
+--- !u!4 &487678
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850330843058739264}
+  m_GameObject: {fileID: 153068}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,20 +34,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5676000884369343547
+--- !u!114 &11453600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850330843058739264}
+  m_GameObject: {fileID: 153068}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcffb0a198605474c8a4d1c67c1515fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 0}
-  umaData: {fileID: 3700805952149843883}
+  umaData: {fileID: 4757962627389437816}
   defaultRendererAsset: {fileID: 0}
   umaRecipe: {fileID: 0}
   umaAdditionalRecipes:
@@ -59,7 +59,19 @@ MonoBehaviour:
       m_Calls: []
   CharacterBegun:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: RandomHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   CharacterDestroyed:
     m_PersistentCalls:
       m_Calls: []
@@ -78,7 +90,7 @@ MonoBehaviour:
   DelayUnload: 2
   BundleCheck: 1
   KeepAnimatorController: 0
-  RecreateAnimatorOnRaceChange: 0
+  RecreateAnimatorOnRaceChange: 1
   userInformation: 
   RecipeUpdated:
     m_PersistentCalls:
@@ -102,12 +114,14 @@ MonoBehaviour:
   alwaysRebuildSkeleton: 0
   forceRebindAnimator: 0
   preloadWardrobeRecipes:
-    loadDefaultRecipes: 1
+    loadDefaultRecipes: 0
     recipes:
-    - _recipeName: FemaleUndies
+    - _recipeName: FemaleDefaultUnderwear
+      _enabledInDefaultWardrobe: 1
       _compatibleRaces:
       - HumanFemale
-    - _recipeName: MaleShorts1
+    - _recipeName: MaleDefaultUnderwear
+      _enabledInDefaultWardrobe: 1
       _compatibleRaces:
       - HumanMale
   raceAnimationControllers:
@@ -131,11 +145,13 @@ MonoBehaviour:
       channelAdditiveMask:
       - {r: 0, g: 0, b: 0, a: 0}
       - {r: 0, g: 0, b: 0, a: 0}
-      - {r: 0, g: 0, b: 0, a: 0.5019608}
+      - {r: 0, g: 0, b: 0, a: 0}
       PropertyBlock:
         alwaysUpdate: 0
         serializedProperties: []
       foldout: 0
+      showAdvanced: 0
+      isBaseColor: 1
       _name: 
       _color: {r: 0.3529412, g: 0.21568629, b: 0.14117648, a: 1}
       _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
@@ -149,11 +165,13 @@ MonoBehaviour:
       channelAdditiveMask:
       - {r: 0, g: 0, b: 0, a: 0}
       - {r: 0, g: 0, b: 0, a: 0}
-      - {r: 0, g: 0, b: 0, a: 0.5019608}
+      - {r: 0, g: 0, b: 0, a: 0}
       PropertyBlock:
         alwaysUpdate: 0
         serializedProperties: []
       foldout: 0
+      showAdvanced: 0
+      isBaseColor: 1
       _name: 
       _color: {r: 0.28627452, g: 0.40784317, b: 1, a: 1}
       _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
@@ -167,11 +185,13 @@ MonoBehaviour:
       channelAdditiveMask:
       - {r: 0, g: 0, b: 0, a: 0}
       - {r: 0, g: 0, b: 0, a: 0}
-      - {r: 0, g: 0, b: 0, a: 0.5019608}
+      - {r: 0, g: 0, b: 0, a: 0.21176471}
       PropertyBlock:
         alwaysUpdate: 0
         serializedProperties: []
       foldout: 0
+      showAdvanced: 0
+      isBaseColor: 1
       _name: 
       _color: {r: 0.9632353, g: 0.82158303, b: 0.82158303, a: 1}
       _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
@@ -185,11 +205,13 @@ MonoBehaviour:
       channelAdditiveMask:
       - {r: 0, g: 0, b: 0, a: 0}
       - {r: 0, g: 0, b: 0, a: 0}
-      - {r: 0, g: 0, b: 0, a: 0.5019608}
+      - {r: 0, g: 0, b: 0, a: 0}
       PropertyBlock:
         alwaysUpdate: 0
         serializedProperties: []
       foldout: 0
+      showAdvanced: 0
+      isBaseColor: 0
       _name: 
       _color: {r: 0.3529412, g: 0.4156863, b: 0.6392157, a: 1}
       _metallicGloss: {r: 0, g: 0, b: 0, a: 0}
@@ -219,13 +241,13 @@ MonoBehaviour:
   customRotation: {x: 0, y: 0, z: 0}
   previewColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   _buildCharacterEnabled: 1
---- !u!114 &1299301247817118139
+--- !u!114 &114399585086637844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850330843058739264}
+  m_GameObject: {fileID: 153068}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
@@ -296,13 +318,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
---- !u!114 &3700805952149843883
+--- !u!114 &4757962627389437816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4850330843058739264}
+  m_GameObject: {fileID: 153068}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15ee0e75ac30e964b8dcd0ad5f953c15, type: 3}
@@ -342,7 +364,19 @@ MonoBehaviour:
       m_Calls: []
   CharacterBegun:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: RandomHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   AnimatorStateSaved:
     m_PersistentCalls:
       m_Calls: []
