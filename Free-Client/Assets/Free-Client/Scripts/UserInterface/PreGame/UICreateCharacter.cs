@@ -514,4 +514,5 @@ public class UICreateCharacter : MonoBehaviour
     }
 
     #endregion
+
 }
