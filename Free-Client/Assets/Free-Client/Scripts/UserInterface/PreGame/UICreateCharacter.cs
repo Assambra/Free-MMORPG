@@ -11,35 +11,37 @@ public class UICreateCharacter : MonoBehaviour
     [field: SerializeField] public bool UseCameraAutoFocus { private get; set; }
 
     [Header("User Interface")]
-    [SerializeField] TMP_InputField inputFieldNameValue;
-    [SerializeField] Button buttonFemale;
-    [SerializeField] Button buttonMale;
-    [SerializeField] Transform heightHome;
-    [SerializeField] Transform skinHome;
-    [SerializeField] Transform allwaysOnTop;
-    [SerializeField] TMP_Dropdown dropdownRace;
-    [SerializeField] TMP_Dropdown dropdownProfession;
+    [SerializeField] private TMP_InputField _inputFieldName;
+    [SerializeField] private Button _buttonFemale;
+    [SerializeField] private Button _buttonMale;
+    [SerializeField] private Button _buttonPlay;
+    [SerializeField] private TMP_Dropdown _dropdownRace;
+    [SerializeField] private TMP_Dropdown _dropdownProfession;
+
+    [Header("Home")]
+    [SerializeField] private Transform _heightHome;
+    [SerializeField] private Transform _skinHome;
+    [SerializeField] private Transform _modifiersHome;
+    [SerializeField] private Transform _modifiersButtonHome;
+    [SerializeField] private Transform _allwaysOnTop;
+
+    [Header("Prefabs")]
     [SerializeField] private GameObject _prefabTitleElement;
     [SerializeField] private GameObject _prefabSubtitleElement;
     [SerializeField] private GameObject _prefabButtonElement;
     [SerializeField] private GameObject _prefabSliderElement;
     [SerializeField] private GameObject _prefabColorElement;
     [SerializeField] private GameObject _prefabWardrobeElement;
-    
-    [SerializeField] Transform _modifiersHome;
-    [SerializeField] Transform _modifiersButtonHome;
-
-    [SerializeField] Button buttonPlay;
 
     // Private variables UMA
-    private DynamicCharacterAvatar avatar;
-    private UMAData umaData;
+    private DynamicCharacterAvatar _avatar;
+    private UMAData _umaData;
 
     [Header("Default Character templates")]
-    [SerializeField] private List<CharacterTemplate> characterTemplates = new List<CharacterTemplate>();
+    [SerializeField] private List<CharacterTemplate> _characterTemplates = new List<CharacterTemplate>();
 
     [Header("Camera auto focus points")]
-    [SerializeField] private List<CameraFocusPoint> cameraAutoFocusPoints = new List<CameraFocusPoint>();
+    [SerializeField] private List<CameraFocusPoint> _cameraAutoFocusPoints = new List<CameraFocusPoint>();
 
     [Header("UMA DNA")]
     [SerializeField] private List<string> _heightDNA = new List<string>();
@@ -65,20 +67,17 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private List<UMATextRecipe> _maleUnderwearRecipes = new List<UMATextRecipe>();
 
     // Private variables user interface
-    private List<string> raceOptions = new List<string>();
-    private List<GameObject> headerElements = new List<GameObject>();
-
-    private List<GameObject> _activeColorObjects = new List<GameObject>();
-    
+    private List<string> _raceOptions = new List<string>();
+    private List<GameObject> _headerElements = new List<GameObject>();
     
     // Private variables network
-    private string charname;
-    private string sex;
-    private string race;
-    private string model;
+    private string _charname;
+    private string _sex;
+    private string _race;
+    private string _model;
 
     // Private variables helper/general
-    private bool initalized = false;
+    private bool _initalized = false;
 
     private GameObject _heightSlider;
     private GameObject _skinColorSelector;
@@ -91,60 +90,60 @@ public class UICreateCharacter : MonoBehaviour
 
     private void Awake()
     {
-        avatar = GameManager.Instance.Avatar;
+        _avatar = GameManager.Instance.Avatar;
 
-        sex = "male";
+        _sex = "male";
 
-        raceOptions.Add("Select race");
-        raceOptions.Add("Humanoid");
-        dropdownRace.AddOptions(raceOptions);
+        _raceOptions.Add("Select race");
+        _raceOptions.Add("Humanoid");
+        _dropdownRace.AddOptions(_raceOptions);
     }
 
     private void Start()
     {
-        umaData = avatar.umaData;
+        _umaData = _avatar.umaData;
     }
 
     private void OnDestroy()
     {
         GameManager.Instance.CharacterCreatedAndReadyToPlay = false;
         GameManager.Instance.CharacterId = 0;
-        if(buttonPlay.gameObject.activeSelf)
-            buttonPlay.gameObject.SetActive(false);
+        if(_buttonPlay.gameObject.activeSelf)
+            _buttonPlay.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (!initalized) 
+        if (!_initalized) 
         {
             // To initialize the HumanMale Race with the default CharacterTemplate
             OnButtonMale();
 
-            initalized = true;
+            _initalized = true;
         }
         
-        if(GameManager.Instance.CharacterCreatedAndReadyToPlay && !buttonPlay.gameObject.activeSelf)
+        if(GameManager.Instance.CharacterCreatedAndReadyToPlay && !_buttonPlay.gameObject.activeSelf)
         {
-            buttonPlay.gameObject.SetActive(true);
+            _buttonPlay.gameObject.SetActive(true);
         }
     }
 
     private void CreateSkinColor()
     {
-        foreach (OverlayColorData colorType in avatar.ActiveColors)
+        foreach (OverlayColorData colorType in _avatar.ActiveColors)
         {
             if (colorType.name == "Skin")
             {
-                _skinColorSelector = Instantiate(_prefabColorElement, skinHome);
+                _skinColorSelector = Instantiate(_prefabColorElement, _skinHome);
                 ColorSelectorElement color = _skinColorSelector.GetComponent<ColorSelectorElement>();
-                color.Initialize(avatar, colorType, "Skin", allwaysOnTop);
+                color.Initialize(_avatar, colorType, "Skin", _allwaysOnTop);
             }
         }
     }
 
     private void CreateHeightSlider()
     {
-        UMADnaBase[] DNA = avatar.GetAllDNA();
+        UMADnaBase[] DNA = _avatar.GetAllDNA();
 
         foreach(UMADnaBase dna in DNA)
         {
@@ -156,14 +155,14 @@ public class UICreateCharacter : MonoBehaviour
             
             foreach(string category in categories)
             {
-                _heightSlider = Instantiate(_prefabSliderElement, heightHome);
+                _heightSlider = Instantiate(_prefabSliderElement, _heightHome);
                 SliderElement heightSlider = _heightSlider.GetComponent<SliderElement>();
                     
                 for (int i = 0; i < names.Length; i++)
                 {
                     if (category == GetCategory(names[i].BreakupCamelCase()))
                     {
-                        heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna, true, 150f);
+                        heightSlider.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, _avatar, dna, true, 150f);
                         break;
                     }
                 }
@@ -175,30 +174,31 @@ public class UICreateCharacter : MonoBehaviour
 
     private void CreateModifierButtons()
     {
-        GameObject ph = Instantiate(_prefabTitleElement, _modifiersButtonHome);
-        ph.name = "Character modifiers";
-        headerElements.Add(ph);
-        TitleElement he = ph.GetComponent<TitleElement>();
-        string headerName = "Character Modifiers";
-        he.InitializeHeaderElement(headerName, _modifiersButtonHome.GetComponent<RectTransform>());
+        GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersButtonHome);
+        gotitle.name = "Character modifiers";
+        _headerElements.Add(gotitle);
 
-        GameObject goHead = he.CreateObject(_prefabButtonElement, "Head");
+        TitleElement te = gotitle.GetComponent<TitleElement>();
+        string headerName = "Character Modifiers";
+        te.InitializeHeaderElement(headerName, _modifiersButtonHome.GetComponent<RectTransform>());
+
+        GameObject goHead = te.CreateObject(_prefabButtonElement, "Head");
         ButtonElement boHeader = goHead.GetComponent<ButtonElement>();
         boHeader.Initialize("Head", OnButtonHeadClick);
 
-        GameObject goUpperBody = he.CreateObject(_prefabButtonElement, "Upper Body");
+        GameObject goUpperBody = te.CreateObject(_prefabButtonElement, "Upper Body");
         ButtonElement boUpperBody = goUpperBody.GetComponent<ButtonElement>();
         boUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
 
-        GameObject goLowerBody = he.CreateObject(_prefabButtonElement, "Lower Body");
+        GameObject goLowerBody = te.CreateObject(_prefabButtonElement, "Lower Body");
         ButtonElement boLowerBody = goLowerBody.GetComponent<ButtonElement>();
         boLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
 
-        GameObject goHair = he.CreateObject(_prefabButtonElement, "Hair");
+        GameObject goHair = te.CreateObject(_prefabButtonElement, "Hair");
         ButtonElement boHair = goHair.GetComponent<ButtonElement>();
         boHair.Initialize("Hair", OnButtonHairClick);
 
-        GameObject goClothes = he.CreateObject(_prefabButtonElement, "Clothes");
+        GameObject goClothes = te.CreateObject(_prefabButtonElement, "Clothes");
         ButtonElement boClothes = goClothes.GetComponent<ButtonElement>();
         boClothes.Initialize("Clothes", OnButtonClothesClick);
     }
@@ -237,7 +237,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         if(_hairGroup == null)
         {
-            if (avatar.activeRace.name == "HumanMale")
+            if (_avatar.activeRace.name == "HumanMale")
             {
                 List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[3];
                 recipesToShow[0] = _maleHairRecipes;
@@ -245,7 +245,7 @@ public class UICreateCharacter : MonoBehaviour
                 recipesToShow[2] = _maleBeardRecipes;
                 _hairGroup = CreateWardrobeGroup("Hair", _maleHairWardropeTypes, recipesToShow);
             }
-            else
+            else if (_avatar.activeRace.name == "HumanFemale")
             {
                 List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[2];
                 recipesToShow[0] = _femaleHairRecipes;
@@ -262,14 +262,14 @@ public class UICreateCharacter : MonoBehaviour
     {
         if (_clothesGroup == null)
         {
-            if (avatar.activeRace.name == "HumanMale")
+            if (_avatar.activeRace.name == "HumanMale")
             {
                 List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
                 recipesToShow[0] = _maleUnderwearRecipes;
 
                 _clothesGroup = CreateWardrobeGroup("Clothes", _maleClothesWardropeTypes, recipesToShow);
             }
-            else
+            else if(_avatar.activeRace.name == "HumanFemale")
             {
                 List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
                 recipesToShow[0] = _femaleUnderwearRecipes;
@@ -285,7 +285,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
         gotitle.name = title;
-        headerElements.Add(gotitle);
+        _headerElements.Add(gotitle);
 
         TitleElement te = gotitle.GetComponent<TitleElement>();
         te.InitializeHeaderElement(title, _modifiersHome.GetComponent<RectTransform>());
@@ -293,7 +293,7 @@ public class UICreateCharacter : MonoBehaviour
         RectTransform parentLayout = te.GetParentLayout();
         RectTransform layout = te.GetLayout();
 
-        UMADnaBase[] DNA = avatar.GetAllDNA();
+        UMADnaBase[] DNA = _avatar.GetAllDNA();
 
         foreach (UMADnaBase dna in DNA)
         {
@@ -315,7 +315,7 @@ public class UICreateCharacter : MonoBehaviour
                     {
                         GameObject slider = subhe.CreateObject(_prefabSliderElement, GetSlider(names[i].BreakupCamelCase()));
                         SliderElement so = slider.GetComponent<SliderElement>();
-                        so.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, avatar, dna);
+                        so.InitializeSlider(GetSlider(names[i].BreakupCamelCase()), names[i], values[i], i, _avatar, dna);
                     }
                 }
             }
@@ -328,12 +328,12 @@ public class UICreateCharacter : MonoBehaviour
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
         gotitle.name = title;
-        headerElements.Add(gotitle);
+        _headerElements.Add(gotitle);
 
         TitleElement te = gotitle.GetComponent<TitleElement>();
         te.InitializeHeaderElement(title, _modifiersHome.GetComponent<RectTransform>());
 
-        Dictionary<string, List<UMATextRecipe>> recipes = avatar.AvailableRecipes;
+        Dictionary<string, List<UMATextRecipe>> recipes = _avatar.AvailableRecipes;
 
         foreach (string r in recipes.Keys)
         {
@@ -343,7 +343,7 @@ public class UICreateCharacter : MonoBehaviour
                 if (r == wardrobeType[i])
                 {
                     GameObject go = te.CreateObject(_prefabWardrobeElement, r);
-                    go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, r, _modifiersButtonHome, allwaysOnTop, recipesToShow, true);
+                    go.GetComponent<WardrobeElement>().InitializeWardrobe(_avatar, r, _modifiersButtonHome, _allwaysOnTop, recipesToShow, true);
                 }
                 i++;
             }
@@ -366,11 +366,19 @@ public class UICreateCharacter : MonoBehaviour
         Destroy(_heightSlider);
     }
 
-    private void RemoveModifierButtons()
+    private void RemoveModifiers()
     {
         Destroy(_headSliderGroup);
         Destroy(_upperBodySliderGroup);
         Destroy(_lowerBodySliderGroup);
+        Destroy(_hairGroup);
+        Destroy(_clothesGroup);
+        
+        foreach(GameObject go in _headerElements)
+        {
+            if(go != null)
+                Destroy(go);
+        }
     }
     
     private List<string> CreateCategoryList(string[] names, List<string> toShow)
@@ -420,41 +428,41 @@ public class UICreateCharacter : MonoBehaviour
     {
         RemoveSkinColor();
         RemoveHeightSlider();
-        RemoveModifierButtons();
+        RemoveModifiers();
     }
 
     #region BUTTON HANDLER
 
     public void OnButtonMale()
     {
-        if (avatar.activeRace.name != "HumanMale" || !initalized)
+        if (_avatar.activeRace.name != "HumanMale" || !_initalized)
         {
-            buttonMale.interactable = false;
-            buttonFemale.interactable = false;
+            _buttonMale.interactable = false;
+            _buttonFemale.interactable = false;
 
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
-            avatar.ChangeRace("HumanMale", true);
+            _umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
+            _avatar.ChangeRace("HumanMale", true);
             
-            if(initalized)
+            if(_initalized)
                 RemoveCharacterModifiers();
 
-            sex = "male";
+            _sex = "male";
         }
     }
 
     public void OnButtonFemale()
     {
-        if (avatar.activeRace.name != "HumanFemale")
+        if (_avatar.activeRace.name != "HumanFemale")
         {
-            buttonMale.interactable = false;
-            buttonFemale.interactable = false;
+            _buttonMale.interactable = false;
+            _buttonFemale.interactable = false;
 
-            umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnFemaleCharacterUpdated));
-            avatar.ChangeRace("HumanFemale", true);
+            _umaData.CharacterUpdated.AddListener(new UnityAction<UMAData>(OnFemaleCharacterUpdated));
+            _avatar.ChangeRace("HumanFemale", true);
 
             RemoveCharacterModifiers();
 
-            sex = "female";
+            _sex = "female";
         }
     }
 
@@ -465,11 +473,11 @@ public class UICreateCharacter : MonoBehaviour
 
     public void OnButtonCreate()
     {
-        model = UMAHelper.GetAvatarString(avatar);
-        charname = inputFieldNameValue.text;
-        race = raceOptions[dropdownRace.value];
+        _model = UMAHelper.GetAvatarString(_avatar);
+        _charname = _inputFieldName.text;
+        _race = _raceOptions[_dropdownRace.value];
 
-        NetworkManagerGame.Instance.CreateCharacter(charname, sex, race, model);
+        NetworkManagerGame.Instance.CreateCharacter(_charname, _sex, _race, _model);
     }
 
     public void OnButtonPlay()
@@ -486,11 +494,11 @@ public class UICreateCharacter : MonoBehaviour
         Debug.Log("OnFemaleCharacterUpdated");
         data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnFemaleCharacterUpdated));
 
-        UMAHelper.SetAvatarString(avatar, characterTemplates[1].UmaCharacterString);
+        UMAHelper.SetAvatarString(_avatar, _characterTemplates[1].UmaCharacterString);
         CreateCharacterModifiers();
 
-        buttonMale.interactable = true;
-        buttonFemale.interactable = true;
+        _buttonMale.interactable = true;
+        _buttonFemale.interactable = true;
     }
 
     public void OnMaleCharacterUpdated(UMAData data)
@@ -498,11 +506,11 @@ public class UICreateCharacter : MonoBehaviour
         Debug.Log("OnMaleCharacterUpdated");
         data.CharacterUpdated.RemoveListener(new UnityAction<UMAData>(OnMaleCharacterUpdated));
 
-        UMAHelper.SetAvatarString(avatar, characterTemplates[0].UmaCharacterString);
+        UMAHelper.SetAvatarString(_avatar, _characterTemplates[0].UmaCharacterString);
         CreateCharacterModifiers();
 
-        buttonMale.interactable = true;
-        buttonFemale.interactable = true;
+        _buttonMale.interactable = true;
+        _buttonFemale.interactable = true;
     }
 
     #endregion

@@ -18,9 +18,14 @@ public class ColorSelectorElement : MonoBehaviour
     private string _name;
     private GameObject _colorPicker;
 
-    void Update()
+    private void Update()
     {
         _imageColor.color = _colorType.color;
+    }
+
+    private void OnDestroy()
+    {
+        RemoveColorPicker();
     }
 
     public void Initialize(DynamicCharacterAvatar avatar, OverlayColorData colorType, string name, Transform colorPickerHome)

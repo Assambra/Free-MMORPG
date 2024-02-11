@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 6189935319649234022}
   - component: {fileID: 4483437250715472455}
   m_Layer: 5
-  m_Name: DropdownRaceValue
+  m_Name: DropdownRace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2590,29 +2590,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UseCameraAutoFocus>k__BackingField: 0
-  inputFieldNameValue: {fileID: 8535643230330604221}
-  buttonFemale: {fileID: 2398508886534443934}
-  buttonMale: {fileID: 2639427367177720993}
-  heightHome: {fileID: 6284178315740711098}
-  skinHome: {fileID: 151315181834703102}
-  allwaysOnTop: {fileID: 9091684211787761310}
-  dropdownRace: {fileID: 4483437250715472455}
-  dropdownProfession: {fileID: 7466953770186433396}
+  _inputFieldName: {fileID: 8535643230330604221}
+  _buttonFemale: {fileID: 2398508886534443934}
+  _buttonMale: {fileID: 2639427367177720993}
+  _buttonPlay: {fileID: 1750342234005899599}
+  _dropdownRace: {fileID: 4483437250715472455}
+  _dropdownProfession: {fileID: 7466953770186433396}
+  _heightHome: {fileID: 6284178315740711098}
+  _skinHome: {fileID: 151315181834703102}
+  _modifiersHome: {fileID: 2808047502750686564}
+  _modifiersButtonHome: {fileID: 2244071589721959715}
+  _allwaysOnTop: {fileID: 9091684211787761310}
   _prefabTitleElement: {fileID: 1098748422007398625, guid: 2d659ee9dca4a2749ad00dea6f8f7508, type: 3}
   _prefabSubtitleElement: {fileID: 648169124116725408, guid: cdbcb806e70358d4dacaf62502137824, type: 3}
   _prefabButtonElement: {fileID: 7595214023674429999, guid: 40ba4d7688f752f47b4a4e5b11f6d264, type: 3}
   _prefabSliderElement: {fileID: 2475722918057153793, guid: b07a7757aa2d82e44b881ba795b424a0, type: 3}
   _prefabColorElement: {fileID: 9011336172872189380, guid: 38950e51f4fdcd24caa507da1557ca94, type: 3}
   _prefabWardrobeElement: {fileID: 6252550602972366327, guid: 767960cda782c8744a11af2b91ca8a7f, type: 3}
-  _modifiersHome: {fileID: 2808047502750686564}
-  _modifiersButtonHome: {fileID: 2244071589721959715}
-  buttonPlay: {fileID: 1750342234005899599}
-  characterTemplates:
+  _characterTemplates:
   - {fileID: 11400000, guid: 81405667f4c34c7429e56fed2c3caccf, type: 2}
   - {fileID: 11400000, guid: 87177d022c1fe0d4587fdbe3b6ef72e7, type: 2}
-  cameraAutoFocusPoints:
-  - {fileID: 11400000, guid: 2c1531ffbcb0afa49a85ec4f90319378, type: 2}
-  - {fileID: 11400000, guid: 6d4c9df0bf7664c4092fe1936c17c476, type: 2}
+  _cameraAutoFocusPoints: []
   _heightDNA:
   - height
   _headDNA:
@@ -4821,7 +4819,7 @@ GameObject:
   - component: {fileID: 882914331258887509}
   - component: {fileID: 7466953770186433396}
   m_Layer: 5
-  m_Name: DropdownProfessionValue
+  m_Name: DropdownProfession
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5796,7 +5794,7 @@ GameObject:
   - component: {fileID: 7664113741628090281}
   - component: {fileID: 8535643230330604221}
   m_Layer: 5
-  m_Name: InputFieldNameValue
+  m_Name: InputFieldName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
