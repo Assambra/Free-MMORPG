@@ -343,7 +343,7 @@ public class UICreateCharacter : MonoBehaviour
                 if (r == wardrobeType[i])
                 {
                     GameObject go = te.CreateObject(_prefabWardrobeElement, r);
-                    go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, r, allwaysOnTop, recipesToShow, true);
+                    go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, r, _modifiersButtonHome, allwaysOnTop, recipesToShow, true);
                 }
                 i++;
             }
@@ -354,47 +354,6 @@ public class UICreateCharacter : MonoBehaviour
 
     #endregion
 
-    private void CreateColorPicker()
-    {
-        /*
-        prefabs.Add("ColorPickerObject", prefabColorPickerObject);
-
-        foreach(OverlayColorData colorType in avatar.CurrentSharedColors)
-        {
-            GameObject ph = Instantiate(prefabHeader, colorHome);
-            ph.name = colorType.name;
-            headerElements.Add(ph);
-
-            HeaderElement he = ph.GetComponent<HeaderElement>();
-            string name = colorType.name + " Color";
-            he.InitializeHeaderElement(name, prefabs, colorHome.GetComponent<RectTransform>());
-            GameObject go = he.CreateObject("ColorPickerObject", colorType.name);
-            if(go != null)
-                go.GetComponent<ColorPickerObject>().ColorData = colorType;
-        }
-        */
-    }
-
-    private void CreateWardrobe()
-    {
-        Dictionary<string, List<UMATextRecipe>> recipes = avatar.AvailableRecipes;
-
-        GameObject ph = Instantiate(_prefabTitleElement, _modifiersButtonHome);
-        ph.name = "Wardrobe";
-        headerElements.Add(ph);
-
-        TitleElement he = ph.GetComponent<TitleElement>();
-        string name = "Warderobe";
-        he.InitializeHeaderElement(name, _modifiersButtonHome.GetComponent<RectTransform>());
-
-
-        foreach (string s in recipes.Keys)
-        {
-            GameObject go = he.CreateObject(_prefabWardrobeElement, s);
-            go.GetComponent<WardrobeElement>().InitializeWardrobe(avatar, s, allwaysOnTop);
-        }
-    }
-    
     private void RemoveSkinColor()
     {
         ColorSelectorElement co = _skinColorSelector.GetComponent<ColorSelectorElement>();
@@ -413,34 +372,7 @@ public class UICreateCharacter : MonoBehaviour
         Destroy(_upperBodySliderGroup);
         Destroy(_lowerBodySliderGroup);
     }
-
-    private void RemoveColorObjects()
-    {
-        foreach(GameObject color in _activeColorObjects)
-        {
-            ColorSelectorElement co = color.GetComponent<ColorSelectorElement>();
-            co.RemoveColorPicker();
-            Destroy(color);
-        }
-
-        _activeColorObjects.Clear();
-    }
-
-    private void RemoveColorPicker()
-    {
-        foreach (GameObject headerElement in headerElements)
-        {
-            TitleElement he = headerElement.GetComponent<TitleElement>();
-            he.DestroyObjects();
-            Destroy(headerElement);
-        }
-        headerElements.Clear();
-    }
-
-    private void RemoveWardrobe()
-    {
-    }
-
+    
     private List<string> CreateCategoryList(string[] names, List<string> toShow)
     {
         var list = new List<string>();
@@ -481,24 +413,14 @@ public class UICreateCharacter : MonoBehaviour
     {
         CreateSkinColor();
         CreateHeightSlider();
-
         CreateModifierButtons();
-        CreateWardrobe();
-
-        CreateColorPicker();
     }
 
     private void RemoveCharacterModifiers()
     {
         RemoveSkinColor();
         RemoveHeightSlider();
-
         RemoveModifierButtons();
-
-
-        RemoveColorPicker();
-        RemoveWardrobe();
-        RemoveColorObjects();
     }
 
     #region BUTTON HANDLER

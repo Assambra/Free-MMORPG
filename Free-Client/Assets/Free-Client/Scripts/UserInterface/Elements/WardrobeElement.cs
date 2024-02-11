@@ -4,6 +4,7 @@ using TMPro;
 using UMA;
 using UMA.CharacterSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WardrobeElement : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class WardrobeElement : MonoBehaviour
     private List<UMATextRecipe> _recipesToShow = new List<UMATextRecipe>();
     private UMATextRecipe lastRecipe;
     private Transform _allwaysOnTop;
-
+    private Transform _layout;
     private List<GameObject> _activeColorElements = new List<GameObject>();
 
     private void Awake()
@@ -26,10 +27,11 @@ public class WardrobeElement : MonoBehaviour
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow = null, bool useCustomRecipesList = false)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow = null, bool useCustomRecipesList = false)
     {
         textWardrobeName.text = slotname;
         this._avatar = avatar;
+        this._layout = layout;
         this._allwaysOnTop = allwayOnTop;
 
         if(recipesToShow != null)
@@ -125,13 +127,13 @@ public class WardrobeElement : MonoBehaviour
                 _avatar.ClearSlot(lastRecipe.wardrobeSlot);
                 _avatar.BuildCharacter(true);
                 ClearColors();
+                RebuildLayout();
             }
         }
     }
 
     private void CreateColorSelectors(OverlayColorData[] sharedColors, Transform allwaysOnTop)
     {
-        
         for (int i = 0; i < sharedColors.Length; i++)
         {
             GameObject go = Instantiate(_prefabColorElement, _colorHome);
@@ -143,6 +145,7 @@ public class WardrobeElement : MonoBehaviour
                     color.Initialize(_avatar, ocd, sharedColors[i].name, allwaysOnTop);
             }
         }
+        RebuildLayout();
     }
 
     private void ClearColors()
@@ -155,5 +158,11 @@ public class WardrobeElement : MonoBehaviour
             Destroy(go);
         }
         _activeColorElements.Clear();
+    }
+
+    private void RebuildLayout()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_colorHome.GetComponent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_layout.GetComponent<RectTransform>());
     }
 }
