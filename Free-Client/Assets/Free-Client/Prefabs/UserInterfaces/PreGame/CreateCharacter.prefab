@@ -2678,6 +2678,11 @@ MonoBehaviour:
   - Eyes
   _maleEyesWardropeTypes:
   - Eyes
+  _femaleGeneralColors:
+  - Eyelash
+  - Lipstick
+  _maleGeneralColors:
+  - Eyelash
   _femaleHairRecipes:
   - {fileID: 11400000, guid: bdae23dff0f3d3648882f2f087840fef, type: 2}
   - {fileID: 11400000, guid: f23297b636ef1bf41b5df17f140d9553, type: 2}

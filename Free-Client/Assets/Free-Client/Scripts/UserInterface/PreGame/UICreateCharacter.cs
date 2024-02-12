@@ -56,6 +56,8 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private string[] _maleClothesWardropeTypes = { "Underwear"};
     [SerializeField] private string[] _femaleEyesWardropeTypes = { "Eyes" };
     [SerializeField] private string[] _maleEyesWardropeTypes = { "Eyes" };
+    [SerializeField] private string[] _femaleGeneralColors = { "Eyelash", "Lipstick" };
+    [SerializeField] private string[] _maleGeneralColors = { "Eyelash" };
 
     [Header("UMA Female Recipes")]
     [SerializeField] private List<UMATextRecipe> _femaleHairRecipes = new List<UMATextRecipe>();
@@ -72,7 +74,7 @@ public class UICreateCharacter : MonoBehaviour
 
     // Private variables user interface
     private List<string> _raceOptions = new List<string>();
-    private List<GameObject> _headerElements = new List<GameObject>();
+    private List<GameObject> _titleElements = new List<GameObject>();
     
     // Private variables network
     private string _charname;
@@ -92,6 +94,7 @@ public class UICreateCharacter : MonoBehaviour
     private GameObject _lowerBodySliderGroup = null;
     private GameObject _hairGroup = null;
     private GameObject _clothesGroup = null;
+    private GameObject _colorsGroup = null;
 
     private void Awake()
     {
@@ -181,7 +184,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersButtonHome);
         gotitle.name = "Character modifiers";
-        _headerElements.Add(gotitle);
+        _titleElements.Add(gotitle);
 
         TitleElement te = gotitle.GetComponent<TitleElement>();
         string headerName = "Character Modifiers";
@@ -206,6 +209,10 @@ public class UICreateCharacter : MonoBehaviour
         GameObject goHair = te.CreateObject(_prefabButtonElement, "Hair");
         ButtonElement beHair = goHair.GetComponent<ButtonElement>();
         beHair.Initialize("Hair", OnButtonHairClick);
+
+        GameObject goColors = te.CreateObject(_prefabButtonElement, "Colors");
+        ButtonElement beColors = goColors.GetComponent<ButtonElement>();
+        beColors.Initialize("Colors", OnButtonColorsClick);
 
         GameObject goClothes = te.CreateObject(_prefabButtonElement, "Clothes");
         ButtonElement beClothes = goClothes.GetComponent<ButtonElement>();
@@ -287,6 +294,23 @@ public class UICreateCharacter : MonoBehaviour
             Destroy(_hairGroup);
     }
 
+    private void OnButtonColorsClick()
+    {
+        if (_colorsGroup == null)
+        {
+            if (_avatar.activeRace.name == "HumanMale")
+            {
+                CreateColorGroup("Colors", _maleGeneralColors);
+            }
+            else if (_avatar.activeRace.name == "HumanFemale")
+            {
+                CreateColorGroup("Colors", _femaleGeneralColors);
+            }
+            else
+                Destroy(_colorsGroup);
+        }
+    }
+
     private void OnButtonClothesClick()
     {
         if (_clothesGroup == null)
@@ -314,7 +338,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
         gotitle.name = title;
-        _headerElements.Add(gotitle);
+        _titleElements.Add(gotitle);
 
         TitleElement te = gotitle.GetComponent<TitleElement>();
         te.InitializeHeaderElement(title, _modifiersHome.GetComponent<RectTransform>());
@@ -357,7 +381,7 @@ public class UICreateCharacter : MonoBehaviour
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
         gotitle.name = title;
-        _headerElements.Add(gotitle);
+        _titleElements.Add(gotitle);
 
         TitleElement te = gotitle.GetComponent<TitleElement>();
         te.InitializeHeaderElement(title, _modifiersHome.GetComponent<RectTransform>());
@@ -367,7 +391,7 @@ public class UICreateCharacter : MonoBehaviour
         foreach (string r in recipes.Keys)
         {
             int i = 0;
-            foreach(string t in wardrobeType)
+            foreach(string s in wardrobeType)
             {
                 if (r == wardrobeType[i])
                 {
@@ -377,6 +401,35 @@ public class UICreateCharacter : MonoBehaviour
                 i++;
             }
         }
+
+        return gotitle;
+    }
+
+    private GameObject CreateColorGroup(string title, string[] colorsToShow)
+    {
+        GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
+        gotitle.name = title;
+        _titleElements.Add(gotitle);
+
+        TitleElement te = gotitle.GetComponent<TitleElement>();
+        te.InitializeHeaderElement(title, _modifiersHome.GetComponent<RectTransform>());
+
+        int i = colorsToShow.Length-1;
+        foreach (OverlayColorData colorType in _avatar.ActiveColors)
+        {
+            if (colorType.name == colorsToShow[i])
+            {
+                GameObject go = te.CreateObject(_prefabColorElement, colorsToShow[i]);
+                ColorSelectorElement cse = go.GetComponent<ColorSelectorElement>();
+                cse.Initialize(_avatar, colorType, colorType.name, _allwaysOnTop);
+
+                i--;
+
+                if (i < 0)
+                    break;
+            }
+        }
+
 
         return gotitle;
     }
@@ -403,8 +456,9 @@ public class UICreateCharacter : MonoBehaviour
         Destroy(_lowerBodySliderGroup);
         Destroy(_hairGroup);
         Destroy(_clothesGroup);
-        
-        foreach(GameObject go in _headerElements)
+        Destroy(_colorsGroup);
+
+        foreach(GameObject go in _titleElements)
         {
             if(go != null)
                 Destroy(go);
