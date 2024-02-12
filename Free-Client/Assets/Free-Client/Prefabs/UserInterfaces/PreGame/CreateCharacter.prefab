@@ -2674,6 +2674,10 @@ MonoBehaviour:
   - Underwear
   _maleClothesWardropeTypes:
   - Underwear
+  _femaleEyesWardropeTypes:
+  - Eyes
+  _maleEyesWardropeTypes:
+  - Eyes
   _femaleHairRecipes:
   - {fileID: 11400000, guid: bdae23dff0f3d3648882f2f087840fef, type: 2}
   - {fileID: 11400000, guid: f23297b636ef1bf41b5df17f140d9553, type: 2}
@@ -2684,6 +2688,10 @@ MonoBehaviour:
   _femaleUnderwearRecipes:
   - {fileID: 11400000, guid: 9050e005ddce44d4f89dc6158808b409, type: 2}
   - {fileID: 11400000, guid: d40e65714e237a3499a2eada8f3411c6, type: 2}
+  _femaleEyesRecipes:
+  - {fileID: 11400000, guid: 1d3754b7c56905848ad40e7515ee2524, type: 2}
+  - {fileID: 11400000, guid: 3e69ca665e3198b4cad48379e25f71f3, type: 2}
+  - {fileID: 11400000, guid: e2193fd760646ec40828683da3aaf690, type: 2}
   _maleHairRecipes:
   - {fileID: 11400000, guid: 4acc51a73e0e5884eb7e770d8f803e81, type: 2}
   - {fileID: 11400000, guid: bc2ac8c776a97fa46a5a1a9455599f2c, type: 2}
@@ -2705,6 +2713,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd65ba08e9f303242809809d1fcb4307, type: 2}
   - {fileID: 11400000, guid: 5bbd4dc2ec713f24a84512ef4f9ffe00, type: 2}
   - {fileID: 11400000, guid: 71e3ef35d8b941d4ab538b01f57dbb79, type: 2}
+  _maleEyesRecipes:
+  - {fileID: 11400000, guid: 518535e4bd613dc458a460be75d97327, type: 2}
+  - {fileID: 11400000, guid: 8ea99475ea1aac141b787fc5dc6cc824, type: 2}
+  - {fileID: 11400000, guid: 667840f679650844dbfbd6f3a4134998, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0

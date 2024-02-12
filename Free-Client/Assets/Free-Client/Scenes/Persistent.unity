@@ -300,6 +300,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1967115790}
     - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
+      propertyPath: CharacterCreatedAndReadyToPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891735659426431821, guid: fa55de3ca52ae6e478b9dc2c1fdd8088, type: 3}
       propertyPath: <CameraController>k__BackingField
       value: 
       objectReference: {fileID: 1053508431}

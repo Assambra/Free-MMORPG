@@ -54,17 +54,21 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private string[] _maleHairWardropeTypes = { "Hair", "Eyebrows", "Beard" };
     [SerializeField] private string[] _femaleClothesWardropeTypes = { "Underwear"};
     [SerializeField] private string[] _maleClothesWardropeTypes = { "Underwear"};
+    [SerializeField] private string[] _femaleEyesWardropeTypes = { "Eyes" };
+    [SerializeField] private string[] _maleEyesWardropeTypes = { "Eyes" };
 
     [Header("UMA Female Recipes")]
     [SerializeField] private List<UMATextRecipe> _femaleHairRecipes = new List<UMATextRecipe>();
     [SerializeField] private List<UMATextRecipe> _femaleEyebrowsRecipes = new List<UMATextRecipe>();
     [SerializeField] private List<UMATextRecipe> _femaleUnderwearRecipes = new List<UMATextRecipe>();
+    [SerializeField] private List<UMATextRecipe> _femaleEyesRecipes = new List<UMATextRecipe>();
 
     [Header("UMA Male Recipes")]
     [SerializeField] private List<UMATextRecipe> _maleHairRecipes = new List<UMATextRecipe>();
     [SerializeField] private List<UMATextRecipe> _maleEyebrowsRecipes = new List<UMATextRecipe>();
     [SerializeField] private List<UMATextRecipe> _maleBeardRecipes = new List<UMATextRecipe>();
     [SerializeField] private List<UMATextRecipe> _maleUnderwearRecipes = new List<UMATextRecipe>();
+    [SerializeField] private List<UMATextRecipe> _maleEyesRecipes = new List<UMATextRecipe>();
 
     // Private variables user interface
     private List<string> _raceOptions = new List<string>();
@@ -83,6 +87,7 @@ public class UICreateCharacter : MonoBehaviour
     private GameObject _skinColorSelector;
 
     private GameObject _headSliderGroup = null;
+    private GameObject _eyeGroup = null;
     private GameObject _upperBodySliderGroup = null;
     private GameObject _lowerBodySliderGroup = null;
     private GameObject _hairGroup = null;
@@ -183,24 +188,28 @@ public class UICreateCharacter : MonoBehaviour
         te.InitializeHeaderElement(headerName, _modifiersButtonHome.GetComponent<RectTransform>());
 
         GameObject goHead = te.CreateObject(_prefabButtonElement, "Head");
-        ButtonElement boHeader = goHead.GetComponent<ButtonElement>();
-        boHeader.Initialize("Head", OnButtonHeadClick);
+        ButtonElement beHead = goHead.GetComponent<ButtonElement>();
+        beHead.Initialize("Head", OnButtonHeadClick);
+
+        GameObject goEye = te.CreateObject(_prefabButtonElement, "Eyes");
+        ButtonElement beEye = goEye.GetComponent<ButtonElement>();
+        beEye.Initialize("Eyes", OnButtonEyeClick);
 
         GameObject goUpperBody = te.CreateObject(_prefabButtonElement, "Upper Body");
-        ButtonElement boUpperBody = goUpperBody.GetComponent<ButtonElement>();
-        boUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
+        ButtonElement beUpperBody = goUpperBody.GetComponent<ButtonElement>();
+        beUpperBody.Initialize("Upper Body", OnButtonUpperBodyClick);
 
         GameObject goLowerBody = te.CreateObject(_prefabButtonElement, "Lower Body");
-        ButtonElement boLowerBody = goLowerBody.GetComponent<ButtonElement>();
-        boLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
+        ButtonElement beLowerBody = goLowerBody.GetComponent<ButtonElement>();
+        beLowerBody.Initialize("Lower Body", OnButtonLowerBodyClick);
 
         GameObject goHair = te.CreateObject(_prefabButtonElement, "Hair");
-        ButtonElement boHair = goHair.GetComponent<ButtonElement>();
-        boHair.Initialize("Hair", OnButtonHairClick);
+        ButtonElement beHair = goHair.GetComponent<ButtonElement>();
+        beHair.Initialize("Hair", OnButtonHairClick);
 
         GameObject goClothes = te.CreateObject(_prefabButtonElement, "Clothes");
-        ButtonElement boClothes = goClothes.GetComponent<ButtonElement>();
-        boClothes.Initialize("Clothes", OnButtonClothesClick);
+        ButtonElement beClothes = goClothes.GetComponent<ButtonElement>();
+        beClothes.Initialize("Clothes", OnButtonClothesClick);
     }
 
     private void OnButtonHeadClick()
@@ -211,6 +220,27 @@ public class UICreateCharacter : MonoBehaviour
         }
         else
             Destroy(_headSliderGroup);
+    }
+
+    private void OnButtonEyeClick()
+    {
+        if(_eyeGroup == null)
+        {
+            if (_avatar.activeRace.name == "HumanMale")
+            {
+                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
+                recipesToShow[0] = _maleEyesRecipes;
+                _eyeGroup = CreateWardrobeGroup("Eyes", _maleEyesWardropeTypes, recipesToShow);
+            }
+            else if (_avatar.activeRace.name == "HumanFemale")
+            {
+                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
+                recipesToShow[0] = _femaleEyesRecipes;
+                _eyeGroup = CreateWardrobeGroup("Eyes", _femaleEyesWardropeTypes, recipesToShow);
+            }
+            else
+                Destroy (_eyeGroup);
+        }
     }
 
     private void OnButtonUpperBodyClick()
@@ -250,7 +280,6 @@ public class UICreateCharacter : MonoBehaviour
                 List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[2];
                 recipesToShow[0] = _femaleHairRecipes;
                 recipesToShow[1] = _femaleEyebrowsRecipes;
-
                 _hairGroup = CreateWardrobeGroup("Hair", _femaleHairWardropeTypes, recipesToShow);
             }
         }
@@ -369,6 +398,7 @@ public class UICreateCharacter : MonoBehaviour
     private void RemoveModifiers()
     {
         Destroy(_headSliderGroup);
+        Destroy(_eyeGroup);
         Destroy(_upperBodySliderGroup);
         Destroy(_lowerBodySliderGroup);
         Destroy(_hairGroup);
