@@ -1,0 +1,36 @@
+public static class InputValidator
+{
+    public static bool IsEmpty(string input)
+    {
+        return string.IsNullOrWhiteSpace(input);
+    }
+
+    public static bool IsLengthInvalid(string input, int minChars, int maxChars)
+    {
+        return input.Length < minChars || input.Length > maxChars;
+    }
+
+    public static bool ContainsDisallowedChar(string input, char[] disallowedChars)
+    {
+        foreach (var disallowedChar in disallowedChars)
+        {
+            if (input.Contains(disallowedChar.ToString()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool ContainsDisallowedName(string input, string[] disallowedNames)
+    {
+        foreach (var disallowedName in disallowedNames)
+        {
+            if (input.Equals(disallowedName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
