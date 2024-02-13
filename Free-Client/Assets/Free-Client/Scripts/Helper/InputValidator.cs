@@ -1,3 +1,6 @@
+using System.Linq;
+using System.Text.RegularExpressions;
+
 public static class InputValidator
 {
     public static bool IsEmpty(string input)
@@ -32,5 +35,16 @@ public static class InputValidator
             }
         }
         return false;
+    }
+
+    public static bool IsValidUsername(string input, char[] allowedSpecialCharacters)
+    {
+        return input.All(c => char.IsLetterOrDigit(c) || allowedSpecialCharacters.Contains(c));
+    }
+
+    public static bool IsValidEmail(string email)
+    {
+        string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        return Regex.IsMatch(email, pattern);
     }
 }
