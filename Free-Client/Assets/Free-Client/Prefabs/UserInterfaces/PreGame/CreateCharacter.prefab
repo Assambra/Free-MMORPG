@@ -2593,6 +2593,7 @@ MonoBehaviour:
   _inputFieldName: {fileID: 8535643230330604221}
   _buttonFemale: {fileID: 2398508886534443934}
   _buttonMale: {fileID: 2639427367177720993}
+  _buttonBack: {fileID: 8243756301957842164}
   _buttonPlay: {fileID: 1750342234005899599}
   _dropdownRace: {fileID: 4483437250715472455}
   _dropdownProfession: {fileID: 7466953770186433396}

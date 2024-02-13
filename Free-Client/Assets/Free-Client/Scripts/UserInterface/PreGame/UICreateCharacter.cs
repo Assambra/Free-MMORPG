@@ -14,6 +14,7 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private TMP_InputField _inputFieldName;
     [SerializeField] private Button _buttonFemale;
     [SerializeField] private Button _buttonMale;
+    [SerializeField] private Button _buttonBack;
     [SerializeField] private Button _buttonPlay;
     [SerializeField] private TMP_Dropdown _dropdownRace;
     [SerializeField] private TMP_Dropdown _dropdownProfession;
@@ -84,7 +85,7 @@ public class UICreateCharacter : MonoBehaviour
 
     // Private variables helper/general
     private bool _initalized = false;
-
+    private bool _zeroCharacters = false;
     private GameObject _heightSlider;
     private GameObject _skinColorSelector;
 
@@ -105,6 +106,14 @@ public class UICreateCharacter : MonoBehaviour
         _raceOptions.Add("Select race");
         _raceOptions.Add("Humanoid");
         _dropdownRace.AddOptions(_raceOptions);
+
+        if (GameManager.Instance.CharacterInfos.Count == 0)
+        {
+            Debug.Log("Zero characters");
+            TMP_Text buttonText = _buttonBack.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Back to Login";
+            _zeroCharacters = true;
+        }
     }
 
     private void Start()
@@ -130,9 +139,17 @@ public class UICreateCharacter : MonoBehaviour
             _initalized = true;
         }
         
-        if(GameManager.Instance.CharacterCreatedAndReadyToPlay && !_buttonPlay.gameObject.activeSelf)
+        if(GameManager.Instance.CharacterCreatedAndReadyToPlay)
         {
-            _buttonPlay.gameObject.SetActive(true);
+            if(!_buttonPlay.gameObject.activeSelf)
+                _buttonPlay.gameObject.SetActive(true);
+
+            if (_zeroCharacters)
+            {
+                _zeroCharacters = false;
+                TMP_Text buttonText = _buttonBack.GetComponentInChildren<TMP_Text>();
+                buttonText.text = "Back";
+            }
         }
     }
 
@@ -552,7 +569,13 @@ public class UICreateCharacter : MonoBehaviour
 
     public void OnButtonBack()
     {
-        GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+        if (!_zeroCharacters)
+            GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+        else
+        {
+            GameManager.Instance.ChangeScene(Scenes.Login);
+            NetworkManagerGame.Instance.Disconnect();
+        }
     }
 
     public void OnButtonCreate()
