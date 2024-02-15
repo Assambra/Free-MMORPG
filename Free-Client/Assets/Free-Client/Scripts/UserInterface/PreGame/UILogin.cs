@@ -29,7 +29,11 @@ public class UILogin : MonoBehaviour
         username = inputFieldUsername.text;
         password = inputFieldPassword.text;
 
-        NetworkManagerGame.Instance.Login(username, password);
+        if(InputValidator.IsEmpty(username) || InputValidator.IsEmpty(password))
+            ErrorPopup("Please note: Username or password cannot be empty. Please enter both and try again.");
+        else
+            NetworkManagerGame.Instance.Login(username, password);
+
     }
 
     public void OnButtonNeedAccount()
@@ -40,5 +44,19 @@ public class UILogin : MonoBehaviour
     public void OnButtonForgotData()
     {
         GameManager.Instance.ChangeScene(Scenes.ForgotData);
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }
