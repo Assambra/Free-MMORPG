@@ -29,14 +29,13 @@ public class UIForgotData : MonoBehaviour
             buttonSendPassword.interactable = false;
             buttonBack.interactable = false;
             buttonTabUsername.interactable = false;
-
-            NetworkManagerAccount.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
+            if (InputValidator.IsEmpty(inputFieldUsernameOrEMail.text))
+                ErrorPopup("Please note: You must enter either a username or email address. Please fill in the required field and try again.");
+            else
+                NetworkManagerAccount.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
         }
         else
-        {
-            //Todo inform the user/player that we aren't connected to the Server, Popup
-            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
-        }
+            ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
     }
 
     public void OnButtonSendUsername()
@@ -46,14 +45,14 @@ public class UIForgotData : MonoBehaviour
             buttonSendUsername.interactable = false;
             buttonBack.interactable = false;
             buttonTabPassword.interactable = false;
-
-            NetworkManagerAccount.Instance.ForgotUsername(inputFieldEMail.text);
+            
+            if (InputValidator.IsEmpty(inputFieldEMail.text))
+                ErrorPopup("Please note: The email address field cannot be empty. Please enter your email address and try again.");
+            else
+                NetworkManagerAccount.Instance.ForgotUsername(inputFieldEMail.text);
         }
         else
-        {
-            //Todo inform the user/player that we aren't connected to the Server, Popup
-            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
-        }
+            ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
     }
 
     public void OnButtonTabPassword()
@@ -70,5 +69,19 @@ public class UIForgotData : MonoBehaviour
             gameObjectForgotUsername.SetActive(true);
         if (gameObjectForgotPassword.activeSelf)
             gameObjectForgotPassword.SetActive(false);
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }
