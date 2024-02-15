@@ -3,38 +3,24 @@ using System.Text.RegularExpressions;
 
 public static class InputValidator
 {
-    public static bool IsEmpty(string input)
+    public static bool IsNotEmpty(string input)
     {
-        return string.IsNullOrWhiteSpace(input);
+        return !string.IsNullOrWhiteSpace(input);
     }
 
-    public static bool IsLengthInvalid(string input, int minChars, int maxChars)
+    public static bool IsLengthValid(string input, int minChars, int maxChars)
     {
-        return input.Length < minChars || input.Length > maxChars;
+        return input.Length >= minChars && input.Length <= maxChars;
     }
 
-    public static bool ContainsDisallowedChar(string input, char[] disallowedChars)
+    public static bool DoesNotContainDisallowedChar(string input, char[] disallowedChars)
     {
-        foreach (var disallowedChar in disallowedChars)
-        {
-            if (input.Contains(disallowedChar.ToString()))
-            {
-                return true;
-            }
-        }
-        return false;
+        return !disallowedChars.Any(input.Contains);
     }
 
-    public static bool ContainsDisallowedName(string input, string[] disallowedNames)
+    public static bool DoesNotContainDisallowedName(string input, string[] disallowedNames)
     {
-        foreach (var disallowedName in disallowedNames)
-        {
-            if (input.Equals(disallowedName, System.StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-        }
-        return false;
+        return !disallowedNames.Any(disallowedName => input.Equals(disallowedName, System.StringComparison.OrdinalIgnoreCase));
     }
 
     public static bool IsValidUsername(string input, char[] allowedSpecialCharacters)

@@ -13,10 +13,11 @@ public class UIAccountActivation : MonoBehaviour
     {
         string activationCode = _inputFieldActivationCode.text;
         
-        if (InputValidator.IsEmpty(activationCode))
-            ErrorPopup("Please note: The activation input field cannot be empty. Please enter your activation code and try again.");
-        else
+        if (InputValidator.IsNotEmpty(activationCode))
             NetworkManagerAccount.Instance.ActivateAccount(activationCode);
+        else
+            ErrorPopup("Please note: The activation input field cannot be empty. Please enter your activation code and try again.");
+        
     }
 
     public void OnButtonResendActivationEmail()

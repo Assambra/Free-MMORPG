@@ -29,10 +29,11 @@ public class UIForgotData : MonoBehaviour
             buttonSendPassword.interactable = false;
             buttonBack.interactable = false;
             buttonTabUsername.interactable = false;
-            if (InputValidator.IsEmpty(inputFieldUsernameOrEMail.text))
-                ErrorPopup("Please note: You must enter either a username or email address. Please fill in the required field and try again.");
-            else
+
+            if (InputValidator.IsNotEmpty(inputFieldUsernameOrEMail.text))
                 NetworkManagerAccount.Instance.ForgotPassword(inputFieldUsernameOrEMail.text);
+            else
+                ErrorPopup("Please note: You must enter either a username or email address. Please fill in the required field and try again.");
         }
         else
             ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
@@ -46,10 +47,10 @@ public class UIForgotData : MonoBehaviour
             buttonBack.interactable = false;
             buttonTabPassword.interactable = false;
             
-            if (InputValidator.IsEmpty(inputFieldEMail.text))
-                ErrorPopup("Please note: The email address field cannot be empty. Please enter your email address and try again.");
-            else
+            if (InputValidator.IsNotEmpty(inputFieldEMail.text))
                 NetworkManagerAccount.Instance.ForgotUsername(inputFieldEMail.text);
+            else
+                ErrorPopup("Please note: The email address field cannot be empty. Please enter your email address and try again.");
         }
         else
             ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
