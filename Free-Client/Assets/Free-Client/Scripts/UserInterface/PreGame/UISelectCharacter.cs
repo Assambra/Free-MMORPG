@@ -36,6 +36,9 @@ public class UISelectCharacter : MonoBehaviour
         else
         {
             // Todo inform the player that no characters available
+            // actually obsolete we can't go back from create character scene if we have zero characters
+            // and also after login we check if zero characters go straight to create character scene
+            // But we need to look into again if we create a option to delete the character.
             Debug.Log("Todo inform the player that no characters available");
         }
 
