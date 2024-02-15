@@ -12,7 +12,11 @@ public class UIAccountActivation : MonoBehaviour
     public void OnButtonSendActivationCode()
     {
         string activationCode = _inputFieldActivationCode.text;
-        NetworkManagerAccount.Instance.ActivateAccount(activationCode);
+        
+        if (InputValidator.IsEmpty(activationCode))
+            ErrorPopup("Please note: The activation input field cannot be empty. Please enter your activation code and try again.");
+        else
+            NetworkManagerAccount.Instance.ActivateAccount(activationCode);
     }
 
     public void OnButtonResendActivationEmail()
@@ -28,5 +32,19 @@ public class UIAccountActivation : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }
