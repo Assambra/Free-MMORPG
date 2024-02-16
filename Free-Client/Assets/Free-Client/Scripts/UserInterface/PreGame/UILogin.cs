@@ -29,7 +29,7 @@ public class UILogin : MonoBehaviour
         _username = _inputFieldUsername.text;
         _password = _inputFieldPassword.text;
 
-        if(InputValidator.IsNotEmpty(_username) || InputValidator.IsNotEmpty(_password))
+        if(InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
             NetworkManagerGame.Instance.Login(_username, _password);
         else
             ErrorPopup("Please note: Username or password cannot be empty. Please enter both and try again.");
