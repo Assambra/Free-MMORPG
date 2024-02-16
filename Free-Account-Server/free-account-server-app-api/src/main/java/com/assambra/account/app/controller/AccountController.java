@@ -211,7 +211,7 @@ public class AccountController extends EzyLoggable {
 
         String resultMessage;
 
-        Account account = accountService.getFieldValueByFieldAndValue("email", request.getEmail().toLowerCase(), "username");
+        Account account = accountService.getAccountByEMail(request.getEmail().toLowerCase());
 
         if(account == null)
         {
