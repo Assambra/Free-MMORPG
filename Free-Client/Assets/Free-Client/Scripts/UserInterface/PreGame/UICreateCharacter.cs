@@ -259,9 +259,9 @@ public class UICreateCharacter : MonoBehaviour
                 recipesToShow[0] = _femaleEyesRecipes;
                 _eyeGroup = CreateWardrobeGroup("Eyes", _femaleEyesWardropeTypes, recipesToShow);
             }
-            else
-                Destroy (_eyeGroup);
         }
+        else
+            Destroy(_eyeGroup);
     }
 
     private void OnButtonUpperBodyClick()
