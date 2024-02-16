@@ -314,15 +314,15 @@ public class UICreateCharacter : MonoBehaviour
         {
             if (_avatar.activeRace.name == "HumanMale")
             {
-                CreateColorGroup("Colors", _maleGeneralColors);
+                _colorsGroup = CreateColorGroup("Colors", _maleGeneralColors);
             }
             else if (_avatar.activeRace.name == "HumanFemale")
             {
-                CreateColorGroup("Colors", _femaleGeneralColors);
+                _colorsGroup = CreateColorGroup("Colors", _femaleGeneralColors);
             }
-            else
-                Destroy(_colorsGroup);
         }
+        else
+            Destroy(_colorsGroup);
     }
 
     private void OnButtonClothesClick()
@@ -443,8 +443,6 @@ public class UICreateCharacter : MonoBehaviour
                     break;
             }
         }
-
-
         return gotitle;
     }
 
