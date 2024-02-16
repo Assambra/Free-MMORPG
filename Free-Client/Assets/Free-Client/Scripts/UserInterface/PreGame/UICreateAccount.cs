@@ -11,25 +11,23 @@ public class UICreateAccount : MonoBehaviour
     [SerializeField] private TMP_InputField _inputFieldEmail;
     [SerializeField] private TMP_InputField _inputFieldUsername;
     [SerializeField] private TMP_InputField _inputFieldPassword;
-    
-    private string _email;
-    private string _password;
-    private string _username;
 
     public void OnButtonCreate()
     {
         if (NetworkManagerAccount.Instance.Connected())
         {
-            ButtonCreate.interactable = false;
-            ButtonForgotData.interactable = false;
-            ButtonBack.interactable = false;
-            
-            _email = _inputFieldEmail.text;
-            _username = _inputFieldUsername.text;
-            _password = _inputFieldPassword.text;
-            
-            if(ValidateEmail(_email) && ValidateUsername(_username) && ValidatePassword(_password))
-                NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
+            string email = _inputFieldEmail.text;
+            string username = _inputFieldUsername.text;
+            string password = _inputFieldPassword.text;
+
+            if (ValidateEmail(email) && ValidateUsername(username) && ValidatePassword(password))
+            {
+                ButtonCreate.interactable = false;
+                ButtonForgotData.interactable = false;
+                ButtonBack.interactable = false;
+
+                NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+            }
         }
         else
             ErrorPopup("Please note: We are currently not connected to a server.");
@@ -47,7 +45,13 @@ public class UICreateAccount : MonoBehaviour
 
     private bool ValidateEmail(string email)
     {
-        return InputValidator.IsValidEmail(email);
+        if (!InputValidator.IsValidEmail(email))
+        {
+            ErrorPopup("This is not a valid email address.");
+            return false;
+        }
+        else
+            return true;
     }
 
     private bool ValidateUsername(string username)
