@@ -32,7 +32,7 @@ public class UILogin : MonoBehaviour
         if(InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
             NetworkManagerGame.Instance.Login(_username, _password);
         else
-            ErrorPopup("Please note: Username or password cannot be empty. Please enter both and try again.");
+            ErrorPopup("Username or password cannot be empty. Please enter both and try again.");
     }
 
     public void OnButtonNeedAccount()
