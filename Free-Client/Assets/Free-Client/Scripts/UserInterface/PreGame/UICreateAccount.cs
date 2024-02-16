@@ -54,13 +54,13 @@ public class UICreateAccount : MonoBehaviour
     {
         bool isValid = true;
 
-        if (!InputValidator.IsLengthValid(username, GameConstants.MIN_USERNAME_LENGTH, GameConstants.MAX_USERNAME_LENGTH))
+        if (!InputValidator.IsLengthValid(username, GameConstants.USERNAME_LENGTH_MIN, GameConstants.USERNAME_LENGTH_MAX))
         {
             isValid = false;
-            ErrorPopup("The username must be at least " + GameConstants.MIN_USERNAME_LENGTH + " and at most " + GameConstants.MAX_USERNAME_LENGTH + " letters long.");
+            ErrorPopup("The username must be at least " + GameConstants.USERNAME_LENGTH_MIN + " and at most " + GameConstants.USERNAME_LENGTH_MAX + " letters long.");
         }
 
-        if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_USERNAMES))
+        if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_NAMES))
         {
             isValid = false;
             ErrorPopup("Username are not allowed!");
@@ -71,9 +71,9 @@ public class UICreateAccount : MonoBehaviour
 
     private bool ValidatePassword(string password)
     {
-        if (!InputValidator.IsValidPassword(password, GameConstants.MIN_PASSWORD_LENGTH, GameConstants.MAX_PASSWORD_LENGTH))
+        if (!InputValidator.IsValidPassword(password, GameConstants.PASSWORD_LENGTH_MIN, GameConstants.PASSWORD_LENGTH_MAX))
         {
-            ErrorPopup("Password must be " + GameConstants.MIN_PASSWORD_LENGTH + "-" + GameConstants.MAX_PASSWORD_LENGTH + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
+            ErrorPopup("Password must be " + GameConstants.PASSWORD_LENGTH_MIN + "-" + GameConstants.PASSWORD_LENGTH_MAX + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
             return false;
         }
         else

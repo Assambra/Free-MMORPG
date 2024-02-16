@@ -1,12 +1,14 @@
 public sealed class GameConstants
 {
-    public const int MIN_USERNAME_LENGTH = 6;
-    public const int MAX_USERNAME_LENGTH = 20;
-    public const int MIN_PASSWORD_LENGTH = 6;
-    public const int MAX_PASSWORD_LENGTH = 30;
-    public static readonly char[] VALID_USERNAME_CHARACTERS = { '_', '-', '.'};
-    public static readonly string[] DISALLOWED_USERNAMES = { "admin", "administrator", "game master", "gamemaster", "gm" };
-    
+    public static readonly string[] DISALLOWED_NAMES = { "admin", "administrator", "game master", "gamemaster", "gm" };
+
+    public const int USERNAME_LENGTH_MIN = 6;
+    public const int USERNAME_LENGTH_MAX = 20;
+    public const int PASSWORD_LENGTH_MIN = 6;
+    public const int PASSWORD_LENGTH_MAX = 30;
+
+    public const int CHARACTER_NAME_LENGTH_MIN = 2;
+    public const int CHARACTER_NAME_LENGTH_MAX = 20;
 
     private GameConstants() { }
 }

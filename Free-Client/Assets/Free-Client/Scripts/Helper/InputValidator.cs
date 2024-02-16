@@ -23,7 +23,7 @@ public static class InputValidator
         return !disallowedNames.Any(disallowedName => input.Equals(disallowedName, System.StringComparison.OrdinalIgnoreCase));
     }
 
-    public static bool IsValidUsername(string input, char[] allowedSpecialCharacters, bool beginWithSpaceCheck = false)
+    public static bool IsValidName(string input, char[] allowedSpecialCharacters, bool beginWithSpaceCheck = false)
     {
         if(beginWithSpaceCheck)
         {
