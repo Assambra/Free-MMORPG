@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class UIAccountActivation : MonoBehaviour
 {
-    [SerializeField] Button _buttonSendActivationCode;
-    [SerializeField] Button _buttonResendActivationEmail;
-    [SerializeField] Button _buttonQuit;
-    [SerializeField] TMP_InputField _inputFieldActivationCode;
+    [SerializeField] private Button _buttonSendActivationCode;
+    [SerializeField] private Button _buttonResendActivationEmail;
+    [SerializeField] private Button _buttonQuit;
+    [SerializeField] private TMP_InputField _inputFieldActivationCode;
 
     public void OnButtonSendActivationCode()
     {
