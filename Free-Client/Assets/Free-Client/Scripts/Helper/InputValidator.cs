@@ -23,8 +23,14 @@ public static class InputValidator
         return !disallowedNames.Any(disallowedName => input.Equals(disallowedName, System.StringComparison.OrdinalIgnoreCase));
     }
 
-    public static bool IsValidUsername(string input, char[] allowedSpecialCharacters)
+    public static bool IsValidUsername(string input, char[] allowedSpecialCharacters, bool beginWithSpaceCheck = false)
     {
+        if(beginWithSpaceCheck)
+        {
+            if (input[0] == ' ')
+                return false;
+        }
+
         return input.All(c => char.IsLetterOrDigit(c) || allowedSpecialCharacters.Contains(c));
     }
 
@@ -32,5 +38,38 @@ public static class InputValidator
     {
         string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(email, pattern);
+    }
+
+    public static bool IsValidPassword(string password, int minLength)
+    {
+        
+        if (string.IsNullOrWhiteSpace(password) || password.Length < minLength)
+        {
+            return false;
+        }
+
+        if (!Regex.IsMatch(password, @"\d"))
+        {
+            return false;
+        }
+
+        if (!Regex.IsMatch(password, @"[A-Z]"))
+        {
+            return false;
+        }
+
+        
+        if (!Regex.IsMatch(password, @"[a-z]"))
+        {
+            return false;
+        }
+
+        
+        if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':;{}|<>]"))
+        {
+            return false;
+        }
+
+        return true;
     }
 }
