@@ -102,13 +102,11 @@ public class UICreateCharacter : MonoBehaviour
 
         _sex = "male";
 
-        _raceOptions.Add("Select race");
         _raceOptions.Add("Humanoid");
         _dropdownRace.AddOptions(_raceOptions);
 
         if (GameManager.Instance.CharacterInfos.Count == 0)
         {
-            Debug.Log("Zero characters");
             TMP_Text buttonText = _buttonBack.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Back to Login";
             _zeroCharacters = true;
