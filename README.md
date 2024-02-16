@@ -454,7 +454,7 @@ Do you have a great idea for a new feature? Share it with us! Simply create an i
 
 ### Try the Playable Demo
 
-Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.37.1/Free-Client-Live-0.37.1.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.
+Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.43.6/Free-Client-Live-0.43.6.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.
 
 ### Spread the Word
 
