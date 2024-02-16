@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 904401945621706555}
   - component: {fileID: 904401945621706552}
   m_Layer: 5
-  m_Name: TextPassword
+  m_Name: TextPasswordInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,8 +1026,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 904401946537978600}
-  - {fileID: 904401945621706553}
   - {fileID: 904401945584591172}
+  - {fileID: 904401945621706553}
   - {fileID: 904401945459121838}
   - {fileID: 904401945518913211}
   - {fileID: 904401947136219624}
@@ -1091,8 +1091,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca00fb798ac8f442b255e489e3dd8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFieldUsername: {fileID: 904401945584591175}
-  inputFieldPassword: {fileID: 904401945459121833}
+  _inputFieldUsername: {fileID: 904401945584591175}
+  _inputFieldPassword: {fileID: 904401945459121833}
 --- !u!1 &904401945763978127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,7 +1290,7 @@ GameObject:
   - component: {fileID: 904401946537978602}
   - component: {fileID: 904401946537978603}
   m_Layer: 5
-  m_Name: TextUsername
+  m_Name: TextUsernameInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

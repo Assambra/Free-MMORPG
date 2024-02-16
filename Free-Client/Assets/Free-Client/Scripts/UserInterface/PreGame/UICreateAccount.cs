@@ -4,40 +4,35 @@ using UnityEngine.UI;
 
 public class UICreateAccount : MonoBehaviour
 {
-    public Button buttonCreate;
-    public Button buttonBack;
-    public Button buttonForgotData;
+    public Button ButtonBack;
+    public Button ButtonCreate;
+    public Button ButtonForgotData;
 
-    [SerializeField] TMP_InputField inputFieldEmail;
-    [SerializeField] TMP_InputField inputFieldUsername;
-    [SerializeField] TMP_InputField inputFieldPassword;
+    [SerializeField] private TMP_InputField _inputFieldEmail;
+    [SerializeField] private TMP_InputField _inputFieldUsername;
+    [SerializeField] private TMP_InputField _inputFieldPassword;
     
-
-    private string email;
-    private string password;
-    private string username;
-
+    private string _email;
+    private string _password;
+    private string _username;
 
     public void OnButtonCreate()
     {
         if (NetworkManagerAccount.Instance.Connected())
         {
-            buttonCreate.interactable = false;
-            buttonForgotData.interactable = false;
-            buttonBack.interactable = false;
+            ButtonCreate.interactable = false;
+            ButtonForgotData.interactable = false;
+            ButtonBack.interactable = false;
             
-
-            email = inputFieldEmail.text;
-            username = inputFieldUsername.text;
-            password = inputFieldPassword.text;
-
-            NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+            _email = _inputFieldEmail.text;
+            _username = _inputFieldUsername.text;
+            _password = _inputFieldPassword.text;
+            
+            if(ValidateEmail(_email) && ValidateUsername(_username) && ValidatePassword(_password))
+                NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
         }
         else
-        {
-            //Todo inform the user/player that we aren't connected to the Server, Popup
-            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
-        }
+            ErrorPopup("Please note: We are currently not connected to a server.");
     }
 
     public void OnButtonBack()
@@ -48,5 +43,54 @@ public class UICreateAccount : MonoBehaviour
     public void OnButtonForgotData()
     {
         GameManager.Instance.ChangeScene(Scenes.ForgotData);
+    }
+
+    private bool ValidateEmail(string email)
+    {
+        return InputValidator.IsValidEmail(email);
+    }
+
+    private bool ValidateUsername(string username)
+    {
+        bool isValid = true;
+
+        if (!InputValidator.IsLengthValid(username, GameConstants.USERNAME_LENGTH_MIN, GameConstants.USERNAME_LENGTH_MAX))
+        {
+            isValid = false;
+            ErrorPopup("The username must be at least " + GameConstants.USERNAME_LENGTH_MIN + " and at most " + GameConstants.USERNAME_LENGTH_MAX + " letters long.");
+        }
+
+        if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_NAMES))
+        {
+            isValid = false;
+            ErrorPopup("Username are not allowed!");
+        }
+
+        return isValid;
+    }
+
+    private bool ValidatePassword(string password)
+    {
+        if (!InputValidator.IsValidPassword(password, GameConstants.PASSWORD_LENGTH_MIN, GameConstants.PASSWORD_LENGTH_MAX))
+        {
+            ErrorPopup("Password must be " + GameConstants.PASSWORD_LENGTH_MIN + "-" + GameConstants.PASSWORD_LENGTH_MAX + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
+            return false;
+        }
+        else
+            return true;
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }

@@ -4,15 +4,20 @@ using UnityEngine.UI;
 
 public class UIAccountActivation : MonoBehaviour
 {
-    [SerializeField] Button _buttonSendActivationCode;
-    [SerializeField] Button _buttonResendActivationEmail;
-    [SerializeField] Button _buttonQuit;
-    [SerializeField] TMP_InputField _inputFieldActivationCode;
+    [SerializeField] private Button _buttonSendActivationCode;
+    [SerializeField] private Button _buttonResendActivationEmail;
+    [SerializeField] private Button _buttonQuit;
+    [SerializeField] private TMP_InputField _inputFieldActivationCode;
 
     public void OnButtonSendActivationCode()
     {
         string activationCode = _inputFieldActivationCode.text;
-        NetworkManagerAccount.Instance.ActivateAccount(activationCode);
+        
+        if (InputValidator.IsNotEmpty(activationCode))
+            NetworkManagerAccount.Instance.ActivateAccount(activationCode);
+        else
+            ErrorPopup("Please note: The activation input field cannot be empty. Please enter your activation code and try again.");
+        
     }
 
     public void OnButtonResendActivationEmail()
@@ -28,5 +33,19 @@ public class UIAccountActivation : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }

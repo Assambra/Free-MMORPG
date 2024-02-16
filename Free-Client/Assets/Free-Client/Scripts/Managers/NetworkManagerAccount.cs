@@ -174,10 +174,6 @@ public class NetworkManagerAccount : EzyDefaultController
 
     private void OnCreateAccountResponse(EzyAppProxy proxy, EzyObject data)
     {
-        UICreateAccount uICreateAccount = GameObject.FindAnyObjectByType<UICreateAccount>();
-        if (uICreateAccount == null)
-            Debug.LogError("UICreateAccount not found!");
-
         string result = data.get<string>("result");
 
         switch (result)
@@ -199,9 +195,15 @@ public class NetworkManagerAccount : EzyDefaultController
                 break;
         }
 
-        uICreateAccount.buttonCreate.interactable = true;
-        uICreateAccount.buttonForgotData.interactable = true;
-        uICreateAccount.buttonBack.interactable = true;
+        UICreateAccount uICreateAccount = GameObject.FindObjectOfType<UICreateAccount>();
+        if (uICreateAccount != null)
+        {
+            uICreateAccount.ButtonCreate.interactable = true;
+            uICreateAccount.ButtonForgotData.interactable = true;
+            uICreateAccount.ButtonBack.interactable = true;
+        }
+        else
+            Debug.LogError("UICreateAccount not found!");
     }
 
     private void OnActivateAccountResponse(EzyAppProxy proxy, EzyObject data)
@@ -225,10 +227,6 @@ public class NetworkManagerAccount : EzyDefaultController
 
     private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
     {
-        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
-        if (uIForgotData == null)
-            Debug.LogError("UIForgotData not found!");
-
         string result = data.get<string>("result");
 
         switch (result)
@@ -244,17 +242,19 @@ public class NetworkManagerAccount : EzyDefaultController
                 break;
         }
 
-        uIForgotData.buttonSendPassword.interactable = true;
-        uIForgotData.buttonBack.interactable = true;
-        uIForgotData.buttonTabUsername.interactable = true;
+        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
+        if (uIForgotData != null)
+        {
+            uIForgotData.ButtonSendPassword.interactable = true;
+            uIForgotData.ButtonBackPassword.interactable = true;
+            uIForgotData.ButtonTabUsername.interactable = true;
+        }
+        else
+            Debug.LogError("UIForgotData not found!");
     }
 
     private void OnForgotUsernameResponse(EzyAppProxy proxy, EzyObject data)
     {
-        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
-        if (uIForgotData == null)
-            Debug.LogError("UIForgotData not found!");
-
         string result = data.get<string>("result");
         switch (result)
         {
@@ -269,9 +269,15 @@ public class NetworkManagerAccount : EzyDefaultController
                 break;
         }
 
-        uIForgotData.buttonSendUsername.interactable = true;
-        uIForgotData.buttonBack.interactable = true;
-        uIForgotData.buttonTabPassword.interactable = true;
+        UIForgotData uIForgotData = GameObject.FindObjectOfType<UIForgotData>();
+        if (uIForgotData != null)
+        {
+            uIForgotData.ButtonSendUsername.interactable = true;
+            uIForgotData.ButtonBackUsername.interactable = true;
+            uIForgotData.ButtonTabPassword.interactable = true;
+        }
+        else
+            Debug.LogError("UIForgotData not found!");
     }
 
     #endregion

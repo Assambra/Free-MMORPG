@@ -6,65 +6,66 @@ using UMA.CharacterSystem;
 
 public class UISelectCharacter : MonoBehaviour
 {
-    [SerializeField] TMP_Text textCharacterNameValue;
-    [SerializeField] TMP_Text textCharacterSexValue;
-    [SerializeField] TMP_Text textCharacterRaceValue;
-    [SerializeField] Button buttonPrevious;
-    [SerializeField] Button buttonNext;
+    [SerializeField] private TMP_Text _textCharacterName;
+    [SerializeField] private TMP_Text _textCharacterSex;
+    [SerializeField] private TMP_Text _textCharacterRace;
+    [SerializeField] private Button _buttonPreviousCharacter;
+    [SerializeField] private Button _buttonNextCharacter;
 
-    private List<CharacterInfo> characterInfos;
-    private int charactersCount;
-    private int currentShownCharacter;
-
-    //private GameObject umaCharacter;
-    private DynamicCharacterAvatar avatar;
+    private List<CharacterInfo> _characterInfos;
+    private int _charactersCount;
+    private DynamicCharacterAvatar _avatar;
+    private int _currentShownCharacter;
 
     private void OnEnable()
     {
-        characterInfos = GameManager.Instance.CharacterInfos;
+        _characterInfos = GameManager.Instance.CharacterInfos;
 
-        if (characterInfos.Count > 0)
+        if (_characterInfos.Count > 0)
         {
-            avatar = GameManager.Instance.Avatar;
+            _avatar = GameManager.Instance.Avatar;
 
-            UMAHelper.SetAvatarString(avatar, characterInfos[0].model);
+            UMAHelper.SetAvatarString(_avatar, _characterInfos[0].model);
             
-            currentShownCharacter = 0;
+            _currentShownCharacter = 0;
             
-            SetCharacter(currentShownCharacter);
+            SetCharacter(_currentShownCharacter);
         }
         else
         {
             // Todo inform the player that no characters available
+            // actually obsolete we can't go back from create character scene if we have zero characters
+            // and also after login we check if zero characters go straight to create character scene
+            // But we need to look into again if we create a option to delete the character.
             Debug.Log("Todo inform the player that no characters available");
         }
 
-        charactersCount = characterInfos.Count - 1;
+        _charactersCount = _characterInfos.Count - 1;
     }
 
     public void OnButtonPreviousCharacter()
     {
-        if(charactersCount >= 0)
+        if(_charactersCount >= 0)
         {
-            if (currentShownCharacter == 0)
-                currentShownCharacter = charactersCount;
+            if (_currentShownCharacter == 0)
+                _currentShownCharacter = _charactersCount;
             else
-                currentShownCharacter--;
+                _currentShownCharacter--;
 
-            SetCharacter(currentShownCharacter);
+            SetCharacter(_currentShownCharacter);
         }
     }
 
     public void OnButtonNextCharacter()
     {
-        if (charactersCount >= 0)
+        if (_charactersCount >= 0)
         {
-            if (currentShownCharacter == charactersCount)
-                currentShownCharacter = 0;
+            if (_currentShownCharacter == _charactersCount)
+                _currentShownCharacter = 0;
             else
-                currentShownCharacter++;
+                _currentShownCharacter++;
 
-            SetCharacter(currentShownCharacter);
+            SetCharacter(_currentShownCharacter);
         }
     }
 
@@ -76,7 +77,7 @@ public class UISelectCharacter : MonoBehaviour
 
     public void OnButtonPlay()
     {
-        NetworkManagerGame.Instance.PlayRequest(characterInfos[currentShownCharacter].id);
+        NetworkManagerGame.Instance.PlayRequest(_characterInfos[_currentShownCharacter].id);
     }
 
     public void OnButtonNewCharacter()
@@ -86,10 +87,10 @@ public class UISelectCharacter : MonoBehaviour
 
     private void SetCharacter(int character)
     {
-        CharacterInfo info = characterInfos[character];
-        textCharacterNameValue.text = info.name;
-        textCharacterSexValue.text = info.sex;
-        textCharacterRaceValue.text = info.race;
-        UMAHelper.SetAvatarString(avatar, info.model);
+        CharacterInfo info = _characterInfos[character];
+        _textCharacterName.text = info.name;
+        _textCharacterSex.text = info.sex;
+        _textCharacterRace.text = info.race;
+        UMAHelper.SetAvatarString(_avatar, info.model);
     }
 }

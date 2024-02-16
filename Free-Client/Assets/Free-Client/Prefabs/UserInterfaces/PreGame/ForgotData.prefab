@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 1051383875701269217}
   - component: {fileID: 2982322371370550464}
   m_Layer: 5
-  m_Name: InputFieldEMail
+  m_Name: InputFieldEmail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 2524392561285044019}
   - component: {fileID: 2733724463887589282}
   m_Layer: 5
-  m_Name: ButtonBack
+  m_Name: ButtonBackPassword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,7 +959,7 @@ GameObject:
   - component: {fileID: 2529424089260159785}
   - component: {fileID: 3997686486567065561}
   m_Layer: 5
-  m_Name: ButtonBack
+  m_Name: ButtonBackUsername
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2159,15 +2159,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1ccb56ff79191449710defffb9b250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonBack: {fileID: 2733724463887589282}
-  buttonSendPassword: {fileID: 728109647335314085}
-  buttonSendUsername: {fileID: 517078961796355227}
-  buttonTabUsername: {fileID: 4449985826113304564}
-  buttonTabPassword: {fileID: 2190580781514849505}
-  inputFieldUsernameOrEMail: {fileID: 4524686767786043221}
-  inputFieldEMail: {fileID: 2982322371370550464}
-  gameObjectForgotPassword: {fileID: 3159275243990772556}
-  gameObjectForgotUsername: {fileID: 9078798951576490099}
+  ButtonTabUsername: {fileID: 4449985826113304564}
+  ButtonTabPassword: {fileID: 2190580781514849505}
+  ButtonBackUsername: {fileID: 3997686486567065561}
+  ButtonSendUsername: {fileID: 517078961796355227}
+  ButtonBackPassword: {fileID: 2733724463887589282}
+  ButtonSendPassword: {fileID: 728109647335314085}
+  _forgotPassword: {fileID: 3159275243990772556}
+  _forgotUsername: {fileID: 9078798951576490099}
+  _inputFieldUsernameOrEmail: {fileID: 4524686767786043221}
+  _inputFieldEmail: {fileID: 2982322371370550464}
 --- !u!1 &5974256622084437882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2525,7 @@ GameObject:
   - component: {fileID: 8916819247317728722}
   - component: {fileID: 4524686767786043221}
   m_Layer: 5
-  m_Name: InputFieldUsernameOrEMail
+  m_Name: InputFieldUsernameOrEmail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 5257838348479947643}
   - component: {fileID: 5435293415493738093}
   m_Layer: 5
-  m_Name: TextCharacterNameValue
+  m_Name: TextCharacterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 6048510848679176374}
   - component: {fileID: 90720459514849026}
   m_Layer: 5
-  m_Name: TextCharacterSexValue
+  m_Name: TextCharacterSex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,7 +856,7 @@ GameObject:
   - component: {fileID: 8890180419436060531}
   - component: {fileID: 6338004750172323907}
   m_Layer: 5
-  m_Name: TextCharacterRaceValue
+  m_Name: TextCharacterRace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1785,11 +1785,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498023971a3ddad40b1e4bb542b4e35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textCharacterNameValue: {fileID: 5435293415493738093}
-  textCharacterSexValue: {fileID: 90720459514849026}
-  textCharacterRaceValue: {fileID: 6338004750172323907}
-  buttonPrevious: {fileID: 778346451920739412}
-  buttonNext: {fileID: 5446112038013797950}
+  _textCharacterName: {fileID: 5435293415493738093}
+  _textCharacterSex: {fileID: 90720459514849026}
+  _textCharacterRace: {fileID: 6338004750172323907}
+  _buttonPreviousCharacter: {fileID: 778346451920739412}
+  _buttonNextCharacter: {fileID: 5446112038013797950}
 --- !u!1 &5961120697753961634
 GameObject:
   m_ObjectHideFlags: 0

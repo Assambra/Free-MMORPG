@@ -147,7 +147,7 @@ public class NetworkManagerGame : EzyDefaultController
     {
         string error = data.ToString();
         if (error.Contains("invalid password") || error.Contains("invalid user name"))
-            ErrorPopup("Invalid username or password");
+            ErrorPopup("Please note: Username or password is incorrect. Please check your entries and try again.");
     }
 
     private void OnUdpHandshake(EzySocketProxy proxy, Object data)

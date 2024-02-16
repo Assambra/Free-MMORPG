@@ -17,7 +17,6 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private Button _buttonBack;
     [SerializeField] private Button _buttonPlay;
     [SerializeField] private TMP_Dropdown _dropdownRace;
-    [SerializeField] private TMP_Dropdown _dropdownProfession;
 
     [Header("Home")]
     [SerializeField] private Transform _heightHome;
@@ -78,7 +77,7 @@ public class UICreateCharacter : MonoBehaviour
     private List<GameObject> _titleElements = new List<GameObject>();
     
     // Private variables network
-    private string _charname;
+    private string _characterName;
     private string _sex;
     private string _race;
     private string _model;
@@ -103,13 +102,11 @@ public class UICreateCharacter : MonoBehaviour
 
         _sex = "male";
 
-        _raceOptions.Add("Select race");
         _raceOptions.Add("Humanoid");
         _dropdownRace.AddOptions(_raceOptions);
 
         if (GameManager.Instance.CharacterInfos.Count == 0)
         {
-            Debug.Log("Zero characters");
             TMP_Text buttonText = _buttonBack.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Back to Login";
             _zeroCharacters = true;
@@ -581,10 +578,11 @@ public class UICreateCharacter : MonoBehaviour
     public void OnButtonCreate()
     {
         _model = UMAHelper.GetAvatarString(_avatar);
-        _charname = _inputFieldName.text;
+        _characterName = _inputFieldName.text;
         _race = _raceOptions[_dropdownRace.value];
 
-        NetworkManagerGame.Instance.CreateCharacter(_charname, _sex, _race, _model);
+        if(ValidateCharacterName(_characterName))
+            NetworkManagerGame.Instance.CreateCharacter(_characterName, _sex, _race, _model);
     }
 
     public void OnButtonPlay()
@@ -618,6 +616,47 @@ public class UICreateCharacter : MonoBehaviour
 
         _buttonMale.interactable = true;
         _buttonFemale.interactable = true;
+    }
+
+    #endregion
+
+    #region VALIDATE
+
+    private bool ValidateCharacterName(string characterName)
+    {
+        bool isValid = true;
+
+        if (!InputValidator.IsLengthValid(characterName, GameConstants.CHARACTER_NAME_LENGTH_MIN, GameConstants.CHARACTER_NAME_LENGTH_MAX))
+        {
+            isValid = false;
+            ErrorPopup("The username must be at least " + GameConstants.CHARACTER_NAME_LENGTH_MIN + " and at most " + GameConstants.CHARACTER_NAME_LENGTH_MAX + " letters long.");
+        }
+
+        if (!InputValidator.DoesNotContainDisallowedName(characterName, GameConstants.DISALLOWED_NAMES))
+        {
+            isValid = false;
+            ErrorPopup("Username are not allowed!");
+        }
+
+        return isValid;
+    }
+
+    #endregion
+
+    #region POPUP
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 
     #endregion
