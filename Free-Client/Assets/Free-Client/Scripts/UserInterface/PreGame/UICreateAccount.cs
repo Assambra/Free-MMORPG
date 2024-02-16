@@ -27,8 +27,9 @@ public class UICreateAccount : MonoBehaviour
             _email = _inputFieldEmail.text;
             _username = _inputFieldUsername.text;
             _password = _inputFieldPassword.text;
-
-            NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
+            
+            if(ValidateEmail(_email) && ValidateUsername(_username) && ValidatePassword(_password))
+                NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
         }
         else
             ErrorPopup("Please note: We are currently not connected to a server.");
@@ -42,6 +43,41 @@ public class UICreateAccount : MonoBehaviour
     public void OnButtonForgotData()
     {
         GameManager.Instance.ChangeScene(Scenes.ForgotData);
+    }
+
+    private bool ValidateEmail(string email)
+    {
+        return InputValidator.IsValidEmail(email);
+    }
+
+    private bool ValidateUsername(string username)
+    {
+        bool isValid = true;
+
+        if (!InputValidator.IsLengthValid(username, GameConstants.MIN_USERNAME_LENGTH, GameConstants.MAX_USERNAME_LENGTH))
+        {
+            isValid = false;
+            ErrorPopup("The username must be at least " + GameConstants.MIN_USERNAME_LENGTH + " and at most " + GameConstants.MAX_USERNAME_LENGTH + " letters long.");
+        }
+
+        if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_USERNAMES))
+        {
+            isValid = false;
+            ErrorPopup("Username are not allowed!");
+        }
+
+        return isValid;
+    }
+
+    private bool ValidatePassword(string password)
+    {
+        if (!InputValidator.IsValidPassword(password, GameConstants.MIN_PASSWORD_LENGTH, GameConstants.MAX_PASSWORD_LENGTH))
+        {
+            ErrorPopup("Password must be " + GameConstants.MIN_PASSWORD_LENGTH + "-" + GameConstants.MAX_PASSWORD_LENGTH + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
+            return false;
+        }
+        else
+            return true;
     }
 
     private void ErrorPopup(string error)

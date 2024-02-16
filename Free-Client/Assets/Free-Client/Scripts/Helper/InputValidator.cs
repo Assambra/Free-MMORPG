@@ -40,10 +40,10 @@ public static class InputValidator
         return Regex.IsMatch(email, pattern);
     }
 
-    public static bool IsValidPassword(string password, int minLength)
+    public static bool IsValidPassword(string password, int minLength, int maxLength)
     {
-        
-        if (string.IsNullOrWhiteSpace(password) || password.Length < minLength)
+
+        if (string.IsNullOrWhiteSpace(password) || password.Length < minLength || password.Length > maxLength)
         {
             return false;
         }
