@@ -31,10 +31,7 @@ public class UICreateAccount : MonoBehaviour
             NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
         }
         else
-        {
-            //Todo inform the user/player that we aren't connected to the Server, Popup
-            Debug.Log("Todo inform the user/player that we aren't connected to the Server, Popup");
-        }
+            ErrorPopup("Please note: We are currently not connected to a server.");
     }
 
     public void OnButtonBack()
@@ -45,5 +42,19 @@ public class UICreateAccount : MonoBehaviour
     public void OnButtonForgotData()
     {
         GameManager.Instance.ChangeScene(Scenes.ForgotData);
+    }
+
+    private void ErrorPopup(string error)
+    {
+        string title = "Error";
+        string info = error;
+
+        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+        popup.Setup(
+            title,
+            info,
+            () => { popup.Destroy(); }
+        );
     }
 }

@@ -36,7 +36,7 @@ public class UIForgotData : MonoBehaviour
                 ErrorPopup("Please note: You must enter either a username or email address. Please fill in the required field and try again.");
         }
         else
-            ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
+            ErrorPopup("Please note: We are currently not connected to a server.");
     }
 
     public void OnButtonSendUsername()
@@ -53,7 +53,7 @@ public class UIForgotData : MonoBehaviour
                 ErrorPopup("Please note: The email address field cannot be empty. Please enter your email address and try again.");
         }
         else
-            ErrorPopup("Please note: We are currently not connected to a server. Check your internet connection and try again later.");
+            ErrorPopup("Please note: We are currently not connected to a server.");
     }
 
     public void OnButtonTabPassword()
