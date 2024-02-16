@@ -2515,12 +2515,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f2b915b7779a4468e1e66ef00df84f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCreate: {fileID: 2118298}
-  buttonBack: {fileID: 1526140776}
-  buttonForgotData: {fileID: 8581675872530040511}
-  inputFieldEmail: {fileID: 1637496621}
-  inputFieldUsername: {fileID: 2124922939}
-  inputFieldPassword: {fileID: 802747682}
+  ButtonBack: {fileID: 1526140776}
+  ButtonCreate: {fileID: 2118298}
+  ButtonForgotData: {fileID: 8581675872530040511}
+  _inputFieldEmail: {fileID: 1637496621}
+  _inputFieldUsername: {fileID: 2124922939}
+  _inputFieldPassword: {fileID: 802747682}
 --- !u!1 &8950325327792555447
 GameObject:
   m_ObjectHideFlags: 0

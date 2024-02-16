@@ -4,34 +4,31 @@ using UnityEngine.UI;
 
 public class UICreateAccount : MonoBehaviour
 {
-    public Button buttonCreate;
-    public Button buttonBack;
-    public Button buttonForgotData;
+    public Button ButtonBack;
+    public Button ButtonCreate;
+    public Button ButtonForgotData;
 
-    [SerializeField] TMP_InputField inputFieldEmail;
-    [SerializeField] TMP_InputField inputFieldUsername;
-    [SerializeField] TMP_InputField inputFieldPassword;
+    [SerializeField] private TMP_InputField _inputFieldEmail;
+    [SerializeField] private TMP_InputField _inputFieldUsername;
+    [SerializeField] private TMP_InputField _inputFieldPassword;
     
-
-    private string email;
-    private string password;
-    private string username;
-
+    private string _email;
+    private string _password;
+    private string _username;
 
     public void OnButtonCreate()
     {
         if (NetworkManagerAccount.Instance.Connected())
         {
-            buttonCreate.interactable = false;
-            buttonForgotData.interactable = false;
-            buttonBack.interactable = false;
+            ButtonCreate.interactable = false;
+            ButtonForgotData.interactable = false;
+            ButtonBack.interactable = false;
             
+            _email = _inputFieldEmail.text;
+            _username = _inputFieldUsername.text;
+            _password = _inputFieldPassword.text;
 
-            email = inputFieldEmail.text;
-            username = inputFieldUsername.text;
-            password = inputFieldPassword.text;
-
-            NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+            NetworkManagerAccount.Instance.CreateAccount(_email, _username, _password);
         }
         else
         {

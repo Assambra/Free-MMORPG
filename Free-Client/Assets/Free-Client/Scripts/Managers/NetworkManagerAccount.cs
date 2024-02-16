@@ -198,9 +198,9 @@ public class NetworkManagerAccount : EzyDefaultController
         UICreateAccount uICreateAccount = GameObject.FindObjectOfType<UICreateAccount>();
         if (uICreateAccount != null)
         {
-            uICreateAccount.buttonCreate.interactable = true;
-            uICreateAccount.buttonForgotData.interactable = true;
-            uICreateAccount.buttonBack.interactable = true;
+            uICreateAccount.ButtonCreate.interactable = true;
+            uICreateAccount.ButtonForgotData.interactable = true;
+            uICreateAccount.ButtonBack.interactable = true;
         }
         else
             Debug.LogError("UICreateAccount not found!");
