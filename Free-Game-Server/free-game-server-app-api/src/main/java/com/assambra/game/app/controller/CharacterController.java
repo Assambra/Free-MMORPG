@@ -3,8 +3,8 @@ package com.assambra.game.app.controller;
 import com.assambra.game.app.constant.Commands;
 import com.assambra.game.app.model.CharacterListModel;
 import com.assambra.game.app.request.CreateCharacterRequest;
-import com.assambra.game.app.request.PlayRequest;
 import com.assambra.game.app.service.CharacterService;
+import com.assambra.game.common.entity.Account;
 import com.assambra.game.common.entity.Character;
 import com.assambra.game.common.repository.AccountRepo;
 import com.assambra.game.common.repository.CharacterRepo;
@@ -15,6 +15,7 @@ import com.tvd12.ezyfoxserver.entity.EzyUser;
 import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -51,14 +52,26 @@ public class CharacterController extends EzyLoggable {
 
         if(character == null)
         {
-            characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
+            Account account = accountRepo.findByField("username", user.getName());
+            int maxAllowedCharacters = account.getMaxAllowedCharacters();
+            List<Character> characters = characterService.getAllCharacters(user);
 
-            character = characterRepo.findByField("name", request.getName());
-            characterId = character.getId();
+            if(characters.size() < maxAllowedCharacters)
+            {
+                characterService.createCharacter(user, request.getName(), request.getSex(), request.getRace(), request.getModel());
 
-            resultMessage = "successfully";
+                character = characterRepo.findByField("name", request.getName());
+                characterId = character.getId();
 
-            characterList(user);
+                resultMessage = "successfully";
+
+                characterList(user);
+            }
+            else
+            {
+                resultMessage = "max_allowed_characters";
+                characterId = 0L;
+            }
         }
         else
         {
