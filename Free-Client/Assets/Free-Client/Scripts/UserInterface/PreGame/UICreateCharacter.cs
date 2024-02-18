@@ -410,7 +410,7 @@ public class UICreateCharacter : MonoBehaviour
                 if (r == wardrobeType[i])
                 {
                     GameObject go = te.CreateObject(_prefabWardrobeElement, r);
-                    go.GetComponent<WardrobeElement>().InitializeWardrobe(_avatar, r, _modifiersButtonHome, _allwaysOnTop, recipesToShow, true);
+                    go.GetComponent<WardrobeElement>().InitializeWardrobe(_avatar, r, _modifiersButtonHome, _allwaysOnTop, recipesToShow);
                 }
                 i++;
             }

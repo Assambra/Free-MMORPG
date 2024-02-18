@@ -27,7 +27,7 @@ public class WardrobeElement : MonoBehaviour
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow = null, bool useCustomRecipesList = false)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow)
     {
         textWardrobeName.text = slotname;
         this._avatar = avatar;
@@ -45,10 +45,10 @@ public class WardrobeElement : MonoBehaviour
             }
         }
         
-        CreateOptions(slotname, useCustomRecipesList);
+        CreateOptions(slotname);
     }
 
-    private void CreateOptions(string slotname, bool useCustomRecipesList)
+    private void CreateOptions(string slotname)
     {
         List<UMATextRecipe> slotRecipes = _avatar.AvailableRecipes[slotname];
         
@@ -57,7 +57,7 @@ public class WardrobeElement : MonoBehaviour
         int i = 1;
         foreach (UMATextRecipe utr in slotRecipes)
         {
-            if(_recipesToShow.Contains(utr) || !useCustomRecipesList)
+            if(_recipesToShow.Contains(utr))
             {
                 string name = GetRecipeNameOrDisplayValue(utr);
 
