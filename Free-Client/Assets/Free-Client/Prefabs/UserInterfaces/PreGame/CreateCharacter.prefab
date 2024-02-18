@@ -2493,6 +2493,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9050e005ddce44d4f89dc6158808b409, type: 2}
   - {fileID: 11400000, guid: d40e65714e237a3499a2eada8f3411c6, type: 2}
   _femaleEyesRecipes:
+  - {fileID: 11400000, guid: 9c02cb91532359e4185d3f6240e54953, type: 2}
   - {fileID: 11400000, guid: 1d3754b7c56905848ad40e7515ee2524, type: 2}
   - {fileID: 11400000, guid: 3e69ca665e3198b4cad48379e25f71f3, type: 2}
   - {fileID: 11400000, guid: e2193fd760646ec40828683da3aaf690, type: 2}
@@ -2518,6 +2519,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5bbd4dc2ec713f24a84512ef4f9ffe00, type: 2}
   - {fileID: 11400000, guid: 71e3ef35d8b941d4ab538b01f57dbb79, type: 2}
   _maleEyesRecipes:
+  - {fileID: 11400000, guid: ed2396e580b4fa64097afd262c8751e4, type: 2}
   - {fileID: 11400000, guid: 518535e4bd613dc458a460be75d97327, type: 2}
   - {fileID: 11400000, guid: 8ea99475ea1aac141b787fc5dc6cc824, type: 2}
   - {fileID: 11400000, guid: 667840f679650844dbfbd6f3a4134998, type: 2}

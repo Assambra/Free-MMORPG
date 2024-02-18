@@ -124,6 +124,14 @@ MonoBehaviour:
       _enabledInDefaultWardrobe: 1
       _compatibleRaces:
       - HumanMale
+    - _recipeName: DefaultMaleEyes
+      _enabledInDefaultWardrobe: 1
+      _compatibleRaces:
+      - HumanMale
+    - _recipeName: DefaultFemaleEyes
+      _enabledInDefaultWardrobe: 1
+      _compatibleRaces:
+      - HumanFemale
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: eb280940c811fab4a9e3ddf09381c343, type: 2}
     animators:
