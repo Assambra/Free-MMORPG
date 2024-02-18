@@ -87,6 +87,7 @@ public class WardrobeElement : MonoBehaviour
             if (options.ContainsKey(name))
             {
                 dropdownWardrobe.SetValueWithoutNotify(options[name]);
+                lastRecipe = recipe.Value;
                 OverlayColorData[] colors = recipe.Value.SharedColors;
                 CreateColorSelectors(colors, _allwaysOnTop);
             }
