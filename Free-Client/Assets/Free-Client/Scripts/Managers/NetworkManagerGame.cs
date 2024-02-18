@@ -216,7 +216,6 @@ public class NetworkManagerGame : EzyDefaultController
 
     private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
     {
-        Debug.Log("");
         string result = data.get<string>("result");
         long characterId = data.get<long>("characterId");
 
