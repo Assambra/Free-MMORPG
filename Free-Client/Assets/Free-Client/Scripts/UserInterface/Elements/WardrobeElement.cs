@@ -21,18 +21,20 @@ public class WardrobeElement : MonoBehaviour
     private Transform _allwaysOnTop;
     private Transform _layout;
     private List<GameObject> _activeColorElements = new List<GameObject>();
-
+    private bool _hasNoneOption;
+    
     private void Awake()
     {
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow, bool hasNoneOption)
     {
         textWardrobeName.text = slotname;
         this._avatar = avatar;
         this._layout = layout;
         this._allwaysOnTop = allwayOnTop;
+        this._hasNoneOption = hasNoneOption;
 
         if(recipesToShow != null)
         {
@@ -45,16 +47,21 @@ public class WardrobeElement : MonoBehaviour
             }
         }
         
-        CreateOptions(slotname);
+        CreateOptions(slotname, hasNoneOption);
     }
 
-    private void CreateOptions(string slotname)
+    private void CreateOptions(string slotname, bool hasNoneOption)
     {
         List<UMATextRecipe> slotRecipes = _avatar.AvailableRecipes[slotname];
         
-        options.Add("None", 0);
+        int i = 0;
+        
+        if(hasNoneOption)
+        {
+            options.Add("None", 0);
+            i = 1;
+        }
 
-        int i = 1;
         foreach (UMATextRecipe utr in slotRecipes)
         {
             if(_recipesToShow.Contains(utr))
@@ -110,7 +117,7 @@ public class WardrobeElement : MonoBehaviour
     {
         foreach(KeyValuePair<UMATextRecipe, int> recipe in recipes)
         {
-            if(change.value != 0)
+            if(change.value != 0 || !_hasNoneOption)
             {
                 if (change.value == recipe.Value)
                 {   
