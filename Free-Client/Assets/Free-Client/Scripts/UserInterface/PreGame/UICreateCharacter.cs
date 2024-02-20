@@ -64,17 +64,14 @@ public class UICreateCharacter : MonoBehaviour
     [SerializeField] private string[] _maleGeneralColors;
 
     [Header("UMA Female Recipes")]
-    [SerializeField] private List<UMATextRecipe> _femaleHairRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _femaleEyebrowsRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _femaleUnderwearRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _femaleEyesRecipes = new List<UMATextRecipe>();
+    [SerializeField] private SO_RecipesToShow _femaleHairRecipesToShow;
+    [SerializeField] private SO_RecipesToShow _femaleUnderwearRecipesToShow;
+    [SerializeField] private SO_RecipesToShow _femaleEyesRecipesToShow;
 
     [Header("UMA Male Recipes")]
-    [SerializeField] private List<UMATextRecipe> _maleHairRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _maleEyebrowsRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _maleBeardRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _maleUnderwearRecipes = new List<UMATextRecipe>();
-    [SerializeField] private List<UMATextRecipe> _maleEyesRecipes = new List<UMATextRecipe>();
+    [SerializeField] private SO_RecipesToShow _maleHairRecipesToShow;
+    [SerializeField] private SO_RecipesToShow _maleUnderwearRecipesToShow;
+    [SerializeField] private SO_RecipesToShow _maleEyesRecipesToShow;
 
     // Private variables user interface
     private List<string> _raceOptions = new List<string>();
@@ -253,15 +250,11 @@ public class UICreateCharacter : MonoBehaviour
         {
             if (_avatar.activeRace.name == "HumanMale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
-                recipesToShow[0] = _maleEyesRecipes;
-                _eyeGroup = CreateWardrobeGroup(_maleEyesWardropeTypes.Title, _maleEyesWardropeTypes, recipesToShow, false);
+                _eyeGroup = CreateWardrobeGroup(_maleEyesWardropeTypes.Title, _maleEyesWardropeTypes, _maleEyesRecipesToShow);
             }
             else if (_avatar.activeRace.name == "HumanFemale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
-                recipesToShow[0] = _femaleEyesRecipes;
-                _eyeGroup = CreateWardrobeGroup(_femaleEyesWardropeTypes.Title, _femaleEyesWardropeTypes, recipesToShow, false);
+                _eyeGroup = CreateWardrobeGroup(_femaleEyesWardropeTypes.Title, _femaleEyesWardropeTypes, _femaleEyesRecipesToShow);
             }
         }
         else
@@ -294,18 +287,11 @@ public class UICreateCharacter : MonoBehaviour
         {
             if (_avatar.activeRace.name == "HumanMale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[3];
-                recipesToShow[0] = _maleHairRecipes;
-                recipesToShow[1] = _maleEyebrowsRecipes;
-                recipesToShow[2] = _maleBeardRecipes;
-                _hairGroup = CreateWardrobeGroup(_maleHairWardropeTypes.Title, _maleHairWardropeTypes, recipesToShow, true);
+                _hairGroup = CreateWardrobeGroup(_maleHairWardropeTypes.Title, _maleHairWardropeTypes, _maleHairRecipesToShow);
             }
             else if (_avatar.activeRace.name == "HumanFemale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[2];
-                recipesToShow[0] = _femaleHairRecipes;
-                recipesToShow[1] = _femaleEyebrowsRecipes;
-                _hairGroup = CreateWardrobeGroup(_femaleHairWardropeTypes.Title, _femaleHairWardropeTypes, recipesToShow, true);
+                _hairGroup = CreateWardrobeGroup(_femaleHairWardropeTypes.Title, _femaleHairWardropeTypes, _femaleHairRecipesToShow);
             }
         }
         else
@@ -335,17 +321,11 @@ public class UICreateCharacter : MonoBehaviour
         {
             if (_avatar.activeRace.name == "HumanMale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
-                recipesToShow[0] = _maleUnderwearRecipes;
-
-                _clothesGroup = CreateWardrobeGroup(_maleClothesWardropeTypes.Title, _maleClothesWardropeTypes, recipesToShow, false);
+                _clothesGroup = CreateWardrobeGroup(_maleClothesWardropeTypes.Title, _maleClothesWardropeTypes, _maleUnderwearRecipesToShow);
             }
             else if(_avatar.activeRace.name == "HumanFemale")
             {
-                List<UMATextRecipe>[] recipesToShow = new List<UMATextRecipe>[1];
-                recipesToShow[0] = _femaleUnderwearRecipes;
-
-                _clothesGroup = CreateWardrobeGroup(_femaleClothesWardropeTypes.Title, _femaleClothesWardropeTypes, recipesToShow, false);
+                _clothesGroup = CreateWardrobeGroup(_femaleClothesWardropeTypes.Title, _femaleClothesWardropeTypes, _femaleUnderwearRecipesToShow);
             }
         }
         else
@@ -395,7 +375,7 @@ public class UICreateCharacter : MonoBehaviour
         return gotitle;
     }
 
-    private GameObject CreateWardrobeGroup(string title, WardrobeTypes wardrobeTypes, List<UMATextRecipe>[] recipesToShow, bool hasNoneOption)
+    private GameObject CreateWardrobeGroup(string title, WardrobeTypes wardrobeTypes, SO_RecipesToShow recipesToShow)
     {
         GameObject gotitle = Instantiate(_prefabTitleElement, _modifiersHome);
         gotitle.name = title;

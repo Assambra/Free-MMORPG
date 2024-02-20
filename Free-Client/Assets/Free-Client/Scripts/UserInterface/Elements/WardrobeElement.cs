@@ -28,7 +28,7 @@ public class WardrobeElement : MonoBehaviour
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow, bool hasNoneOption)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, SO_RecipesToShow recipesToShow, bool hasNoneOption)
     {
         textWardrobeName.text = slotname;
         this._avatar = avatar;
@@ -36,17 +36,14 @@ public class WardrobeElement : MonoBehaviour
         this._allwaysOnTop = allwayOnTop;
         this._hasNoneOption = hasNoneOption;
 
-        if(recipesToShow != null)
+        foreach(SO_Recipes rts in recipesToShow.RecipesToShow)
         {
-            for (int i = 0; i < recipesToShow.Length; i++)
+            foreach(UMATextRecipe utr in rts.Recipes)
             {
-                foreach (UMATextRecipe r in recipesToShow[i])
-                {
-                    _recipesToShow.Add(r);
-                }
+                _recipesToShow.Add(utr);
             }
         }
-        
+
         CreateOptions(slotname, hasNoneOption);
     }
 

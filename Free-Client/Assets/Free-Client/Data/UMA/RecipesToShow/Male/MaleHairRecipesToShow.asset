@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da6607b3a969c74bbab8fea08acef8e, type: 3}
+  m_Name: MaleHairRecipesToShow
+  m_EditorClassIdentifier: 
+  RecipesToShow:
+  - {fileID: 11400000, guid: 14f352063fea17349ac86ac5c8468146, type: 2}
+  - {fileID: 11400000, guid: 593574f9224f25444b7cd7f1f1c271f9, type: 2}
+  - {fileID: 11400000, guid: f178c849a5b0e624ba7e74023609d64b, type: 2}
