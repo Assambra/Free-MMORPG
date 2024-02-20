@@ -44,6 +44,7 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
+                <li><a href="#burst-compiler">Burst compiler</a></li>
                 <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
             </ul>
@@ -189,7 +190,8 @@ Get submodules:
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
 To add this two packages (Newtonsoft Json and HSV-Color-Picker-Unity) manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
-
+#### Burst Compiler
+Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the Install button to install the package.
 #### Newtonsoft Json
 The EzyFox Client SDK need Newtonsoft Json package to work.
 
