@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2728285bbd3ff4f97942f8c2484691, type: 3}
   m_Name: FemaleHairWardrobeTypes
   m_EditorClassIdentifier: 
+  Title: Hair
   wardrobeTypes:
   - {fileID: 11400000, guid: 9eab9864fa567694b9ca172bc5e3ea74, type: 2}
-  - {fileID: 11400000, guid: 9eab9864fa567694b9ca172bc5e3ea74, type: 2}
+  - {fileID: 11400000, guid: 94c237fb3adc86c46a48aa680bb41a17, type: 2}
