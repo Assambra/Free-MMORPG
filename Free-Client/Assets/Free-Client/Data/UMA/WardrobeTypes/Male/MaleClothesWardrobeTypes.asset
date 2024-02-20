@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2728285bbd3ff4f97942f8c2484691, type: 3}
   m_Name: MaleClothesWardrobeTypes
   m_EditorClassIdentifier: 
+  Title: Clothes
   wardrobeTypes:
   - {fileID: 11400000, guid: 26e96c981f6dbaf44b7840f02e543bdc, type: 2}

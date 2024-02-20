@@ -2462,21 +2462,12 @@ MonoBehaviour:
   - legsSize
   - waist
   - gluteusSize
-  _femaleHairWardropeTypes:
-  - Hair
-  - Eyebrows
-  _maleHairWardropeTypes:
-  - Hair
-  - Eyebrows
-  - Beard
-  _femaleClothesWardropeTypes:
-  - Underwear
-  _maleClothesWardropeTypes:
-  - Underwear
-  _femaleEyesWardropeTypes:
-  - Eyes
-  _maleEyesWardropeTypes:
-  - Eyes
+  _femaleHairWardropeTypes: {fileID: 11400000, guid: 43f20e7e25dbec74ebdf5ebeeba06927, type: 2}
+  _femaleClothesWardropeTypes: {fileID: 11400000, guid: 89476a28862c11348a06252d0e147cb4, type: 2}
+  _femaleEyesWardropeTypes: {fileID: 11400000, guid: e70dc53e9ba0f544f837129942a1ffb3, type: 2}
+  _maleHairWardropeTypes: {fileID: 11400000, guid: ce8e50641f44efa4190c8c03c6bd345a, type: 2}
+  _maleClothesWardropeTypes: {fileID: 11400000, guid: 48540cc1e5b4195469fb93a8bcd8cc07, type: 2}
+  _maleEyesWardropeTypes: {fileID: 11400000, guid: f9be83d4bd8e75b4b9ebf54d614c1357, type: 2}
   _femaleGeneralColors:
   - Eyelash
   - Lipstick

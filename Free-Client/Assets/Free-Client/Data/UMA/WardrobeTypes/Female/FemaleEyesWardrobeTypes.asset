@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2728285bbd3ff4f97942f8c2484691, type: 3}
   m_Name: FemaleEyesWardrobeTypes
   m_EditorClassIdentifier: 
+  Title: Eyes
   wardrobeTypes:
   - {fileID: 11400000, guid: c2101dd5664a9af49bfbf0629854d10e, type: 2}
