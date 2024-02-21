@@ -388,7 +388,6 @@ public class UICreateCharacter : MonoBehaviour
 
         foreach (string r in recipes.Keys)
         {
-            int i = 0;
             foreach(WardrobeType wt in wardrobeTypes.wardrobeTypes)
             {
                 if (r == wt.Type)
@@ -396,7 +395,6 @@ public class UICreateCharacter : MonoBehaviour
                     GameObject go = te.CreateObject(_prefabWardrobeElement, r);
                     go.GetComponent<WardrobeElement>().InitializeWardrobe(_avatar, r, _modifiersButtonHome, _allwaysOnTop, recipesToShow, wt.HasNoneOption);
                 }
-                i++;
             }
         }
 
