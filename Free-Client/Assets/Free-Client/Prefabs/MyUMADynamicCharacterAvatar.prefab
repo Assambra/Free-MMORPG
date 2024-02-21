@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 487678}
   - component: {fileID: 11453600}
   - component: {fileID: 114399585086637844}
-  - component: {fileID: 4757962627389437816}
+  - component: {fileID: 5548432647977589970}
   m_Layer: 0
   m_Name: MyUMADynamicCharacterAvatar
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   context: {fileID: 0}
-  umaData: {fileID: 4757962627389437816}
+  umaData: {fileID: 5548432647977589970}
   defaultRendererAsset: {fileID: 0}
   umaRecipe: {fileID: 0}
   umaAdditionalRecipes:
@@ -132,6 +132,14 @@ MonoBehaviour:
       _enabledInDefaultWardrobe: 1
       _compatibleRaces:
       - HumanFemale
+    - _recipeName: FemaleEyebrowsHR01
+      _enabledInDefaultWardrobe: 1
+      _compatibleRaces:
+      - HumanFemale
+    - _recipeName: MaleBrowHR02
+      _enabledInDefaultWardrobe: 1
+      _compatibleRaces:
+      - HumanMale
   raceAnimationControllers:
     defaultAnimationController: {fileID: 9100000, guid: eb280940c811fab4a9e3ddf09381c343, type: 2}
     animators:
@@ -326,7 +334,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
---- !u!114 &4757962627389437816
+--- !u!114 &5548432647977589970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
