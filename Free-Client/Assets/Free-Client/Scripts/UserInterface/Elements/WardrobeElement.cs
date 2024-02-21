@@ -21,43 +21,47 @@ public class WardrobeElement : MonoBehaviour
     private Transform _allwaysOnTop;
     private Transform _layout;
     private List<GameObject> _activeColorElements = new List<GameObject>();
-
+    private bool _hasNoneOption;
+    
     private void Awake()
     {
         dropdownWardrobe.ClearOptions();
     }
 
-    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, List<UMATextRecipe>[] recipesToShow = null, bool useCustomRecipesList = false)
+    public void InitializeWardrobe(DynamicCharacterAvatar avatar, string slotname, Transform layout, Transform allwayOnTop, SO_RecipesToShow recipesToShow, bool hasNoneOption)
     {
         textWardrobeName.text = slotname;
         this._avatar = avatar;
         this._layout = layout;
         this._allwaysOnTop = allwayOnTop;
+        this._hasNoneOption = hasNoneOption;
 
-        if(recipesToShow != null)
+        foreach(SO_Recipes rts in recipesToShow.RecipesToShow)
         {
-            for (int i = 0; i < recipesToShow.Length; i++)
+            foreach(UMATextRecipe utr in rts.Recipes)
             {
-                foreach (UMATextRecipe r in recipesToShow[i])
-                {
-                    _recipesToShow.Add(r);
-                }
+                _recipesToShow.Add(utr);
             }
         }
-        
-        CreateOptions(slotname, useCustomRecipesList);
+
+        CreateOptions(slotname, hasNoneOption);
     }
 
-    private void CreateOptions(string slotname, bool useCustomRecipesList)
+    private void CreateOptions(string slotname, bool hasNoneOption)
     {
         List<UMATextRecipe> slotRecipes = _avatar.AvailableRecipes[slotname];
         
-        options.Add("None", 0);
+        int i = 0;
+        
+        if(hasNoneOption)
+        {
+            options.Add("None", 0);
+            i = 1;
+        }
 
-        int i = 1;
         foreach (UMATextRecipe utr in slotRecipes)
         {
-            if(_recipesToShow.Contains(utr) || !useCustomRecipesList)
+            if(_recipesToShow.Contains(utr))
             {
                 string name = GetRecipeNameOrDisplayValue(utr);
 
@@ -87,6 +91,7 @@ public class WardrobeElement : MonoBehaviour
             if (options.ContainsKey(name))
             {
                 dropdownWardrobe.SetValueWithoutNotify(options[name]);
+                lastRecipe = recipe.Value;
                 OverlayColorData[] colors = recipe.Value.SharedColors;
                 CreateColorSelectors(colors, _allwaysOnTop);
             }
@@ -109,7 +114,7 @@ public class WardrobeElement : MonoBehaviour
     {
         foreach(KeyValuePair<UMATextRecipe, int> recipe in recipes)
         {
-            if(change.value != 0)
+            if(change.value != 0 || !_hasNoneOption)
             {
                 if (change.value == recipe.Value)
                 {   

@@ -2462,65 +2462,23 @@ MonoBehaviour:
   - legsSize
   - waist
   - gluteusSize
-  _femaleHairWardropeTypes:
-  - Hair
-  - Eyebrows
-  _maleHairWardropeTypes:
-  - Hair
-  - Eyebrows
-  - Beard
-  _femaleClothesWardropeTypes:
-  - Underwear
-  _maleClothesWardropeTypes:
-  - Underwear
-  _femaleEyesWardropeTypes:
-  - Eyes
-  _maleEyesWardropeTypes:
-  - Eyes
+  _femaleHairWardropeTypes: {fileID: 11400000, guid: 43f20e7e25dbec74ebdf5ebeeba06927, type: 2}
+  _femaleClothesWardropeTypes: {fileID: 11400000, guid: 89476a28862c11348a06252d0e147cb4, type: 2}
+  _femaleEyesWardropeTypes: {fileID: 11400000, guid: e70dc53e9ba0f544f837129942a1ffb3, type: 2}
+  _maleHairWardropeTypes: {fileID: 11400000, guid: ce8e50641f44efa4190c8c03c6bd345a, type: 2}
+  _maleClothesWardropeTypes: {fileID: 11400000, guid: 48540cc1e5b4195469fb93a8bcd8cc07, type: 2}
+  _maleEyesWardropeTypes: {fileID: 11400000, guid: f9be83d4bd8e75b4b9ebf54d614c1357, type: 2}
   _femaleGeneralColors:
   - Eyelash
   - Lipstick
   _maleGeneralColors:
   - Eyelash
-  _femaleHairRecipes:
-  - {fileID: 11400000, guid: bdae23dff0f3d3648882f2f087840fef, type: 2}
-  - {fileID: 11400000, guid: f23297b636ef1bf41b5df17f140d9553, type: 2}
-  - {fileID: 11400000, guid: b1cd665aba1e0b1419a57a38c1f4d3dc, type: 2}
-  _femaleEyebrowsRecipes:
-  - {fileID: 11400000, guid: eb9cbdf7facd0424b9bdef57af3c8474, type: 2}
-  - {fileID: 11400000, guid: 63bb247017655ed488d8dccb83c77eaa, type: 2}
-  _femaleUnderwearRecipes:
-  - {fileID: 11400000, guid: 9050e005ddce44d4f89dc6158808b409, type: 2}
-  - {fileID: 11400000, guid: d40e65714e237a3499a2eada8f3411c6, type: 2}
-  _femaleEyesRecipes:
-  - {fileID: 11400000, guid: 1d3754b7c56905848ad40e7515ee2524, type: 2}
-  - {fileID: 11400000, guid: 3e69ca665e3198b4cad48379e25f71f3, type: 2}
-  - {fileID: 11400000, guid: e2193fd760646ec40828683da3aaf690, type: 2}
-  _maleHairRecipes:
-  - {fileID: 11400000, guid: 4acc51a73e0e5884eb7e770d8f803e81, type: 2}
-  - {fileID: 11400000, guid: bc2ac8c776a97fa46a5a1a9455599f2c, type: 2}
-  - {fileID: 11400000, guid: cbac10d2bc6792c43b0d89e71534cf77, type: 2}
-  - {fileID: 11400000, guid: aba961e2f47032e41a87472b6a41306a, type: 2}
-  - {fileID: 11400000, guid: 75611b25b76dfcd4facf747f35d19f26, type: 2}
-  - {fileID: 11400000, guid: 8e67f8d6f30659a4d9202b2e6b8809b1, type: 2}
-  - {fileID: 11400000, guid: d5470e7076173334fbd1b341e385bef0, type: 2}
-  _maleEyebrowsRecipes:
-  - {fileID: 11400000, guid: d028789ea98a51341810eccef18a667f, type: 2}
-  - {fileID: 11400000, guid: 9d8d16d74d7897e4caae12ca4d56f223, type: 2}
-  - {fileID: 11400000, guid: 3a1edb5d395b68f4089d59c1f1217d81, type: 2}
-  - {fileID: 11400000, guid: af0f5dedaabf3e946b78b4552139b9a3, type: 2}
-  _maleBeardRecipes:
-  - {fileID: 11400000, guid: a2b1f4c9b2ad40f4b8a68144700342f8, type: 2}
-  - {fileID: 11400000, guid: 506e811243229714bb4e2386dcbc08d3, type: 2}
-  - {fileID: 11400000, guid: 1df4eb647357a74498fa7e6b4672ad8d, type: 2}
-  _maleUnderwearRecipes:
-  - {fileID: 11400000, guid: fd65ba08e9f303242809809d1fcb4307, type: 2}
-  - {fileID: 11400000, guid: 5bbd4dc2ec713f24a84512ef4f9ffe00, type: 2}
-  - {fileID: 11400000, guid: 71e3ef35d8b941d4ab538b01f57dbb79, type: 2}
-  _maleEyesRecipes:
-  - {fileID: 11400000, guid: 518535e4bd613dc458a460be75d97327, type: 2}
-  - {fileID: 11400000, guid: 8ea99475ea1aac141b787fc5dc6cc824, type: 2}
-  - {fileID: 11400000, guid: 667840f679650844dbfbd6f3a4134998, type: 2}
+  _femaleHairRecipesToShow: {fileID: 11400000, guid: 568549a87acde4f489ad372c1e54ff72, type: 2}
+  _femaleUnderwearRecipesToShow: {fileID: 11400000, guid: 0559f12f42fcb3d42b49181590e1ace4, type: 2}
+  _femaleEyesRecipesToShow: {fileID: 11400000, guid: e5db785d4edbc3b4bae1fe58ef184f3d, type: 2}
+  _maleHairRecipesToShow: {fileID: 11400000, guid: b22d4e35d106f6241be1199bb8ab738a, type: 2}
+  _maleUnderwearRecipesToShow: {fileID: 11400000, guid: 5464b380e3e39a246bc08645b9f6cbfe, type: 2}
+  _maleEyesRecipesToShow: {fileID: 11400000, guid: 4c85ef41fe67c0a468cd389139a68ad8, type: 2}
 --- !u!1 &2862057205195079379
 GameObject:
   m_ObjectHideFlags: 0

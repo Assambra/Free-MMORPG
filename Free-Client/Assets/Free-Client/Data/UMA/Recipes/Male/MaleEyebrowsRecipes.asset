@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc85117299daed45b44c390b1a4dd80, type: 3}
+  m_Name: MaleEyebrowsRecipes
+  m_EditorClassIdentifier: 
+  Recipes:
+  - {fileID: 11400000, guid: d028789ea98a51341810eccef18a667f, type: 2}
+  - {fileID: 11400000, guid: 9d8d16d74d7897e4caae12ca4d56f223, type: 2}
+  - {fileID: 11400000, guid: 3a1edb5d395b68f4089d59c1f1217d81, type: 2}
+  - {fileID: 11400000, guid: af0f5dedaabf3e946b78b4552139b9a3, type: 2}

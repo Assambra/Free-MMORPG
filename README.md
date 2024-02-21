@@ -44,6 +44,7 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
+                <li><a href="#burst-compiler">Burst compiler</a></li>
                 <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
             </ul>
@@ -189,7 +190,8 @@ Get submodules:
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
 To add this two packages (Newtonsoft Json and HSV-Color-Picker-Unity) manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
-
+#### Burst Compiler
+Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the Install button to install the package.
 #### Newtonsoft Json
 The EzyFox Client SDK need Newtonsoft Json package to work.
 
@@ -226,12 +228,15 @@ and additionally add to the file.
 <!-- UMA -->
 ### UMA
 #### Get UMA
-Download the latest UMA Unity Asset Pack [UMA 2.13 Beta 1](https://github.com/umasteeringgroup/UMA/releases/download/v2.13b1/UMA213b.unitypackage) from the UMA GitHub repository.
+Download our modified latest UMA version [UMA 2.13 Beta 1-modified.rar](https://www.assambra.com/files/UMA%202.13%20Beta%201-modified.rar) with all needed modifications.
+
+or
+
+Download the latest UMA Unity Asset Pack [UMA 2.13 Beta 1](https://github.com/umasteeringgroup/UMA/releases/download/v2.13b1/UMA213b.unitypackage) from the UMA GitHub repository. And do all changes manually, please visit our wiki page [UMA](https://github.com/Assambra/Free-MMORPG/wiki/UMA) for more information.
 
 #### Install UMA Package
 Open with Unity the Free-MMORPG Unity project. Simple drag and drop the downloaded UMA213b.unitypackage from your download folder into the opened Unity project. Let all selected and click import.
 
-They are some extra steps required please visit our wiki page [UMA](https://github.com/Assambra/Free-MMORPG/wiki/UMA)
 
 <!-- CREST OCEAN SYSTEM -->
 ### Crest Ocean System
