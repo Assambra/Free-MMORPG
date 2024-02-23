@@ -1,4 +1,4 @@
 [submodule "Free-Client/Assets/Free-Client/Plugins/ezyfox-server-csharp-client-unity-client"]
-	path = Free-Client/Assets/Free-Client/Plugins/ezyfox-server-csharp-client-unity-client
+	path = Free-Client/Assets/Free-Client/Scripts/Plugins/ezyfox-server-csharp-client-unity-client
 	url = https://github.com/youngmonkeys/ezyfox-server-csharp-client.git
 	branch = unity-client
