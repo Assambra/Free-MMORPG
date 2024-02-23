@@ -2,56 +2,58 @@ using Assambra.GameFramework.GameManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static IPopupFactory;
 
-public class PopupManager : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    public static PopupManager Instance { get; private set; }
-
-    [field: SerializeField] public UIHandler UIHandler { get; private set; }
-    
-    private Dictionary<Type, IPopupFactory> popupFactories;
-
-    public void Awake()
+    public class PopupManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
-            Destroy(this);
-        else
-            Instance = this;
+        public static PopupManager Instance { get; private set; }
 
-        popupFactories = new Dictionary<Type, IPopupFactory>();
+        [field: SerializeField] public UIHandler UIHandler { get; private set; }
 
-        popupFactories[typeof(InformationPopup)] = new PopupFactory<InformationPopup>();
-        popupFactories[typeof(ErrorPopup)] = new PopupFactory<ErrorPopup>();
-    }
+        private Dictionary<Type, IPopupFactory> popupFactories;
 
-    public T ShowInformationPopup<T>(string title, string information, Action onOK) where T : InformationPopup
-    {
-        if (popupFactories.TryGetValue(typeof(T), out var factory))
+        public void Awake()
         {
-            T popup = factory.CreatePopup() as T;
-            popup.Setup(title, information, onOK);
-            return popup;
+            if (Instance != null && Instance != this)
+                Destroy(this);
+            else
+                Instance = this;
+
+            popupFactories = new Dictionary<Type, IPopupFactory>();
+
+            popupFactories[typeof(InformationPopup)] = new PopupFactory<InformationPopup>();
+            popupFactories[typeof(ErrorPopup)] = new PopupFactory<ErrorPopup>();
         }
-        else
-        {
-            Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
-            return null;
-        }
-    }
 
-    public T ShowErrorPopup<T>(string title, string information, Action onOK) where T : ErrorPopup
-    {
-        if (popupFactories.TryGetValue(typeof(T), out var factory))
+        public T ShowInformationPopup<T>(string title, string information, Action onOK) where T : InformationPopup
         {
-            T popup = factory.CreatePopup() as T;
-            popup.Setup(title, information, onOK);
-            return popup;
+            if (popupFactories.TryGetValue(typeof(T), out var factory))
+            {
+                T popup = factory.CreatePopup() as T;
+                popup.Setup(title, information, onOK);
+                return popup;
+            }
+            else
+            {
+                Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
+                return null;
+            }
         }
-        else
+
+        public T ShowErrorPopup<T>(string title, string information, Action onOK) where T : ErrorPopup
         {
-            Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
-            return null;
+            if (popupFactories.TryGetValue(typeof(T), out var factory))
+            {
+                T popup = factory.CreatePopup() as T;
+                popup.Setup(title, information, onOK);
+                return popup;
+            }
+            else
+            {
+                Debug.LogError($"No factory for Popup-Typ {typeof(T)} found.");
+                return null;
+            }
         }
     }
 }

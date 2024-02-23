@@ -1,23 +1,28 @@
+using Assambra.FreeClient.Entities;
+using Assambra.FreeClient.Managers;
 using UnityEngine;
 using TMPro;
 
-public class PlayerHeadInfo : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private Player player;
-    [SerializeField] private TMP_Text playerNameText;
-
-    private void LateUpdate()
+    public class PlayerHeadInfo : MonoBehaviour
     {
-        transform.rotation = GameManager.Instance.CameraController.transform.rotation;
-    }
+        [SerializeField] private Player player;
+        [SerializeField] private TMP_Text playerNameText;
 
-    public void SetPlayername(string playerName)
-    {
-        playerNameText.text = playerName;
-    }
+        private void LateUpdate()
+        {
+            transform.rotation = GameManager.Instance.CameraController.transform.rotation;
+        }
 
-    public void SetPlayerInfoPosition(float heightDiff)
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y - heightDiff, transform.position.z);
+        public void SetPlayername(string playerName)
+        {
+            playerNameText.text = playerName;
+        }
+
+        public void SetPlayerInfoPosition(float heightDiff)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - heightDiff, transform.position.z);
+        }
     }
 }

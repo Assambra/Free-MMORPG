@@ -2,58 +2,61 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class TabHandler : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private GameObject[] tabs;
-    [SerializeField] private Sprite spriteTabActive;
-    [SerializeField] private Sprite spriteTabInactive;
-    [SerializeField] private Color buttonActiveColor;
-    [SerializeField] private Color buttonInactiveColor;
-    [SerializeField] private Color textActiveColor;
-    [SerializeField] private Color textInactiveColor;
-
-    private void Awake()
+    public class TabHandler : MonoBehaviour
     {
-        foreach (GameObject tab in tabs) 
+        [SerializeField] private GameObject[] tabs;
+        [SerializeField] private Sprite spriteTabActive;
+        [SerializeField] private Sprite spriteTabInactive;
+        [SerializeField] private Color buttonActiveColor;
+        [SerializeField] private Color buttonInactiveColor;
+        [SerializeField] private Color textActiveColor;
+        [SerializeField] private Color textInactiveColor;
+
+        private void Awake()
         {
-            Button btn = tab.GetComponent<Button>();
-            btn.onClick.AddListener(() => { OnButtonTab(btn.gameObject); });
+            foreach (GameObject tab in tabs)
+            {
+                Button btn = tab.GetComponent<Button>();
+                btn.onClick.AddListener(() => { OnButtonTab(btn.gameObject); });
+            }
         }
-    }
 
-    public void OnButtonTab(GameObject buttonGameObject)
-    {
-        int i = 0;
-        foreach (GameObject tab in tabs) 
+        public void OnButtonTab(GameObject buttonGameObject)
         {
-            if(buttonGameObject == tab)
+            int i = 0;
+            foreach (GameObject tab in tabs)
             {
-                tab.GetComponent<Image>().sprite = spriteTabActive;
-                tab.GetComponent<Button>().image.color = buttonActiveColor;
+                if (buttonGameObject == tab)
+                {
+                    tab.GetComponent<Image>().sprite = spriteTabActive;
+                    tab.GetComponent<Button>().image.color = buttonActiveColor;
 
-                TabButton tb = tab.GetComponent<TabButton>();
-                if (!tb.GetColorizerActiveState())
-                    tb.SetColorizerActiveState();
+                    TabButton tb = tab.GetComponent<TabButton>();
+                    if (!tb.GetColorizerActiveState())
+                        tb.SetColorizerActiveState();
 
-                tab.GetComponentInChildren<TMP_Text>().color = textActiveColor;
-                tab.transform.SetSiblingIndex(tabs.Length);
-                
+                    tab.GetComponentInChildren<TMP_Text>().color = textActiveColor;
+                    tab.transform.SetSiblingIndex(tabs.Length);
+
+                }
+                else
+                {
+                    tab.GetComponent<Image>().sprite = spriteTabInactive;
+                    tab.GetComponent<Button>().image.color = buttonInactiveColor;
+
+                    TabButton tb = tab.GetComponent<TabButton>();
+                    if (tb.GetColorizerActiveState())
+                        tb.SetColorizerActiveState();
+
+                    tab.GetComponentInChildren<TMP_Text>().color = textInactiveColor;
+                    tab.transform.SetSiblingIndex(i);
+                    i++;
+                }
+
             }
-            else
-            {
-                tab.GetComponent<Image>().sprite = spriteTabInactive;
-                tab.GetComponent<Button>().image.color = buttonInactiveColor;
-
-                TabButton tb = tab.GetComponent<TabButton>();
-                if (tb.GetColorizerActiveState())
-                    tb.SetColorizerActiveState();
-                
-                tab.GetComponentInChildren<TMP_Text>().color = textInactiveColor;
-                tab.transform.SetSiblingIndex(i);
-                i++;
-            }
-                
         }
-    }
 
+    }
 }

@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public static class RandomString
+namespace Assambra.FreeClient.Helper
 {
-    public static string GetNumericString(int n)
+    public static class RandomString
     {
-        return Random.Range(0, n).ToString();
+        public static string GetNumericString(int n)
+        {
+            return Random.Range(0, n).ToString();
+        }
     }
 }

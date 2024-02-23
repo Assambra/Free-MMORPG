@@ -1,20 +1,23 @@
 using UMA.CharacterSystem;
 
-public static class UMAHelper 
+namespace Assambra.FreeClient.Helper
 {
-    private static DynamicCharacterAvatar avatar;
-
-
-    public static string GetAvatarString(DynamicCharacterAvatar avatar)
+    public static class UMAHelper
     {
-        string model = avatar.GetAvatarDefinition(true).ToCompressedString("|");
-        return model;
-    }
+        private static DynamicCharacterAvatar avatar;
 
-    public static void SetAvatarString(DynamicCharacterAvatar avatar, string model)
-    {
-        AvatarDefinition adf = AvatarDefinition.FromCompressedString(model, '|');
-        avatar.LoadAvatarDefinition(adf);
-        avatar.BuildCharacter(false);
+
+        public static string GetAvatarString(DynamicCharacterAvatar avatar)
+        {
+            string model = avatar.GetAvatarDefinition(true).ToCompressedString("|");
+            return model;
+        }
+
+        public static void SetAvatarString(DynamicCharacterAvatar avatar, string model)
+        {
+            AvatarDefinition adf = AvatarDefinition.FromCompressedString(model, '|');
+            avatar.LoadAvatarDefinition(adf);
+            avatar.BuildCharacter(false);
+        }
     }
 }

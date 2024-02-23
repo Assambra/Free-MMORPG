@@ -4,57 +4,60 @@ using UMA.CharacterSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorSelectorElement : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private Button _buttonColor;
-    [SerializeField] private Image _imageColor;
-    [SerializeField] private GameObject _prefabColorPicker;
-    [SerializeField] private TMP_Text _textColorName;
-    
-    private DynamicCharacterAvatar _avatar;
-
-    private OverlayColorData _colorType;
-    private Transform _colorPickerHome;
-    private string _name;
-    private GameObject _colorPicker;
-
-    private void Update()
+    public class ColorSelectorElement : MonoBehaviour
     {
-        _imageColor.color = _colorType.color;
-    }
+        [SerializeField] private Button _buttonColor;
+        [SerializeField] private Image _imageColor;
+        [SerializeField] private GameObject _prefabColorPicker;
+        [SerializeField] private TMP_Text _textColorName;
 
-    private void OnDestroy()
-    {
-        RemoveColorPicker();
-    }
+        private DynamicCharacterAvatar _avatar;
 
-    public void Initialize(DynamicCharacterAvatar avatar, OverlayColorData colorType, string name, Transform colorPickerHome)
-    {
-        this._avatar = avatar;
-        this._colorType = colorType;
+        private OverlayColorData _colorType;
+        private Transform _colorPickerHome;
+        private string _name;
+        private GameObject _colorPicker;
 
-        this._colorPickerHome = colorPickerHome;
-        this._name = name;
-        _textColorName.text = name;
-    }
-
-    public void RemoveColorPicker()
-    {
-        if(_colorPicker != null)
-            Destroy(_colorPicker);
-    }
-
-    public void OnButtonColor()
-    {
-        if(_colorPicker == null)
+        private void Update()
         {
-            _colorPicker = Instantiate(_prefabColorPicker, _colorPickerHome);
-            ColorPicker cpo = _colorPicker.GetComponent<ColorPicker>();
-            cpo.Initalize(_avatar, _colorType, _name);
+            _imageColor.color = _colorType.color;
         }
-        else
+
+        private void OnDestroy()
         {
-            Destroy(_colorPicker);
+            RemoveColorPicker();
+        }
+
+        public void Initialize(DynamicCharacterAvatar avatar, OverlayColorData colorType, string name, Transform colorPickerHome)
+        {
+            this._avatar = avatar;
+            this._colorType = colorType;
+
+            this._colorPickerHome = colorPickerHome;
+            this._name = name;
+            _textColorName.text = name;
+        }
+
+        public void RemoveColorPicker()
+        {
+            if (_colorPicker != null)
+                Destroy(_colorPicker);
+        }
+
+        public void OnButtonColor()
+        {
+            if (_colorPicker == null)
+            {
+                _colorPicker = Instantiate(_prefabColorPicker, _colorPickerHome);
+                ColorPicker cpo = _colorPicker.GetComponent<ColorPicker>();
+                cpo.Initalize(_avatar, _colorType, _name);
+            }
+            else
+            {
+                Destroy(_colorPicker);
+            }
         }
     }
 }

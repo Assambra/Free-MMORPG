@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IPopupFactory
+namespace Assambra.FreeClient.UserInterface
 {
-    BasePopup CreatePopup();
+    public interface IPopupFactory
+    {
+        BasePopup CreatePopup();
+    }
 }

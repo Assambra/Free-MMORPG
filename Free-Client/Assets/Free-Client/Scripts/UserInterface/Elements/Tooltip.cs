@@ -1,105 +1,109 @@
+using Assambra.FreeClient.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private string tooltiptext;
-    [SerializeField] private float delayToShowInfo = 1f;
-    [SerializeField] private GameObject _prefabTooltipElement;
-
-    private float timer;
-    private bool startTimer;
-    private GameObject tooltipGameObject;
-    
-    private RectTransform parentRectTransform;
-    private float parentWidth;
-    private float parentHeight;
-
-    private void Awake()
+    public class Tooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
-        parentRectTransform = gameObject.gameObject.GetComponent<RectTransform>();
-        parentHeight = parentRectTransform.sizeDelta.y;
-        parentWidth = parentRectTransform.sizeDelta.x;
-    }
+        [SerializeField] private string tooltiptext;
+        [SerializeField] private float delayToShowInfo = 1f;
+        [SerializeField] private GameObject _prefabTooltipElement;
 
-    private void Update()
-    {
-        if (startTimer)
+        private float timer;
+        private bool startTimer;
+        private GameObject tooltipGameObject;
+
+        private RectTransform parentRectTransform;
+        private float parentWidth;
+        private float parentHeight;
+
+        private void Awake()
         {
-            if (timer >= delayToShowInfo)
+            parentRectTransform = gameObject.gameObject.GetComponent<RectTransform>();
+            parentHeight = parentRectTransform.sizeDelta.y;
+            parentWidth = parentRectTransform.sizeDelta.x;
+        }
+
+        private void Update()
+        {
+            if (startTimer)
             {
-                if(tooltipGameObject == null)
+                if (timer >= delayToShowInfo)
                 {
-                    CreateToolTip();
-                }
-                else 
-                {
-                    if(MouseMoved())
+                    if (tooltipGameObject == null)
                     {
-                        StopTimer();
-                        RemoveTooltip();
+                        CreateToolTip();
+                    }
+                    else
+                    {
+                        if (MouseMoved())
+                        {
+                            StopTimer();
+                            RemoveTooltip();
+                        }
                     }
                 }
+
+                timer += Time.deltaTime;
             }
-
-            timer += Time.deltaTime;
         }
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        StartTimer();
-    }
-    
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        StopTimer();
-        RemoveTooltip();
-    }
-    
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        StopTimer();
-        RemoveTooltip();
-    }
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            StartTimer();
+        }
 
-    private void StartTimer()
-    {
-        startTimer = true;
-    }
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            StopTimer();
+            RemoveTooltip();
+        }
 
-    private void StopTimer()
-    {
-        startTimer = false;
-        timer = 0;
-    }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            StopTimer();
+            RemoveTooltip();
+        }
 
-    private void CreateToolTip()
-    {
-        tooltipGameObject = Instantiate(_prefabTooltipElement, GameManager.Instance.UIHandler.Canvas.transform);
-        TooltipElement te = tooltipGameObject.GetComponent<TooltipElement>();
-        te.SetTooltipText(tooltiptext);
-        
-        RectTransform rectTransform = tooltipGameObject.GetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        private void StartTimer()
+        {
+            startTimer = true;
+        }
 
-        Vector2 tooltipSize = te.GetTooltipSize();
+        private void StopTimer()
+        {
+            startTimer = false;
+            timer = 0;
+        }
 
-        float newTooltipX = tooltipSize.x / 2;
-        float newTooltipY = tooltipSize.y / 2;
+        private void CreateToolTip()
+        {
+            tooltipGameObject = Instantiate(_prefabTooltipElement, GameManager.Instance.UIHandler.Canvas.transform);
+            TooltipElement te = tooltipGameObject.GetComponent<TooltipElement>();
+            te.SetTooltipText(tooltiptext);
 
-        rectTransform.position = new Vector3(parentRectTransform.position.x - newTooltipX, parentRectTransform.position.y + newTooltipY + parentHeight, 0);
-    }
+            RectTransform rectTransform = tooltipGameObject.GetComponent<RectTransform>();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
 
-    private void RemoveTooltip()
-    {
-        Destroy(tooltipGameObject);
-    }
+            Vector2 tooltipSize = te.GetTooltipSize();
 
-    private bool MouseMoved()
-    {
-        return Input.GetAxis("Mouse X") > 0.01f || Input.GetAxis("Mouse X") < -0.01f ||
-               Input.GetAxis("Mouse Y") > 0.01f || Input.GetAxis("Mouse Y") < -0.01f;
+            float newTooltipX = tooltipSize.x / 2;
+            float newTooltipY = tooltipSize.y / 2;
+
+            rectTransform.position = new Vector3(parentRectTransform.position.x - newTooltipX, parentRectTransform.position.y + newTooltipY + parentHeight, 0);
+        }
+
+        private void RemoveTooltip()
+        {
+            Destroy(tooltipGameObject);
+        }
+
+        private bool MouseMoved()
+        {
+            return Input.GetAxis("Mouse X") > 0.01f || Input.GetAxis("Mouse X") < -0.01f ||
+                   Input.GetAxis("Mouse Y") > 0.01f || Input.GetAxis("Mouse Y") < -0.01f;
+        }
     }
 }

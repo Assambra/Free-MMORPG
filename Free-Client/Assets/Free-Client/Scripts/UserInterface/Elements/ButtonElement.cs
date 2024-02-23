@@ -3,14 +3,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonElement : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] Button button;
-    [SerializeField] TMP_Text text;
-
-    public void Initialize(string buttonName, Action onButtonClickAction)
+    public class ButtonElement : MonoBehaviour
     {
-        text.text = buttonName;
-        button.onClick.AddListener(() => onButtonClickAction());
+        [SerializeField] Button button;
+        [SerializeField] TMP_Text text;
+
+        public void Initialize(string buttonName, Action onButtonClickAction)
+        {
+            text.text = buttonName;
+            button.onClick.AddListener(() => onButtonClickAction());
+        }
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class BasePopup : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    public abstract void Destroy();
+    public abstract class BasePopup : MonoBehaviour
+    {
+        public abstract void Destroy();
+    }
 }

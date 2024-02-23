@@ -2,26 +2,29 @@ using Assambra.GameFramework.MouseHandler;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonPressedChecker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace Assambra.FreeClient.UserInterface
 {
-    public bool IsButtonPressed = false;
-
-    private EventSystem eventSystem;
-    private MouseHandler mouseHandler;
-
-    private void Awake()
+    public class ButtonPressedChecker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        mouseHandler = GameObject.Find("MouseHandler").GetComponent<MouseHandler>();
-        eventSystem = mouseHandler.GetEventSystem();
-    }
+        public bool IsButtonPressed = false;
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        IsButtonPressed = true;
-    }
+        private EventSystem eventSystem;
+        private MouseHandler mouseHandler;
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        IsButtonPressed = false;
+        private void Awake()
+        {
+            mouseHandler = GameObject.Find("MouseHandler").GetComponent<MouseHandler>();
+            eventSystem = mouseHandler.GetEventSystem();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            IsButtonPressed = true;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            IsButtonPressed = false;
+        }
     }
 }

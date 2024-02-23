@@ -4,79 +4,82 @@ using UnityEngine.UI;
 using UMA;
 using UMA.CharacterSystem;
 
-public class SliderElement : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] TMP_Text textSliderName;
-    [SerializeField] Slider slider;
-
-    private UMADnaBase owner;
-    private DynamicCharacterAvatar avatar;
-    private int index;
-    private DNARangeAsset dNARangeAsset;
-
-    private bool isInitialized = false;
-
-    private void OnEnable()
+    public class SliderElement : MonoBehaviour
     {
-        slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(); });
-    }
+        [SerializeField] TMP_Text textSliderName;
+        [SerializeField] Slider slider;
 
-    public void InitializeSlider(string sliderName, string dnaName, float currentValue, int index, DynamicCharacterAvatar avatar, UMADnaBase owner, bool disableName = false, float width = 220f)
-    {
-        SetWidth(width);
+        private UMADnaBase owner;
+        private DynamicCharacterAvatar avatar;
+        private int index;
+        private DNARangeAsset dNARangeAsset;
 
-        textSliderName.text = sliderName;
-        slider.value = currentValue;
-        this.index = index;
-        this.avatar = avatar;
-        this.owner = owner;
+        private bool isInitialized = false;
 
-        if(disableName)
-            DisableName();
-
-        dNARangeAsset = GetRangeAsset(dnaName);
-
-        if(dNARangeAsset.ContainsDNARange(index, dnaName))
+        private void OnEnable()
         {
-            slider.minValue = dNARangeAsset.means[index] - dNARangeAsset.spreads[index];
-            slider.maxValue = dNARangeAsset.means[index] + dNARangeAsset.spreads[index];
+            slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(); });
         }
 
-        isInitialized = true;
-    }
-
-    private void DisableName()
-    {
-        textSliderName.gameObject.SetActive(false);
-    }
-
-    private void SetWidth(float width)
-    {
-        RectTransform sliderObjectRectTransform = this.gameObject.GetComponent<RectTransform>();
-        sliderObjectRectTransform.sizeDelta = new Vector2(width, sliderObjectRectTransform.rect.height);
-        RectTransform sliderRectTransform = slider.GetComponent<RectTransform>();
-        sliderRectTransform.sizeDelta = new Vector2(width, sliderRectTransform.rect.height);
-    }
-
-    private DNARangeAsset GetRangeAsset(string dnaName)
-    {
-        DNARangeAsset[] dnaRangeAssets = avatar.activeRace.data.dnaRanges;
-        foreach (DNARangeAsset d in dnaRangeAssets)
+        public void InitializeSlider(string sliderName, string dnaName, float currentValue, int index, DynamicCharacterAvatar avatar, UMADnaBase owner, bool disableName = false, float width = 220f)
         {
-            if (d.ContainsDNARange(index, dnaName))
+            SetWidth(width);
+
+            textSliderName.text = sliderName;
+            slider.value = currentValue;
+            this.index = index;
+            this.avatar = avatar;
+            this.owner = owner;
+
+            if (disableName)
+                DisableName();
+
+            dNARangeAsset = GetRangeAsset(dnaName);
+
+            if (dNARangeAsset.ContainsDNARange(index, dnaName))
             {
-                return d;
+                slider.minValue = dNARangeAsset.means[index] - dNARangeAsset.spreads[index];
+                slider.maxValue = dNARangeAsset.means[index] + dNARangeAsset.spreads[index];
             }
-        }
-        return null;
-    }
 
-    private void OnSliderValueChanged()
-    {
-        if(isInitialized)
+            isInitialized = true;
+        }
+
+        private void DisableName()
         {
-            owner.SetValue(index, slider.value);
-            avatar.ForceUpdate(true, false, false);
+            textSliderName.gameObject.SetActive(false);
+        }
+
+        private void SetWidth(float width)
+        {
+            RectTransform sliderObjectRectTransform = this.gameObject.GetComponent<RectTransform>();
+            sliderObjectRectTransform.sizeDelta = new Vector2(width, sliderObjectRectTransform.rect.height);
+            RectTransform sliderRectTransform = slider.GetComponent<RectTransform>();
+            sliderRectTransform.sizeDelta = new Vector2(width, sliderRectTransform.rect.height);
+        }
+
+        private DNARangeAsset GetRangeAsset(string dnaName)
+        {
+            DNARangeAsset[] dnaRangeAssets = avatar.activeRace.data.dnaRanges;
+            foreach (DNARangeAsset d in dnaRangeAssets)
+            {
+                if (d.ContainsDNARange(index, dnaName))
+                {
+                    return d;
+                }
+            }
+            return null;
+        }
+
+        private void OnSliderValueChanged()
+        {
+            if (isInitialized)
+            {
+                owner.SetValue(index, slider.value);
+                avatar.ForceUpdate(true, false, false);
+            }
         }
     }
 }

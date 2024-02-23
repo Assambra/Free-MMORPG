@@ -1,17 +1,20 @@
 using TMPro;
 using UnityEngine;
 
-public class TooltipElement : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] TMP_Text textTooltip;
-
-    public void SetTooltipText(string text)
+    public class TooltipElement : MonoBehaviour
     {
-        textTooltip.text = text;
-    }
+        [SerializeField] TMP_Text textTooltip;
 
-    public Vector2 GetTooltipSize()
-    {
-        return textTooltip.gameObject.GetComponent<RectTransform>().sizeDelta;
+        public void SetTooltipText(string text)
+        {
+            textTooltip.text = text;
+        }
+
+        public Vector2 GetTooltipSize()
+        {
+            return textTooltip.gameObject.GetComponent<RectTransform>().sizeDelta;
+        }
     }
 }

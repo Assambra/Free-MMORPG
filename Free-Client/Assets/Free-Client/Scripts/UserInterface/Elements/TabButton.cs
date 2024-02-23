@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TabButton : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private GameObject tabColorizer;
-
-    public void SetColorizerActiveState()
+    public class TabButton : MonoBehaviour
     {
-        tabColorizer.SetActive(!tabColorizer.activeSelf);  
-    }
+        [SerializeField] private GameObject tabColorizer;
 
-    public bool GetColorizerActiveState()
-    {
-        return tabColorizer.activeSelf;
+        public void SetColorizerActiveState()
+        {
+            tabColorizer.SetActive(!tabColorizer.activeSelf);
+        }
+
+        public bool GetColorizerActiveState()
+        {
+            return tabColorizer.activeSelf;
+        }
     }
 }

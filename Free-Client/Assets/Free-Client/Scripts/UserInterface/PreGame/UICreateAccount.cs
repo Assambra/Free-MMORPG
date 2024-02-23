@@ -1,101 +1,107 @@
 using Assambra.GameFramework.GameManager;
+using Assambra.FreeClient.Constants;
+using Assambra.FreeClient.Helper;
+using Assambra.FreeClient.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICreateAccount : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    public Button ButtonBack;
-    public Button ButtonCreate;
-    public Button ButtonForgotData;
-
-    [SerializeField] private TMP_InputField _inputFieldEmail;
-    [SerializeField] private TMP_InputField _inputFieldUsername;
-    [SerializeField] private TMP_InputField _inputFieldPassword;
-
-    public void OnButtonCreate()
+    public class UICreateAccount : MonoBehaviour
     {
-        if (NetworkManagerAccount.Instance.Connected())
-        {
-            string email = _inputFieldEmail.text;
-            string username = _inputFieldUsername.text;
-            string password = _inputFieldPassword.text;
+        public Button ButtonBack;
+        public Button ButtonCreate;
+        public Button ButtonForgotData;
 
-            if (ValidateEmail(email) && ValidateUsername(username) && ValidatePassword(password))
+        [SerializeField] private TMP_InputField _inputFieldEmail;
+        [SerializeField] private TMP_InputField _inputFieldUsername;
+        [SerializeField] private TMP_InputField _inputFieldPassword;
+
+        public void OnButtonCreate()
+        {
+            if (NetworkManagerAccount.Instance.Connected())
             {
-                ButtonCreate.interactable = false;
-                ButtonForgotData.interactable = false;
-                ButtonBack.interactable = false;
+                string email = _inputFieldEmail.text;
+                string username = _inputFieldUsername.text;
+                string password = _inputFieldPassword.text;
 
-                NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+                if (ValidateEmail(email) && ValidateUsername(username) && ValidatePassword(password))
+                {
+                    ButtonCreate.interactable = false;
+                    ButtonForgotData.interactable = false;
+                    ButtonBack.interactable = false;
+
+                    NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+                }
             }
+            else
+                ErrorPopup("Please note: We are currently not connected to a server.");
         }
-        else
-            ErrorPopup("Please note: We are currently not connected to a server.");
-    }
 
-    public void OnButtonBack()
-    {
-        GameManager.Instance.ChangeScene(Scenes.Login);
-    }
-
-    public void OnButtonForgotData()
-    {
-        GameManager.Instance.ChangeScene(Scenes.ForgotData);
-    }
-
-    private bool ValidateEmail(string email)
-    {
-        if (!InputValidator.IsValidEmail(email))
+        public void OnButtonBack()
         {
-            ErrorPopup("This is not a valid email address.");
-            return false;
+            GameManager.Instance.ChangeScene(Scenes.Login);
         }
-        else
-            return true;
-    }
 
-    private bool ValidateUsername(string username)
-    {
-        bool isValid = true;
-
-        if (!InputValidator.IsLengthValid(username, GameConstants.USERNAME_LENGTH_MIN, GameConstants.USERNAME_LENGTH_MAX))
+        public void OnButtonForgotData()
         {
-            isValid = false;
-            ErrorPopup("The username must be at least " + GameConstants.USERNAME_LENGTH_MIN + " and at most " + GameConstants.USERNAME_LENGTH_MAX + " letters long.");
+            GameManager.Instance.ChangeScene(Scenes.ForgotData);
         }
 
-        if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_NAMES))
+        private bool ValidateEmail(string email)
         {
-            isValid = false;
-            ErrorPopup("Username are not allowed!");
+            if (!InputValidator.IsValidEmail(email))
+            {
+                ErrorPopup("This is not a valid email address.");
+                return false;
+            }
+            else
+                return true;
         }
 
-        return isValid;
-    }
-
-    private bool ValidatePassword(string password)
-    {
-        if (!InputValidator.IsValidPassword(password, GameConstants.PASSWORD_LENGTH_MIN, GameConstants.PASSWORD_LENGTH_MAX))
+        private bool ValidateUsername(string username)
         {
-            ErrorPopup("Password must be " + GameConstants.PASSWORD_LENGTH_MIN + "-" + GameConstants.PASSWORD_LENGTH_MAX + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
-            return false;
+            bool isValid = true;
+
+            if (!InputValidator.IsLengthValid(username, GameConstants.USERNAME_LENGTH_MIN, GameConstants.USERNAME_LENGTH_MAX))
+            {
+                isValid = false;
+                ErrorPopup("The username must be at least " + GameConstants.USERNAME_LENGTH_MIN + " and at most " + GameConstants.USERNAME_LENGTH_MAX + " letters long.");
+            }
+
+            if (!InputValidator.DoesNotContainDisallowedName(username, GameConstants.DISALLOWED_NAMES))
+            {
+                isValid = false;
+                ErrorPopup("Username are not allowed!");
+            }
+
+            return isValid;
         }
-        else
-            return true;
-    }
 
-    private void ErrorPopup(string error)
-    {
-        string title = "Error";
-        string info = error;
+        private bool ValidatePassword(string password)
+        {
+            if (!InputValidator.IsValidPassword(password, GameConstants.PASSWORD_LENGTH_MIN, GameConstants.PASSWORD_LENGTH_MAX))
+            {
+                ErrorPopup("Password must be " + GameConstants.PASSWORD_LENGTH_MIN + "-" + GameConstants.PASSWORD_LENGTH_MAX + " include uppercase and lowercase letters, numbers, and special characters like !@#$%^&*().");
+                return false;
+            }
+            else
+                return true;
+        }
 
-        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+        private void ErrorPopup(string error)
+        {
+            string title = "Error";
+            string info = error;
 
-        popup.Setup(
-            title,
-            info,
-            () => { popup.Destroy(); }
-        );
+            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+
+            popup.Setup(
+                title,
+                info,
+                () => { popup.Destroy(); }
+            );
+        }
     }
 }

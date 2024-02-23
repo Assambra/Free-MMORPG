@@ -1,62 +1,66 @@
 using Assambra.GameFramework.GameManager;
+using Assambra.FreeClient.Helper;
+using Assambra.FreeClient.Managers;
 using UnityEngine;
 using TMPro;
 
-
-public class UILogin : MonoBehaviour
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] private TMP_InputField _inputFieldUsername;
-    [SerializeField] private TMP_InputField _inputFieldPassword;
-
-    private string _password;
-    private string _username;
-
-
-    public void OnButtonQuit()
+    public class UILogin : MonoBehaviour
     {
-        NetworkManagerGame.Instance.Disconnect();
-        NetworkManagerAccount.Instance.Disconnect();
+        [SerializeField] private TMP_InputField _inputFieldUsername;
+        [SerializeField] private TMP_InputField _inputFieldPassword;
 
-        #if UNITY_EDITOR
+        private string _password;
+        private string _username;
+
+
+        public void OnButtonQuit()
+        {
+            NetworkManagerGame.Instance.Disconnect();
+            NetworkManagerAccount.Instance.Disconnect();
+
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
                 Application.Quit();
-         #endif
-    }
+#endif
+        }
 
-    public void OnButtonLogin()
-    {
-        // Todo button interactable false, wait until server response or popup after timer try again to connect
-        _username = _inputFieldUsername.text;
-        _password = _inputFieldPassword.text;
+        public void OnButtonLogin()
+        {
+            // Todo button interactable false, wait until server response or popup after timer try again to connect
+            _username = _inputFieldUsername.text;
+            _password = _inputFieldPassword.text;
 
-        if(InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
-            NetworkManagerGame.Instance.Login(_username, _password);
-        else
-            ErrorPopup("Username or password cannot be empty. Please enter both and try again.");
-    }
+            if (InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
+                NetworkManagerGame.Instance.Login(_username, _password);
+            else
+                ErrorPopup("Username or password cannot be empty. Please enter both and try again.");
+        }
 
-    public void OnButtonNeedAccount()
-    {
-        GameManager.Instance.ChangeScene(Scenes.CreateAccount);
-    }
+        public void OnButtonNeedAccount()
+        {
+            GameManager.Instance.ChangeScene(Scenes.CreateAccount);
+        }
 
-    public void OnButtonForgotData()
-    {
-        GameManager.Instance.ChangeScene(Scenes.ForgotData);
-    }
+        public void OnButtonForgotData()
+        {
+            GameManager.Instance.ChangeScene(Scenes.ForgotData);
+        }
 
-    private void ErrorPopup(string error)
-    {
-        string title = "Error";
-        string info = error;
+        private void ErrorPopup(string error)
+        {
+            string title = "Error";
+            string info = error;
 
-        ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
+            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
 
-        popup.Setup(
-            title,
-            info,
-            () => { popup.Destroy(); }
-        );
+            popup.Setup(
+                title,
+                info,
+                () => { popup.Destroy(); }
+            );
+        }
     }
 }

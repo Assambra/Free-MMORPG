@@ -3,23 +3,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ErrorPopup : BasePopup
+namespace Assambra.FreeClient.UserInterface
 {
-    [SerializeField] Button _oKButton;
-    [SerializeField] private TMP_Text titleText;
-    [SerializeField] private TMP_Text informationText;
-
-    public void Setup(string title, string information, Action onOK)
+    public class ErrorPopup : BasePopup
     {
-        titleText.text = title;
-        informationText.text = information;
+        [SerializeField] Button _oKButton;
+        [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text informationText;
 
-        _oKButton.onClick.RemoveAllListeners();
-        _oKButton.onClick.AddListener(() => { onOK?.Invoke(); });
-    }
+        public void Setup(string title, string information, Action onOK)
+        {
+            titleText.text = title;
+            informationText.text = information;
 
-    public override void Destroy()
-    {
-        Destroy(gameObject);
+            _oKButton.onClick.RemoveAllListeners();
+            _oKButton.onClick.AddListener(() => { onOK?.Invoke(); });
+        }
+
+        public override void Destroy()
+        {
+            Destroy(gameObject);
+        }
     }
 }
