@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "Scene", menuName = "Assambra/Scene", order = 1)]
-public class Scene : ScriptableObject
+namespace Assambra.GameFramework.GameManager
 {
-    public bool IsFirstScene = false;
+    [CreateAssetMenu(fileName = "Scene", menuName = "Assambra/Scene", order = 1)]
+    public class Scene : ScriptableObject
+    {
+        public bool IsFirstScene = false;
 
-    public string[] scenePaths;
-    
-    public List<SceneUISet> SceneUISets = new List<SceneUISet>();
+        public string[] scenePaths;
+
+        public List<SceneUISet> SceneUISets = new List<SceneUISet>();
+    }
 }

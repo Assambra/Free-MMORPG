@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class MainCamera : MonoBehaviour
+namespace Assambra.GameFramework.GameManager
 {
-    public bool IsPersistentCamera;
-
-    private void Awake()
+    public class MainCamera : MonoBehaviour
     {
-        if(!IsPersistentCamera)
-            gameObject.SetActive(false);
+        public bool IsPersistentCamera;
+
+        private void Awake()
+        {
+            if (!IsPersistentCamera)
+                gameObject.SetActive(false);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Assambra.GameFramework.GameManager;
 using com.tvd12.ezyfoxserver.client;
 using com.tvd12.ezyfoxserver.client.constant;
 using com.tvd12.ezyfoxserver.client.entity;

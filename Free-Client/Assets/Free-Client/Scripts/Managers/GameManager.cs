@@ -1,3 +1,6 @@
+using Assambra.GameFramework.GameManager;
+using Assambra.GameFramework.CameraController;
+using Assambra.GameFramework.MouseHandler;
 using System.Collections;
 using System.Collections.Generic;
 using UMA.CharacterSystem;

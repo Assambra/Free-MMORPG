@@ -1,35 +1,38 @@
 using UnityEngine;
 
-public class UIElement : MonoBehaviour
+namespace Assambra.GameFramework.GameManager
 {
-    [Header("Objects and Scripts References")]
-    [Space(5)]
-    /// <summary>
-    /// The UI element we work with.
-    /// </summary>
-    [Tooltip("The UI element we work with.")]
-    [SerializeField] private GameObject uIElement = null;
-    [SerializeField] public bool StartActivated = false;
-
-    private void Awake()
+    public class UIElement : MonoBehaviour
     {
-        if (uIElement == null)
-            Debug.LogError("Error: No UI Element found! Setup the UI Element.");
+        [Header("Objects and Scripts References")]
+        [Space(5)]
+        /// <summary>
+        /// The UI element we work with.
+        /// </summary>
+        [Tooltip("The UI element we work with.")]
+        [SerializeField] private GameObject uIElement = null;
+        [SerializeField] public bool StartActivated = false;
 
-        if (StartActivated)
-            ChangeActiveState();
-    }
+        private void Awake()
+        {
+            if (uIElement == null)
+                Debug.LogError("Error: No UI Element found! Setup the UI Element.");
 
-    /// <summary>
-    /// Change the active state of the UI element, e.g. if it is activated it will be deactivated and vice versa
-    /// </summary>
-    public void ChangeActiveState()
-    {
-        uIElement.SetActive(!uIElement.activeSelf);
-    }
+            if (StartActivated)
+                ChangeActiveState();
+        }
 
-    public bool IsActive()
-    {
-        return uIElement.activeSelf;
+        /// <summary>
+        /// Change the active state of the UI element, e.g. if it is activated it will be deactivated and vice versa
+        /// </summary>
+        public void ChangeActiveState()
+        {
+            uIElement.SetActive(!uIElement.activeSelf);
+        }
+
+        public bool IsActive()
+        {
+            return uIElement.activeSelf;
+        }
     }
 }

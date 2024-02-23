@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectionalLight : MonoBehaviour
+namespace Assambra.GameFramework.GameManager
 {
-    public bool IsPersistentDirectionalLight;
-
-    private void Awake()
+    public class DirectionalLight : MonoBehaviour
     {
-        if (!IsPersistentDirectionalLight)
-            gameObject.SetActive(false);
+        public bool IsPersistentDirectionalLight;
+
+        private void Awake()
+        {
+            if (!IsPersistentDirectionalLight)
+                gameObject.SetActive(false);
+        }
     }
 }
+

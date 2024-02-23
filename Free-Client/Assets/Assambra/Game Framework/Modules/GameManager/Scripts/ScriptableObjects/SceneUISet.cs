@@ -1,92 +1,94 @@
-using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SceneUISet", menuName = "Assambra/SceneUISet", order = 1)]
-[System.Serializable]
-public class SceneUISet : ScriptableObject
+namespace Assambra.GameFramework.GameManager
 {
-    public GameObject[] UIElementPrefabs;
-
-
-    public void EnableUIElement(string name)
+    [CreateAssetMenu(fileName = "SceneUISet", menuName = "Assambra/SceneUISet", order = 1)]
+    [System.Serializable]
+    public class SceneUISet : ScriptableObject
     {
-        bool found = false;
-        for (int i = 0; i < UIElementPrefabs.Length; i++)
+        public GameObject[] UIElementPrefabs;
+
+
+        public void EnableUIElement(string name)
         {
-            if (UIElementPrefabs[i].name == name)
+            bool found = false;
+            for (int i = 0; i < UIElementPrefabs.Length; i++)
             {
-                found = true;
-                UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
+                if (UIElementPrefabs[i].name == name)
+                {
+                    found = true;
+                    UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
+                    if (!uIElement.IsActive())
+                        uIElement.ChangeActiveState();
+                }
+            }
+            if (!found)
+            { Debug.LogError("Error: Dont find any UIElement with name: " + name); }
+        }
+
+        public void EnableUIElement(int index)
+        {
+            if (index <= UIElementPrefabs.Length)
+            {
+                UIElement uIElement = UIElementPrefabs[index].GetComponent<UIElement>();
                 if (!uIElement.IsActive())
                     uIElement.ChangeActiveState();
             }
+            else
+                Debug.LogError("Error: index: " + index + " is greater then array.Length");
         }
-        if(!found)
-        { Debug.LogError("Error: Dont find any UIElement with name: " + name); }
-    }
 
-    public void EnableUIElement(int index)
-    {
-        if (index <= UIElementPrefabs.Length)
+        public void DisableUIElement(string name)
         {
-            UIElement uIElement = UIElementPrefabs[index].GetComponent<UIElement>();
-            if (!uIElement.IsActive())
-                uIElement.ChangeActiveState();
-        }
-        else
-            Debug.LogError("Error: index: " + index + " is greater then array.Length");
-    }
-
-    public void DisableUIElement(string name)
-    {
-        bool found = false;
-        for (int i = 0; i < UIElementPrefabs.Length; i++)
-        {
-            if (UIElementPrefabs[i].name == name)
+            bool found = false;
+            for (int i = 0; i < UIElementPrefabs.Length; i++)
             {
-                found = true;
-                UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
+                if (UIElementPrefabs[i].name == name)
+                {
+                    found = true;
+                    UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
+                    if (uIElement.IsActive())
+                        uIElement.ChangeActiveState();
+                }
+            }
+            if (!found)
+            { Debug.LogError("Error: Dont find any UIElement with name: " + name); }
+        }
+
+        public void DisableUIElement(int index)
+        {
+            if (index <= UIElementPrefabs.Length)
+            {
+                UIElement uIElement = UIElementPrefabs[index].GetComponent<UIElement>();
                 if (uIElement.IsActive())
                     uIElement.ChangeActiveState();
             }
+            else
+                Debug.LogError("Error: index: " + index + " is greater then array.Length");
         }
-        if (!found)
-        { Debug.LogError("Error: Dont find any UIElement with name: " + name); }
-    }
 
-    public void DisableUIElement(int index)
-    {
-        if (index <= UIElementPrefabs.Length)
+        public string UIElementName(int index)
         {
-            UIElement uIElement = UIElementPrefabs[index].GetComponent<UIElement>();
-            if (uIElement.IsActive())
-                uIElement.ChangeActiveState();
+            string retstr = "";
+            if (index <= UIElementPrefabs.Length)
+                retstr = UIElementPrefabs[index].name;
+            else
+                Debug.LogError("Error: index: " + index + " is greater then array.Length");
+
+            return retstr;
         }
-        else
-            Debug.LogError("Error: index: " + index + " is greater then array.Length");
-    }
 
-    public string UIElementName(int index)
-    {
-        string retstr = "";
-        if(index <= UIElementPrefabs.Length)
-            retstr =  UIElementPrefabs[index].name;
-        else
-            Debug.LogError("Error: index: " + index + " is greater then array.Length");
-
-        return retstr;
-    }
-
-    public void StartWithDisabledUIElements()
-    {
-        if(UIElementPrefabs.Length > 0)
+        public void StartWithDisabledUIElements()
         {
-            for (int i = 0; i < UIElementPrefabs.Length; i++)
+            if (UIElementPrefabs.Length > 0)
             {
-                UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
-                if (!uIElement.StartActivated && uIElement.IsActive())
+                for (int i = 0; i < UIElementPrefabs.Length; i++)
                 {
-                    uIElement.ChangeActiveState();
+                    UIElement uIElement = UIElementPrefabs[i].GetComponent<UIElement>();
+                    if (!uIElement.StartActivated && uIElement.IsActive())
+                    {
+                        uIElement.ChangeActiveState();
+                    }
                 }
             }
         }

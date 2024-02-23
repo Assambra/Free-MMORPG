@@ -3,66 +3,68 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-public class SceneHandler : MonoBehaviour
+namespace Assambra.GameFramework.GameManager
 {
-    public static event Action<Scene, Scene> OnSceneChanged;
-
-    public List<Scene> Scenes = new List<Scene>();
-
-    private Scene lastScene = null;
-
-    private void Start()
+    public class SceneHandler : MonoBehaviour
     {
-        ChangeScene(GetFirstScene());
-    }
+        public static event Action<Scene, Scene> OnSceneChanged;
 
-    public void ChangeScene(Scene newScene)
-    {
-        if (lastScene != newScene)
+        public List<Scene> Scenes = new List<Scene>();
+
+        private Scene lastScene = null;
+
+        private void Start()
         {
-            OnSceneChanged?.Invoke(lastScene, newScene);
-            UnloadScenesInSceneObject(lastScene);
-            LoadScenesInSceneObject(newScene);
-            lastScene = newScene;
+            ChangeScene(GetFirstScene());
         }
-    }
 
-    private void LoadScenesInSceneObject(Scene scene)
-    {
-        if (scene != null)
+        public void ChangeScene(Scene newScene)
         {
-            foreach (string scenePath in scene.scenePaths)
+            if (lastScene != newScene)
             {
-                LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+                OnSceneChanged?.Invoke(lastScene, newScene);
+                UnloadScenesInSceneObject(lastScene);
+                LoadScenesInSceneObject(newScene);
+                lastScene = newScene;
             }
         }
-    }
 
-    private void UnloadScenesInSceneObject(Scene scene)
-    {
-        if (scene != null)
+        private void LoadScenesInSceneObject(Scene scene)
         {
-            foreach (string scenePath in scene.scenePaths)
+            if (scene != null)
             {
-                UnloadSceneAsync(scenePath);
+                foreach (string scenePath in scene.scenePaths)
+                {
+                    LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+                }
             }
         }
-    }
 
-    private Scene GetFirstScene()
-    {
-        Debug.Log(Scenes.Find(scene => scene.IsFirstScene).name);
-        return Scenes.Find(scene => scene.IsFirstScene);
-    }
+        private void UnloadScenesInSceneObject(Scene scene)
+        {
+            if (scene != null)
+            {
+                foreach (string scenePath in scene.scenePaths)
+                {
+                    UnloadSceneAsync(scenePath);
+                }
+            }
+        }
 
-    private void LoadSceneAsync(string scene, LoadSceneMode mode)
-    {
-        SceneManager.LoadSceneAsync(scene, mode);
-    }
+        private Scene GetFirstScene()
+        {
+            Debug.Log(Scenes.Find(scene => scene.IsFirstScene).name);
+            return Scenes.Find(scene => scene.IsFirstScene);
+        }
 
-    private void UnloadSceneAsync(string scene)
-    {
-        SceneManager.UnloadSceneAsync(scene);
+        private void LoadSceneAsync(string scene, LoadSceneMode mode)
+        {
+            SceneManager.LoadSceneAsync(scene, mode);
+        }
+
+        private void UnloadSceneAsync(string scene)
+        {
+            SceneManager.UnloadSceneAsync(scene);
+        }
     }
 }
