@@ -51,7 +51,7 @@ namespace Assambra.FreeClient.Managers
         private void Update()
         {
             EzyClients.getInstance()
-                .getClient(socketConfigVariable.Value.ZoneName)
+                .getClient(socketConfigHolderVariable.Value.Value.ZoneName)
                 .processEvents();
         }
 
@@ -80,11 +80,11 @@ namespace Assambra.FreeClient.Managers
             socketProxy.setLoginUsername(CreateGuestName());
             socketProxy.setLoginPassword(guestPassword);
 
-            socketProxy.setUrl(socketConfigVariable.Value.TcpUrl);
-            socketProxy.setUdpPort(socketConfigVariable.Value.UdpPort);
-            socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
+            socketProxy.setUrl(socketConfigHolderVariable.Value.Value.TcpUrl);
+            socketProxy.setUdpPort(socketConfigHolderVariable.Value.Value.UdpPort);
+            socketProxy.setDefaultAppName(socketConfigHolderVariable.Value.Value.AppName);
 
-            if (socketConfigVariable.Value.UdpUsage)
+            if (socketConfigHolderVariable.Value.Value.UdpUsage)
             {
                 socketProxy.setTransportType(EzyTransportType.UDP);
                 socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
@@ -107,7 +107,7 @@ namespace Assambra.FreeClient.Managers
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
+            appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigHolderVariable.Value.Value.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
@@ -157,7 +157,7 @@ namespace Assambra.FreeClient.Managers
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
         {
             Debug.Log("OnUdpHandshake");
-            socketProxy.send(new EzyAppAccessRequest(socketConfigVariable.Value.AppName));
+            socketProxy.send(new EzyAppAccessRequest(socketConfigHolderVariable.Value.Value.AppName));
         }
 
         private void OnAppAccessed(EzyAppProxy proxy, Object data)

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.bytework.ezyfox.sharp.client": {
+      "version": "file:../../../Master-Server-Unity/Unity-Server/Packages/com.bytework.ezyfox.sharp.client",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.judahperez.hsvcolorpicker": {
       "version": "3.3.0",
       "depth": 0,
@@ -14,7 +20,7 @@
       "dependencies": {}
     },
     "com.unity.burst": {
-      "version": "1.8.12",
+      "version": "1.8.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -103,9 +109,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
