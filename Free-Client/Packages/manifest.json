@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.bytework.ezyfox.sharp.client": "file:../../../Master-Server-Unity/Unity-Server/Packages/com.bytework.ezyfox.sharp.client",
+	"com.bytework.uma": "file:../../../UMA/UMAProject/Assets/UMA",
     "com.judahperez.hsvcolorpicker": "3.3.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.18",

@@ -70,17 +70,3 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-
-/Assets/TextMesh Pro
-
-# EzyFox Server CSharp Client Unity Client SDK
-/Assets/Free-Client/Plugins/ezyfox-server-csharp-client-unity-client/*
-
-#UMA Unity Multipurpose Avatar System
-/Assets/UMA
-
-#MapMagic 2
-/Assets/MapMagic
-
-#Crest Ocean System
-/Assets/Crest

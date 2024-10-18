@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5d6aab46c7bb5864a937d9c551c65589
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mapMagic: {instanceID: 0}
+  - defaultTerrainData: {fileID: 15600000, guid: f67673e8cb8bd4f4a8f81f71a36eb367, type: 2}
+  - objectsPool: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

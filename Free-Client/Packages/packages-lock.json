@@ -6,6 +6,12 @@
       "source": "local",
       "dependencies": {}
     },
+    "com.bytework.uma": {
+      "version": "file:../../../UMA/UMAProject/Assets/UMA",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.judahperez.hsvcolorpicker": {
       "version": "3.3.0",
       "depth": 0,

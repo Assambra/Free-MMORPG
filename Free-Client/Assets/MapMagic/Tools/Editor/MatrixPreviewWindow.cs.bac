@@ -1,0 +1,270 @@
+﻿
+using UnityEngine;
+using UnityEditor;
+
+namespace Plugins.GUI
+{
+	public class MatrixPreviewWindow : EditorWindow
+	{
+		public Matrix matrix = new Matrix();
+		private Texture2D displayTex;
+
+		protected UI.Settings uiSettings = new UI.Settings(); 
+		[System.NonSerialized] protected UI.Settings tuiSettings = new UI.Settings();
+
+		bool colorized;
+		bool relief;
+		bool ready = true;
+
+		Vector2 clickedCoord;
+
+		bool showHistorgam = true;
+		Texture2D histogramTexture;
+
+		bool showSlice;
+		enum SliceType { None, Horizontal, Vertical }
+		SliceType sliceType;
+		Coord sliceCoordinate;
+		Texture2D sliceTexture;
+
+		const int coordWidth = 90;
+		const int utilsWidth = 200;
+		const int histogramWidth = 160;
+		const int histogramHeight = 80;
+
+		private void OnGUI() 
+		{
+			if (matrix == null) matrix = new Matrix();
+
+			uiSettings.scrollZoom.allowScroll = uiSettings.scrollZoom.allowZoom = true;
+			uiSettings.scrollZoom.maxZoom = 8;
+			uiSettings.scrollZoom.minZoom = 0.125f;
+			UI.Draw(DrawUI, uiSettings);
+
+			DrawCoordinate();
+
+			UI.Draw(DrawUtils, tuiSettings);
+		}
+
+
+		private void DrawUI ()
+		{
+			using (UI.Root(Size.Custom(0, 0, position.width, position.height))) 
+			{
+				//background
+				using (Cell.Full)
+				{
+					if (Cell.current == null) return;
+					Cell.current.srcSize.x.pixels = -UI.Settings.current.scrollZoom.scroll.x;
+					Cell.current.srcSize.y.pixels = -UI.Settings.current.scrollZoom.scroll.y;
+					Cell.current.srcSize /= UI.Settings.current.scrollZoom.zoom;
+
+					float gridColor = 0.6f; // !Plugins.Interface.Styles.IsPro(ui.stylesTheme) ? 0.6f : 0.2f;
+					float gridBackgroundColor = 0.45f; // !Plugins.Interface.Styles.IsPro(ui.stylesTheme) ? 0.4f : 0.15f;
+
+					UI.LatticeBackground(100, color:new Color(gridColor,gridColor,gridColor), background:new Color(gridBackgroundColor,gridBackgroundColor,gridBackgroundColor), cell:Cell.current);
+					UI.BackgroundAxis(0, false, Color.red, Cell.current);
+					UI.BackgroundAxis(0, true, Color.blue, Cell.current);
+				}
+
+				//texture
+				Material mat = TexturesCache.GetMaterial("Hidden/MapMagic/GuiPreview");
+
+				mat.SetFloat("_Colorize", colorized ? 1 : 0);
+				mat.SetFloat("_Relief", relief ? 1 : 0);
+
+				if (matrix != null)
+				using (Cell.Custom(
+						matrix.rect.offset.x, 
+						- matrix.rect.offset.z - matrix.rect.size.z, 
+						matrix.rect.size.x, 
+						matrix.rect.size.z))
+				{
+					Cell.current.padding = new Padding(0);
+
+					UI.Texture(displayTex, mat, cell:Cell.current);
+
+					if (!ready)
+						UI.Icon(TexturesCache.GetTexture("MapMagic/PreviewSandClock"), cell:Cell.current);
+				}
+
+				//slice
+				if (showSlice && sliceType!=SliceType.None)
+				{
+					int sliceWidth = 1;
+					int sliceHeight = 1;
+
+					if (sliceType==SliceType.Horizontal) sliceWidth = histogramWidth;
+					else sliceHeight = histogramWidth;
+
+
+					using (Cell.Custom(sliceCoordinate.x, sliceCoordinate.z, sliceWidth, sliceHeight))
+						UI.Rect(Cell.current, new Color(0.37f, 0.53f, 0.75f, 0.5f));
+				}
+
+				//additional
+				DrawAdditionalGUI();
+			}
+		}
+
+
+		private void DrawCoordinate ()
+		{
+			Rect rect = new Rect(position.width-coordWidth-10, position.height-40-10, coordWidth, 40);
+
+			GUIStyle backStyle = TexturesCache.GetElementStyle("DPUI/Backgrounds/Opaque");
+			if (Event.current.type == EventType.Repaint) 
+				backStyle.Draw(rect, false, false, false ,false);
+
+			EventType eventType = Event.current.type;
+			if ((eventType == EventType.MouseDown || eventType == EventType.MouseDrag) && Event.current.button == 1)
+			{
+				clickedCoord =  uiSettings.scrollZoom.ToInternal(Event.current.mousePosition);
+				Repaint();
+			}
+
+			Rect scrollRect = rect; scrollRect.height = 20;
+			EditorGUI.LabelField(scrollRect.Extended(-2), (int)clickedCoord.x + ", " + (int)clickedCoord.y);
+
+			Rect zoomRect = rect; zoomRect.height = 20; zoomRect.y += 20;
+			EditorGUI.LabelField(zoomRect.Extended(-2), uiSettings.scrollZoom.zoom.ToString("0.0000"));
+		}
+
+
+		private void DrawUtils ()
+		{
+			using (UI.Root(Size.Custom(position.width - utilsWidth - 10, 10, utilsWidth, 0))) 
+			{
+				Cell.current.margins = new Padding(5);
+
+				GUIStyle backStyle = TexturesCache.GetElementStyle("DPUI/Backgrounds/Opaque");
+				UI.Element(backStyle, Cell.current);
+
+				using (UI.FoldoutGroup(ref showHistorgam, "Histogram", inspectorOffset:0))
+					if (showHistorgam && histogramTexture!=null)
+					{
+						using (UI.Group(Size.LinePixels(histogramHeight)))
+							using(UI.Group(Size.RowPixels(histogramWidth)))
+							{
+								Cell.current.padding = new Padding(0);
+
+								Texture2D backTex = TexturesCache.GetBlankTexture(0.859f);
+								UI.Texture(backTex, cell:Cell.current);
+								//UI.Grid(new Color(0,0,0,0.5f), cell:Cell.current);
+
+								Material histogramMat = TexturesCache.GetMaterial("Hidden/DPLayout/GrayscaleTexture");
+								histogramMat.SetVector("_Black", new Vector4(0,0,0,0));
+								histogramMat.SetVector("_White", new Vector4(0,0,0,0.7f));
+								UI.Texture(histogramTexture, histogramMat, cell:Cell.current);
+							}
+						UI.EmptyLine(5);
+					}
+
+				using (UI.FoldoutGroup(ref showSlice, "Slice", inspectorOffset:0))
+					if (showSlice)
+					{
+						using (UI.Group(Size.line))
+						{
+							using (Cell.LineStd) UI.Field(ref sliceType, "Type", cell:Cell.current);
+							using (Cell.LineStd) UI.Field(ref sliceCoordinate, "Coord", cell:Cell.current);
+							
+							if (Cell.current.valChanged)
+								Refresh();
+						}
+
+						UI.EmptyLine(5);
+						if (sliceTexture!=null)
+						using (UI.Group(Size.LinePixels(histogramHeight)))
+							using(UI.Group(Size.RowPixels(histogramWidth)))
+							{
+								Cell.current.padding = new Padding(0);
+
+								Texture2D backTex = TexturesCache.GetBlankTexture(0.859f);
+								UI.Texture(backTex, cell:Cell.current);
+								//UI.Grid(new Color(0,0,0,0.5f), cell:Cell.current);
+
+								Material sliceMat = TexturesCache.GetMaterial("Hidden/DPLayout/GrayscaleTexture");
+								sliceMat.SetVector("_Black", new Vector4(0,0,0,0.8f));
+								sliceMat.SetVector("_White", new Vector4(1,1,1,0));
+								UI.Texture(sliceTexture, sliceMat, cell:Cell.current);
+							}
+						UI.EmptyLine(5);
+					}
+
+				DrawAdditionalUtils();
+			}
+		}
+
+		protected virtual void DrawAdditionalGUI () { }
+		protected virtual void DrawAdditionalUtils () { }
+		/// To be overrided by MatrixTest and others
+
+
+		public static void TexToMatrix (Texture2D tex, Matrix mat)
+		//Not using matrix's Export/Import to prevent internal bugs
+		{
+			mat.ChangeRect( new CoordRect(mat.rect.offset.x, mat.rect.offset.z, tex.width, tex.height));
+
+			Color[] colors = tex.GetPixels();
+			for (int i=0; i<colors.Length; i++)
+				mat.arr[i] = colors[i].r;
+		}
+
+		public static void MatrixToTex (Matrix mat, Texture2D tex)
+		{
+			if (tex.width!=mat.rect.size.x || tex.height!=mat.rect.size.z)
+				tex.Resize(mat.rect.size.x, mat.rect.size.z);
+
+			Color[] colors = new Color[mat.arr.Length];
+			for (int i=0; i<colors.Length; i++)
+			{
+				float val = mat.arr[i];
+				colors[i] = new Color(val, val, val, 1);
+			}
+
+			tex.SetPixels(colors);
+			tex.Apply();
+		}
+
+
+		public void Refresh ()
+		{
+			//matrix display representation
+			//if (displayTex==null) 
+			//{
+				displayTex = new Texture2D(matrix.rect.size.x, matrix.rect.size.z, TextureFormat.RGBA32, false, true);
+				displayTex.filterMode = FilterMode.Point;
+			//}
+			MatrixToTex(matrix, displayTex);
+
+			//histogram texture
+			if (showHistorgam)
+			{
+				float[] histogram = matrix.Histogram(histogramWidth);
+				histogramTexture = Matrix.HistogramToTextureR8(histogram, histogramHeight);
+			}
+
+			//slice
+			if (sliceType == SliceType.None) sliceTexture = null;
+			else
+			{
+				float[] slice = matrix.Slice(sliceCoordinate, histogramWidth, sliceType==SliceType.Vertical);
+			
+				if (slice != null && slice.Length!=0)
+					sliceTexture = Matrix.HistogramToTextureR8(slice, histogramHeight);
+				else 
+					sliceTexture = null;
+			}
+		}
+
+
+		[MenuItem ("Window/Test/Matrix Preview")]
+		public static void ShowPreviewWindow ()
+		{
+			MatrixPreviewWindow window = (MatrixPreviewWindow)GetWindow(typeof (MatrixPreviewWindow));
+			window.position = new Rect(100,100,300,300);
+			//assign matrix here
+			window.Refresh();
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+    "name": "Tools.Editor",
+    "references": [
+        "Tools"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "!NET_STANDARD_2_0"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
