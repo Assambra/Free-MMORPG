@@ -17,6 +17,7 @@ Material:
   - _COMPUTEDIRECTIONALLIGHT_ON
   - _DEBUGVISUALISE_NONE
   - _DIRECTIONALLIGHTVARYROUGHNESS_ON
+  - _FLOW_ON
   - _FOAM3DLIGHTING_ON
   - _FOAM_ON
   - _SHADOWS_ON
@@ -127,7 +128,7 @@ Material:
     - _DirectionalLightFallOffFar: 42
     - _DirectionalLightFarDistance: 137
     - _DirectionalLightVaryRoughness: 1
-    - _Flow: 0
+    - _Flow: 1
     - _Foam: 1
     - _Foam3DLighting: 1
     - _FoamBubbleParallax: 0.14
