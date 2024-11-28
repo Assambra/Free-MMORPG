@@ -185,7 +185,10 @@ com.tvd12.ezyfoxserver.client
 ```
 Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.FreeClient`.
 
-In the Inspector under Assembly Definition Reference, there are some missing references starting with GUID:. Delete it and add a new one with the plus sign and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition. Don't forget to hit apply.
+In the Inspector, under **Assembly Definition References**, there might be some missing references starting with `GUID:`. Delete them and add a new reference using the plus sign, then select the previously created `com.tvd12.ezyfoxserver.client` assembly definition. Don’t forget to click **Apply**.
+
+Follow the same procedure for Crest if it is already installed. If not, you can find instructions under [Crest Ocean System](#crest-ocean-system).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -232,10 +235,10 @@ and additionally add to the file.
 <!-- CREST OCEAN SYSTEM -->
 ### Crest Ocean System
 #### Get Crest Ocean System
-Download the latest source code with tag 4.19 as zip file <a href="https://github.com/wave-harmonic/crest/releases/tag/4.19">4.19</a>
+Download the latest source code with tag 4.21.3 as zip file <a href="https://github.com/wave-harmonic/crest/releases/tag/4.21.3">4.21.3</a>
 
 #### Install Crest Ocean System
-Unzip and drag the second crest folder into unity ./crest-4.19/crest-4.19/crest/Assets/Crest/Crest
+Unzip and drag the second crest folder into unity ./crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
