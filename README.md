@@ -179,6 +179,13 @@ Get submodules:
 
 `git submodule update --init --recursive`
 
+Go to the folder `Assets/EzyFox Server - C-Sharp Client - Unity` in your Unity Editor, right-click -> Create -> Assembly Definition, and rename it to
+```
+com.tvd12.ezyfoxserver.client
+```
+Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.FreeClient`.
+
+In the Inspector under Assembly Definition Reference, there are some missing references starting with GUID:. Delete it and add a new one with the plus sign and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition. Don't forget to hit apply.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
