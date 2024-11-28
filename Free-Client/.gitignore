@@ -74,7 +74,7 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 
 # EzyFox Server CSharp Client Unity Client SDK
-/Assets/Free-Client/EzyFox Server - C-Sharp Client - Unity/*
+/Assets/ezyfox-server-csharp-client-1.1.6-unity/*
 
 #UMA Unity Multipurpose Avatar System
 /Assets/UMA

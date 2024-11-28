@@ -2,7 +2,8 @@
     "name": "Assambra.FreeServer",
     "rootNamespace": "",
     "references": [
-        "GUID:2ffcefc7a4ec51e499e307955c30b901"
+        "GUID:2ffcefc7a4ec51e499e307955c30b901",
+        "GUID:514fb40751b4e1e4d87f19da565a2fe7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
