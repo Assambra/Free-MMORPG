@@ -74,7 +74,7 @@ crashlytics-build.properties
 /Assets/TextMesh Pro
 
 # EzyFox Server CSharp Client Unity Client SDK
-/Assets/Free-Server/Plugins/ezyfox-server-csharp-client-unity-client/*
+/Assets/Free-Server/EzyFox Server - C-Sharp Client - Unity/*
 
 #MapMagic 2
 /Assets/MapMagic
