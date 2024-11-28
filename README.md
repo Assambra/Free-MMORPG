@@ -42,17 +42,13 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
+                <li><a href="#collections">Collections</a></li>
                 <li><a href="#burst-compiler">Burst compiler</a></li>
                 <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
             </ul>
             <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
             <ul>
-            <li><a href="#uma">UMA</a></li>
-                <ul>
-                    <li><a href="#get-uma">Get UMA</a></li>
-                    <li><a href="#install-uma-package">Install UMA Package</a></li>
-                </ul>
             <li><a href="#crest-ocean-system">Crest Ocean System</a></li>
                 <ul>
                     <li><a href="#get-crest-ocean-system">Get Crest Ocean System</a></li>
@@ -62,6 +58,7 @@
             <li><a href="#needed-unity-packages-from-the-unity-asset-store">Needed Unity packages from the Unity asset store</a></li>
             <ul>
                 <li><a href="#mapmagic-2">MapMagic 2</a></li>
+                <li><a href="#uma-2">UMA 2</a></li>
             </ul>
             <li><a href="#play-the-client">Play the client</a></li>
         </ul>
@@ -166,8 +163,8 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 <!-- PLAYABLE DEMO -->
 ## Playable Demo
-We provide a playable Demo there you can play the latest release, and check first what Free-MMORPG can do, or to test and send bug reports.
-You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as rar file. This client will connect to our game server.
+~~We provide a playable Demo there you can play the latest release, and check first what Free-MMORPG can do, or to test and send bug reports.
+You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as rar file. This client will connect to our game server.~~
 
 <!-- CLIENT -->
 ## Client
@@ -187,7 +184,9 @@ Get submodules:
 
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
-To add this two packages (Newtonsoft Json and HSV-Color-Picker-Unity) manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
+To add this packages manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
+#### Collections
+Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the Install button to install the package.
 #### Burst Compiler
 Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the Install button to install the package.
 #### Newtonsoft Json
@@ -223,19 +222,6 @@ and additionally add to the file.
 <!-- NEEDED PROJECTS FROM GITHUB -->
 ## Needed projects from GitHub
 
-<!-- UMA -->
-### UMA
-#### Get UMA
-Download our modified latest UMA version [UMA 2.13 Beta 1-modified.rar](https://www.assambra.com/files/UMA%202.13%20Beta%201-modified.rar) with all needed modifications.
-
-or
-
-Download the latest UMA Unity Asset Pack [UMA 2.13 Beta 1](https://github.com/umasteeringgroup/UMA/releases/download/v2.13b1/UMA213b.unitypackage) from the UMA GitHub repository. And do all changes manually, please visit our wiki page [UMA](https://github.com/Assambra/Free-MMORPG/wiki/UMA) for more information.
-
-#### Install UMA Package
-Open with Unity the Free-MMORPG Unity project. Simple drag and drop the downloaded UMA213b.unitypackage from your download folder into the opened Unity project. Let all selected and click import.
-
-
 <!-- CREST OCEAN SYSTEM -->
 ### Crest Ocean System
 #### Get Crest Ocean System
@@ -251,6 +237,14 @@ Unzip and drag the second crest folder into unity ./crest-4.19/crest-4.19/crest/
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### UMA 2
+Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
+after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.
+
+Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Unity.Mathmatics, Unity.Burst and Unity Collections references.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -457,7 +451,7 @@ Do you have a great idea for a new feature? Share it with us! Simply create an i
 
 ### Try the Playable Demo
 
-Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.45.0/Free-Client-Live-0.45.0.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.
+~~Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.45.0/Free-Client-Live-0.45.0.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.~~
 
 ### Spread the Word
 

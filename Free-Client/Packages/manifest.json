@@ -3,6 +3,7 @@
     "com.judahperez.hsvcolorpicker": "3.3.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.18",
+    "com.unity.collections": "2.5.1",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.postprocessing": "3.4.0",
