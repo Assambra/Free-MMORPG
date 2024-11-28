@@ -15,10 +15,11 @@ using CharacterInfo = Assambra.FreeClient.Entities.CharacterInfo;
 
 namespace Assambra.FreeClient.Managers
 {
-    public class NetworkManagerGame : EzyDefaultController
+    public class NetworkManagerGame : EzyAbstractController
     {
-
         public static NetworkManagerGame Instance { get; private set; }
+
+        [SerializeField] EzySocketConfig socketConfig;
 
         private bool characterListReseived;
 
@@ -46,8 +47,13 @@ namespace Assambra.FreeClient.Managers
         private void Update()
         {
             EzyClients.getInstance()
-                .getClient(socketConfigVariable.Value.ZoneName)
+                .getClient(socketConfig.ZoneName)
                 .processEvents();
+        }
+
+        protected override EzySocketConfig GetSocketConfig()
+        {
+            return socketConfig;
         }
 
         public bool Connected()
@@ -79,11 +85,11 @@ namespace Assambra.FreeClient.Managers
             socketProxy.setLoginUsername(username);
             socketProxy.setLoginPassword(password);
 
-            socketProxy.setUrl(socketConfigVariable.Value.TcpUrl);
-            socketProxy.setUdpPort(socketConfigVariable.Value.UdpPort);
-            socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
+            socketProxy.setUrl(socketConfig.TcpUrl);
+            socketProxy.setUdpPort(socketConfig.UdpPort);
+            socketProxy.setDefaultAppName(socketConfig.AppName);
 
-            if (socketConfigVariable.Value.UdpUsage)
+            if (socketConfig.UdpUsage)
             {
                 socketProxy.setTransportType(EzyTransportType.UDP);
                 socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
@@ -160,7 +166,7 @@ namespace Assambra.FreeClient.Managers
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
         {
             Debug.Log("OnUdpHandshake");
-            socketProxy.send(new EzyAppAccessRequest(socketConfigVariable.Value.AppName));
+            socketProxy.send(new EzyAppAccessRequest(socketConfig.AppName));
         }
 
         private void OnAppAccessed(EzyAppProxy proxy, Object data)

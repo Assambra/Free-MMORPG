@@ -14,11 +14,12 @@ using Object = System.Object;
 
 namespace Assambra.FreeClient.Managers
 {
-    public class NetworkManagerAccount : EzyDefaultController
+    public class NetworkManagerAccount : EzyAbstractController
     {
-        [SerializeField] private string guestPassword = "Assambra";
-
         public static NetworkManagerAccount Instance { get; private set; }
+
+        [SerializeField] EzySocketConfig socketConfig;
+        [SerializeField] private string guestPassword = "Assambra";
 
         private void Awake()
         {
@@ -51,8 +52,13 @@ namespace Assambra.FreeClient.Managers
         private void Update()
         {
             EzyClients.getInstance()
-                .getClient(socketConfigVariable.Value.ZoneName)
+                .getClient(socketConfig.ZoneName)
                 .processEvents();
+        }
+
+        protected override EzySocketConfig GetSocketConfig()
+        {
+            return socketConfig;
         }
 
         public bool Connected()
@@ -80,11 +86,11 @@ namespace Assambra.FreeClient.Managers
             socketProxy.setLoginUsername(CreateGuestName());
             socketProxy.setLoginPassword(guestPassword);
 
-            socketProxy.setUrl(socketConfigVariable.Value.TcpUrl);
-            socketProxy.setUdpPort(socketConfigVariable.Value.UdpPort);
-            socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
+            socketProxy.setUrl(socketConfig.TcpUrl);
+            socketProxy.setUdpPort(socketConfig.UdpPort);
+            socketProxy.setDefaultAppName(socketConfig.AppName);
 
-            if (socketConfigVariable.Value.UdpUsage)
+            if (socketConfig.UdpUsage)
             {
                 socketProxy.setTransportType(EzyTransportType.UDP);
                 socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
@@ -107,7 +113,7 @@ namespace Assambra.FreeClient.Managers
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfigVariable.Value.EnableSSL);
+            appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfig.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
@@ -157,7 +163,7 @@ namespace Assambra.FreeClient.Managers
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
         {
             Debug.Log("OnUdpHandshake");
-            socketProxy.send(new EzyAppAccessRequest(socketConfigVariable.Value.AppName));
+            socketProxy.send(new EzyAppAccessRequest(socketConfig.AppName));
         }
 
         private void OnAppAccessed(EzyAppProxy proxy, Object data)
