@@ -1,0 +1,16 @@
+{
+    "name": "Assambra.FreeServer",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2ffcefc7a4ec51e499e307955c30b901"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
