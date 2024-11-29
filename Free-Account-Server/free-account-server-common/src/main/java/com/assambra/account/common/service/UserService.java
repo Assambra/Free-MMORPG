@@ -11,9 +11,9 @@ import lombok.Setter;
 @EzySingleton("userService")
 public class UserService
 {
-    private final UserRepo accountRepo;
+    private final UserRepo userRepo;
 
-    public User getAccount(String username) {
-        return accountRepo.findByField("username", username);
+    public User getUser(String username) {
+        return userRepo.findByField("username", username);
     }
 }

@@ -318,6 +318,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6830567335824034206, guid: b98853568e61f844b85f1d9028bc052e, type: 3}
+      propertyPath: _networkManagerUser
+      value: 
+      objectReference: {fileID: 536559551}
+    - target: {fileID: 6830567335824034206, guid: b98853568e61f844b85f1d9028bc052e, type: 3}
       propertyPath: _networkManagerAccount
       value: 
       objectReference: {fileID: 536559551}
@@ -963,7 +967,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8549932763517218162, guid: 77743c60453740a46902b378a099d8bc, type: 3}
       propertyPath: m_Name
-      value: NetworkManagerAccount
+      value: NetworkManagerUser
       objectReference: {fileID: 0}
     - target: {fileID: 8786526795481899598, guid: 77743c60453740a46902b378a099d8bc, type: 3}
       propertyPath: m_LocalPosition.x

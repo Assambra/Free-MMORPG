@@ -1,14 +1,11 @@
-using Assambra.FreeClient.Entities;
-using Assambra.FreeClient.Managers;
 using UnityEngine;
 using TMPro;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient
 {
     public class PlayerHeadInfo : MonoBehaviour
     {
-        [SerializeField] private Player player;
-        [SerializeField] private TMP_Text playerNameText;
+        [SerializeField] private TMP_Text _playerNameText;
 
         private void LateUpdate()
         {
@@ -17,7 +14,7 @@ namespace Assambra.FreeClient.UserInterface
 
         public void SetPlayername(string playerName)
         {
-            playerNameText.text = playerName;
+            _playerNameText.text = playerName;
         }
 
         public void SetPlayerInfoPosition(float heightDiff)

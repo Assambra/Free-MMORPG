@@ -426,6 +426,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5470724779005253453, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
+      propertyPath: socketConfig.tcpUrl
+      value: 127.0.0.1:3005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470724779005253453, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
+      propertyPath: socketConfig.appName
+      value: free-game-server
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470724779005253453, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
+      propertyPath: socketConfig.udpPort
+      value: 2611
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470724779005253453, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
+      propertyPath: socketConfig.udpUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470724779005253453, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
+      propertyPath: socketConfig.zoneName
+      value: free-game-server
+      objectReference: {fileID: 0}
     - target: {fileID: 6311511238985998828, guid: 6fab8b92528c07b4ca616c5c3a152fda, type: 3}
       propertyPath: m_Name
       value: NetworkManager

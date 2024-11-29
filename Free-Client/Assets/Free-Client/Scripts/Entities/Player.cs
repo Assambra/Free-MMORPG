@@ -1,15 +1,20 @@
-using Assambra.FreeClient.Managers;
-using Assambra.FreeClient.UserInterface;
 using UnityEngine;
 using UMA.CharacterSystem;
 using UMA;
 using UnityEngine.Events;
 
-namespace Assambra.FreeClient.Entities
+namespace Assambra.FreeClient
 {
-    public class Player : MonoBehaviour
+    public class Player : Entity
     {
-        public bool IsLocalPlayer = false;
+        public string Room { get => _room; }
+        public bool IsLocalPlayer { get => _isLocalPlayer; }
+
+        [SerializeField] private PlayerHeadInfo _playerHeadInfo;
+
+        private string _room;
+        private bool _isLocalPlayer;
+
         public bool Initialized = false;
         public bool IsAvatarCreated = false;
         public Animator Animator;
@@ -47,6 +52,13 @@ namespace Assambra.FreeClient.Entities
                     lastHeight = currentHeight;
                 }
             }
+        }
+
+        public void Initialize(uint id, string name, GameObject entityGameObject, string room, bool isLocalPlayer)
+        {
+            base.Initialize(id, name, entityGameObject);
+            this._room = room;
+            this._isLocalPlayer = isLocalPlayer;
         }
 
         public void SetPlayerName(string playerName)

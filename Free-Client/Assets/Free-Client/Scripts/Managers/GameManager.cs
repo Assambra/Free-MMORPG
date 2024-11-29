@@ -1,23 +1,20 @@
 using Assambra.GameFramework.GameManager;
 using Assambra.GameFramework.CameraController;
 using Assambra.GameFramework.MouseHandler;
-using Assambra.FreeClient.Entities;
-using CharacterInfo = Assambra.FreeClient.Entities.CharacterInfo;
-using Assambra.FreeClient.Helper;
-using System.Collections;
 using System.Collections.Generic;
 using UMA.CharacterSystem;
 using UnityEngine;
 
 
-namespace Assambra.FreeClient.Managers
+namespace Assambra.FreeClient
 {
     public class GameManager : BaseGameManager
     {
         public static GameManager Instance;
 
         public string Account;
-        [SerializeField] private NetworkManagerUser _networkManagerAccount;
+        
+        [SerializeField] private NetworkManagerUser _networkManagerUser;
 
         [field: SerializeField] public CameraController CameraController { get; private set; }
         [field: SerializeField] public UIHandler UIHandler { get; private set; }
@@ -28,9 +25,8 @@ namespace Assambra.FreeClient.Managers
 
         public Player Player { get; private set; }
         public DynamicCharacterAvatar Avatar { get; private set; }
-        public List<CharacterInfo> CharacterInfos { get; set; } = new List<CharacterInfo>();
-        public List<Character> CharacterList { get; set; } = new List<Character>();
-        public Dictionary<string, PlayerController> PlayerSyncPositionDictionary = new Dictionary<string, PlayerController>();
+        public List<CharacterInfoModel> CharacterInfos = new List<CharacterInfoModel>();
+        public Dictionary<uint, Entity> ClientEntities = new Dictionary<uint, Entity>();
 
         public bool CharacterCreatedAndReadyToPlay = false;
         public long CharacterId = 0;
@@ -101,7 +97,7 @@ namespace Assambra.FreeClient.Managers
                     SetCameraGameCameraValues();
                     Destroy(playerGameObject);
 
-                    _networkManagerAccount.enabled = false;
+                    _networkManagerUser.enabled = false;
                 }  
             }
             else
@@ -110,8 +106,8 @@ namespace Assambra.FreeClient.Managers
                 {
                     ChangeState(GameState.Lobby);
 
-                    if (!_networkManagerAccount.enabled)
-                        _networkManagerAccount.enabled = true;
+                    if (!_networkManagerUser.enabled)
+                        _networkManagerUser.enabled = true;
                 }
             }
         }
@@ -135,43 +131,9 @@ namespace Assambra.FreeClient.Managers
             CameraController.ResetCameraAngles();
         }
 
-        public GameObject SpawnPlayer(Character character)
+        public GameObject CreatePlayer(Vector3 position, Vector3 rotation)
         {
-            GameObject pgo = GameObject.Instantiate(playerPrefab, character.position, Quaternion.Euler(character.rotation));
-            pgo.name = character.characterName;
-            PlayerController playerController = pgo.AddComponent<PlayerController>();
-
-            PlayerSyncPositionDictionary.Add(character.accountUsername, playerController);
-
-            Player player = pgo.GetComponent<Player>();
-            playerController.Player = player;
-
-            player.SetPlayerName(character.characterName);
-
-            if(character.isLocalPlayer)
-            {
-                player.IsLocalPlayer = true;
-            
-                CameraController.CameraTarget = pgo;
-                CameraController.ResetCameraAngles();
-            }
-        
-            StartCoroutine(WaitForCharacterCreated(player, character.characterModel));
-
-            return pgo;
-        }
-
-        IEnumerator WaitForCharacterCreated(Player player, string model)
-        {
-            while (!player.Initialized && !player.IsAvatarCreated)
-            {
-                Debug.Log("WaitForCharacterCreated");
-                yield return new WaitForSeconds(0.05f);
-            }
-        
-            player.Animator = player.Avatar.GetComponent<Animator>();
-            player.GetCapsuleCollider();
-            UMAHelper.SetAvatarString(player.Avatar, model);
+            return Instantiate(playerPrefab, position, Quaternion.Euler(rotation));
         }
     }
 }

@@ -1,7 +1,6 @@
 using Assambra.GameFramework.GameManager;
 using Assambra.FreeClient.Constants;
 using Assambra.FreeClient.Helper;
-using Assambra.FreeClient.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

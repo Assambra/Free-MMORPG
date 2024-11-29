@@ -12,7 +12,7 @@ using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using Object = System.Object;
 
-namespace Assambra.FreeClient.Managers
+namespace Assambra.FreeClient
 {
     public class NetworkManagerUser : EzyAbstractController
     {
