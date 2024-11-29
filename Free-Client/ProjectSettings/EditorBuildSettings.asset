@@ -32,4 +32,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Free-Client/Scenes/World.unity
     guid: a7989d2263b37a74586e92ff3f494cb0
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: eeec9033cfa69074390115674b9e7825, type: 2}

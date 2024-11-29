@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: uma-shared-challengerarmor
+  m_EditorClassIdentifier: 
+  m_GroupName: uma-shared-challengerarmor
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ea0cac3c58a3cdc4f86147e9f8a03c4b
+  m_SerializeEntries:
+  - m_GUID: 02ec34d979718404599b1407f6465a7f
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Recipes/Thumbs/MaleChallengerTorso.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b213ae1f94c6304ea5efc1a1abb03fa
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Recipes/Thumbs/MaleChallengerGloves.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 207687cbeffe6ad468adb07e97f65e3a
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/Gloves_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c589544d3fa460468f7e50c3a0d8c27
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ShoulderPad_Roughness.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31551ac088496c44e9f4ed99f3cde8e2
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ShoulderPad_Normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3798f966e3dde084eaa5d60ef5097c2f
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/Gloves_Roughness.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39bd6533e85a6c74a83d49c4fd1f34e8
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Recipes/Thumbs/MaleChallengerShouderPads.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f3aac953e3c9644abc58d578970ca4a
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Recipes/Thumbs/MaleChallengerBoots.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40aedb735001bc6469dc30694df5a6f8
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ShoulderPadLeather_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46baa597588c5bf4f8751b8a00ddee70
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ChallengerBoot_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57540dd689a6efa44b9a5d2c785de92e
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/GlovesMetal_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e0d6fd5a419c024abb998898b6bce79
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/TorsoArmorLeather_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60d0a4f3a2fd41c4eb6136053eeefc44
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/TorsoArmor_Normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6140842e8055c424c8cdb1c3c66edf36
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ShoulderPad_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 684e665f794940c4687db694443783cf
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ChallengerBootLeather_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a994921a3f3b9a49b61907ef28f5066
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ShoulderPadMetal_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e0c7da6f160f8746b6dc9ef2b9b3105
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ChallengerBoot_Roughness.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88748dee7076a594da2220b822ce685a
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/TorsoArmor_Roughness.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e8a11d219efb744e8b7d8886bf4431a
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/GlovesLeather_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 980fed94abb92aa4cb426647cb125759
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/Gloves_Normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 982377ed10e4ad34ea122aa27345c6b8
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ChallengerBoot_Normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a79f26acde8ea4a41bd7fa601046a702
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/ChallengerBootMetal_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bccbb38fe3139c444b2999c45952b427
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/TorsoArmorMetal_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c16db8c9b3a1cf641963becca902affd
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/UnityChallengerArmorSet/Textures/TorsoArmor_Albedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2d90c9fe70ee4e649ba6cd54a5ae43ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 24938577cd998ef4aada96d5aa76bc9d, type: 2}
+    - {fileID: 11400000, guid: ff456af9c1ac79844896d8898427bbee, type: 2}

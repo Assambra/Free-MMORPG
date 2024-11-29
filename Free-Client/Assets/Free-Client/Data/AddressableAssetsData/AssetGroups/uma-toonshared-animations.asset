@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: uma-toonshared-animations
+  m_EditorClassIdentifier: 
+  m_GroupName: uma-toonshared-animations
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8a63e1069b8e2b847bec000d99c59403
+  m_SerializeEntries:
+  - m_GUID: 1d69184ebb44313459b7d3db66f92127
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonShared/Animations/StarCasterToonExpressionTest-converted5.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0ae291110d799142ba94baf538f376c
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonShared/Animations/IdleTest-w-head.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2d90c9fe70ee4e649ba6cd54a5ae43ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6b0ec5ee4ac907648bcf633eed8e7356, type: 2}
+    - {fileID: 11400000, guid: 8f0f26571279c074ab4d1e46351cfca5, type: 2}

@@ -42,10 +42,11 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
-                <li><a href="#collections">Collections</a></li>
+                <li><a href="#addressables">Adressables</a></li>
                 <li><a href="#burst-compiler">Burst compiler</a></li>
-                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
+                <li><a href="#collections">Collections</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
+                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
             </ul>
             <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
             <ul>
@@ -173,19 +174,19 @@ Clone the repo:
 
 `git clone git@github.com:Assambra/Free-MMORPG.git`
 
-Get submodules:
+Download and extract the file: <a href="https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip"> ezyfox-server-csharp-client-1.1.6-unity.zip</a>
+Do the next steps for both Unity project Free-Client and Free-Server. 
+Insert the extracted folder ezyfox-server-csharp-client-1.1.6-unity and drag it into the root folder /Assets in the opened project.
 
-`cd Free-MMORPG`
+Go to the folder Assets/ezyfox-server-csharp-client-1.1.6-unity in your Unity Editor, right-click -> Create -> Assembly Definition, 
+and rename it to `com.tvd12.ezyfoxserver.client`
 
-`git submodule update --init --recursive`
+Free-Server: In the Unity Editor, open the folder and select the file `Assets/Free-Server/Scripts/Assambra.Server`.
 
-Go to the folder `Assets/EzyFox Server - C-Sharp Client - Unity` in your Unity Editor, right-click -> Create -> Assembly Definition, and rename it to
-```
-com.tvd12.ezyfoxserver.client
-```
-Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.FreeClient`.
+Free-Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.Client`.
 
-In the Inspector, under **Assembly Definition References**, there might be some missing references starting with `GUID:`. Delete them and add a new reference using the plus sign, then select the previously created `com.tvd12.ezyfoxserver.client` assembly definition. Don’t forget to click **Apply**.
+In the Inspector under **Assembly Definition Reference**, there is some missing reference starting with GUID:. Delete this one and add a new one with the plus sign and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition. Don't forget to hit **apply**.
+
 
 Follow the same procedure for Crest if it is already installed. If not, you can find instructions under [Crest Ocean System](#crest-ocean-system).
 
@@ -195,17 +196,12 @@ Follow the same procedure for Crest if it is already installed. If not, you can 
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
 To add this packages manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
-#### Collections
-Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the Install button to install the package.
+#### Addressables
+Install the Addressables via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Addressables. Click the install button to install the package.
 #### Burst Compiler
-Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the Install button to install the package.
-#### Newtonsoft Json
-The EzyFox Client SDK need Newtonsoft Json package to work.
-
-Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
-
-Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
-
+Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the install button to install the package.
+#### Collections
+Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the install button to install the package.
 #### Color Picker
 To get the HSV-Color-Picker-Unity
 Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
@@ -227,6 +223,13 @@ and additionally add to the file.
  ````
 
 `Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
+#### Newtonsoft Json
+The EzyFox Client SDK need Newtonsoft Json package to work.
+
+Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+
+Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- NEEDED PROJECTS FROM GITHUB -->
@@ -246,7 +249,7 @@ Unzip and drag the second crest folder into unity ./crest-4.21.3/crest-4.21.3/cr
 ## Needed Unity packages from the Unity Asset Store
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
-after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
+after that open both projects (Free-Client and Free-Server) in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 into both projects.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -254,8 +257,8 @@ after that in the Unity Editor open the Package Manager Window -> PackageManager
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
 after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.
 
-Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Unity.Mathmatics, Unity.Burst and Unity Collections references.
-
+Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Addressables, Unity.Mathmatics, Unity.Burst and Unity Collections references.
+There are additional steps required please read Free-Client/Assets/UMA/Addressables - Read Me Now.pdf
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- PLAY THE CLIENT -->

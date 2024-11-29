@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: uma-toonfemale-wardrobe2
+  m_EditorClassIdentifier: 
+  m_GroupName: uma-toonfemale-wardrobe2
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4567a1e11157a7f49a4001475618e84f
+  m_SerializeEntries:
+  - m_GUID: 3c98e6b60315fce40802977b5cd2817f
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Fancy_Flats_1_normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6260dbbbf7d5f0d428c91e7d592438a0
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Halter_Neck_1_normal.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62a1872587a7aa04eab1c4eb9b178386
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Recipes/Thumbs/ToonHalterNeck1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a93b785a7dc7e3f4da5810505cdc19fe
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Fancy_Flats_1_detail_diffuse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbcc9fcf1f8a6354d8f7efba8212910c
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Fancy_Flats_1_detail1_diffuse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d126afbadfdb59f4e9ba1cfb02993951
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Halter_Neck_1_detail_diffuse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2e23e930bccb9942938b7c007629d10
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Recipes/Thumbs/FemaleStarDancer1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e43769dcd6c17f34b8e3c464485721fa
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Fancy_Flats_1_diffuse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f16dc3a7915fa6c48a87359b3d96fa43
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Recipes/Thumbs/ToonCapriPants1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2107677f9912b849be6b799a3746ebd
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Recipes/Thumbs/ToonFancyFlats1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc359ce7d2a20044bac14b99072f0e01
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/Wardrobe2/Textures/Clothes/Halter_Neck_1_diffuse.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2d90c9fe70ee4e649ba6cd54a5ae43ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3e97fe3f14fabd740a422a52f0900b75, type: 2}
+    - {fileID: 11400000, guid: b558b3102a5368c4981e370f26886725, type: 2}

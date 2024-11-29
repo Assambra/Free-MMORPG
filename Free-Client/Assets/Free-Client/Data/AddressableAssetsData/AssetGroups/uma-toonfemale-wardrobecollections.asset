@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: uma-toonfemale-wardrobecollections
+  m_EditorClassIdentifier: 
+  m_GroupName: uma-toonfemale-wardrobecollections
+  m_Data:
+    m_SerializedData: []
+  m_GUID: da030ffa96f1a0d49a7acb3c5d723f53
+  m_SerializeEntries:
+  - m_GUID: 54c81785648a33243a6fa7c97cd4f683
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/WardrobeCollections/Thumbs/ToonTopsCover.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba069f633267ff54691d6add1c39cc50
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/WardrobeCollections/Thumbs/FemaleDancerCover1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1d930aaf3a01424492b05ad78dc2f8c
+    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/WardrobeCollections/Thumbs/FemaleStarDancerCover1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2d90c9fe70ee4e649ba6cd54a5ae43ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6674961c3930dcd45b9161d71e1caaf0, type: 2}
+    - {fileID: 11400000, guid: 27a2de4d8d0db774aba0f731bd0d7349, type: 2}
