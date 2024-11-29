@@ -277,26 +277,33 @@ To test both at the same time, you need to deploy the server. More information c
 <!-- SETUP DATABASE -->
 ### Setup Database
 
-1. install mongoDB
-2. open your mongosh
-3. Create your Database 
+1. Install mongoDB.
+2. Open your mongosh.
+3. Create your Database:
 
-``use free``
-
-4. Create a new user and password and give it access to the created database 
-     
-`` db.createUser({user: "root", pwd: "123456",roles: [{role: "readWrite", db:"free" }] })``
- 
-5. Create two new collections: 
-
-```` 
-db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } } ) 
-db.account.createIndex( { username: 1 } )
-````
-````
-db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )
-db.character.createIndex( { name: 1 } )
-````
+```bash
+use free
+```
+4. Create a new user and password and give it access to the created database:
+```bash
+db.createUser({user: "root", pwd: "123456", roles: [{role: "readWrite", db:"master-server" }] })
+```
+5. Create the following collections:
+```bash
+db.createCollection("user", { collation: { locale: 'en_US', strength: 2 } })
+```
+```bash
+db.user.createIndex({ username: 1 })
+```
+```bash
+db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } })
+```
+```bash
+db.character.createIndex({ name: 1 })
+```
+```bash
+db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
+```
 6. Add/Create this files to both of your Server projects:
 
 `Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`

@@ -20,7 +20,7 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonCreate()
         {
-            if (NetworkManagerAccount.Instance.Connected())
+            if (NetworkManagerUser.Instance.Connected())
             {
                 string email = _inputFieldEmail.text;
                 string username = _inputFieldUsername.text;
@@ -32,7 +32,7 @@ namespace Assambra.FreeClient.UserInterface
                     ButtonForgotData.interactable = false;
                     ButtonBack.interactable = false;
 
-                    NetworkManagerAccount.Instance.CreateAccount(email, username, password);
+                    NetworkManagerUser.Instance.CreateAccount(email, username, password);
                 }
             }
             else

@@ -17,7 +17,7 @@ namespace Assambra.FreeClient.Managers
         public static GameManager Instance;
 
         public string Account;
-        [SerializeField] private NetworkManagerAccount _networkManagerAccount;
+        [SerializeField] private NetworkManagerUser _networkManagerAccount;
 
         [field: SerializeField] public CameraController CameraController { get; private set; }
         [field: SerializeField] public UIHandler UIHandler { get; private set; }

@@ -18,7 +18,7 @@ namespace Assambra.FreeClient.UserInterface
         public void OnButtonQuit()
         {
             NetworkManagerGame.Instance.Disconnect();
-            NetworkManagerAccount.Instance.Disconnect();
+            NetworkManagerUser.Instance.Disconnect();
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

@@ -14,9 +14,9 @@ using Object = System.Object;
 
 namespace Assambra.FreeClient.Managers
 {
-    public class NetworkManagerAccount : EzyAbstractController
+    public class NetworkManagerUser : EzyAbstractController
     {
-        public static NetworkManagerAccount Instance { get; private set; }
+        public static NetworkManagerUser Instance { get; private set; }
 
         [SerializeField] EzySocketConfig socketConfig;
         [SerializeField] private string guestPassword = "Assambra";
@@ -33,8 +33,8 @@ namespace Assambra.FreeClient.Managers
         {
             base.OnEnable();
 
-            AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateAccountResponse);
-            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateAccountResponse);
+            AddHandler<EzyObject>(Commands.CREATE_USER, OnCreateUserResponse);
+            AddHandler<EzyObject>(Commands.ACTIVATE_USER, OnActivateUserResponse);
             AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
             AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
             AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
@@ -113,7 +113,7 @@ namespace Assambra.FreeClient.Managers
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_ACCOUNT, data, socketConfig.EnableSSL);
+            appProxy.send(Commands.CREATE_USER, data, socketConfig.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
@@ -124,7 +124,7 @@ namespace Assambra.FreeClient.Managers
             .append("activationCode", activationcode)
             .build();
 
-            appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
+            appProxy.send(Commands.ACTIVATE_USER, data);
         }
 
         public void ResendActivationCodeEmail()
@@ -184,7 +184,7 @@ namespace Assambra.FreeClient.Managers
             //Login();
         }
 
-        private void OnCreateAccountResponse(EzyAppProxy proxy, EzyObject data)
+        private void OnCreateUserResponse(EzyAppProxy proxy, EzyObject data)
         {
             string result = data.get<string>("result");
 
@@ -218,7 +218,7 @@ namespace Assambra.FreeClient.Managers
                 Debug.LogError("UICreateAccount not found!");
         }
 
-        private void OnActivateAccountResponse(EzyAppProxy proxy, EzyObject data)
+        private void OnActivateUserResponse(EzyAppProxy proxy, EzyObject data)
         {
             string result = data.get<string>("result");
             switch (result)
