@@ -384,7 +384,7 @@ Most settings should be self-explanatory. If not, refer to the `SMTP_EMail` clas
 <!-- DEPLOY SERVER -->
 ## Deploy Server
 ### Download Server
-- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.8.1.zip">ezyfox-server-full-1.2.8.1.zip</a>
+- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
