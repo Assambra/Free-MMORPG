@@ -1,76 +1,62 @@
 package com.assambra.game.app.service;
 
+import com.assambra.game.app.constant.Commands;
+import com.assambra.game.app.converter.ModelToResponseConverter;
+import com.assambra.game.app.model.PlayerDespawnModel;
+import com.assambra.game.app.model.PlayerSpawnModel;
+import com.assambra.game.common.masterserver.entity.UnityPlayer;
+import com.assambra.game.common.masterserver.entity.UnityRoom;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyLoggable;
-import com.tvd12.ezyfoxserver.entity.EzyUser;
-import com.tvd12.gamebox.entity.*;
-import com.tvd12.gamebox.manager.PlayerManager;
 import com.tvd12.gamebox.manager.RoomManager;
-import com.tvd12.gamebox.math.Vec3;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
 
-@EzySingleton
+@Setter
 @AllArgsConstructor
-@SuppressWarnings({"unchecked"})
-public class RoomService extends EzyLoggable
-{
-    private PlayerManager<Player> globalPlayerManager;
-    private RoomManager<NormalRoom> globalRoomManager;
+@EzySingleton("roomService")
+public class RoomService extends EzyLoggable {
 
-    public MMOPlayer addUserToRoom(EzyUser user, Long roomId)
+    private final RoomManager globalRoomManager;
+    private final ModelToResponseConverter modelToResponseConverter;
+
+    public UnityRoom getRoom(String roomName)
     {
-        MMOPlayer player = new MMOPlayer(user.getName());
-        globalPlayerManager.addPlayer(player);
+        return (UnityRoom)globalRoomManager.getRoom(roomName);
+    }
 
-        MMORoom room = (MMORoom)globalRoomManager.getRoom(roomId);
+    public UnityRoom getRoom(Long id)
+    {
+        return (UnityRoom)globalRoomManager.getRoom(id);
+    }
 
+    public void addPlayerToRoom(UnityPlayer player, String roomName, PlayerSpawnModel playerSpawnModel)
+    {
+        UnityRoom room = getRoom(roomName);
         room.addPlayer(player);
-        player.setCurrentRoomId(roomId);
 
-        return player;
+        modelToResponseConverter.toResponse(playerSpawnModel)
+                .command(Commands.PLAYER_SPAWN)
+                .username(roomName)
+                .execute();
     }
 
-    public NormalRoom getCurrentRoom(String playerName) {
-        Player player = globalPlayerManager.getPlayer(playerName);
-        return getCurrentRoom(player);
+    public void removePlayerFromRoom(UnityPlayer player, PlayerDespawnModel playerDespawnModel)
+    {
+        UnityRoom room = getRoom(player.getCurrentRoomId());
+        room.removePlayer(player);
+        //player.setCurrentRoomId(0);
+
+        modelToResponseConverter.toResponse(playerDespawnModel)
+                .command(Commands.PLAYER_DESPAWN)
+                .username(room.getName())
+                .execute();
     }
 
-    public NormalRoom getCurrentRoom(Player player) {
-        long currentRoomId = player.getCurrentRoomId();
-        return globalRoomManager.getRoom(currentRoomId);
-    }
-
-    public List<String> getRoomPlayerNames(NormalRoom room) {
-        synchronized (room) {
-            return room.getPlayerManager().getPlayerNames();
-        }
-    }
-
-    public void setPlayerPosition(MMOPlayer player, Vec3 nextPosition) {
-        MMOGridRoom currentRoom = (MMOGridRoom) getCurrentRoom(player);
-        currentRoom.setPlayerPosition(player, nextPosition);
-    }
-
-    public NormalRoom removePlayer(String username) {
-        Player player = globalPlayerManager.getPlayer(username);
-        if (player == null) {
-            return null;
-        }
-        NormalRoom room = globalRoomManager.getRoom(player.getCurrentRoomId());
-        if (room != null) {
-            synchronized (room) {
-                room.removePlayer(player);
-            }
-        }
-
-        globalPlayerManager.removePlayer(player);
-        return room;
-    }
-
-    public MMOPlayer getPlayer(String playerName) {
-
-        return (MMOPlayer) globalPlayerManager.getPlayer(playerName);
+    public boolean checkRoomPassword(String roomName, String roomPassword)
+    {
+        UnityRoom room = getRoom(roomName);
+        return roomPassword.equals(roomPassword);
     }
 }

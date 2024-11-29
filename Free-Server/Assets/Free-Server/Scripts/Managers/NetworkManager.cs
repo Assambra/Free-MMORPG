@@ -47,8 +47,8 @@ namespace Assambra.FreeServer
         protected override EzySocketConfig GetSocketConfig()
         {
             return EzySocketConfig.GetBuilder()
-                .ZoneName("master-server")
-                .AppName("master-server")
+                .ZoneName("free-game-server")
+                .AppName("free-game-server")
                 .TcpUrl("127.0.0.1:3005")
                 .UdpPort(2611)
                 .UdpUsage(true)

@@ -6,13 +6,11 @@ import lombok.Data;
 
 @Data
 @EzyCollection
-public class Character {
+public class CharacterLocation {
     @EzyId
     Long id;
-    Long userId;
-    String username;
-    String name;
-    String sex;
-    String race;
-    String model;
+    Long characterId;
+    String room;
+    double[] position;
+    double[] rotation;
 }

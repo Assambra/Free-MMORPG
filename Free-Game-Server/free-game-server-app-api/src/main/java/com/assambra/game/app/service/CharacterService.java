@@ -1,106 +1,121 @@
 package com.assambra.game.app.service;
 
-import com.assambra.game.app.entity.CharacterEntity;
-import com.assambra.game.common.entity.Account;
+import com.assambra.game.app.constant.GameConstant;
+import com.assambra.game.app.model.CharacterInfoListModel;
+import com.assambra.game.app.model.CharacterInfoModel;
+import com.assambra.game.app.request.CreateCharacterRequest;
 import com.assambra.game.common.entity.Character;
-import com.assambra.game.common.repository.AccountRepo;
+import com.assambra.game.common.entity.CharacterLocation;
+import com.assambra.game.common.entity.User;
+import com.assambra.game.common.repository.CharacterLocationRepo;
 import com.assambra.game.common.repository.CharacterRepo;
+import com.assambra.game.common.repository.UserRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfoxserver.entity.EzyUser;
-import com.tvd12.gamebox.math.Vec3;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Setter
 @AllArgsConstructor
 @EzySingleton("characterService")
 public class CharacterService extends EzyLoggable {
 
-    private final CharacterRepo characterRepo;
     private final MaxIdService maxIdService;
-    private final AccountRepo accountRepo;
-    private final List<CharacterEntity> characterList;
+    private final UserService userService;
+    private final CharacterRepo characterRepo;
+    private final CharacterLocationRepo characterLocationRepo;
 
-    public List<Character> getAllCharacters(EzyUser user) {
-        Account account = accountRepo.findByField("username", user.getName());
-
-        return characterRepo.findListByField("accountId", account.getId());
+    public Character getCharacter(Long id)
+    {
+        return characterRepo.findById(id);
     }
 
-    public void createCharacter(EzyUser user, String name, String sex, String race, String model) {
-        Account account = accountRepo.findByField("username", user.getName());
+    public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request)
+    {
+        User user = userService.GetUserByUsername(ezyUser.getName());
+
         Character character = new Character();
-
-        double[] startPosition = new double[]{280.0,50.0,254.0};
-        double[] startRotation = new double[]{0,-130,0};
-
         character.setId(maxIdService.incrementAndGet("character"));
-        character.setAccountId(account.getId());
-        character.setName(name);
-        character.setSex(sex);
-        character.setRace(race);
-        character.setModel(model);
-        character.setRoomId((long)1);
-        character.setPosition(startPosition);
-        character.setRotation(startRotation);
+        character.setUserId(user.getId());
+        character.setUsername(user.getUsername());
+        character.setName(request.getName());
+        character.setSex(request.getSex());
+        character.setRace(request.getRace());
+        character.setModel(request.getModel());
         characterRepo.save(character);
 
-        List<Character> characters = getAllCharacters(user);
-
-        for (Character c : characters) {
-            logger.info(c.getName());
-        }
+        CharacterLocation characterLocation = new CharacterLocation();
+        characterLocation.setId(maxIdService.incrementAndGet("characterLocation"));
+        characterLocation.setCharacterId(character.getId());
+        characterLocation.setRoom(GameConstant.START_ROOM);
+        characterLocation.setPosition(GameConstant.START_POSITION);
+        characterLocation.setRotation(GameConstant.START_ROTATION);
+        characterLocationRepo.save(characterLocation);
     }
 
-    public void addPlayerToCharacterList(EzyUser user, Character character) {
-        CharacterEntity characterEntity = new CharacterEntity(
-                user.getName(),
-                character.getAccountId(),
-                character.getRoomId(),
-                character.getName(),
-                character.getModel(),
-                new Vec3((float)character.getPosition()[0], (float)character.getPosition()[1], (float)character.getPosition()[2]),
-                new Vec3((float)character.getRotation()[0], (float)character.getRotation()[1], (float)character.getRotation()[2])
-                );
-        characterList.add(characterEntity);
-    }
-
-    public void SavePlayerPositionInCharacterEntity(String userName, Vec3 position, Vec3 rotation)
+    public Boolean characterExist(String name)
     {
-        for(CharacterEntity characterEntity : characterList)
-        {
-            if(characterEntity.accountUsername.contains(userName))
-            {
-                characterEntity.position = position;
-                characterEntity.rotation = rotation;
-                break;
-            }
-        }
+        return characterRepo.findByField("name", name) != null;
     }
 
-    public void SavePlayerPositionInDatabase(EzyUser user)
+    public List<Character> getAllCharactersOfUser (EzyUser ezyUser)
     {
-        for(CharacterEntity characterEntity : characterList)
-        {
-            if(characterEntity.accountUsername.contains(user.getName()))
-            {
-                Character character = characterRepo.findByField("name", characterEntity.characterName);
+        User user = userService.GetUserByUsername(ezyUser.getName());
+        return characterRepo.findListByField("userId", user.getId());
+    }
 
-                double[] position = { characterEntity.position.x, characterEntity.position.y, characterEntity.position.z };
-                double[] rotation = { characterEntity.rotation.x, characterEntity.rotation.y, characterEntity.rotation.z };
+    public List<CharacterLocation> getAllCharacterLocationsOfUser(EzyUser ezyUser)
+    {
+        User user = userService.GetUserByUsername(ezyUser.getName());
+        Character character = characterRepo.findByField("userId", user.getId());
 
-                character.setPosition(position);
-                character.setRotation(rotation);
-                character.setRoomId(characterEntity.roomId);
+        List<CharacterLocation> characterLocations = new ArrayList<>();
+        if(character != null)
+            return characterLocationRepo.findListByField("characterId", character.getId());
+        else
+            return characterLocations;
+    }
 
-                characterRepo.save(character);
+    public CharacterInfoListModel getCharacterInfoListModel(EzyUser ezyUser)
+    {
+        List<Character> allCharacters = getAllCharactersOfUser(ezyUser);
+        List<CharacterLocation> allCharacterLocations = getAllCharacterLocationsOfUser(ezyUser);
 
-                break;
-            }
-        }
+        List<CharacterInfoModel> characterInfoModel = getListCharacterInfoModel(allCharacters, allCharacterLocations);
+
+        return CharacterInfoListModel.builder()
+                .characters(characterInfoModel)
+                .build();
+    }
+
+    public List<CharacterInfoModel> getListCharacterInfoModel(List<Character> characters, List<CharacterLocation> characterLocations)
+    {
+        Map<Long, String> roomMap = characterLocations.stream()
+                .collect(Collectors.toMap(CharacterLocation::getCharacterId, CharacterLocation::getRoom));
+
+        List<CharacterInfoModel> answer = characters.stream().map(
+                character -> {
+                    String room = roomMap.get(character.getId());
+
+                    return CharacterInfoModel.builder()
+                            .id(character.getId())
+                            .name(character.getName())
+                            .room(room)
+                            .build();
+                }
+        ).collect(Collectors.toList());
+
+        return answer;
+    }
+
+    public CharacterLocation getCharacterLocation(Long characterId)
+    {
+        return characterLocationRepo.findByField("characterId", characterId);
     }
 }

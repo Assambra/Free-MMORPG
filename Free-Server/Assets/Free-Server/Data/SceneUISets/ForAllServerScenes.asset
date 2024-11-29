@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3f4b749507b684cbd324bccfb596a0, type: 3}
   m_Name: ForAllServerScenes
   m_EditorClassIdentifier: 
-  UIElementPrefabs: []
+  UIElementPrefabs:
+  - {fileID: 2702325962030854823, guid: e3c6ebcd58bccc84ab9f3a0e72585518, type: 3}

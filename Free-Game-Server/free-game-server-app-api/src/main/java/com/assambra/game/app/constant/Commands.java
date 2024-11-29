@@ -10,10 +10,9 @@ public final class Commands {
     public static final String CHARACTER_LIST = "characterList";
     public static final String CREATE_CHARACTER = "createCharacter";
     public static final String PLAY = "play";
-    public static final String RECONNECT = "reconnect";
-    public static final String CHARACTER_SPAWNED = "characterSpawned";
-    public static final String CHARACTER_DESPAWNED = "characterDespawned";
-    public static final String PLAYER_INPUT = "playerInput";
+    public static final String PLAYER_SPAWN = "playerSpawn";
+    public static final String PLAYER_DESPAWN = "playerDespawn";
+    public static final String CHANGE_SERVER = "changeServer";
 
     private Commands() {}
 }

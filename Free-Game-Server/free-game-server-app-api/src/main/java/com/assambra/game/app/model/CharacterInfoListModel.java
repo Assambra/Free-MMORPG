@@ -7,7 +7,6 @@ import java.util.List;
 
 @Getter
 @Builder
-public class PlayModel {
-    private List<String> userNames;
-    private List<CharacterSpawnModel> characterSpawns;
+public class CharacterInfoListModel {
+    private List<CharacterInfoModel> characters;
 }

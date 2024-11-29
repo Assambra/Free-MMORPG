@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08dea77d071ec5043a6f9ea2d46b60c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scenes: []
-  CurrentScene: {fileID: 0}
-  LastScene: {fileID: 0}
+  Scenes:
+  - {fileID: 11400000, guid: cea93f89064009a45aaf6e8c02826439, type: 2}
+  - {fileID: 11400000, guid: 734462337dd7147469292b656beb3a98, type: 2}
+  - {fileID: 11400000, guid: 9c6762445b28d5d47be7c5b000fd6fe3, type: 2}

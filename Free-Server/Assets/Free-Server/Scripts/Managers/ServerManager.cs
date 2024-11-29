@@ -87,7 +87,7 @@ namespace Assambra.FreeServer
         
         protected override void OnSceneChanged(Scene lastScene, Scene newScene)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public GameObject CreatePlayer(Vector3 position, Vector3 rotation)

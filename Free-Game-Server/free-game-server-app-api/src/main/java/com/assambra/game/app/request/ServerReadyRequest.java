@@ -5,9 +5,6 @@ import lombok.Data;
 
 @Data
 @EzyObjectBinding
-@SuppressWarnings("MemberName")
-public class PlayerInputRequest {
-    private int t;
-    private boolean[] i;
-    private float[] r;
+public class ServerReadyRequest {
+    private String password;
 }

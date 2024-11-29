@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @EzyCollection
-public class Account {
+public class User {
     @EzyId
     Long id;
 

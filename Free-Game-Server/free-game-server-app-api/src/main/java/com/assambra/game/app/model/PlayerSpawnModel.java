@@ -6,12 +6,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CharacterSpawnModel {
-    private String accountUsername;
-    private Long roomId;
-    private Boolean isLocalPlayer;
-    private String characterName;
-    private String characterModel;
+public class PlayerSpawnModel {
+    private Long id;
+    private String username;
+    private String name;
+    private String sex;
+    private String race;
+    private String model;
     private EzyArray position;
     private EzyArray rotation;
 }
