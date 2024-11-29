@@ -71,11 +71,11 @@ MonoBehaviour:
       - t: 4
         v: 4
       - t: 4
-        v: 12
+        v: 16
       - t: 1
-        v: 201588994
+        v: 268697858
       - t: 6
-        v: 201588994
+        v: 268697858
       special: 
       uniObj: {fileID: 0}
     - refId: 2
@@ -312,6 +312,7 @@ MonoBehaviour:
       - type
       - intensity
       - scale
+      - ratio
       - offset
       - wrap
       - <hideDefaultToolGizmo>k__BackingField
@@ -327,6 +328,8 @@ MonoBehaviour:
       values:
       - t: 255
         v: 12
+      - t: 2
+        v: 1065353216
       - t: 2
         v: 1065353216
       - t: 2
@@ -418,7 +421,7 @@ MonoBehaviour:
       - t: 2
         v: 1125515264
       - t: 2
-        v: 1125777408
+        v: 1127088128
       special: 
       uniObj: {fileID: 0}
     - refId: 17
@@ -2127,7 +2130,7 @@ MonoBehaviour:
       - t: 11
         v: 8945119728725131607
       - t: 11
-        v: 7
+        v: 8
       - t: 255
         v: 88
       - t: 255
@@ -2368,7 +2371,7 @@ MonoBehaviour:
       fields: []
       values: []
       special: 
-      uniObj: {fileID: 8574412962073106934, guid: b8c32b403ed197d4a9617002266e98ac, type: 2}
+      uniObj: {fileID: 8574412962073106934, guid: 0c5975c22c747064fb39a97a3e84e450, type: 2}
     - refId: 87
       type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       altType: 
@@ -2676,7 +2679,7 @@ MonoBehaviour:
       - t: 2
         v: 1125515264
       - t: 2
-        v: 1130954752
+        v: 1133019136
       special: 
       uniObj: {fileID: 0}
     - refId: 102

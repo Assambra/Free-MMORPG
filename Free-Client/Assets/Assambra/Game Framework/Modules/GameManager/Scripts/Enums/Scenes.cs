@@ -9,6 +9,7 @@ namespace Assambra.GameFramework.GameManager
         ForgotData = 3,
         SelectCharacter = 4,
         CreateCharacter = 5,
-        World = 6
+        Newcomer = 6,
+        World = 7
     }
 }
