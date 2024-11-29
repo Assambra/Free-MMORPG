@@ -16,7 +16,7 @@ namespace Assambra.FreeServer
     {
         public static NetworkManager Instance { get; private set; }
 
-        private EzySocketConfig socketConfig;
+        [SerializeField] private EzySocketConfig socketConfig;
 
         private void Awake()
         {
