@@ -170,25 +170,34 @@ You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases"
 <!-- CLIENT -->
 ## Client
 ### Clone from GitHub
-Clone the repo:
+Clone the repository:
 
-`git clone git@github.com:Assambra/Free-MMORPG.git`
+```bash
+git clone git@github.com:Assambra/Free-MMORPG.git
+```
 
-Download and extract the file: <a href="https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip"> ezyfox-server-csharp-client-1.1.6-unity.zip</a>
-Do the next steps for both Unity project Free-Client and Free-Server. 
-Insert the extracted folder ezyfox-server-csharp-client-1.1.6-unity and drag it into the root folder /Assets in the opened project.
+Download and extract the file: [ezyfox-server-csharp-client-1.1.6-unity.zip](https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip).
 
-Go to the folder Assets/ezyfox-server-csharp-client-1.1.6-unity in your Unity Editor, right-click -> Create -> Assembly Definition, 
-and rename it to `com.tvd12.ezyfoxserver.client`
+Perform the following steps for both Unity projects: **Free-Client** and **Free-Server**:
+1. Insert the extracted folder `ezyfox-server-csharp-client-1.1.6-unity` into the root folder `/Assets` of your opened Unity project.
+2. Open the Unity Editor and navigate to the folder `Assets/ezyfox-server-csharp-client-1.1.6-unity`.
+3. Right-click inside the folder -> **Create** -> **Assembly Definition**, and rename it to `com.tvd12.ezyfoxserver.client`.
 
-Free-Server: In the Unity Editor, open the folder and select the file `Assets/Free-Server/Scripts/Assambra.Server`.
+#### Free-Server Setup
+In the Unity Editor:
+1. Navigate to `Assets/Free-Server/Scripts/Assambra.Server`.
+2. In the Inspector, locate the **Assembly Definition Reference** section.
+3. Remove the missing reference starting with `GUID:` (if present).
+4. Add a new reference by clicking the plus sign (+) and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition.
+5. Click **Apply**.
 
-Free-Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.Client`.
+#### Free-Client Setup
+Repeat the same steps for the **Free-Client** project:
+1. Navigate to `Assets/Free-Client/Scripts/Assambra.Client`.
+2. Follow the same process for updating the **Assembly Definition Reference**.
 
-In the Inspector under **Assembly Definition Reference**, there is some missing reference starting with GUID:. Delete this one and add a new one with the plus sign and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition. Don't forget to hit **apply**.
-
-
-Follow the same procedure for Crest if it is already installed. If not, you can find instructions under [Crest Ocean System](#crest-ocean-system).
+#### Crest Ocean System
+Follow the same procedure for Crest Ocean System if it is already installed. If not, you can find the installation instructions under the section [Crest Ocean System](#crest-ocean-system).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
