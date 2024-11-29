@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5592367909900043935}
-  - component: {fileID: 624292153128329897}
+  - component: {fileID: 6830567335824034206}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &624292153128329897
+--- !u!114 &6830567335824034206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5592367909900043929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1803e7c0f677c5f4287f30c6a5767376, type: 3}
+  m_Script: {fileID: 11500000, guid: db76e6dc290b7fa4b8b7cb419d32bbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <sceneHandler>k__BackingField: {fileID: 0}
   _currentState: 0
   _timeDelayChangeGameState: 0.1
+  Account: 
+  _networkManagerAccount: {fileID: 0}
+  <CameraController>k__BackingField: {fileID: 0}
+  <UIHandler>k__BackingField: {fileID: 0}
+  <SceneHandler>k__BackingField: {fileID: 0}
+  <MouseHandler>k__BackingField: {fileID: 0}
+  <DirectionalLight>k__BackingField: {fileID: 0}
+  <MainCamera>k__BackingField: {fileID: 0}
+  CharacterCreatedAndReadyToPlay: 0
+  CharacterId: 0
+  playerPrefab: {fileID: 471186384214967346, guid: 2a94f1e2c8fc8b345a63e02b872b940b, type: 3}

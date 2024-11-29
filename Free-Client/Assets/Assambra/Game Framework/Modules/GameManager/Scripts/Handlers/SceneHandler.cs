@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,8 @@ namespace Assambra.GameFramework.GameManager
 
         private Scene lastScene = null;
 
+        private bool loadingInProgress = false;
+
         private void Start()
         {
             ChangeScene(GetFirstScene());
@@ -20,35 +23,39 @@ namespace Assambra.GameFramework.GameManager
 
         public void ChangeScene(Scene newScene)
         {
-            if (lastScene != newScene)
+            if (IsLoadingInProgress())
+                StartCoroutine(WaitLoadInProgressCoroutine(newScene));
+            else
             {
-                OnSceneChanged?.Invoke(lastScene, newScene);
-                UnloadScenesInSceneObject(lastScene);
-                LoadScenesInSceneObject(newScene);
-                lastScene = newScene;
-            }
-        }
-
-        private void LoadScenesInSceneObject(Scene scene)
-        {
-            if (scene != null)
-            {
-                foreach (string scenePath in scene.scenePaths)
+                if (lastScene != newScene)
                 {
-                    LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+                    OnSceneChanged?.Invoke(lastScene, newScene);
+
+                    if (lastScene != null)
+                        UnloadSceneAsync(lastScene.ScenePath);
+
+                    LoadSceneAsync(newScene.ScenePath, LoadSceneMode.Additive);
+                    lastScene = newScene;
                 }
             }
         }
 
-        private void UnloadScenesInSceneObject(Scene scene)
+        private bool IsLoadingInProgress()
         {
-            if (scene != null)
-            {
-                foreach (string scenePath in scene.scenePaths)
-                {
-                    UnloadSceneAsync(scenePath);
-                }
-            }
+            return loadingInProgress;
+        }
+
+        private IEnumerator WaitLoadInProgressCoroutine(Scene newScene)
+        {
+            yield return new WaitUntil(() => !loadingInProgress);
+            ChangeScene(newScene);
+        }
+
+        public Scenes GetScenesByName(string scenename)
+        {
+            Scenes scene = (Scenes)Enum.Parse(typeof(Scenes), scenename);
+
+            return scene;
         }
 
         private Scene GetFirstScene()
@@ -59,7 +66,13 @@ namespace Assambra.GameFramework.GameManager
 
         private void LoadSceneAsync(string scene, LoadSceneMode mode)
         {
-            SceneManager.LoadSceneAsync(scene, mode);
+            loadingInProgress = true;
+
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene, mode);
+            asyncOperation.completed += (asyncOperation) =>
+            {
+                loadingInProgress = false;
+            };
         }
 
         private void UnloadSceneAsync(string scene)

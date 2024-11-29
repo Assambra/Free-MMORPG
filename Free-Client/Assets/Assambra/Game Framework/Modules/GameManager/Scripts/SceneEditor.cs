@@ -1,4 +1,3 @@
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -7,48 +6,29 @@ namespace Assambra.GameFramework.GameManager
 {
     #if UNITY_EDITOR
 
-    [CustomEditor(typeof(Scene))]
+    [CustomEditor(typeof(Scene), true)]
     public class SceneEditor : Editor
     {
-        SerializedProperty scenePathsProperty;
-
-        private void OnEnable()
-        {
-            scenePathsProperty = serializedObject.FindProperty("scenePaths");
-        }
-
         public override void OnInspectorGUI()
         {
+            var scene = (Scene)target;
+            var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scene.ScenePath);
+
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("IsFirstScene"), true);
+            EditorGUI.BeginChangeCheck();
 
-            for (int i = 0; i < scenePathsProperty.arraySize; i++)
+            var newScene = EditorGUILayout.ObjectField("Scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
+
+            if (EditorGUI.EndChangeCheck())
             {
-                SerializedProperty scenePathProp = scenePathsProperty.GetArrayElementAtIndex(i);
-                SceneAsset scene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePathProp.stringValue);
-                EditorGUI.BeginChangeCheck();
-                SceneAsset newScene = EditorGUILayout.ObjectField("Scene " + (i + 1), scene, typeof(SceneAsset), false) as SceneAsset;
-
-                if (EditorGUI.EndChangeCheck())
-                {
-                    scenePathProp.stringValue = AssetDatabase.GetAssetPath(newScene);
-                }
+                var newPath = AssetDatabase.GetAssetPath(newScene);
+                var scenePathProperty = serializedObject.FindProperty("ScenePath");
+                scenePathProperty.stringValue = newPath;
             }
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Add Scene"))
-            {
-                scenePathsProperty.arraySize++;
-            }
-            if (scenePathsProperty.arraySize > 0 && GUILayout.Button("Remove Scene"))
-            {
-                scenePathsProperty.arraySize--;
-            }
-            GUILayout.EndHorizontal();
-
+            scene.IsFirstScene = EditorGUILayout.Toggle("Is First Scene", scene.IsFirstScene);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("SceneUISets"), true);
-
             serializedObject.ApplyModifiedProperties();
         }
     }

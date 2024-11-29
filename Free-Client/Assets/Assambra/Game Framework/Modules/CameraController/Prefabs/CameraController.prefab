@@ -54,6 +54,7 @@ MonoBehaviour:
   <IsOverUIElement>k__BackingField: 0
   autoFindPlayer: 0
   cameraRotateCameraTarget: 0
+  rotateCameraWithCameraTarget: 0
   blockCameraTilt: 0
   blockCameraPan: 0
   cameraOffset: {x: 0, y: 1.8, z: 0}
