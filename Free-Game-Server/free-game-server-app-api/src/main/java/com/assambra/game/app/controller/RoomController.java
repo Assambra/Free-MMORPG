@@ -33,9 +33,9 @@ public class RoomController extends EzyLoggable {
         );
 
         Vec3 rotation = new Vec3(
-                request.getPosition().get(0, float.class),
-                request.getPosition().get(1, float.class),
-                request.getPosition().get(2, float.class)
+                request.getRotation().get(0, float.class),
+                request.getRotation().get(1, float.class),
+                request.getRotation().get(2, float.class)
         );
 
         PlayerDespawnModel playerDespawnModel = playerService.getPlayerDespawnModel(request.getId());
