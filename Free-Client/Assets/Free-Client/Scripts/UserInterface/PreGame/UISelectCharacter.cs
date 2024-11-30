@@ -13,10 +13,11 @@ namespace Assambra.FreeClient.UserInterface
         [SerializeField] private TMP_Text _textCharacterName;
         [SerializeField] private TMP_Text _textCharacterSex;
         [SerializeField] private TMP_Text _textCharacterRace;
+        [SerializeField] private TMP_Text _textCharacterLocation;
         [SerializeField] private Button _buttonPreviousCharacter;
         [SerializeField] private Button _buttonNextCharacter;
 
-        private List<CharacterInfoModel> _characterInfos;
+        private List<EntityModel> _characterInfos;
         private int _charactersCount;
         private DynamicCharacterAvatar _avatar;
         private int _currentShownCharacter;
@@ -91,10 +92,11 @@ namespace Assambra.FreeClient.UserInterface
 
         private void SetCharacter(int character)
         {
-            CharacterInfoModel info = _characterInfos[character];
+            EntityModel info = _characterInfos[character];
             _textCharacterName.text = info.Name;
             _textCharacterSex.text = info.Sex;
             _textCharacterRace.text = info.Race;
+            _textCharacterLocation.text = info.Room;
             UMAHelper.SetAvatarString(_avatar, info.Model);
         }
     }
