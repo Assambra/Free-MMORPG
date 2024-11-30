@@ -42,7 +42,7 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
-                <li><a href="#addressables">Adressables</a></li>
+                <li><a href="#addressables">Addressables</a></li>
                 <li><a href="#burst-compiler">Burst compiler</a></li>
                 <li><a href="#collections">Collections</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
@@ -263,11 +263,14 @@ after that open both projects (Free-Client and Free-Server) in the Unity Editor 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### UMA 2
-Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
-after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.
+Please use at the moment our modified version: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>
+Download and extract the rar file. Drag the folder UMA direct into Free-Client/Assets in the Unity Editor.
 
-Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Addressables, Unity.Mathmatics, Unity.Burst and Unity Collections references.
-There are additional steps required please read Free-Client/Assets/UMA/Addressables - Read Me Now.pdf
+~~Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
+after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.~~
+
+~~Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Addressables, Unity.Mathmatics, Unity.Burst and Unity Collections references.
+There are additional steps required please read Free-Client/Assets/UMA/Addressables - Read Me Now.pdf~~
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- PLAY THE CLIENT -->
