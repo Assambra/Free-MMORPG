@@ -13,6 +13,9 @@ namespace Assambra.FreeServer
         public Dictionary<uint, Player> NearbyPlayers { get => _areaOfInterest.NearbyPlayers; }
         public uint Id { get => _id; }
         public string Name { get => _name; }
+        public string Sex { get => _sex; }
+        public string Race { get => _race; }
+        public string Model { get => _model; }
         public GameObject EntityGameObject { get => _entityGameObject; }
         public bool IsStatic { get => _isStatic; }
         public EntityType EntityType { get => _entityType; }
@@ -22,6 +25,9 @@ namespace Assambra.FreeServer
 
         private uint _id;
         private string _name;
+        private string _sex;
+        private string _race;
+        private string _model;
         private GameObject _entityGameObject;
         private bool _isStatic;
         private EntityType _entityType;
@@ -32,10 +38,13 @@ namespace Assambra.FreeServer
         private Vector3 _lastPosition;
         private Quaternion _lastRotation;
 
-        public virtual void Initialize(uint id, string name, GameObject entityGameObject, bool isStatic, EntityType entityType)
+        public virtual void Initialize(uint id, string name, string sex, string race, string model, GameObject entityGameObject, bool isStatic, EntityType entityType)
         {
             this._id = id;
             this._name = name;
+            this._sex = sex;
+            this._race = race;
+            this._model = model;
             this._entityGameObject = entityGameObject;
             this._isStatic = isStatic;
             this._entityType = entityType;
@@ -84,7 +93,7 @@ namespace Assambra.FreeServer
             ServerManager.Instance.ServerLog.ServerLogMessageInfo($"{Name} has detected {otherPlayer.Name} entering the area.");
             if (player != null)
             {
-                NetworkManager.Instance.SendSpawnToPlayer(player.Username, otherPlayer.Id, otherPlayer.Name, otherPlayer.Position, otherPlayer.Rotation.eulerAngles);
+                NetworkManager.Instance.SendSpawnToPlayer(player.Username, otherPlayer.Id, otherPlayer.Name, otherPlayer.Sex, otherPlayer.Race, otherPlayer.Model, otherPlayer.Position, otherPlayer.Rotation.eulerAngles);
             }
         }
 

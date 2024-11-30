@@ -12,9 +12,9 @@ namespace Assambra.FreeServer
         private string _username;
         private bool _masterServerRequestedDespawn;
 
-        public void Initialize(uint id, string name, GameObject entityGameObject, bool isStatic, EntityType entityType, string username)
+        public void Initialize(uint id, string name, string sex, string race, string model, GameObject entityGameObject, bool isStatic, EntityType entityType, string username)
         {
-            base.Initialize(id, name, entityGameObject, isStatic, entityType);
+            base.Initialize(id, name, sex, race, model, entityGameObject, isStatic, entityType);
             this._username = username;
         }
 
