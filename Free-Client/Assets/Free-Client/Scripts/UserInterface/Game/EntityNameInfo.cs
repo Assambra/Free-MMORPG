@@ -3,21 +3,21 @@ using TMPro;
 
 namespace Assambra.FreeClient
 {
-    public class PlayerHeadInfo : MonoBehaviour
+    public class EntityNameInfo : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _playerNameText;
+        [SerializeField] private TMP_Text _nameText;
 
         private void LateUpdate()
         {
             transform.rotation = GameManager.Instance.CameraController.transform.rotation;
         }
 
-        public void SetPlayername(string playerName)
+        public void SetName(string name)
         {
-            _playerNameText.text = playerName;
+            _nameText.text = name;
         }
 
-        public void SetPlayerInfoPosition(float heightDiff)
+        public void SetNameInfoPosition(float heightDiff)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - heightDiff, transform.position.z);
         }
