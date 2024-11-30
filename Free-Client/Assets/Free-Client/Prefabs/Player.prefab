@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7552419251411878019}
   - component: {fileID: 6214107460784681592}
+  - component: {fileID: 5082358268722611675}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -169,12 +170,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64964f5894153a14fb6f339a3bce7e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocalPlayer: 0
   Initialized: 0
   IsAvatarCreated: 0
   Animator: {fileID: 0}
+  _playerHeadInfo: {fileID: 6095457073473621084}
   <Avatar>k__BackingField: {fileID: 6421357417252951630}
-  playerHeadInfo: {fileID: 6095457073473621084}
+--- !u!114 &5082358268722611675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471186384214967346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea5322fd7542440479e21c5737f386ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetPosition: {x: 0, y: 0, z: 0}
+  _targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2221156034622628282
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,8 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4dcfc7b6f3666428375b1aee19b852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6214107460784681592}
-  playerNameText: {fileID: 2083948034734061145}
+  _playerNameText: {fileID: 2083948034734061145}
 --- !u!1 &4185742584898481680
 GameObject:
   m_ObjectHideFlags: 0

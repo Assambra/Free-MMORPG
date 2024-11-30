@@ -16,68 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: e85b8f9e77e7d2a46bedc53a938aa9af
-  m_SerializeEntries:
-  - m_GUID: 10bbdf805ca24ef42809993e0339cf6d
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseRecipe/BaseTextures/UMA_Toon_F_Body_normal.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 148c34019fcd2624f8c0c477844cdca8
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleHeadNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1e61bd0784d7bf54285144463dae8a43
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleChestNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2559d577715a8a249afdbf5956d8798e
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseRecipe/BaseTextures/UMA_Toon_F_Lashes_diffuse.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 266be3c01fa540341b3dfe715be68539
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseRecipe/BaseTextures/UMA_Toon_F_Makeup_diffuse.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4764780170198534da28345affcd9941
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleLegsNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 806b904c74d42ed42841288f771a92f3
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleOutfitNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 878a264f74c65ca42a0931cdc9a75bc7
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleFeetNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 91e2cbe585e0f6145b24d5c6aaf13e1c
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/ToonF
-      UMADNARangeAsset.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 931079e0d599ab64881ddfe02608d0fd
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleHandsNone.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dbb32fec54702ff4ea19bf72301f81e9
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemale.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e8246c94f2a830349a241ed3730f4d46
-    m_Address: Assets/UMA/Examples/DynamicCharacterSystem Examples/Assets/DemoAssetBundles/ToonFemale/RaceBase/BaseThumbs/ToonFemaleHeadSkin.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2d90c9fe70ee4e649ba6cd54a5ae43ef, type: 2}
   m_SchemaSet:

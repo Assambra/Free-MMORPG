@@ -2,7 +2,6 @@
   "dependencies": {
     "com.judahperez.hsvcolorpicker": "3.3.0",
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.addressables": "1.22.3",
     "com.unity.burst": "1.8.18",
     "com.unity.collections": "2.5.1",
     "com.unity.ide.visualstudio": "2.0.22",
