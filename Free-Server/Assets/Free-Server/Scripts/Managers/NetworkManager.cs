@@ -7,6 +7,7 @@ using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 using Object = System.Object;
 
@@ -46,14 +47,7 @@ namespace Assambra.FreeServer
 
         protected override EzySocketConfig GetSocketConfig()
         {
-            return EzySocketConfig.GetBuilder()
-                .ZoneName("free-game-server")
-                .AppName("free-game-server")
-                .TcpUrl("127.0.0.1:3005")
-                .UdpPort(2611)
-                .UdpUsage(true)
-                .EnableSSL(false)
-                .Build();
+            return socketConfig;
         }
 
         public void Login(string username, string password)
@@ -128,8 +122,11 @@ namespace Assambra.FreeServer
         private void PlayerSpawnRequest(EzyAppProxy proxy, EzyObject data)
         {
             long id = data.get<long>("id");
-            string name = data.get<string>("name");
             string username = data.get<string>("username");
+            string name = data.get<string>("name");
+            string sex = data.get<string>("sex");
+            string race = data.get<string>("race");
+            string model = data.get<string>("model");
             EzyArray position = data.get<EzyArray>("position");
             EzyArray rotation = data.get<EzyArray>("rotation");
             Vector3 pos = new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2));
@@ -144,7 +141,7 @@ namespace Assambra.FreeServer
 
             if (player != null)
             {
-                player.Initialize((uint)id, name, playerGameObject, false, EntityType.Player, username);
+                player.Initialize((uint)id, name, sex, race, model, playerGameObject, false, EntityType.Player, username);
                 player.SetPlayerHeadinfoName(name);
                 ServerManager.Instance.ServerEntities.Add((uint)id, player);
             }
@@ -158,11 +155,15 @@ namespace Assambra.FreeServer
             SendServerToClient(username, "playerSpawn", new List<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>("id", id),
+                new KeyValuePair<string, object>("entityType", 1),
                 new KeyValuePair<string, object>("name", name),
-                new KeyValuePair<string, object>("isLocalPlayer", isLocalPlayer),
-                new KeyValuePair<string, object>("room", ServerManager.Instance.Room),
+                new KeyValuePair<string, object>("model", model),
                 new KeyValuePair<string, object>("position", position),
                 new KeyValuePair<string, object>("rotation", rotation),
+                new KeyValuePair<string, object>("sex", sex),
+                new KeyValuePair<string, object>("race", race),
+                new KeyValuePair<string, object>("room", ServerManager.Instance.Room),
+                new KeyValuePair<string, object>("isLocalPlayer", isLocalPlayer),
             });
         }
 
@@ -219,7 +220,7 @@ namespace Assambra.FreeServer
 
         #region SEND TO CLIENT
 
-        public void SendSpawnToPlayer(string username, long id, string name, Vector3 position, Vector3 rotation)
+        public void SendSpawnToPlayer(string username, long id, string name, string sex, string race, string model, Vector3 position, Vector3 rotation)
         {
             bool isLocalPlayer = false;
             string room = "";
@@ -239,11 +240,15 @@ namespace Assambra.FreeServer
             SendServerToClient(username, "playerSpawn", new List<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>("id", id),
+                new KeyValuePair<string, object>("entityType", 1),
                 new KeyValuePair<string, object>("name", name),
-                new KeyValuePair<string, object>("isLocalPlayer", isLocalPlayer),
-                new KeyValuePair<string, object>("room", room),
+                new KeyValuePair<string, object>("model", model),
                 new KeyValuePair<string, object>("position", positionArray),
-                new KeyValuePair<string, object>("rotation", rotationArray)
+                new KeyValuePair<string, object>("rotation", rotationArray),
+                new KeyValuePair<string, object>("sex", sex),
+                new KeyValuePair<string, object>("race", race),
+                new KeyValuePair<string, object>("room", room),
+                new KeyValuePair<string, object>("isLocalPlayer", isLocalPlayer)  
             });
         }
 
