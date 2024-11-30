@@ -32,19 +32,19 @@ namespace Assambra.FreeClient
 
         private void Update()
         {
-            if (_isActive)
+            if (!_isActive)
+                return;
+
+            _elapsedTime += Time.deltaTime;
+
+            transform.position = Vector3.Lerp(_startPosition, _targetPosition, _elapsedTime / _updateInterval);
+            transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, _elapsedTime / _updateInterval);
+
+            if (_elapsedTime >= _updateInterval)
             {
-                _elapsedTime += Time.deltaTime;
-
-                transform.position = Vector3.Lerp(_startPosition, _targetPosition, _elapsedTime / _updateInterval);
-                transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, _elapsedTime / _updateInterval);
-
-                if (_elapsedTime >= _updateInterval)
-                {
-                    _elapsedTime = 0f;
-                    _startPosition = transform.position;
-                    _startRotation = transform.rotation;
-                }
+                _elapsedTime = 0f;
+                _startPosition = transform.position;
+                _startRotation = transform.rotation;
             }
         }
 

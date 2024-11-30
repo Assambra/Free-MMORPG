@@ -10,7 +10,6 @@ using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using Object = System.Object;
-using CharacterInfo = Assambra.FreeClient.Entities.CharacterInfo;
 using System.Collections.Generic;
 using System.Collections;
 using Assambra.FreeClient.Helper;
@@ -150,11 +149,11 @@ namespace Assambra.FreeClient
             }
         }
 
-        public void PlayRequest(long characterId)
+        public void PlayRequest(long id)
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("characterId", characterId)
+                .append("id", id)
                 .build();
 
             appProxy.send(Commands.PLAY, data);
@@ -218,12 +217,15 @@ namespace Assambra.FreeClient
                 {
                     EzyObject characterInfo = data.get<EzyObject>(i);
 
-                    CharacterInfoModel characterInfoModel = new CharacterInfoModel(
+                    EntityModel characterInfoModel = new EntityModel(
                         characterInfo.get<long>("id"),
+                        0,
                         characterInfo.get<string>("name"),
+                        characterInfo.get<string>("model"),
+                        Vector3.zero,
+                        Quaternion.identity,
                         characterInfo.get<string>("sex"),
                         characterInfo.get<string>("race"),
-                        characterInfo.get<string>("model"),
                         characterInfo.get<string>("room")
                         );
 
@@ -261,35 +263,42 @@ namespace Assambra.FreeClient
 
         private void ReceivePlayerSpawn(EzyAppProxy proxy, EzyObject data)
         {
-            long id = data.get<long>("id");
-            string name = data.get<string>("name");
-            //Debug.Log($"Receive PLAYER_SPAWN request for {name}");
-            string sex = data.get<string>("sex");
-            string race = data.get<string>("race");
-            string model = data.get<string>("model");
-            bool isLocalPlayer = data.get<bool>("isLocalPlayer");
-            string room = data.get<string>("room");
-            EzyArray position = data.get<EzyArray>("position");
-            EzyArray rotation = data.get<EzyArray>("rotation");
-            Vector3 pos = new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2));
-            Vector3 rot = new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2));
+            EntityModel entityModel = new(
+                data.get<long>("id"),
+                data.get<int>("entityType"),
+                data.get<string>("name"),
+                data.get<string>("model"),
+                new Vector3(
+                    data.get<EzyArray>("position").get<float>(0),
+                    data.get<EzyArray>("position").get<float>(1),
+                    data.get<EzyArray>("position").get<float>(2)
+                ),
+                Quaternion.Euler(
+                    data.get<EzyArray>("rotation").get<float>(0),
+                    data.get<EzyArray>("rotation").get<float>(1),
+                    data.get<EzyArray>("rotation").get<float>(2)
+                ),
+                data.get<string>("sex"),
+                data.get<string>("race"),
+                data.get<string>("room"),
+                data.get<bool>("isLocalPlayer")
+            );
 
-            if (!string.IsNullOrEmpty(room))
+            if (!string.IsNullOrEmpty(entityModel.Room))
             {
-                Scenes scenes = GameManager.Instance.getScenesByName(room);
+                Scenes scenes = GameManager.Instance.getScenesByName(entityModel.Room);
 
                 GameManager.Instance.ChangeScene(scenes);
             }
 
-            StartCoroutine(WaitUntilDespawnDone(id, name, sex, race, model, isLocalPlayer, room, pos, rot));
+            StartCoroutine(WaitUntilDespawnDone(entityModel));
         }
 
-        private IEnumerator WaitUntilDespawnDone(long id, string name, string sex, string race, string model, bool isLocalPlayer, string room, Vector3 position, Vector3 rotation)
+        private IEnumerator WaitUntilDespawnDone(EntityModel entityModel)
         {
             yield return new WaitUntil(() => _despawnInProgress == false);
 
-            GameObject playerGameObject = GameManager.Instance.CreatePlayer(position, rotation);
-            playerGameObject.name = name;
+            GameObject playerGameObject = GameManager.Instance.CreatePlayer(entityModel.Position, entityModel.Rotation);
 
             Player player = playerGameObject.GetComponent<Player>();
             PlayerController playerController = playerGameObject.GetComponent<PlayerController>();
@@ -303,26 +312,25 @@ namespace Assambra.FreeClient
 
             if (player != null)
             {
-                StartCoroutine(WaitForCharacterCreated(player, model));
+                StartCoroutine(WaitForCharacterCreated(player, entityModel.Model));
 
-                player.Initialize((uint)id, name, playerGameObject, room, isLocalPlayer);
-                player.SetPlayerName(name);
+                player.Initialize(entityModel, playerGameObject);
 
-                if (!isLocalPlayer)
+                if (!entityModel.IsLocalPlayer)
                 {
                     player.NetworkTransform.IsActive = true;
-                    player.NetworkTransform.Initialize(position, Quaternion.Euler(rotation));
+                    player.NetworkTransform.Initialize(entityModel.Position, entityModel.Rotation);
                 }
                 else
                 {
-                    GameManager.Instance.CameraController.ChangeCameraPreset("InGameCamera");
+                    GameManager.Instance.CameraController.ChangeCameraPreset("GameCamera");
                     GameManager.Instance.CameraController.CameraTarget = playerGameObject;
                     GameManager.Instance.CameraController.Active = true;
-
+                    player.PlayerController.IsActive = true;
                     player.NetworkTransform.IsActive = false;
                 }
 
-                GameManager.Instance.ClientEntities.Add((uint)id, player);
+                GameManager.Instance.ClientEntities.Add(entityModel.Id, player);
             }
             else
             {
@@ -357,25 +365,25 @@ namespace Assambra.FreeClient
             long id = data.get<long>("id");
             //Debug.Log($"Receive PLAYER_DESPAWN request for {id}");
 
-            if (GameManager.Instance.ClientEntities.TryGetValue((uint)id, out Entity entity))
+            if (GameManager.Instance.ClientEntities.TryGetValue(id, out Entity entity))
             {
                 if (entity is Player player)
                 {
-                    if (player.IsLocalPlayer)
+                    if (player.EntityModel.IsLocalPlayer)
                     {
                         GameManager.Instance.CameraController.Active = false;
                         GameManager.Instance.CameraController.CameraTarget = null;
 
-                        foreach (KeyValuePair<uint, Entity> e in GameManager.Instance.ClientEntities)
+                        foreach (KeyValuePair<long, Entity> e in GameManager.Instance.ClientEntities)
                         {
-                            Destroy(e.Value.EntityGameObject);
+                            Destroy(e.Value.EntityModel.EntityGameObject);
                         }
                         GameManager.Instance.ClientEntities.Clear();
                     }
                     else
                     {
-                        Destroy(player.EntityGameObject);
-                        GameManager.Instance.ClientEntities.Remove(player.Id);
+                        Destroy(player.EntityModel.EntityGameObject);
+                        GameManager.Instance.ClientEntities.Remove(player.EntityModel.Id);
                     }
                 }
             }
@@ -392,13 +400,13 @@ namespace Assambra.FreeClient
             Vector3 pos = new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2));
             Vector3 rot = new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2));
 
-            if (GameManager.Instance.ClientEntities.TryGetValue((uint)id, out Entity entity))
+            if (GameManager.Instance.ClientEntities.TryGetValue(id, out Entity entity))
             {
-                if (entity.Id == id)
+                if (entity.EntityModel.Id == id)
                 {
                     if (entity is Player player)
                     {
-                        if (!player.IsLocalPlayer)
+                        if (!player.EntityModel.IsLocalPlayer)
                         {
                             entity.NetworkTransform.UpdateTargetPosition(pos);
                             entity.NetworkTransform.UpdateTargetRotation(Quaternion.Euler(rot));

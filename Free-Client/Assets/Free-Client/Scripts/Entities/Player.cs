@@ -7,19 +7,13 @@ namespace Assambra.FreeClient
 {
     public class Player : Entity
     {
-        public string Room { get => _room; }
-        public bool IsLocalPlayer { get => _isLocalPlayer; }
+        public PlayerController PlayerController {  get => _playerController; }
 
-        
-
-        private string _room;
-        private bool _isLocalPlayer;
+        [SerializeField] private PlayerController _playerController;
 
         public bool Initialized = false;
         public bool IsAvatarCreated = false;
         public Animator Animator;
-        
-        [SerializeField] private PlayerHeadInfo _playerHeadInfo;
 
         [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
 
@@ -47,23 +41,16 @@ namespace Assambra.FreeClient
                     SetCameraOffset(lastHeight);
                     SetCameraDistance(lastHeight);
 
-                    _playerHeadInfo.SetPlayerInfoPosition(lastHeight - currentHeight);
+                    _entityNameInfo.SetNameInfoPosition(lastHeight - currentHeight);
 
                     lastHeight = currentHeight;
                 }
             }
         }
 
-        public void Initialize(uint id, string name, GameObject entityGameObject, string room, bool isLocalPlayer)
+        public void Initialize(EntityModel entityModel, GameObject entityGameObject)
         {
-            base.Initialize(id, name, entityGameObject);
-            this._room = room;
-            this._isLocalPlayer = isLocalPlayer;
-        }
-
-        public void SetPlayerName(string playerName)
-        {
-            _playerHeadInfo.SetPlayername(playerName);
+            base.Initialize(entityModel, entityGameObject);
         }
 
         private void SetCameraOffset(float lastHeight)

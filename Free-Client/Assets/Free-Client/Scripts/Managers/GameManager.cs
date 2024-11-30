@@ -25,8 +25,8 @@ namespace Assambra.FreeClient
 
         public Player Player { get; private set; }
         public DynamicCharacterAvatar Avatar { get; private set; }
-        public List<CharacterInfoModel> CharacterInfos = new List<CharacterInfoModel>();
-        public Dictionary<uint, Entity> ClientEntities = new Dictionary<uint, Entity>();
+        public List<EntityModel> CharacterInfos = new List<EntityModel>();
+        public Dictionary<long, Entity> ClientEntities = new Dictionary<long, Entity>();
 
         public bool CharacterCreatedAndReadyToPlay = false;
         public long CharacterId = 0;
@@ -88,7 +88,7 @@ namespace Assambra.FreeClient
                 SetCameraPreGameValues();
             }
 
-            if(newScene.name == Scenes.World.ToString()) 
+            if(newScene.name == Scenes.World.ToString() || newScene.name == Scenes.Newcomer.ToString()) 
             {
                 if(_currentState != GameState.Game)
                 {
@@ -131,9 +131,9 @@ namespace Assambra.FreeClient
             CameraController.ResetCameraAngles();
         }
 
-        public GameObject CreatePlayer(Vector3 position, Vector3 rotation)
+        public GameObject CreatePlayer(Vector3 position, Quaternion rotation)
         {
-            return Instantiate(playerPrefab, position, Quaternion.Euler(rotation));
+            return Instantiate(playerPrefab, position, rotation);
         }
     }
 }

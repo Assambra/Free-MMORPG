@@ -5,6 +5,7 @@ import com.assambra.game.app.model.PlayerSpawnModel;
 import com.assambra.game.common.entity.Character;
 import com.assambra.game.common.entity.CharacterLocation;
 import com.assambra.game.common.masterserver.entity.UnityPlayer;
+import com.assambra.game.common.repository.CharacterRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.gamebox.manager.PlayerManager;
@@ -31,6 +32,8 @@ public class PlayerService extends EzyLoggable {
     {
         globalPlayerManager.removePlayer(player);
     }
+
+    private final CharacterRepo characterRepo;
 
     /**
      * This method found a UnityPlayer in the globalPlayerList by its "Character character.getName()" name
@@ -114,10 +117,15 @@ public class PlayerService extends EzyLoggable {
 
     public PlayerSpawnModel getPlayerSpawnModel(UnityPlayer player, Vec3 position, Vec3 rotation)
     {
+        Character character = characterRepo.findById(player.getId());
+
         return PlayerSpawnModel.builder()
                 .id(player.getId())
-                .name(player.getName())
                 .username(player.getUsername())
+                .name(player.getName())
+                .sex(character.getSex())
+                .race(character.getRace())
+                .model(character.getModel())
                 .position(position.toArray())
                 .rotation(rotation.toArray())
                 .build();

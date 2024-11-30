@@ -5,8 +5,12 @@ namespace Assambra.FreeClient
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
+        public bool IsActive { get => _isActive; set => _isActive = value; }
+
         public Player Player { get => _player; set => _player = value; }
         public CharacterController CharacterController { get => _characterController; }
+        
+        private bool _isActive;
         private Player _player;
 
         private CharacterController _characterController;
@@ -33,9 +37,10 @@ namespace Assambra.FreeClient
 
         void Update()
         {
-            if (!_player.IsLocalPlayer)
+            if (!_isActive)
                 return;
-            if (!_characterController.enabled)
+
+            if (!_player.EntityModel.IsLocalPlayer)
                 return;
 
             _groundedPlayer = _characterController.isGrounded;
@@ -61,6 +66,11 @@ namespace Assambra.FreeClient
 
         private void FixedUpdate()
         {
+            if(!_isActive)
+                return;
+            if (!_player.EntityModel.IsLocalPlayer)
+                return;
+
             if (_input != Vector3.zero || !sendOnceZero)
             {
                 if(_input == Vector3.zero)
@@ -68,7 +78,7 @@ namespace Assambra.FreeClient
                 else
                     sendOnceZero = false;
 
-                NetworkManagerGame.Instance.SendPlayerInput(_player.Id, _player.Room, _input);
+                NetworkManagerGame.Instance.SendPlayerInput(_player.EntityModel.Id, _player.EntityModel.Room, _input);
                 _move = _input;
             }                
         }
