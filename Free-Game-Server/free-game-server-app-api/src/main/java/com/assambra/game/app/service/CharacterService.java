@@ -106,6 +106,9 @@ public class CharacterService extends EzyLoggable {
                     return CharacterInfoModel.builder()
                             .id(character.getId())
                             .name(character.getName())
+                            .sex(character.getSex())
+                            .race(character.getRace())
+                            .model(character.getModel())
                             .room(room)
                             .build();
                 }

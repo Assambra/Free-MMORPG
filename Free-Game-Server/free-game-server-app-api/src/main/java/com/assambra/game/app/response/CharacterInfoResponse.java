@@ -10,6 +10,8 @@ import lombok.Getter;
 public class CharacterInfoResponse {
     private Long id;
     private String name;
+    private String sex;
+    private String race;
     private String room;
     private String model;
 }
