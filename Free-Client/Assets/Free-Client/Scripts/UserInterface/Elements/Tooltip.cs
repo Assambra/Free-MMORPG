@@ -1,4 +1,3 @@
-using Assambra.FreeClient.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

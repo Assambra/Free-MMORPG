@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Free-Server/Scenes/Persistent.unity
+    guid: d610b7f6218e6184694f3d19f82f91fe
+  - enabled: 1
+    path: Assets/Free-Server/Scenes/Start.unity
+    guid: ef0c435f984e50c46939aa701d3d7cd8
+  - enabled: 1
+    path: Assets/Free-Server/Scenes/Newcomer.unity
+    guid: 46aaaa165e5606649af8d56d419afd06
+  - enabled: 1
+    path: Assets/Free-Server/Scenes/World.unity
+    guid: a156192e56250d240bb44894c58c0cb1
+  m_configObjects: {}

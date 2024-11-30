@@ -4,8 +4,8 @@ namespace Assambra.FreeClient.Constants
 {
     public sealed class Commands
     {
-        public const String CREATE_ACCOUNT = "createAccount";
-        public const String ACTIVATE_ACCOUNT = "activateAccount";
+        public const String CREATE_USER = "createUser";
+        public const String ACTIVATE_USER = "activateUser";
         public const String RESEND_ACTIVATION_MAIL = "resendActivationMail";
         public const String FORGOT_PASSWORD = "forgotPassword";
         public const String FORGOT_USERNAME = "forgotUsername";
@@ -15,11 +15,15 @@ namespace Assambra.FreeClient.Constants
         public const String CREATE_CHARACTER = "createCharacter";
 
         public const String PLAY = "play";
-        public const String CHARACTER_SPAWNED = "characterSpawned";
-        public const String CHARACTER_DESPAWNED = "characterDespawned";
+        public const String PLAYER_SPAWN = "playerSpawn";
+        public const String PLAYER_DESPAWN = "playerDespawn";
+
+        public const String CLIENT_TO_SERVER = "clientToServer";
+        public const String SERVER_TO_CLIENT = "serverToClient";
+        public const String SERVER_TO_CLIENTS = "serverToClients";
 
         public const String PLAYER_INPUT = "playerInput";
-        public const String SYNC_POSITION = "s";
+        public const String UPDATE_ENTITY_POSITION = "updateEntityPosition";
 
         private Commands() { }
     }

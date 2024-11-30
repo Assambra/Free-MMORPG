@@ -42,10 +42,11 @@
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
             <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
             <ul>
-                <li><a href="#collections">Collections</a></li>
+                <li><a href="#addressables">Addressables</a></li>
                 <li><a href="#burst-compiler">Burst compiler</a></li>
-                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
+                <li><a href="#collections">Collections</a></li>
                 <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
+                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
             </ul>
             <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
             <ul>
@@ -169,25 +170,34 @@ You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases"
 <!-- CLIENT -->
 ## Client
 ### Clone from GitHub
-Clone the repo:
+Clone the repository:
 
-`git clone git@github.com:Assambra/Free-MMORPG.git`
-
-Get submodules:
-
-`cd Free-MMORPG`
-
-`git submodule update --init --recursive`
-
-Go to the folder `Assets/EzyFox Server - C-Sharp Client - Unity` in your Unity Editor, right-click -> Create -> Assembly Definition, and rename it to
+```bash
+git clone git@github.com:Assambra/Free-MMORPG.git
 ```
-com.tvd12.ezyfoxserver.client
-```
-Client: In the Unity Editor, open the folder and select the file `Assets/Free-Client/Scripts/Assambra.FreeClient`.
 
-In the Inspector, under **Assembly Definition References**, there might be some missing references starting with `GUID:`. Delete them and add a new reference using the plus sign, then select the previously created `com.tvd12.ezyfoxserver.client` assembly definition. Don’t forget to click **Apply**.
+Download and extract the file: [ezyfox-server-csharp-client-1.1.6-unity.zip](https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip).
 
-Follow the same procedure for Crest if it is already installed. If not, you can find instructions under [Crest Ocean System](#crest-ocean-system).
+Perform the following steps for both Unity projects: **Free-Client** and **Free-Server**:
+1. Insert the extracted folder `ezyfox-server-csharp-client-1.1.6-unity` into the root folder `/Assets` of your opened Unity project.
+2. Open the Unity Editor and navigate to the folder `Assets/ezyfox-server-csharp-client-1.1.6-unity`.
+3. Right-click inside the folder -> **Create** -> **Assembly Definition**, and rename it to `com.tvd12.ezyfoxserver.client`.
+
+#### Free-Server Setup
+In the Unity Editor:
+1. Navigate to `Assets/Free-Server/Scripts/Assambra.Server`.
+2. In the Inspector, locate the **Assembly Definition Reference** section.
+3. Remove the missing reference starting with `GUID:` (if present).
+4. Add a new reference by clicking the plus sign (+) and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition.
+5. Click **Apply**.
+
+#### Free-Client Setup
+Repeat the same steps for the **Free-Client** project:
+1. Navigate to `Assets/Free-Client/Scripts/Assambra.Client`.
+2. Follow the same process for updating the **Assembly Definition Reference**.
+
+#### Crest Ocean System
+Follow the same procedure for Crest Ocean System if it is already installed. If not, you can find the installation instructions under the section [Crest Ocean System](#crest-ocean-system).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,17 +205,12 @@ Follow the same procedure for Crest if it is already installed. If not, you can 
 <!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
 To add this packages manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
-#### Collections
-Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the Install button to install the package.
+#### Addressables
+Install the Addressables via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Addressables. Click the install button to install the package.
 #### Burst Compiler
-Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the Install button to install the package.
-#### Newtonsoft Json
-The EzyFox Client SDK need Newtonsoft Json package to work.
-
-Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
-
-Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
-
+Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the install button to install the package.
+#### Collections
+Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the install button to install the package.
 #### Color Picker
 To get the HSV-Color-Picker-Unity
 Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
@@ -227,6 +232,13 @@ and additionally add to the file.
  ````
 
 `Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
+#### Newtonsoft Json
+The EzyFox Client SDK need Newtonsoft Json package to work.
+
+Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+
+Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- NEEDED PROJECTS FROM GITHUB -->
@@ -246,16 +258,19 @@ Unzip and drag the second crest folder into unity ./crest-4.21.3/crest-4.21.3/cr
 ## Needed Unity packages from the Unity Asset Store
 ### MapMagic 2
 Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
-after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 to the project.
+after that open both projects (Free-Client and Free-Server) in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 into both projects.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### UMA 2
-Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
-after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.
+Please use at the moment our modified version: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>
+Download and extract the rar file. Drag the folder UMA direct into Free-Client/Assets in the Unity Editor.
 
-Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Unity.Mathmatics, Unity.Burst and Unity Collections references.
+~~Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
+after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.~~
 
+~~Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Addressables, Unity.Mathmatics, Unity.Burst and Unity Collections references.
+There are additional steps required please read Free-Client/Assets/UMA/Addressables - Read Me Now.pdf~~
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- PLAY THE CLIENT -->
@@ -274,26 +289,33 @@ To test both at the same time, you need to deploy the server. More information c
 <!-- SETUP DATABASE -->
 ### Setup Database
 
-1. install mongoDB
-2. open your mongosh
-3. Create your Database 
+1. Install mongoDB.
+2. Open your mongosh.
+3. Create your Database:
 
-``use free``
-
-4. Create a new user and password and give it access to the created database 
-     
-`` db.createUser({user: "root", pwd: "123456",roles: [{role: "readWrite", db:"free" }] })``
- 
-5. Create two new collections: 
-
-```` 
-db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } } ) 
-db.account.createIndex( { username: 1 } )
-````
-````
-db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } } )
-db.character.createIndex( { name: 1 } )
-````
+```bash
+use free
+```
+4. Create a new user and password and give it access to the created database:
+```bash
+db.createUser({user: "root", pwd: "123456", roles: [{role: "readWrite", db:"master-server" }] })
+```
+5. Create the following collections:
+```bash
+db.createCollection("user", { collation: { locale: 'en_US', strength: 2 } })
+```
+```bash
+db.user.createIndex({ username: 1 })
+```
+```bash
+db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } })
+```
+```bash
+db.character.createIndex({ name: 1 })
+```
+```bash
+db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
+```
 6. Add/Create this files to both of your Server projects:
 
 `Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
@@ -365,7 +387,7 @@ Most settings should be self-explanatory. If not, refer to the `SMTP_EMail` clas
 <!-- DEPLOY SERVER -->
 ## Deploy Server
 ### Download Server
-- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.8.1.zip">ezyfox-server-full-1.2.8.1.zip</a>
+- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

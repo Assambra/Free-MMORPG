@@ -1,9 +1,12 @@
 package com.assambra.game.app.converter;
 
-import com.assambra.game.app.model.CharacterSpawnModel;
-import com.assambra.game.app.response.CharacterSpawnResponse;
+import com.assambra.game.app.model.CharacterInfoModel;
+import com.assambra.game.app.model.PlayerDespawnModel;
+import com.assambra.game.app.model.PlayerSpawnModel;
+import com.assambra.game.app.response.CharacterInfoResponse;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfoxserver.support.command.EzyObjectResponse;
+import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -12,16 +15,35 @@ import java.util.List;
 @AllArgsConstructor
 public class ModelToResponseConverter {
 
-    public CharacterSpawnResponse toResponse(CharacterSpawnModel model)
-    {
-        return CharacterSpawnResponse.builder()
-                .accountUsername(model.getAccountUsername())
-                .roomId(model.getRoomId())
-                .isLocalPlayer(model.getIsLocalPlayer())
-                .characterName(model.getCharacterName())
-                .characterModel(model.getCharacterModel())
-                .position(model.getPosition())
-                .rotation(model.getRotation())
+    private final EzyResponseFactory responseFactory;
+
+    public CharacterInfoResponse toResponse(CharacterInfoModel model){
+        return CharacterInfoResponse.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .sex(model.getSex())
+                .race(model.getRace())
+                .model(model.getModel())
+                .room(model.getRoom())
                 .build();
+    }
+
+    public EzyObjectResponse toResponse(PlayerSpawnModel model)
+    {
+        return responseFactory.newObjectResponse()
+                .param("id", model.getId())
+                .param("name", model.getName())
+                .param("sex", model.getSex())
+                .param("race", model.getRace())
+                .param("model", model.getModel())
+                .param("username", model.getUsername())
+                .param("position", model.getPosition())
+                .param("rotation", model.getRotation());
+    }
+
+    public EzyObjectResponse toResponse(PlayerDespawnModel model)
+    {
+        return responseFactory.newObjectResponse()
+                .param("id", model.getId());
     }
 }

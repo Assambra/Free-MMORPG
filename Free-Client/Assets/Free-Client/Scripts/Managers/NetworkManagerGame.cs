@@ -1,6 +1,5 @@
 using Assambra.GameFramework.GameManager;
 using Assambra.FreeClient.Constants;
-using Assambra.FreeClient.Entities;
 using Assambra.FreeClient.UserInterface;
 using com.tvd12.ezyfoxserver.client;
 using com.tvd12.ezyfoxserver.client.constant;
@@ -11,16 +10,20 @@ using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using Object = System.Object;
-using CharacterInfo = Assambra.FreeClient.Entities.CharacterInfo;
+using System.Collections.Generic;
+using System.Collections;
+using Assambra.FreeClient.Helper;
 
-namespace Assambra.FreeClient.Managers
+namespace Assambra.FreeClient
 {
-    public class NetworkManagerGame : EzyDefaultController
+    public class NetworkManagerGame : EzyAbstractController
     {
-
         public static NetworkManagerGame Instance { get; private set; }
 
+        [SerializeField] EzySocketConfig socketConfig;
+
         private bool characterListReseived;
+        private bool _despawnInProgress;
 
         private void Awake()
         {
@@ -35,19 +38,23 @@ namespace Assambra.FreeClient.Managers
             base.OnEnable();
 
             AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
-            AddHandler<EzyArray>(Commands.CHARACTER_LIST, OnCharacterListResponse);
+            AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
             AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
-            AddHandler<EzyArray>(Commands.PLAY, OnPlayResponse);
-            AddHandler<EzyObject>(Commands.CHARACTER_SPAWNED, OnCharacterSpawned);
-            AddHandler<EzyObject>(Commands.CHARACTER_DESPAWNED, OnCharacterDespawned);
-            AddHandler<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
+            AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
+            AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
+            AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
         }
 
         private void Update()
         {
             EzyClients.getInstance()
-                .getClient(socketConfigVariable.Value.ZoneName)
+                .getClient(socketConfig.ZoneName)
                 .processEvents();
+        }
+
+        protected override EzySocketConfig GetSocketConfig()
+        {
+            return socketConfig;
         }
 
         public bool Connected()
@@ -66,8 +73,6 @@ namespace Assambra.FreeClient.Managers
             characterListReseived = false;
         }
 
-        #region REQUESTS
-
         public void Login(string username, string password)
         {
             GameManager.Instance.Account = username;
@@ -79,11 +84,11 @@ namespace Assambra.FreeClient.Managers
             socketProxy.setLoginUsername(username);
             socketProxy.setLoginPassword(password);
 
-            socketProxy.setUrl(socketConfigVariable.Value.TcpUrl);
-            socketProxy.setUdpPort(socketConfigVariable.Value.UdpPort);
-            socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
+            socketProxy.setUrl(socketConfig.TcpUrl);
+            socketProxy.setUdpPort(socketConfig.UdpPort);
+            socketProxy.setDefaultAppName(socketConfig.AppName);
 
-            if (socketConfigVariable.Value.UdpUsage)
+            if (socketConfig.UdpUsage)
             {
                 socketProxy.setTransportType(EzyTransportType.UDP);
                 socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
@@ -93,6 +98,8 @@ namespace Assambra.FreeClient.Managers
 
             socketProxy.connect();
         }
+
+        #region MASTER SERVER REQUESTS
 
         public void Check()
         {
@@ -115,110 +122,6 @@ namespace Assambra.FreeClient.Managers
                 .build();
 
             appProxy.send(Commands.CREATE_CHARACTER, characterdata);
-        }
-
-        public void PlayRequest(long characterId)
-        {
-            EzyObject data = EzyEntityFactory
-                .newObjectBuilder()
-                .append("characterId", characterId)
-                .build();
-
-            appProxy.send(Commands.PLAY, data);
-        }
-
-        public void SendPlayerInput(int time, bool[] inputs, Quaternion rotation)
-        {
-            EzyObject data = EzyEntityFactory
-                .newObjectBuilder()
-                .append("t", time)
-                .append("i", inputs)
-                .append(
-                    "r",
-                    EzyEntityFactory.newArrayBuilder()
-                        .append(rotation.eulerAngles.x)
-                        .append(rotation.eulerAngles.y)
-                        .append(rotation.eulerAngles.z)
-                        .build()
-                )
-                .build();
-
-            appProxy.udpSend(Commands.PLAYER_INPUT, data);
-        }
-
-        #endregion
-
-        #region SERVER RESPONSE
-
-        private void OnLoginError(EzySocketProxy proxy, Object data)
-        {
-            string error = data.ToString();
-            if (error.Contains("invalid password") || error.Contains("invalid user name"))
-                ErrorPopup("Username or password is incorrect. Please check your entries and try again.");
-        }
-
-        private void OnUdpHandshake(EzySocketProxy proxy, Object data)
-        {
-            Debug.Log("OnUdpHandshake");
-            socketProxy.send(new EzyAppAccessRequest(socketConfigVariable.Value.AppName));
-        }
-
-        private void OnAppAccessed(EzyAppProxy proxy, Object data)
-        {
-            Debug.Log("Game: App access successfully");
-
-            Check();
-        }
-
-        private void OnLoginSucess(EzySocketProxy proxy, Object data)
-        {
-            Debug.Log("OnLoginSucess");
-        }
-
-        private void OnCheckResponse(EzyAppProxy proxy, EzyObject data)
-        {
-            string result = data.get<string>("result");
-
-            switch (result)
-            {
-                case "ok":
-                    GameManager.Instance.CharacterInfos.Clear();
-                    GetCharacterList();
-                    break;
-                case "need_activation":
-                    GameManager.Instance.ChangeScene(Scenes.AccountActivation);
-                    break;
-            }
-        }
-
-        private void OnCharacterListResponse(EzyAppProxy proxy, EzyArray data)
-        {
-            if (data.isEmpty())
-                GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
-            else
-            {
-                if (GameManager.Instance.CharacterInfos.Count > 0)
-                    GameManager.Instance.CharacterInfos.Clear();
-
-                for (int i = 0; i < data.size(); i++)
-                {
-                    EzyArray character = data.get<EzyArray>(i);
-
-                    CharacterInfo characterInfo = new CharacterInfo();
-                    characterInfo.id = character.get<long>(0);
-                    characterInfo.accountId = character.get<long>(1);
-                    characterInfo.name = character.get<string>(2);
-                    characterInfo.sex = character.get<string>(3);
-                    characterInfo.race = character.get<string>(4);
-                    characterInfo.model = character.get<string>(5);
-
-                    GameManager.Instance.CharacterInfos.Add(characterInfo);
-                }
-
-                if (!characterListReseived)
-                    GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
-            }
-            characterListReseived = true;
         }
 
         private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
@@ -246,99 +149,294 @@ namespace Assambra.FreeClient.Managers
             }
         }
 
-        private void OnPlayResponse(EzyAppProxy proxy, EzyArray data)
+        public void PlayRequest(long id)
         {
-            GameManager.Instance.ChangeScene(Scenes.World);
-            GameManager.Instance.ChangeState(GameState.Game);
+            EzyObject data = EzyEntityFactory
+                .newObjectBuilder()
+                .append("id", id)
+                .build();
 
-            Debug.Log("OnPlayResponse");
+            appProxy.send(Commands.PLAY, data);
+        }
 
-            for (int i = 0; i < data.size(); i++)
+        #endregion
+
+        #region MASTER SERVER RESPONSE
+
+        private void OnLoginSucess(EzySocketProxy proxy, Object data)
+        {
+            Debug.Log("OnLoginSucess");
+        }
+
+        private void OnLoginError(EzySocketProxy proxy, Object data)
+        {
+            string error = data.ToString();
+            if (error.Contains("invalid password") || error.Contains("invalid user name"))
+                ErrorPopup("Username or password is incorrect. Please check your entries and try again.");
+        }
+
+        private void OnUdpHandshake(EzySocketProxy proxy, Object data)
+        {
+            Debug.Log("OnUdpHandshake");
+            socketProxy.send(new EzyAppAccessRequest(socketConfig.AppName));
+        }
+
+        private void OnAppAccessed(EzyAppProxy proxy, Object data)
+        {
+            Debug.Log("Game: App access successfully");
+
+            Check();
+        }
+
+        private void OnCheckResponse(EzyAppProxy proxy, EzyObject data)
+        {
+            string result = data.get<string>("result");
+
+            switch (result)
             {
-                EzyObject item = data.get<EzyObject>(i);
-                string accountUsername = item.get<string>("accountUsername");
-                long roomId = item.get<long>("roomId");
-                bool isLocalPlayer = item.get<bool>("isLocalPlayer");
-                string characterName = item.get<string>("characterName");
-                string characterModel = item.get<string>("characterModel");
-                EzyArray position = item.get<EzyArray>("position");
-                EzyArray rotation = item.get<EzyArray>("rotation");
-
-                GameManager.Instance.CharacterList.Add(
-                    new Character(accountUsername, roomId, isLocalPlayer, characterName, characterModel,
-                        new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2)),
-                        new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2))));
-            }
-
-            foreach (Character c in GameManager.Instance.CharacterList)
-            {
-                c.SetPlayerGameObject(GameManager.Instance.SpawnPlayer(c));
+                case "ok":
+                    GameManager.Instance.CharacterInfos.Clear();
+                    GetCharacterList();
+                    break;
+                case "need_activation":
+                    GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+                    break;
             }
         }
 
-        private void OnCharacterSpawned(EzyAppProxy proxy, EzyObject data)
+        private void ReceiveCharacterList(EzyAppProxy proxy, EzyArray data)
         {
-            string accountUsername = data.get<string>("accountUsername");
-            long roomId = data.get<long>("roomId");
-            bool isLocalPlayer = data.get<bool>("isLocalPlayer");
-            string characterName = data.get<string>("characterName");
-            string characterModel = data.get<string>("characterModel");
+            if (data.isEmpty())
+                GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
+            else
+            {
+                if (GameManager.Instance.CharacterInfos.Count > 0)
+                    GameManager.Instance.CharacterInfos.Clear();
+
+                for (int i = 0; i < data.size(); i++)
+                {
+                    EzyObject characterInfo = data.get<EzyObject>(i);
+
+                    EntityModel characterInfoModel = new EntityModel(
+                        characterInfo.get<long>("id"),
+                        0,
+                        characterInfo.get<string>("name"),
+                        characterInfo.get<string>("model"),
+                        Vector3.zero,
+                        Quaternion.identity,
+                        characterInfo.get<string>("sex"),
+                        characterInfo.get<string>("race"),
+                        characterInfo.get<string>("room")
+                        );
+
+                    GameManager.Instance.CharacterInfos.Add(characterInfoModel);
+                }
+
+                if (!characterListReseived)
+                    GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+            }
+            characterListReseived = true;
+        }
+
+        #endregion
+
+        #region SEND TO ROOM SERVER
+
+        public void SendPlayerInput(long id, string room, Vector3 input)
+        {
+            EzyArray inputArray = EzyEntityFactory.newArrayBuilder()
+                .append(input.x)
+                .append(input.z)
+                .build();
+
+            SendClientToServer(room, "playerInput", new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("id", id),
+                new KeyValuePair<string, object>("room", room),
+                new KeyValuePair<string, object>("input", inputArray)
+            });
+        }
+
+        #endregion
+
+        #region RECEIVE FROM ROOM SERVER 
+
+        private void ReceivePlayerSpawn(EzyAppProxy proxy, EzyObject data)
+        {
+            EntityModel entityModel = new(
+                data.get<long>("id"),
+                data.get<int>("entityType"),
+                data.get<string>("name"),
+                data.get<string>("model"),
+                new Vector3(
+                    data.get<EzyArray>("position").get<float>(0),
+                    data.get<EzyArray>("position").get<float>(1),
+                    data.get<EzyArray>("position").get<float>(2)
+                ),
+                Quaternion.Euler(
+                    data.get<EzyArray>("rotation").get<float>(0),
+                    data.get<EzyArray>("rotation").get<float>(1),
+                    data.get<EzyArray>("rotation").get<float>(2)
+                ),
+                data.get<string>("sex"),
+                data.get<string>("race"),
+                data.get<string>("room"),
+                data.get<bool>("isLocalPlayer")
+            );
+
+            if (!string.IsNullOrEmpty(entityModel.Room))
+            {
+                Scenes scenes = GameManager.Instance.getScenesByName(entityModel.Room);
+
+                GameManager.Instance.ChangeScene(scenes);
+            }
+
+            StartCoroutine(WaitUntilDespawnDone(entityModel));
+        }
+
+        private IEnumerator WaitUntilDespawnDone(EntityModel entityModel)
+        {
+            yield return new WaitUntil(() => _despawnInProgress == false);
+
+            GameObject playerGameObject = GameManager.Instance.CreatePlayer(entityModel.Position, entityModel.Rotation);
+
+            Player player = playerGameObject.GetComponent<Player>();
+            PlayerController playerController = playerGameObject.GetComponent<PlayerController>();
+
+            StartCoroutine(DelayToEnableCharacterController(playerController));
+
+            if (playerController != null)
+                playerController.Player = player;
+            else
+                Debug.LogError("PlayerController component not found on the playerGameObject.");
+
+            if (player != null)
+            {
+                StartCoroutine(WaitForCharacterCreated(player, entityModel.Model));
+
+                player.Initialize(entityModel, playerGameObject);
+
+                if (!entityModel.IsLocalPlayer)
+                {
+                    player.NetworkTransform.IsActive = true;
+                    player.NetworkTransform.Initialize(entityModel.Position, entityModel.Rotation);
+                }
+                else
+                {
+                    GameManager.Instance.CameraController.ChangeCameraPreset("GameCamera");
+                    GameManager.Instance.CameraController.CameraTarget = playerGameObject;
+                    GameManager.Instance.CameraController.Active = true;
+                    player.PlayerController.IsActive = true;
+                    player.NetworkTransform.IsActive = false;
+                }
+
+                GameManager.Instance.ClientEntities.Add(entityModel.Id, player);
+            }
+            else
+            {
+                Debug.LogError("Player component not found on the playerGameObject.");
+            }
+        }
+
+        IEnumerator WaitForCharacterCreated(Player player, string model)
+        {
+            while (!player.Initialized && !player.IsAvatarCreated)
+            {
+                Debug.Log("WaitForCharacterCreated");
+                yield return new WaitForSeconds(0.05f);
+            }
+
+            player.Animator = player.Avatar.GetComponent<Animator>();
+            player.GetCapsuleCollider();
+            UMAHelper.SetAvatarString(player.Avatar, model);
+        }
+
+        private IEnumerator DelayToEnableCharacterController(PlayerController playerController)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            playerController.CharacterController.enabled = true;
+        }
+
+        private void ReceivePlayerDespawn(EzyAppProxy proxy, EzyObject data)
+        {
+            _despawnInProgress = true;
+
+            long id = data.get<long>("id");
+            //Debug.Log($"Receive PLAYER_DESPAWN request for {id}");
+
+            if (GameManager.Instance.ClientEntities.TryGetValue(id, out Entity entity))
+            {
+                if (entity is Player player)
+                {
+                    if (player.EntityModel.IsLocalPlayer)
+                    {
+                        GameManager.Instance.CameraController.Active = false;
+                        GameManager.Instance.CameraController.CameraTarget = null;
+
+                        foreach (KeyValuePair<long, Entity> e in GameManager.Instance.ClientEntities)
+                        {
+                            Destroy(e.Value.EntityModel.EntityGameObject);
+                        }
+                        GameManager.Instance.ClientEntities.Clear();
+                    }
+                    else
+                    {
+                        Destroy(player.EntityModel.EntityGameObject);
+                        GameManager.Instance.ClientEntities.Remove(player.EntityModel.Id);
+                    }
+                }
+            }
+
+            _despawnInProgress = false;
+        }
+
+        private void ReceiveUpdateEntityPosition(EzyAppProxy proxy, EzyObject data)
+        {
+            long id = data.get<long>("id");
             EzyArray position = data.get<EzyArray>("position");
             EzyArray rotation = data.get<EzyArray>("rotation");
 
-            Character character = new Character(accountUsername, roomId, isLocalPlayer, characterName, characterModel,
-                        new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2)),
-                        new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2)));
+            Vector3 pos = new Vector3(position.get<float>(0), position.get<float>(1), position.get<float>(2));
+            Vector3 rot = new Vector3(rotation.get<float>(0), rotation.get<float>(1), rotation.get<float>(2));
 
-            GameManager.Instance.CharacterList.Add(character);
-
-            character.SetPlayerGameObject(GameManager.Instance.SpawnPlayer(character));
-
-            Debug.Log("Player spawned: " + accountUsername);
-        }
-
-        private void OnCharacterDespawned(EzyAppProxy proxy, EzyObject data)
-        {
-            string userName = data.get<string>("userName");
-
-            Character characterToRemove = null;
-
-            foreach (Character character in GameManager.Instance.CharacterList)
+            if (GameManager.Instance.ClientEntities.TryGetValue(id, out Entity entity))
             {
-                if (character.accountUsername == userName)
+                if (entity.EntityModel.Id == id)
                 {
-                    GameObject.Destroy(character.playerGameObject);
-
-                    characterToRemove = character;
-                    break;
+                    if (entity is Player player)
+                    {
+                        if (!player.EntityModel.IsLocalPlayer)
+                        {
+                            entity.NetworkTransform.UpdateTargetPosition(pos);
+                            entity.NetworkTransform.UpdateTargetRotation(Quaternion.Euler(rot));
+                        }
+                    }
                 }
             }
-            if (characterToRemove != null)
-                GameManager.Instance.CharacterList.Remove(characterToRemove);
+            //Debug.Log($"Receive UPDATE_ENTITY_POSITION request Id: {id} ");
         }
 
-        private void OnPlayerSyncPosition(EzyAppProxy proxy, EzyArray data)
+        #endregion
+
+        #region CLIENT TO ROOM SERVER MESSAGE
+
+        private void SendClientToServer(string room, string command, List<KeyValuePair<string, object>> additionalParams)
         {
-            string playerName = data.get<string>(0);
-            EzyArray positionArray = data.get<EzyArray>(1);
-            EzyArray rotationArray = data.get<EzyArray>(2);
-            int time = data.get<int>(3);
-            Vector3 position = new Vector3(
-                positionArray.get<float>(0),
-                positionArray.get<float>(1),
-                positionArray.get<float>(2)
-            );
-            Vector3 rotation = new Vector3(
-                rotationArray.get<float>(0),
-                rotationArray.get<float>(1),
-                rotationArray.get<float>(2)
-            );
+            //Debug.Log("SendClientToServer");
 
-            //Debug.Log("SyncPosition for player: " + playerName + " reseive position: " + position + ", rotation: " + rotation + " time: " + time);
+            var dataBuilder = EzyEntityFactory.newObjectBuilder()
+                .append("room", room)
+                .append("command", command);
 
-            PlayerController playerController = GameManager.Instance.PlayerSyncPositionDictionary[playerName];
-            playerController.Move(position);
-            playerController.Rotate(rotation);
+            foreach (var pair in additionalParams)
+            {
+                dataBuilder.append(pair.Key, pair.Value);
+            }
+
+            EzyObject data = dataBuilder.build();
+
+            appProxy.send(Commands.CLIENT_TO_SERVER, data);
         }
 
         #endregion

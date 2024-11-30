@@ -1,52 +1,140 @@
 package com.assambra.game.app.service;
 
-import com.assambra.game.app.model.PlayerInputModel;
-import com.assambra.game.app.terrain.Terrain;
-import com.assambra.game.app.utils.PlayerMovementUtils;
+import com.assambra.game.app.model.PlayerDespawnModel;
+import com.assambra.game.app.model.PlayerSpawnModel;
+import com.assambra.game.common.entity.Character;
+import com.assambra.game.common.entity.CharacterLocation;
+import com.assambra.game.common.masterserver.entity.UnityPlayer;
+import com.assambra.game.common.repository.CharacterRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyfox.core.exception.EzyBadRequestException;
 import com.tvd12.ezyfox.util.EzyLoggable;
-import com.tvd12.gamebox.entity.MMOPlayer;
+import com.tvd12.gamebox.manager.PlayerManager;
 import com.tvd12.gamebox.math.Vec3;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 
-import static com.assambra.game.app.constant.Errors.NOT_A_PLAYER;
+import java.util.List;
 
-@EzySingleton
+
+@Setter
 @AllArgsConstructor
+@EzySingleton("playerService")
 public class PlayerService extends EzyLoggable {
 
-    private final RoomService roomService;
+    private final PlayerManager globalPlayerManager;
 
-    private final CharacterService characterService;
+    public void addPlayerToGlobalPlayerList(UnityPlayer player)
+    {
+        globalPlayerManager.addPlayer(player);
+    }
 
-    private final Terrain worldTerrain;
+    public void removePlayerFromGlobalPlayerList(UnityPlayer player)
+    {
+        globalPlayerManager.removePlayer(player);
+    }
 
-    public void handlePlayerInput(String playerName, PlayerInputModel model) {
-        MMOPlayer player = roomService.getPlayer(playerName);
-        // if user hasn't joined any game, reject the request
-        if (player == null) {
-            throw new EzyBadRequestException(
-                NOT_A_PLAYER,
-                "your_are_not_a_player"
-            );
-        }
-        synchronized (player){
-            Vec3 currentRotation = player.getRotation();
-            Vec3 nextRotation = PlayerMovementUtils.getNextRotation(currentRotation, model);
-            player.setRotation(nextRotation);
+    private final CharacterRepo characterRepo;
 
-            Vec3 currentPosition = player.getPosition();
+    /**
+     * This method found a UnityPlayer in the globalPlayerList by its "Character character.getName()" name
+     * or "UnityPlayer player.getName())" name. It takes a {@code String} parameter name;
+     *
+     * @param name
+     *        Character "character.getName()" or "UnityPlayer player.getName()"
+     *
+     * @return A UnityPlayer object if found else returns {@code NULL}
+     */
 
-            Vec3 nextPosition = PlayerMovementUtils.getNextPosition(currentPosition, nextRotation, model);
-            
-            nextPosition = new Vec3(nextPosition.x, worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z), nextPosition.z );
-            //logger.info("Player: {} current y position: {}", player.getName(), worldTerrain.getHeightValue(player.getPosition().x, player.getPosition().z));
+    public UnityPlayer getPlayerByNameFromGlobalPlayerManager(String name)
+    {
+        return (UnityPlayer) globalPlayerManager.getPlayer(name);
+    }
 
-            roomService.setPlayerPosition(player, nextPosition);
-            player.setClientTimeTick(model.getTime());
+    /**
+     * This method found a UnityPlayer in the globalPlayerList by its "EzyUser ezyuser.getName()" username
+     * or "User user.getUsername" username. It takes a username as {@code String}
+     *
+     * @param username
+     *        "EzyUser ezyuser.getName()" or "User user.getUsername" or Character character.getUsername()
+     *
+     * @return A UnityPlayer object if found else returns {@code NULL}
+     */
 
-            characterService.SavePlayerPositionInCharacterEntity(playerName, nextPosition, currentRotation);
-        }
+    public UnityPlayer getPlayerByUsernameFromGlobalPlayerManager(String username) {
+        List<UnityPlayer> players = globalPlayerManager.getPlayerList();
+        return players.stream()
+                .filter(p -> p.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * This method found a UnityPlayer in the globalPlayerList by its Id
+     * It takes a id as {@code Long}
+     *
+     * @param id
+     *        Player database id
+     *
+     * @return A UnityPlayer object if found else returns {@code NULL}
+     */
+    public UnityPlayer getPlayerByIdFromGlobalPlayerManager(Long id)
+    {
+        List<UnityPlayer> players = globalPlayerManager.getPlayerList();
+        return players.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public PlayerSpawnModel getPlayerSpawnModel (Character character, CharacterLocation characterLocation)
+    {
+        double[] pos = characterLocation.getPosition();
+        double[] rot = characterLocation.getRotation();
+
+        return PlayerSpawnModel.builder()
+                .id(character.getId())
+                .username(character.getUsername())
+                .name(character.getName())
+                .sex(character.getSex())
+                .race(character.getRace())
+                .model(character.getModel())
+                .position(
+                        new Vec3(
+                                (float)pos[0],
+                                (float)pos[1],
+                                (float)pos[2]
+                        ).toArray()
+                )
+                .rotation(
+                        new Vec3(
+                                (float)rot[0],
+                                (float)rot[1],
+                                (float)rot[2]
+                        ).toArray()
+                )
+                .build();
+    }
+
+    public PlayerSpawnModel getPlayerSpawnModel(UnityPlayer player, Vec3 position, Vec3 rotation)
+    {
+        Character character = characterRepo.findById(player.getId());
+
+        return PlayerSpawnModel.builder()
+                .id(player.getId())
+                .username(player.getUsername())
+                .name(player.getName())
+                .sex(character.getSex())
+                .race(character.getRace())
+                .model(character.getModel())
+                .position(position.toArray())
+                .rotation(rotation.toArray())
+                .build();
+    }
+
+    public PlayerDespawnModel getPlayerDespawnModel(Long id)
+    {
+        return PlayerDespawnModel.builder()
+                .id(id)
+                .build();
     }
 }

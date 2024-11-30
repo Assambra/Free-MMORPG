@@ -1,7 +1,6 @@
 package com.assambra.game.common.entity;
 
 import com.tvd12.ezyfox.annotation.EzyId;
-import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.database.annotation.EzyCollection;
 import lombok.Data;
 
@@ -10,12 +9,10 @@ import lombok.Data;
 public class Character {
     @EzyId
     Long id;
-    Long accountId;
+    Long userId;
+    String username;
     String name;
     String sex;
     String race;
     String model;
-    Long roomId;
-    double[] position;
-    double[] rotation;
 }

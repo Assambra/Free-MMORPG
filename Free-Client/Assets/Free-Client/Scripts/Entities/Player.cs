@@ -1,22 +1,21 @@
-using Assambra.FreeClient.Managers;
-using Assambra.FreeClient.UserInterface;
 using UnityEngine;
 using UMA.CharacterSystem;
 using UMA;
 using UnityEngine.Events;
 
-namespace Assambra.FreeClient.Entities
+namespace Assambra.FreeClient
 {
-    public class Player : MonoBehaviour
+    public class Player : Entity
     {
-        public bool IsLocalPlayer = false;
+        public PlayerController PlayerController {  get => _playerController; }
+
+        [SerializeField] private PlayerController _playerController;
+
         public bool Initialized = false;
         public bool IsAvatarCreated = false;
         public Animator Animator;
 
         [field: SerializeField] public DynamicCharacterAvatar Avatar { get; private set; }
-
-        [SerializeField] private PlayerHeadInfo playerHeadInfo;
 
         private UMAData umaData;
         private CapsuleCollider capsuleCollider;
@@ -42,16 +41,16 @@ namespace Assambra.FreeClient.Entities
                     SetCameraOffset(lastHeight);
                     SetCameraDistance(lastHeight);
 
-                    playerHeadInfo.SetPlayerInfoPosition(lastHeight - currentHeight);
+                    _entityNameInfo.SetNameInfoPosition(lastHeight - currentHeight);
 
                     lastHeight = currentHeight;
                 }
             }
         }
 
-        public void SetPlayerName(string playerName)
+        public void Initialize(EntityModel entityModel, GameObject entityGameObject)
         {
-            playerHeadInfo.SetPlayername(playerName);
+            base.Initialize(entityModel, entityGameObject);
         }
 
         private void SetCameraOffset(float lastHeight)

@@ -44,4 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198d8dda02ce78440bba844a0c332d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  socketConfigHolderVariable: {fileID: 11400000, guid: cf76a0a858f49fc4681b74e92ada7340, type: 2}
+  socketConfig:
+    zoneName: free-game-server
+    appName: free-game-server
+    webSocketUrl: 
+    tcpUrl: 127.0.0.1:3005
+    udpPort: 2611
+    udpUsage: 1
+    enableSSL: 0

@@ -1,6 +1,5 @@
 using Assambra.GameFramework.GameManager;
 using Assambra.FreeClient.Helper;
-using Assambra.FreeClient.Managers;
 using UnityEngine;
 using TMPro;
 
@@ -18,7 +17,7 @@ namespace Assambra.FreeClient.UserInterface
         public void OnButtonQuit()
         {
             NetworkManagerGame.Instance.Disconnect();
-            NetworkManagerAccount.Instance.Disconnect();
+            NetworkManagerUser.Instance.Disconnect();
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

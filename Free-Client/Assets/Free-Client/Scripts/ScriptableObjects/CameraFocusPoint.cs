@@ -1,4 +1,3 @@
-using Assambra.FreeClient.Managers;
 using UMA.CharacterSystem;
 using UnityEngine;
 

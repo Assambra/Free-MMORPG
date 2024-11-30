@@ -1,7 +1,5 @@
 using Assambra.GameFramework.GameManager;
-using CharacterInfo = Assambra.FreeClient.Entities.CharacterInfo;
 using Assambra.FreeClient.Helper;
-using Assambra.FreeClient.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +13,11 @@ namespace Assambra.FreeClient.UserInterface
         [SerializeField] private TMP_Text _textCharacterName;
         [SerializeField] private TMP_Text _textCharacterSex;
         [SerializeField] private TMP_Text _textCharacterRace;
+        [SerializeField] private TMP_Text _textCharacterLocation;
         [SerializeField] private Button _buttonPreviousCharacter;
         [SerializeField] private Button _buttonNextCharacter;
 
-        private List<CharacterInfo> _characterInfos;
+        private List<EntityModel> _characterInfos;
         private int _charactersCount;
         private DynamicCharacterAvatar _avatar;
         private int _currentShownCharacter;
@@ -31,7 +30,7 @@ namespace Assambra.FreeClient.UserInterface
             {
                 _avatar = GameManager.Instance.Avatar;
 
-                UMAHelper.SetAvatarString(_avatar, _characterInfos[0].model);
+                UMAHelper.SetAvatarString(_avatar, _characterInfos[0].Model);
 
                 _currentShownCharacter = 0;
 
@@ -83,7 +82,7 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonPlay()
         {
-            NetworkManagerGame.Instance.PlayRequest(_characterInfos[_currentShownCharacter].id);
+            NetworkManagerGame.Instance.PlayRequest(_characterInfos[_currentShownCharacter].Id);
         }
 
         public void OnButtonNewCharacter()
@@ -93,11 +92,12 @@ namespace Assambra.FreeClient.UserInterface
 
         private void SetCharacter(int character)
         {
-            CharacterInfo info = _characterInfos[character];
-            _textCharacterName.text = info.name;
-            _textCharacterSex.text = info.sex;
-            _textCharacterRace.text = info.race;
-            UMAHelper.SetAvatarString(_avatar, info.model);
+            EntityModel info = _characterInfos[character];
+            _textCharacterName.text = info.Name;
+            _textCharacterSex.text = info.Sex;
+            _textCharacterRace.text = info.Race;
+            _textCharacterLocation.text = info.Room;
+            UMAHelper.SetAvatarString(_avatar, info.Model);
         }
     }
 }

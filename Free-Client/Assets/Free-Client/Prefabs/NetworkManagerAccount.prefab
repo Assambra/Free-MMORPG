@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e312d6e8484c96408ef7c0c5cbaf9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  socketConfigHolderVariable: {fileID: 11400000, guid: bfcd5f65aef8a7744b1e2d0fb9d5094f, type: 2}
-  UIClientLog: {fileID: 0}
+  socketConfig:
+    zoneName: free-account-server
+    appName: free-account-server
+    webSocketUrl: 
+    tcpUrl: 127.0.0.1:3005
+    udpPort: 2611
+    udpUsage: 0
+    enableSSL: 0
   guestPassword: Assambra
