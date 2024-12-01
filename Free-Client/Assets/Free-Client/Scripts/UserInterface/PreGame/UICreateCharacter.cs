@@ -557,7 +557,7 @@ namespace Assambra.FreeClient.UserInterface
             else
             {
                 GameManager.Instance.ChangeScene(Scenes.Login);
-                NetworkManagerGame.Instance.Disconnect();
+                NetworkManager.Instance.Disconnect();
             }
         }
 
@@ -568,12 +568,12 @@ namespace Assambra.FreeClient.UserInterface
             _race = _raceOptions[_dropdownRace.value];
 
             if (ValidateCharacterName(_characterName))
-                NetworkManagerGame.Instance.CreateCharacter(_characterName, _sex, _race, _model);
+                NetworkManager.Instance.CreateCharacter(_characterName, _sex, _race, _model);
         }
 
         public void OnButtonPlay()
         {
-            NetworkManagerGame.Instance.PlayRequest(GameManager.Instance.CharacterId);
+            NetworkManager.Instance.PlayRequest(GameManager.Instance.CharacterId);
         }
 
         #endregion
