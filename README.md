@@ -4,7 +4,6 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-<!-- HEADER -->
 <div align="center">
 <h1>Free-MMORPG</h1>
     <a href="https://github.com/Assambra">
@@ -12,7 +11,6 @@
     </a>
 </div>
 
-<!-- LINKS -->
 <div align="center">
     <p align="center">
         <a href="https://github.com/Assambra/Free-MMORPG/wiki"><strong>Explore the docs »</strong></a>
@@ -26,12 +24,10 @@
     </p>
 </div>
 
-<!-- DEMO IMAGE -->
 ![Our Demo Scene][product-screenshot]
 
 <a name="readme-top"></a>
 
-<!-- TABLE OF CONTENTS -->
 <h2>Table of Contents</h2>
 <ul>
     <li><a href="#foreword">Foreword</a></li>
@@ -83,18 +79,18 @@
     <li><a href="#contact">Contact</a></li>
 </ul>
 
-<!-- FOREWORD-->
+---
+
 ## Foreword
 
 This project utilizes free resources for both server and client technology. Without these, the project likely wouldn't have been possible, so I extend my special thanks to the team at [Young Monkeys](https://youngmonkeys.org/) for their excellent foundational work, particularly for the [EzyFox Server](https://youngmonkeys.org/projects/ezyfox-server) framework, and for sharing it with the community. Also, special thanks to all the contributors to the [UMA](https://github.com/umasteeringgroup/UMA) project and their outstanding Unity Multipurpose Avatar System. For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in my personal opinion, is the best available ocean system for Unity. Please check out our Resources Section to see what technologies we use and consider supporting their projects in some way, such as through donations or code contributions, to help these talented individuals continue doing what they love: writing great code and developing fantastic frameworks.
-
-
 
 For the game client we are using [Unity](https://unity.com "Unity") as game engine.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- KEY FEATURES -->
+---
+
 ## Key Features
 
 <ul>
@@ -162,13 +158,17 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- PLAYABLE DEMO -->
-## Playable Demo
-~~We provide a playable Demo there you can play the latest release, and check first what Free-MMORPG can do, or to test and send bug reports.
-You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release have a playable demo, provided as rar file. This client will connect to our game server.~~
+---
 
-<!-- CLIENT -->
+## Playable Demo
+
+~~We provide a playable demo where you can play the latest release, check what Free-MMORPG can do, or test and send bug reports.
+You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release has a playable demo, provided as a `.rar` file. This client will connect to our game server.~~
+
+---
+
 ## Client
+
 ### Clone from GitHub
 Clone the repository:
 
@@ -201,104 +201,130 @@ Follow the same procedure for Crest Ocean System if it is already installed. If 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- NEEDED UNITY PACKAGES -->
 ### Needed Unity packages
-To add this packages manually is only required if you create a new Unity project, as example you create a Unity package from Free-MMORPG and insert it into brand-new empty Unity project. Because they are already added in this project.
+
+To manually add these packages is only required if you create a new Unity project—for example, if you create a Unity package from Free-MMORPG and insert it into a brand-new, empty Unity project. These are already included in this project.
+
 #### Addressables
-Install the Addressables via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Addressables. Click the install button to install the package.
+Install Addressables via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Addressables." Click the "Install" button to install the package.
+
 #### Burst Compiler
-Install the Burst compiler via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Burst. Click the install button to install the package.
+Install the Burst Compiler via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Burst." Click the "Install" button to install the package.
+
 #### Collections
-Install Collections via the Unity Package Manager. Windows -> Package Manager. Select Packages: Unity Registery from the dropdown menu. Use the search field and insert Collections. Click the install button to install the package.
+Install Collections via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Collections." Click the "Install" button to install the package.
+
 #### Color Picker
-To get the HSV-Color-Picker-Unity
-Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+To get the HSV-Color-Picker-Unity:
 
-Add a new dependency `"com.judahperez.hsvcolorpicker": "3.3.0"`
-and additionally add to the file.
+1. Edit the file: `Free-MMORPG\Free-Client\Packages\manifest.json`.
+2. Add a new dependency: `"com.judahperez.hsvcolorpicker": "3.3.0"`.
+3. Additionally, add the following section to the file:
 
-````
+```json
 "scopedRegistries": [
-    {
-      "name": "package.openupm.com",
-      "url": "https://package.openupm.com",
-      "scopes": [
-        "com.judahperez.hsvcolorpicker",
-        "com.openupm"
-      ]
-    }
-  ]
- ````
+  {
+    "name": "package.openupm.com",
+    "url": "https://package.openupm.com",
+    "scopes": [
+      "com.judahperez.hsvcolorpicker",
+      "com.openupm"
+    ]
+  }
+]
+```
 
-`Hint: Don't forget commas after "dependencies" and before "scopedRegistries" -> '},' and line before the new dependency ends with also with comma too.`
+**Hint:** Don't forget commas after "dependencies" and before "scopedRegistries" (`'},'`), and ensure the line before the new dependency ends with a comma.
+
 #### Newtonsoft Json
-The EzyFox Client SDK need Newtonsoft Json package to work.
+The EzyFox Client SDK requires the Newtonsoft Json package to work.
 
-Edit File: `Free-MMORPG\Free-Client\Packages\manifest.json`
+1. Edit the file: `Free-MMORPG\Free-Client\Packages\manifest.json`.
+2. Add a new dependency: `"com.unity.nuget.newtonsoft-json": "3.2.1"`.
 
-Add a new dependency `"com.unity.nuget.newtonsoft-json": "3.2.1"`. Please read the hint below.
+Please read the hint below.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- NEEDED PROJECTS FROM GITHUB -->
+---
+
 ## Needed projects from GitHub
 
-<!-- CREST OCEAN SYSTEM -->
 ### Crest Ocean System
+
 #### Get Crest Ocean System
-Download the latest source code with tag 4.21.3 as zip file <a href="https://github.com/wave-harmonic/crest/releases/tag/4.21.3">4.21.3</a>
+Download the latest source code with tag `4.21.3` as a zip file: <a href="https://github.com/wave-harmonic/crest/releases/tag/4.21.3">4.21.3</a>.
 
 #### Install Crest Ocean System
-Unzip and drag the second crest folder into unity ./crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest
+Unzip and drag the second crest folder into Unity: `./crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Unity asset store -->
+---
+
 ## Needed Unity packages from the Unity Asset Store
+
 ### MapMagic 2
-Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180"> MapMagic2<a/> 
-after that open both projects (Free-Client and Free-Server) in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import MapMagic2 into both projects.
+Go to the Unity Asset Store and get the free asset: <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180">MapMagic 2</a>.
+
+After acquiring the asset:
+1. Open both projects (**Free-Client** and **Free-Server**) in the Unity Editor.
+2. Open the **Package Manager** (`Window -> Package Manager`) and select `Packages: My Assets`.
+3. Download and import **MapMagic 2** into both projects.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### UMA 2
-Please use at the moment our modified version: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>
-Download and extract the rar file. Drag the folder UMA direct into Free-Client/Assets in the Unity Editor.
+Please use our modified version of UMA: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>.
 
-~~Go to the Unity asset store and buy the free asset <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611"> UMA 2<a/>
-after that in the Unity Editor open the Package Manager Window -> PackageManager (Select Packages: My Assets) download and import UMA 2 to the project.~~
+Steps to use it:
+1. Download and extract the `.rar` file.
+2. Drag the folder `UMA` directly into `Free-Client/Assets` in the Unity Editor.
 
-~~Because we use Assembly Definition files in this project you need to add Assembly Definition References. Select Assets/UMA/Core/UMA_Core and in the Inspector add Addressables, Unity.Mathmatics, Unity.Burst and Unity Collections references.
-There are additional steps required please read Free-Client/Assets/UMA/Addressables - Read Me Now.pdf~~
+~~Alternatively, get the free asset from the Unity Asset Store: <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611">UMA 2</a>.~~
+
+~~After importing UMA 2 into the project, you must add Assembly Definition References:~~
+- Navigate to `Assets/UMA/Core/UMA_Core`.
+- In the Inspector, add references for `Addressables`, `Unity.Mathematics`, `Unity.Burst`, and `Unity.Collections`.
+
+Additional required steps can be found in: `Free-Client/Assets/UMA/Addressables - Read Me Now.pdf`.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- PLAY THE CLIENT -->
-### Play the client
-In your Unity project (FREE-Client) double-click the Persistent scene in the folder location Assets/Free-Client/Scenes/. This is our persistent scene with all Manager/Handlers ... all other scenes will automatically load additive async if needed and also the User Interfaces for the actual scene. More about the Module-GameManager please visit our wiki page [Module-GameManager](https://github.com/Assambra/Free-MMORPG/wiki/Module-GameManager).
-Now you are ready to play the game from the Unity Editor, press play, if the server setup steps done see below.
+---
+
+## Play the client
+
+In your Unity project (**Free-Client**), double-click the **Persistent scene** in the folder location `Assets/Free-Client/Scenes/`. This is the persistent scene with all Managers/Handlers. All other scenes will automatically load additively/asynchronously when needed, along with the User Interfaces for the active scene.
+
+To learn more about the **Module-GameManager**, visit the [Module-GameManager wiki page](https://github.com/Assambra/Free-MMORPG/wiki/Module-GameManager).
+
+Once everything is set up, press "Play" in the Unity Editor to start the game, provided the server setup is complete (see below).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- SERVER -->
+---
+
 ## Server
-We use two servers free account server and free game server.
-You only can start and test one of it from your IDE at same time since they both use the same port. 
-To test both at the same time, you need to deploy the server. More information can be found in the section <a href="#deploy-server">deploy the server</a>.
 
-<!-- SETUP DATABASE -->
+We use two servers: a **Free Account Server** and a **Free Game Server**.
+You can only start and test one of them from your IDE at the same time since they both use the same port. To test both simultaneously, you need to deploy the server. More information can be found in the section [Deploy the Server](#deploy-the-server).
+
 ### Setup Database
 
-1. Install mongoDB.
-2. Open your mongosh.
-3. Create your Database:
-
+1. Install MongoDB.
+2. Open your Mongo shell (`mongosh`).
+3. Create your database:
 ```bash
 use free
 ```
-4. Create a new user and password and give it access to the created database:
+4. Create a new user and password, and give it access to the created database:
 ```bash
-db.createUser({user: "root", pwd: "123456", roles: [{role: "readWrite", db:"master-server" }] })
+db.createUser({
+  user: "root", 
+  pwd: "123456", 
+  roles: [{role: "readWrite", db: "master-server"}]
+})
 ```
 5. Create the following collections:
 ```bash
@@ -316,49 +342,57 @@ db.character.createIndex({ name: 1 })
 ```bash
 db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
 ```
-6. Add/Create this files to both of your Server projects:
+6. Add or create the following configuration files for both server projects:
 
-`Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+**File locations:**
+- `Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+- `Free-Game-Server/free-game-server-common/src/main/resources/free-game-server-common-config.properties`
 
-`Free-Game-Server/free-game-server-common/src/main/resources/free-game-server-common-config.properties`
+7. Insert the following values into your configuration file and modify them as needed:
 
-7. Insert the following values for your database and change it to your needs. 
-
-````
+```
 database.mongo.uri=mongodb://root:123456@127.0.0.1:27017/free
 database.mongo.database=free
 database.mongo.collection.naming.case=UNDERSCORE
 database.mongo.collection.naming.ignored_suffix=Entity
-````
+```
 
-In this example file we use:
+Example credentials:
+- **User:** root
+- **Password:** 123456
+- **Database:** free
 
-user: root
-
-password 123456
-
-database: free
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- SETUP MAIL -->
-# Setup Mail
-Enable or disable server sending mail via SMTP.
+---
 
-## Basic Configuration
-If you don't have a mail server or a mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
+## Setup Mail
 
-`Location: Free-MMORPG\Free-Server\free-server-app-api\src\main\java\com\assambra\app\constant\ServerVariables`
+Enable or disable server-side email sending via SMTP.
 
-Change the value to `false`: `SERVER_CAN_SEND_MAIL = true`.
+### Basic Configuration
+If you do not have a mail server or mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
 
-**Important:** When `SERVER_CAN_SEND_MAIL = false` is set, only a log message in your IDE is generated on the server side. This setting is mainly intended for local development. However, it is strongly recommended to complete the email setup for production environments to ensure full functionality. Without email setup, clients will not be able to use features like "Forgot Password", "Forgot Username", and "Account Activation".
+**File location:**  
+`Free-MMORPG/Free-Server/free-server-app-api/src/main/java/com/assambra/app/constant/ServerVariables`
 
-## Setup Mail Values
-For configuring the email functionality, use the same file you employed for your database settings in the Free-Account-Server. Add or modify the following values as required:
+Set the value to `false`:
+```java
+SERVER_CAN_SEND_MAIL = false;
+```
 
-`Location: Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+**Important:** When `SERVER_CAN_SEND_MAIL` is set to `false`, only log messages are generated on the server side. This is primarily intended for local development. For production environments, email functionality should be properly configured to enable features like "Forgot Password," "Forgot Username," and "Account Activation."
 
-````
+
+### Setup Mail Values
+For production environments, configure email functionality in the same configuration file used for the database settings:
+
+**File location:**  
+`Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+
+Add or modify the following settings:
+
+```
 mail.host=mail.example.com
 mail.port.tls=587
 mail.port.ssl=465
@@ -376,150 +410,165 @@ mail.content.type.primary=text/HTML
 mail.content.type.sub=charset=UTF-8
 mail.format=flowed
 mail.content.transfer.encoding=8bit
-````
+```
 
-**Hint:** Do not use SSL and TLS simultaneously with both set to `true`. There is no check in place, and only one should be set to `true`.
-
-Most settings should be self-explanatory. If not, refer to the `SMTP_EMail` class and review the comments for each variable.
+**Hint:**  
+Do not set both `mail.tls` and `mail.ssl` to `true` simultaneously. Only one should be set to `true` to avoid conflicts.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- DEPLOY SERVER -->
+---
+
 ## Deploy Server
+
 ### Download Server
-- Download the EzyFox Server <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
+Download the EzyFox Server:  
+<a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Server preparations
-In this example we use the location D:\ezyfox-server
-- extract ezyfox-server-full-1.2.8.1.zip and copy the extracted files in the location.
-- open the file D:\ezyfox-server\settings\ezy-settings.xml in the editor and add between ```<zones></zones>``` two new zones.
-````
+### Server Preparations
+In this example, we use the location: `D:\ezyfox-server`.
+
+1. Extract `ezyfox-server-full-1.2.9.zip` and copy the extracted files to the target location.
+2. Open the file `D:\ezyfox-server\settings\ezy-settings.xml` in a text editor.
+3. Add the following zones inside the `<zones>` tag:
+```
 <zone>
     <name>free-account-server</name>
     <config-file>free-account-server-zone-settings.xml</config-file>
     <active>true</active>
 </zone>
-````
-````
+```
+```
 <zone>
     <name>free-game-server</name>
     <config-file>free-game-server-zone-settings.xml</config-file>
     <active>true</active>
 </zone>
-````
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Export external Libraries
-Steps for Account Server
-- Open gitbash and go to the folder free-account-server-startup
-- Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
-- Run: ExternalLibrariesExporter in free-account-server-startup/src/test/java/com.assambra.account/tools your IDE
-- Insert: D:/ezyfox-server hit enter
+### Export External Libraries
 
-Repeat the steps for the Game Server
-- Open gitbash and go to the folder free-game-server-startup
-- Insert: ``mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy``
-- Run: ExternalLibrariesExporter in free-game-server-startup/src/test/java/com.assambra.game/tools in your IDE
-- Insert: D:/ezyfox-server hit enter
+#### Steps for Account Server
+1. Open Git Bash and navigate to the folder `free-account-server-startup`.
+2. Run the following command:
+   ```bash
+   mvn clean install -Denv.EZYFOX_SERVER_HOME=deploy -Pezyfox-deploy
+   ```
+3. Run the `ExternalLibrariesExporter` tool located in `free-account-server-startup/src/test/java/com/assambra/account/tools` in your IDE.
+4. When prompted, enter the path: `D:/ezyfox-server`.
+
+#### Steps for Game Server
+Repeat the above steps for the `free-game-server-startup` folder.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Build the Server
 
-find line "#export EZYFOX_SERVER_HOME=" remove # and insert after = D:/ezyfox-server in the two following files (please read the hint below)
-- Free-MMORPG\Free-Account-Server\build.sh 
-- Free-MMORPG\Free-Game-Server\build.sh
+1. Open the following files and remove the `#` from the line `#export EZYFOX_SERVER_HOME=`:
+    - `Free-MMORPG/Free-Account-Server/build.sh`
+    - `Free-MMORPG/Free-Game-Server/build.sh`
 
-In this example i use windows and Git Bash command client go to the project root of:
-- Free-MMORPG\Free-Account-Server\
-- Free-MMORPG\Free-Game-Server\
-- and run command bash build.sh for both of the project.
+2. After `export EZYFOX_SERVER_HOME=`, insert the path `D:/ezyfox-server`.
 
-Hint: If is there some error: 
+3. Run the following commands from the root of each project:
+   ```bash
+   bash build.sh
+   ```
 
-``cp: cannot create regular file 'D:ezyfox-server/settings/zones/': No such file or directory``
-
-there is some problem with forward slash and backslash depends on your operating system or command client try to use instead of D:\ezyfox-server this D:/ezyfox-server.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Run the server
-Go to your server location D:\ezyfox-server
-
-Windows: execute console.bat 
-
-Linux: ``sh ./console.sh`` for console server. 
-
-Linux as Service: ``sh ./start-service.sh``. Stop the service: ``sh ./stop-service.sh``. Restart the service: ``sh ./restart-service.sh``
+**Hint:** If you encounter an error like:
+```
+cp: cannot create regular file 'D:ezyfox-server/settings/zones/': No such file or directory
+```
+Replace backslashes (`\`) with forward slashes (`/`) in your paths, depending on your operating system.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!--Contributing-->
+### Run the Server
+
+Navigate to your server location: `D:/ezyfox-server`.
+
+- **Windows:** Execute `console.bat`.
+- **Linux:** Run:
+  ```bash
+  sh ./console.sh
+  ```
+
+For Linux as a service:
+- Start the service:
+  ```bash
+  sh ./start-service.sh
+  ```
+- Stop the service:
+  ```bash
+  sh ./stop-service.sh
+  ```
+- Restart the service:
+  ```bash
+  sh ./restart-service.sh
+  ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
 ## Contributing
 
-Thank you for your interest in our project! We welcome contributions in various forms, whether it's through code contributions, reporting bugs, submitting feature requests, or spreading the word to your friends and colleagues. Your contribution is invaluable and helps us continuously improve our project.
+Thank you for your interest in contributing to our project! Contributions are welcome and greatly appreciated.
 
-### Code Contributions
+### How to Contribute
 
-If you have experience in programming and would like to contribute to the development of our project, pull requests are always welcome! Please follow these steps:
+1. **Code Contributions**
+    - Fork the repository on GitHub.
+    - Create a new branch for your changes.
+    - Implement your changes and thoroughly test them.
+    - Submit a pull request to our repository.
 
-1. Fork the repository on GitHub.
-2. Create a new branch for your changes.
-3. Implement your changes and thoroughly test them.
-4. Submit a pull request to our repository.
+2. **Report Bugs**  
+   Use our GitHub issue tracking system to report bugs. Provide as much detail as possible to help us troubleshoot effectively.
 
-We will review your pull request and collaborate with you to ensure your changes are properly integrated.
+3. **Feature Requests**  
+   If you have a great idea for a new feature, create an issue on GitHub and describe your idea in detail. We'll review and discuss it.
 
-### Reporting Bugs
-
-If you come across a bug in our project, please don't hesitate to report it. Use our GitHub issue tracking system for this purpose. Be sure to provide as many details as possible to assist us in troubleshooting.
-
-### Feature Requests
-
-Do you have a great idea for a new feature? Share it with us! Simply create an issue on GitHub and describe your idea in detail. We'll review and discuss your request.
-
-### Try the Playable Demo
-
-~~Try out our <a href="https://github.com/Assambra/Free-MMORPG/releases/download/0.45.0/Free-Client-Live-0.45.0.rar">playable demo</a> to experience our project in action. We appreciate your feedback and impressions.~~
-
-### Spread the Word
-
-An easy yet effective way to support us is by sharing our project with your friends, colleagues, and on social media. The more people learn about our work, the better!
-
-### Wiki and Documentation
-
-Our Wiki page and documentation are places where you can share your knowledge and expertise. If you'd like to make improvements, please feel free to do so. Your contributions are valuable to the entire community.
-
-Thank you for your support and interest in our project! Together, we can make it even better.
+4. **Documentation Contributions**  
+   If you find errors or want to add to our documentation, feel free to contribute to our Wiki or submit pull requests for README updates.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Resources Section -->
+---
+
 ## Resources Section
-- For the server/client, we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/) you can support there great project. For more information visit https://youngmonkeys.org/donate/
-- For the Characters we use [UMA](https://github.com/umasteeringgroup/UMA) (Unity Multipurpose Avatar System). There is currently a campaign to take UMA to a new level so that it will receive new textures and models in the future. We would be very happy if you would support this. [Lets fund some new artwork for UMA!](https://www.gofundme.com/f/lets-fund-some-new-artwork-for-uma?utm_campaign=m_pd+share-sheet&utm_content=undefined&utm_medium=copy_link_all&utm_source=customer&utm_term=undefined) 
-- For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in my personal opinion, is the best available ocean system for Unity. You can become a sponsor for this project on [GitHub Sponsors](https://github.com/sponsors/wave-harmonic?o=esb).
+
+- For the server/client, we use the [EzyFox Server Framework](https://youngmonkeys.org/projects/ezyfox-server) from [Young Monkeys](https://youngmonkeys.org/). You can support their great project. For more information, visit [Donate to Young Monkeys](https://youngmonkeys.org/donate/).
+- For the characters, we use [UMA](https://github.com/umasteeringgroup/UMA) (Unity Multipurpose Avatar System). There is currently a campaign to take UMA to a new level so that it will receive new textures and models in the future. We would be very happy if you supported this. [Let’s fund some new artwork for UMA!](https://www.gofundme.com/f/lets-fund-some-new-artwork-for-uma?utm_campaign=m_pd+share-sheet&utm_content=undefined&utm_medium=copy_link_all&utm_source=customer&utm_term=undefined).
+- For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in our opinion, is the best available ocean system for Unity. You can become a sponsor for this project on [GitHub Sponsors](https://github.com/sponsors/wave-harmonic?o=esb).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Credits -->
+---
+
 ## Credits
-- We use Textures created by João Paulo https://3dtextures.me he published it under the CC0 license. You can buy him a <a href="https://ko-fi.com/katsukagi">Ko-fi</a> or support him as a <a href="https://www.patreon.com/gendo">patreon</a>.  
+
+- We use textures created by João Paulo, available at [3DTextures.me](https://3dtextures.me). He published these under the CC0 license. You can support him by buying him a [Ko-fi](https://ko-fi.com/katsukagi) or becoming a patron on [Patreon](https://www.patreon.com/gendo).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Thank you -->
-## Thank you
-- A special thanks to tvd12 for fixing a variety of bugs and providing great help with other issues.
+---
+
+## Thank You
+
+- A special thanks to **tvd12** for fixing various bugs and providing great help with other issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Contact -->
+---
+
 ## Contact
-Join us on <a href="https://discord.gg/vjPWk5FSYj">Discord</a>
+
+Join us on [Discord](https://discord.gg/vjPWk5FSYj).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
