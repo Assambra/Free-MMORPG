@@ -374,21 +374,21 @@ Enable or disable server-side email sending via SMTP.
 If you do not have a mail server or mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
 
 **File location:**  
-`Free-MMORPG/Free-Server/free-server-app-api/src/main/java/com/assambra/app/constant/ServerVariables`
+`Free-MMORPG/master-server/master-server-common/src/main/resources/master-server-common-config.properties`
 
 Set the value to `false`:
 ```java
-SERVER_CAN_SEND_MAIL = false;
+server.can_send_mail=false;
 ```
 
-**Important:** When `SERVER_CAN_SEND_MAIL` is set to `false`, only log messages are generated on the server side. This is primarily intended for local development. For production environments, email functionality should be properly configured to enable features like "Forgot Password," "Forgot Username," and "Account Activation."
+**Important:** When `server.can_send_mail` is set to `false`, only log messages are generated on the server side. This is primarily intended for local development. For production environments, email functionality should be properly configured to enable features like "Forgot Password," "Forgot Username," and "Account Activation."
 
 
 ### Setup Mail Values
 For production environments, configure email functionality in the same configuration file used for the database settings:
 
 **File location:**  
-`Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
+`Free-MMORPG/master-server/master-server-common/src/main/resources/master-server-common-config.properties`
 
 Add or modify the following settings:
 
