@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ab827c402e89749902785cc98fd5cc, type: 3}
   m_Name: GameCamera
   m_EditorClassIdentifier: 
-  Active: 1
+  Active: 0
   autofindPlayer: 0
   cameraRotateCameraTarget: 0
   rotateCameraWithCameraTarget: 1

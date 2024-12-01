@@ -92,7 +92,10 @@ namespace Assambra.GameFramework.CameraController
 
         void Update()
         {
-            if (!IsOverUIElement && Active)
+            if (!Active)
+                return;
+
+            if (!IsOverUIElement)
             {
                 GetMouseInput();
 
@@ -116,21 +119,23 @@ namespace Assambra.GameFramework.CameraController
 
                 lastCameraPan = cameraPan;
                 lastCameraTilt = cameraTilt;
-            }
 
-            if (lastCameraFieldOfView != MainCamera.fieldOfView)
-                fieldOfView = MainCamera.fieldOfView;           
+                if (lastCameraFieldOfView != MainCamera.fieldOfView)
+                    fieldOfView = MainCamera.fieldOfView;
+            }      
         }
 
         private void LateUpdate()
         {
+            if (!Active)
+                return;
+
             if (rotateCameraWithCameraTarget && !Input.GetMouseButton(0) || !Input.GetMouseButton(1))
                 RotateCameraWithTarget();
 
             lastCameraTargetRotation = CameraTarget.transform.eulerAngles.y;
 
-            if (Active)
-                LookAtCameraTarget();
+            LookAtCameraTarget();
         }
 
         private void LookAtCameraTarget()
