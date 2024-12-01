@@ -7,7 +7,5 @@ import lombok.Data;
 @Data
 @EzyPropertiesBean(prefix = "server")
 public class ServerConfig extends EzyLoggable {
-
     private Boolean can_send_mail;
-    private String server_executable_path;
 }

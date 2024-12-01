@@ -1,16 +1,17 @@
 package com.assambra.masterserver.common.masterserver.server;
 
-import com.assambra.masterserver.common.config.ServerConfig;
-import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
+import com.tvd12.ezyfox.stream.EzyAnywayInputStreamLoader;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import lombok.Setter;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 @Setter
 public class UnityServer extends EzyLoggable {
-    @EzyAutoBind
-    private ServerConfig serverConfig;
+    private final Properties properties = new Properties();
+    private String path;
     private final String username;
     private final String password;
     private final String room;
@@ -19,6 +20,8 @@ public class UnityServer extends EzyLoggable {
         this.username = builder.username;
         this.password = builder.password;
         this.room = builder.room;
+
+        loadProperties();
     }
 
     public static class Builder {
@@ -46,10 +49,23 @@ public class UnityServer extends EzyLoggable {
         }
     }
 
+
+    private void loadProperties() {
+        try (InputStream inputStream = EzyAnywayInputStreamLoader.builder()
+                .context(getClass())
+                .build()
+                .load("application.properties")) {
+            properties.load(inputStream);
+            this.path = properties.getProperty("server.path");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Process start() throws IOException {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(
-                    serverConfig.getServer_executable_path(),
+                    path,
                     "--username", username,
                     "--password", password,
                     "--room", room);
