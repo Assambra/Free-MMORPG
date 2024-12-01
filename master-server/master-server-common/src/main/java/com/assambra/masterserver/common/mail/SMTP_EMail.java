@@ -67,7 +67,7 @@ public class SMTP_EMail extends EzyLoggable
         try(InputStream inputStream = EzyAnywayInputStreamLoader.builder()
                 .context(getClass())
                 .build()
-                .load("free-account-server-common-config.properties")
+                .load("master-server-common-config.properties")
         )
         {
             properties.load(inputStream);

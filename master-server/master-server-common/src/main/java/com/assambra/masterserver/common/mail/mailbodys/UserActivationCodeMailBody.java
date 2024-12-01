@@ -22,7 +22,7 @@ public class UserActivationCodeMailBody implements MailBody {
 
     @Override
     public void loadTemplate() throws IOException {
-        bodyTemplate = configuration.getTemplate("account_activation_code_body.ftl");
+        bodyTemplate = configuration.getTemplate("user_activation_code_body.ftl");
     }
 
     @Override
