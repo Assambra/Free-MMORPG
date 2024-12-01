@@ -78,7 +78,7 @@ namespace Assambra.FreeClient
                 else
                     sendOnceZero = false;
 
-                NetworkManagerGame.Instance.SendPlayerInput(_player.EntityModel.Id, _player.EntityModel.Room, _input);
+                NetworkManager.Instance.SendPlayerInput(_player.EntityModel.Id, _player.EntityModel.Room, _input);
                 _move = _input;
             }                
         }
