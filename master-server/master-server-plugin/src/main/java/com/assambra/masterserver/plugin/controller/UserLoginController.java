@@ -1,10 +1,8 @@
 package com.assambra.masterserver.plugin.controller;
 
-import com.assambra.masterserver.plugin.service.WelcomeService;
-
-import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.core.annotation.EzyEventHandler;
+import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyfoxserver.constant.EzyLoginError;
 import com.tvd12.ezyfoxserver.context.EzyPluginContext;
 import com.tvd12.ezyfoxserver.controller.EzyAbstractPluginEventController;
@@ -17,15 +15,19 @@ import static com.tvd12.ezyfoxserver.constant.EzyEventNames.USER_LOGIN;
 @EzyEventHandler(USER_LOGIN)
 public class UserLoginController extends EzyAbstractPluginEventController<EzyUserLoginEvent> {
 
-    @EzyAutoBind
-    private WelcomeService welcomeService;
-
     @Override
     public void handle(EzyPluginContext ctx, EzyUserLoginEvent event)
     {
+        String username = event.getUsername();
+        String password = encodePassword(event.getPassword());
+
         if(event.getUsername().contains("Guest#") && event.getPassword().contains("Assambra"))
             logger.info("Guest logged in: {}", event.getUsername());
         else
             throw new EzyLoginErrorException(EzyLoginError.INVALID_PASSWORD);
+    }
+
+    private String encodePassword(String password) {
+        return EzySHA256.cryptUtfToLowercase(password);
     }
 }
