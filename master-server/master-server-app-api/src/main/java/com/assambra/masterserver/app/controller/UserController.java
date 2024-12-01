@@ -1,6 +1,6 @@
 package com.assambra.masterserver.app.controller;
 
-import com.assambra.masterserver.app.config.ServerConfig;
+import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
 import com.assambra.masterserver.common.mail.MailBuilder;
 import com.assambra.masterserver.common.mail.SMTP_EMail;
