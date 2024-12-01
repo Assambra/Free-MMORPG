@@ -34,7 +34,7 @@ namespace Assambra.FreeClient
                 Instance = this;
         }
 
-        private void OnEnable()
+        private new void OnEnable()
         {
             base.OnEnable();
 
@@ -56,7 +56,9 @@ namespace Assambra.FreeClient
 
         private void OnDisable()
         {
-            
+            Disconnect();
+            UnbindSocketHandlers();
+            UnbindAppHandlers();
         }
 
         private void Update()
