@@ -34,6 +34,14 @@
     <li><a href="#key-features">Key Features</a></li>
     <li><a href="#playable-demo">Playable Demo</a></li>
     <li><a href="#master-server">Master Server</a></li>
+        <ul>
+            <li><a href="#introduction-transitioning-to-a-hybrid-backend">Introduction: Transitioning to a Hybrid Backend</a></li>
+            <li><a href="#project-structure-overview">Project Structure Overview</a></li>
+            <li><a href="#communication-flow">Communication Flow</a></li>
+            <li><a href="#master-server-centralized-management">Master-Server: Centralized Management</a></li>Request Flow
+            <li><a href="#request-flow">Request Flow</a>
+            <li><a href="#notes">Notes</a>
+        </ul>
     <li><a href="#client">Client</a></li>
         <ul>
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
@@ -172,10 +180,65 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 ~~We provide a playable demo where you can play the latest release, check what Free-MMORPG can do, or test and send bug reports.
 You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release has a playable demo, provided as a `.rar` file. This client will connect to our game server.~~
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ---
 
 ## Master-Server
+
 ![Master-Server Concept][master-server-concept]
+
+### Introduction: Transitioning to a Hybrid Backend
+
+This project initially began with a backend built entirely on **EzyFox Server**. However, over time, I realized that developing both the client and server in **C#** and **Unity** was not only more intuitive but also significantly more efficient. While EzyFox Server provides robust networking capabilities, it posed significant challenges when implementing complex features such as physics-based collision and other advanced mechanics.
+
+For example, I initially calculated player height using a heightmap to ensure that the server's height calculations aligned with those on the client. While functional, this approach was labor-intensive and required significant effort to maintain state consistency between the server and Unity client. This challenge highlighted a recurring issue: each new feature or problem would require a similarly complex implementation to synchronize the server state with the client.
+
+To overcome these limitations, I extended EzyFox Server's existing room structure to support spawning **Unity-based server instances**. This hybrid approach combines EzyFox's powerful networking features with Unity's physics and game logic, resulting in a seamless and efficient integration for server-client interactions.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+### Project Structure Overview
+
+This project comprises three key components:
+
+1. **Master-Server**: Based on the EzyFox Server, it acts as the central hub for communication and room management.
+2. **Free-Server**: A Unity instance that handles the game logic, physics, and state management for individual rooms.
+3. **Free-Client**: The client application for players, built using Unity and communicating with the Master-Server.
+
+### Communication Flow
+The **Unity-Servers** act as clients for the **Master-Server**, ensuring seamless interaction between:
+
+- **Free-Client ↔ Master-Server ↔ Free-Server**
+
+We rely on the **EzyFox Client SDK** for all communications across these components.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Master-Server: Centralized Management
+
+The **Master-Server** is built on EzyFox Server and performs several critical tasks:
+
+- **User Management**: Authentication and session tracking.
+- **Database Operations**: Handling requests to and from the database.
+- **Unity Server Management**: Spawning, monitoring, and managing a Unity-Server instance for each room.
+
+### Request Flow
+
+1. **Client Request**: A Unity-Client sends a request to the Master-Server.
+2. **Forwarding**: The Master-Server forwards the request to the appropriate Unity-Server.
+3. **Processing**: The Unity-Server processes the request (e.g., physics simulation or game logic updates).
+4. **Response Handling**: The processed response is sent back to the Master-Server, which forwards it to the appropriate client(s).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Notes
+
+This structure ensures that the Master-Server remains lightweight while leveraging Unity’s strengths for game-specific logic and physics calculations. Future sections will detail implementation specifics and provide example workflows for game scenarios.
 
 ---
 
