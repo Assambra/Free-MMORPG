@@ -77,12 +77,12 @@ namespace Assambra.FreeClient.UserInterface
         public void OnButtonBackToLogin()
         {
             GameManager.Instance.ChangeScene(Scenes.Login);
-            NetworkManagerGame.Instance.Disconnect();
+            NetworkManager.Instance.Disconnect();
         }
 
         public void OnButtonPlay()
         {
-            NetworkManagerGame.Instance.PlayRequest(_characterInfos[_currentShownCharacter].Id);
+            NetworkManager.Instance.PlayRequest(_characterInfos[_currentShownCharacter].Id);
         }
 
         public void OnButtonNewCharacter()

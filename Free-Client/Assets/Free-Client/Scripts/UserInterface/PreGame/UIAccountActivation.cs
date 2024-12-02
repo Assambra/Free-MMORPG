@@ -17,7 +17,7 @@ namespace Assambra.FreeClient.UserInterface
             string activationCode = _inputFieldActivationCode.text;
 
             if (InputValidator.IsNotEmpty(activationCode))
-                NetworkManagerUser.Instance.ActivateAccount(activationCode);
+                NetworkManager.Instance.ActivateAccount(activationCode);
             else
                 ErrorPopup("Please note: The activation input field cannot be empty. Please enter your activation code and try again.");
 
@@ -26,7 +26,7 @@ namespace Assambra.FreeClient.UserInterface
         public void OnButtonResendActivationEmail()
         {
             _buttonResendActivationEmail.interactable = false;
-            NetworkManagerUser.Instance.ResendActivationCodeEmail();
+            NetworkManager.Instance.ResendActivationCodeEmail();
         }
 
         public void OnButtonQuit()

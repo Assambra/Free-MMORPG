@@ -16,8 +16,7 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonQuit()
         {
-            NetworkManagerGame.Instance.Disconnect();
-            NetworkManagerUser.Instance.Disconnect();
+            NetworkManager.Instance.Disconnect();
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -33,7 +32,15 @@ namespace Assambra.FreeClient.UserInterface
             _password = _inputFieldPassword.text;
 
             if (InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
-                NetworkManagerGame.Instance.Login(_username, _password);
+            {
+                if(NetworkManager.Instance.LoginState == LoginState.Lobby)
+                {
+                    NetworkManager.Instance.Disconnect();
+                    NetworkManager.Instance.LoginState = LoginState.Game;
+                }
+
+                NetworkManager.Instance.Login(_username, _password);
+            }
             else
                 ErrorPopup("Username or password cannot be empty. Please enter both and try again.");
         }

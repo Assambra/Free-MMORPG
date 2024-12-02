@@ -14,7 +14,7 @@ namespace Assambra.FreeClient
 
         public string Account;
         
-        [SerializeField] private NetworkManagerUser _networkManagerUser;
+        //[SerializeField] private NetworkManagerUser _networkManagerUser;
 
         [field: SerializeField] public CameraController CameraController { get; private set; }
         [field: SerializeField] public UIHandler UIHandler { get; private set; }
@@ -97,7 +97,7 @@ namespace Assambra.FreeClient
                     SetCameraGameCameraValues();
                     Destroy(playerGameObject);
 
-                    _networkManagerUser.enabled = false;
+                    //_networkManagerUser.enabled = false;
                 }  
             }
             else
@@ -106,8 +106,10 @@ namespace Assambra.FreeClient
                 {
                     ChangeState(GameState.Lobby);
 
+                    /*
                     if (!_networkManagerUser.enabled)
                         _networkManagerUser.enabled = true;
+                    */
                 }
             }
         }

@@ -28,14 +28,14 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonSendPassword()
         {
-            if (NetworkManagerUser.Instance.Connected())
+            if (NetworkManager.Instance.Connected())
             {
                 ButtonSendPassword.interactable = false;
                 ButtonBackPassword.interactable = false;
                 ButtonTabUsername.interactable = false;
 
                 if (InputValidator.IsNotEmpty(_inputFieldUsernameOrEmail.text))
-                    NetworkManagerUser.Instance.ForgotPassword(_inputFieldUsernameOrEmail.text);
+                    NetworkManager.Instance.ForgotPassword(_inputFieldUsernameOrEmail.text);
                 else
                     ErrorPopup("Please note: You must enter either a username or email address. Please fill in the required field and try again.");
             }
@@ -45,14 +45,14 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonSendUsername()
         {
-            if (NetworkManagerUser.Instance.Connected())
+            if (NetworkManager.Instance.Connected())
             {
                 ButtonSendUsername.interactable = false;
                 ButtonBackUsername.interactable = false;
                 ButtonTabPassword.interactable = false;
 
                 if (InputValidator.IsNotEmpty(_inputFieldEmail.text))
-                    NetworkManagerUser.Instance.ForgotUsername(_inputFieldEmail.text);
+                    NetworkManager.Instance.ForgotUsername(_inputFieldEmail.text);
                 else
                     ErrorPopup("Please note: The email address field cannot be empty. Please enter your email address and try again.");
             }
