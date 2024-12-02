@@ -1064,6 +1064,10 @@ PrefabInstance:
       value: 127.0.0.1:3005
       objectReference: {fileID: 0}
     - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
+      propertyPath: _socketConfig.tcpUrl
+      value: 127.0.0.1:3005
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: socketConfig.appName
       value: master-server
       objectReference: {fileID: 0}
@@ -1072,8 +1076,24 @@ PrefabInstance:
       value: 2611
       objectReference: {fileID: 0}
     - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
+      propertyPath: _socketConfig.appName
+      value: master-server
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
+      propertyPath: _socketConfig.udpPort
+      value: 2611
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: socketConfig.zoneName
       value: master-server
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
+      propertyPath: _socketConfig.zoneName
+      value: master-server
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
+      propertyPath: <LoginState>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

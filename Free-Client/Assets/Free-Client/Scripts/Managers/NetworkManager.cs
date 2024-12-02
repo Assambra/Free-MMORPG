@@ -20,10 +20,14 @@ namespace Assambra.FreeClient
     {
         public static NetworkManager Instance {  get; private set; }
 
-        [SerializeField] private EzySocketConfig socketConfig;
-        [SerializeField] private string guestPassword = "Assambra";
+        [field: SerializeField] public LoginState LoginState { get; set; }
 
-        private bool characterListReseived;
+        [SerializeField] private EzySocketConfig _socketConfig;
+        [SerializeField] private string _guestPassword = "Assambra";
+
+        private LoginState _loginState;
+
+        private bool _characterListReseived;
         private bool _despawnInProgress;
 
         private void Awake()
@@ -32,6 +36,8 @@ namespace Assambra.FreeClient
                 Destroy(this);
             else
                 Instance = this;
+
+            _loginState = LoginState.Lobby;
         }
 
         private new void OnEnable()
@@ -52,6 +58,8 @@ namespace Assambra.FreeClient
             AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
             AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
             AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
+
+            Login(CreateGuestName(), _guestPassword);
         }
 
         private void OnDisable()
@@ -64,13 +72,13 @@ namespace Assambra.FreeClient
         private void Update()
         {
             EzyClients.getInstance()
-                .getClient(socketConfig.ZoneName)
+                .getClient(_socketConfig.ZoneName)
                 .processEvents();
         }
 
         protected override EzySocketConfig GetSocketConfig()
         {
-            return socketConfig;
+            return _socketConfig;
         }
 
         public bool Connected()
@@ -93,19 +101,14 @@ namespace Assambra.FreeClient
             socketProxy.onLoginError<Object>(OnLoginError);
             socketProxy.onAppAccessed<Object>(OnAppAccessed);
 
-            // Guest
-            socketProxy.setLoginUsername(CreateGuestName());
-            socketProxy.setLoginPassword(guestPassword);
-
-            // User
             socketProxy.setLoginUsername(username);
             socketProxy.setLoginPassword(password);
 
-            socketProxy.setUrl(socketConfig.TcpUrl);
-            socketProxy.setUdpPort(socketConfig.UdpPort);
-            socketProxy.setDefaultAppName(socketConfig.AppName);
+            socketProxy.setUrl(_socketConfig.TcpUrl);
+            socketProxy.setUdpPort(_socketConfig.UdpPort);
+            socketProxy.setDefaultAppName(_socketConfig.AppName);
 
-            if (socketConfig.UdpUsage)
+            if (_socketConfig.UdpUsage)
             {
                 socketProxy.setTransportType(EzyTransportType.UDP);
                 socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
@@ -132,7 +135,7 @@ namespace Assambra.FreeClient
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_USER, data, socketConfig.EnableSSL);
+            appProxy.send(Commands.CREATE_USER, data, _socketConfig.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
@@ -260,14 +263,19 @@ namespace Assambra.FreeClient
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
         {
             Debug.Log("OnUdpHandshake");
-            socketProxy.send(new EzyAppAccessRequest(socketConfig.AppName));
+
+            if(LoginState == LoginState.Lobby)
+                socketProxy.send(new EzyAppAccessRequest(_socketConfig.AppName));
+            else
+                socketProxy.send(new EzyAppAccessRequest(_socketConfig.AppName));
         }
 
         private void OnAppAccessed(EzyAppProxy proxy, Object data)
         {
-            Debug.Log("Game: App access successfully");
+            Debug.Log("App access successfully");
 
-            Check();
+            if (LoginState == LoginState.Game)
+                Check();
         }
 
         #endregion
@@ -281,7 +289,7 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "successful":
-                    InformationPopupCrateAccount("Account successfully created");
+                    InformationPopupCreateAccount("Account successfully created");
                     break;
                 case "email_already_registered":
                     ErrorPopup("E-Mail already registered, please use the Forgot password function");
@@ -430,10 +438,10 @@ namespace Assambra.FreeClient
                     GameManager.Instance.CharacterInfos.Add(characterInfoModel);
                 }
 
-                if (!characterListReseived)
+                if (!_characterListReseived)
                     GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
             }
-            characterListReseived = true;
+            _characterListReseived = true;
         }
 
         #endregion
@@ -662,7 +670,7 @@ namespace Assambra.FreeClient
             );
         }
 
-        private void InformationPopupCrateAccount(string information)
+        private void InformationPopupCreateAccount(string information)
         {
             string title = "Info";
             string info = information;
@@ -672,13 +680,14 @@ namespace Assambra.FreeClient
             popup.Setup(
                 title,
                 info,
-                () => { OnInformationPopupCrateAccountOK(); popup.Destroy(); }
+                () => { OnInformationPopupCreateAccountOK(); popup.Destroy(); }
             );
         }
 
-        private void OnInformationPopupCrateAccountOK()
+        private void OnInformationPopupCreateAccountOK()
         {
-            GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+            GameManager.Instance.ChangeScene(Scenes.Login);
+            Disconnect();
         }
 
         private void InformationPopupAccountActivation(string information)

@@ -24,11 +24,11 @@ public class CharacterController extends EzyLoggable {
     private final ModelToResponseConverter modelToResponseConverter;
 
     @EzyDoHandle(Commands.CHARACTER_LIST)
-    public void characterList(EzyUser ezyuser)
+    public void characterList(EzyUser ezyUser)
     {
-        logger.info("Receive: Commands.CHARACTER_LIST from user: {}", ezyuser.getName());
+        logger.info("Receive: Commands.CHARACTER_LIST from user: {}", ezyUser.getName());
 
-        CharacterInfoListModel characterInfoListModel = characterService.getCharacterInfoListModel(ezyuser);
+        CharacterInfoListModel characterInfoListModel = characterService.getCharacterInfoListModel(ezyUser);
 
         responseFactory.newArrayResponse()
                 .command(Commands.CHARACTER_LIST)
@@ -38,23 +38,23 @@ public class CharacterController extends EzyLoggable {
                                 modelToResponseConverter::toResponse
                         )
                 )
-                .user(ezyuser)
+                .user(ezyUser)
                 .execute();
     }
 
     @EzyDoHandle(Commands.CREATE_CHARACTER)
-    public void createCharacter(EzyUser ezyuser, CreateCharacterRequest request)
+    public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request)
     {
-        logger.info("Receive: Commands.CREATE_CHARACTER from user: {}", ezyuser.getName());
+        logger.info("Receive: Commands.CREATE_CHARACTER from user: {}", ezyUser.getName());
 
         if(!characterService.characterExist(request.getName()))
         {
-            logger.info("User: {}, successfully create new character: {}", ezyuser.getName(), request.getName());
-            characterService.createCharacter(ezyuser, request);
+            logger.info("User: {}, successfully create new character: {}", ezyUser.getName(), request.getName());
+            characterService.createCharacter(ezyUser, request);
         }
         else
         {
-            logger.info("User: {}, tried to create new character: {}, but it already exists.", ezyuser.getName(), request.getName());
+            logger.info("User: {}, tried to create new character: {}, but it already exists.", ezyUser.getName(), request.getName());
         }
     }
 }
