@@ -105,9 +105,11 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 <ul>
     <li>Master Server</li>
         <ul>
-            <li>Extending EzyFox Server's room management to launch dedicated Unity servers as room</li>
-            <li>One Unity-Server project for all room-servers</li>
-            <li>Unity Engine for Client and Server</li>
+            <li>Extended EzyFox Server capabilities to spawn Unity-based server instances for each room</li>
+            <li>Unified Unity-Server project for managing all room-specific game logic</li>
+            <li>Consistent use of Unity Engine for both client and server to streamline development</li>
+            <li>Centralized user management, database handling, and request forwarding via EzyFox Server</li>
+            <li>Seamless communication flow between Unity-Client, Master-Server, and Unity-Servers</li>
         </ul>
     <li>Account Management</li>
         <ul>
