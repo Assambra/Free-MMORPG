@@ -595,7 +595,7 @@ Join us on [Discord](https://discord.gg/vjPWk5FSYj).
 [issues-url]: https://github.com/Assambra/Free-MMORPG/issues
 [license-shield]: https://img.shields.io/github/license/Assambra/Free-MMORPG.svg?style=for-the-badge
 [license-url]: https://github.com/Assambra/Free-MMORPG/blob/main/LICENSE
-[product-screenshot]: https://github.com/Assambra/Free-MMORPG/tree/main/Github/Images/Free-MMORPG-Demo-Image.v0.43.6.jpg
-[master-server-concept]: https://github.com/Assambra/Free-MMORPG/tree/main/Github/Images/Master-Server-Concept.jpg
+[product-screenshot]: Github/Images/Free-MMORPG-Demo-Image.v0.43.6.jpg
+[master-server-concept]: Github/Images/Master-Server-Concept.jpg
 [Unity-url]: https://www.unity.com
 [Unity.com]: https://img.shields.io/badge/Unity-000000.svg?style=for-the-badge&logo=unity&logoColor=white
