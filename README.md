@@ -512,15 +512,8 @@ In this example, we use the location: `D:\ezyfox-server`.
 3. Add the following zones inside the `<zones>` tag:
 ```
 <zone>
-    <name>free-account-server</name>
-    <config-file>free-account-server-zone-settings.xml</config-file>
-    <active>true</active>
-</zone>
-```
-```
-<zone>
-    <name>free-game-server</name>
-    <config-file>free-game-server-zone-settings.xml</config-file>
+    <name>free-master-server</name>
+    <config-file>free-master-server-zone-settings.xml</config-file>
     <active>true</active>
 </zone>
 ```
