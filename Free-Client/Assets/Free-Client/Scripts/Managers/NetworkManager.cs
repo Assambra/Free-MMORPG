@@ -116,7 +116,15 @@ namespace Assambra.FreeClient
             else
                 socketProxy.setTransportType(EzyTransportType.TCP);
 
+            StartCoroutine(WaitForDisconnectIfConnected());
+        }
 
+        private IEnumerator WaitForDisconnectIfConnected()
+        {
+            if (Connected())
+            {
+                yield return new WaitUntil(() => !Connected());
+            }
             socketProxy.connect();
         }
 
