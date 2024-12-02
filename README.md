@@ -24,7 +24,7 @@
     </p>
 </div>
 
-![Our Demo Scene][product-screenshot]
+![Free-MMORPG screenshot][product-screenshot]
 
 <a name="readme-top"></a>
 
@@ -33,6 +33,7 @@
     <li><a href="#foreword">Foreword</a></li>
     <li><a href="#key-features">Key Features</a></li>
     <li><a href="#playable-demo">Playable Demo</a></li>
+    <li><a href="#master-server">Master Server</a></li>
     <li><a href="#client">Client</a></li>
         <ul>
             <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
@@ -94,6 +95,12 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 ## Key Features
 
 <ul>
+    <li>Master Server</li>
+        <ul>
+            <li>Extending EzyFox Server's room management to launch dedicated Unity servers as room</li>
+            <li>One Unity-Server project for all room-servers</li>
+            <li>Unity Engine for Client and Server</li>
+        </ul>
     <li>Account Management</li>
         <ul>
             <li>Create a new account</li>
@@ -164,6 +171,11 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 ~~We provide a playable demo where you can play the latest release, check what Free-MMORPG can do, or test and send bug reports.
 You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release has a playable demo, provided as a `.rar` file. This client will connect to our game server.~~
+
+---
+
+## Master-Server
+![Master-Server Concept][master-server-concept]
 
 ---
 
@@ -583,6 +595,7 @@ Join us on [Discord](https://discord.gg/vjPWk5FSYj).
 [issues-url]: https://github.com/Assambra/Free-MMORPG/issues
 [license-shield]: https://img.shields.io/github/license/Assambra/Free-MMORPG.svg?style=for-the-badge
 [license-url]: https://github.com/Assambra/Free-MMORPG/blob/main/LICENSE
-[product-screenshot]: Github/Images/Free-MMORPG-Demo-Image.v0.43.6.jpg
+[product-screenshot]: https://github.com/Assambra/Free-MMORPG/tree/main/Github/Images/Free-MMORPG-Demo-Image.v0.43.6.jpg
+[master-server-concept]: https://github.com/Assambra/Free-MMORPG/tree/main/Github/Images/Master-Server-Concept.jpg
 [Unity-url]: https://www.unity.com
 [Unity.com]: https://img.shields.io/badge/Unity-000000.svg?style=for-the-badge&logo=unity&logoColor=white
