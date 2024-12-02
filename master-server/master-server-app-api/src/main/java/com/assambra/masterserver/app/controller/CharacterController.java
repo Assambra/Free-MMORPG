@@ -79,7 +79,7 @@ public class CharacterController extends EzyLoggable {
         }
         else
         {
-            logger.info("User: {}, tried to create new character: {}, but it already exists.", ezyUser.getName(), request.getName());
+            logger.info("User: {}, tried to create new character: {}, but character name is already in use.", ezyUser.getName(), request.getName());
 
             result = "name_already_in_use";
             id = 0L;
