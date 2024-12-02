@@ -54,7 +54,7 @@ namespace Assambra.FreeClient
             // Game
             AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
             AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
-            AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCreateCharacterResponse);
+            AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCharacterResponse);
             AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
             AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
             AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
@@ -203,31 +203,6 @@ namespace Assambra.FreeClient
                 .build();
 
             appProxy.send(Commands.CREATE_CHARACTER, characterdata);
-        }
-
-        private void OnCreateCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
-        {
-            string result = data.get<string>("result");
-            long characterId = data.get<long>("characterId");
-
-            switch (result)
-            {
-                case "successfully":
-                    Debug.Log("successfully");
-                    InformationPopup("Character created successfully");
-                    GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
-                    GameManager.Instance.CharacterId = characterId;
-                    break;
-                case "name_already_in_use":
-                    ErrorPopup("Username already in use");
-                    break;
-                case "max_allowed_characters":
-                    ErrorPopup("You have reached the maximum number of characters");
-                    break;
-                default:
-                    Debug.LogError("Create Account: Unknown message");
-                    break;
-            }
         }
 
         public void PlayRequest(long id)
@@ -442,6 +417,31 @@ namespace Assambra.FreeClient
                     GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
             }
             _characterListReseived = true;
+        }
+
+        private void OnCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
+        {
+            string result = data.get<string>("result");
+            long characterId = data.get<long>("id");
+
+            switch (result)
+            {
+                case "successfully":
+                    Debug.Log("successfully");
+                    InformationPopup("Character created successfully");
+                    GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
+                    GameManager.Instance.CharacterId = characterId;
+                    break;
+                case "name_already_in_use":
+                    ErrorPopup("Username already in use");
+                    break;
+                case "max_allowed_characters":
+                    ErrorPopup("You have reached the maximum number of characters");
+                    break;
+                default:
+                    Debug.LogError("Create Account: Unknown message");
+                    break;
+            }
         }
 
         #endregion
