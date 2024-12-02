@@ -4,6 +4,7 @@ package com.assambra.masterserver.app.service;
 import com.assambra.masterserver.app.constant.GameConstant;
 import com.assambra.masterserver.app.model.CharacterInfoListModel;
 import com.assambra.masterserver.app.model.CharacterInfoModel;
+import com.assambra.masterserver.app.model.CreateCharacterModel;
 import com.assambra.masterserver.app.request.CreateCharacterRequest;
 import com.assambra.masterserver.common.entity.Character;
 import com.assambra.masterserver.common.entity.CharacterLocation;
@@ -31,13 +32,15 @@ public class CharacterService extends EzyLoggable {
     private final CharacterRepo characterRepo;
     private final CharacterLocationRepo characterLocationRepo;
 
+
+    // < --- Database --->
+
     public Character getCharacter(Long id)
     {
         return characterRepo.findById(id);
     }
 
-    public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request)
-    {
+    public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request) {
         User user = userService.getUserByUsername(ezyUser.getName());
 
         Character character = new Character();
@@ -64,14 +67,17 @@ public class CharacterService extends EzyLoggable {
         return characterRepo.findByField("name", name) != null;
     }
 
-    public List<Character> getAllCharactersOfUser (EzyUser ezyUser)
-    {
+    public Long getIdByName(String name){
+        Character character = characterRepo.findByField("name", name);
+        return character.getId();
+    }
+
+    public List<Character> getAllCharactersOfUser (EzyUser ezyUser) {
         User user = userService.getUserByUsername(ezyUser.getName());
         return characterRepo.findListByField("userId", user.getId());
     }
 
-    public List<CharacterLocation> getAllCharacterLocationsOfUser(EzyUser ezyUser)
-    {
+    public List<CharacterLocation> getAllCharacterLocationsOfUser(EzyUser ezyUser) {
         User user = userService.getUserByUsername(ezyUser.getName());
         Character character = characterRepo.findByField("userId", user.getId());
 
@@ -82,8 +88,13 @@ public class CharacterService extends EzyLoggable {
             return characterLocations;
     }
 
-    public CharacterInfoListModel getCharacterInfoListModel(EzyUser ezyUser)
-    {
+    public CharacterLocation getCharacterLocation(Long characterId) {
+        return characterLocationRepo.findByField("characterId", characterId);
+    }
+
+    // < --- Models --->
+
+    public CharacterInfoListModel getCharacterInfoListModel(EzyUser ezyUser) {
         List<Character> allCharacters = getAllCharactersOfUser(ezyUser);
         List<CharacterLocation> allCharacterLocations = getAllCharacterLocationsOfUser(ezyUser);
 
@@ -94,8 +105,7 @@ public class CharacterService extends EzyLoggable {
                 .build();
     }
 
-    public List<CharacterInfoModel> getListCharacterInfoModel(List<Character> characters, List<CharacterLocation> characterLocations)
-    {
+    public List<CharacterInfoModel> getListCharacterInfoModel(List<Character> characters, List<CharacterLocation> characterLocations) {
         Map<Long, String> roomMap = characterLocations.stream()
                 .collect(Collectors.toMap(CharacterLocation::getCharacterId, CharacterLocation::getRoom));
 
@@ -117,8 +127,10 @@ public class CharacterService extends EzyLoggable {
         return answer;
     }
 
-    public CharacterLocation getCharacterLocation(Long characterId)
-    {
-        return characterLocationRepo.findByField("characterId", characterId);
+    public CreateCharacterModel getCreateCharacterModel(Long id, String result){
+        return CreateCharacterModel.builder()
+                .id(id)
+                .result(result)
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.assambra.masterserver.app.converter;
 
 import com.assambra.masterserver.app.model.CharacterInfoModel;
+import com.assambra.masterserver.app.model.CreateCharacterModel;
 import com.assambra.masterserver.app.model.PlayerDespawnModel;
 import com.assambra.masterserver.app.model.PlayerSpawnModel;
 import com.assambra.masterserver.app.response.CharacterInfoResponse;
@@ -43,5 +44,12 @@ public class ModelToResponseConverter {
     {
         return responseFactory.newObjectResponse()
                 .param("id", model.getId());
+    }
+
+    public EzyObjectResponse toResponse(CreateCharacterModel model)
+    {
+        return responseFactory.newObjectResponse()
+                .param("id", model.getId())
+                .param("result", model.getResult());
     }
 }
