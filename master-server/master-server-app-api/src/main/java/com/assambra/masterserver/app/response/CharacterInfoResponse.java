@@ -12,6 +12,6 @@ public class CharacterInfoResponse {
     private String name;
     private String sex;
     private String race;
-    private String room;
     private String model;
+    private String room;
 }
