@@ -38,7 +38,7 @@
             <li><a href="#introduction-transitioning-to-a-hybrid-backend">Introduction: Transitioning to a Hybrid Backend</a></li>
             <li><a href="#project-structure-overview">Project Structure Overview</a></li>
             <li><a href="#communication-flow">Communication Flow</a></li>
-            <li><a href="#master-server-centralized-management">Master-Server: Centralized Management</a></li>Request Flow
+            <li><a href="#master-server-centralized-management">Master-Server: Centralized Management</a></li>
             <li><a href="#request-flow">Request Flow</a>
             <li><a href="#notes">Notes</a>
         </ul>
