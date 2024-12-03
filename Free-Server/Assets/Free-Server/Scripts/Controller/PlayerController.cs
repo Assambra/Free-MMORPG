@@ -6,6 +6,7 @@ namespace Assambra.FreeServer
     public class PlayerController : MonoBehaviour
     {
         public Vector3 Move { set => _move = value; }
+        public bool Jump { set => _jump = value; }
 
         private Vector3 _move;
 
@@ -16,6 +17,7 @@ namespace Assambra.FreeServer
         private float _rotationSpeed = 150f;
         private float _jumpHeight = 1.0f;
         private float _gravityValue = -9.81f;
+        private bool _jump;
 
         private void Start()
         {
@@ -34,9 +36,10 @@ namespace Assambra.FreeServer
             _characterController.Move(transform.forward * _move.z * Time.deltaTime * _playerSpeed);
             transform.Rotate(new Vector3(0, _move.x * _rotationSpeed * Time.deltaTime, 0));
 
-            if (Input.GetButtonDown("Jump") && _groundedPlayer)
+            if (_jump && _groundedPlayer)
             {
                 _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
+                _jump = false;
             }
 
             _playerVelocity.y += _gravityValue * Time.deltaTime;

@@ -16,6 +16,7 @@ namespace Assambra.FreeClient
         private CharacterController _characterController;
         private Vector3 _input;
         private Vector3 _move;
+        private bool _jump;
         private Vector3 _playerVelocity;
         private bool _groundedPlayer;
         private float _playerSpeed = 5.0f;
@@ -54,10 +55,10 @@ namespace Assambra.FreeClient
             _characterController.Move(transform.forward * _move.z * Time.deltaTime * _playerSpeed);
             transform.Rotate(new Vector3(0, _move.x * _rotationSpeed * Time.deltaTime, 0));
 
-            // Changes the height position of the player..
             if (Input.GetButtonDown("Jump") && _groundedPlayer)
             {
                 _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
+                _jump = true;
             }
 
             _playerVelocity.y += _gravityValue * Time.deltaTime;
@@ -70,14 +71,19 @@ namespace Assambra.FreeClient
                 return;
             if (!_player.EntityModel.IsLocalPlayer)
                 return;
-
+            
+            if(_jump)
+            {
+                NetworkManager.Instance.SendPlayerJump(_player.EntityModel.Id, _player.EntityModel.Room);
+                _jump = false;
+            }
             if (_input != Vector3.zero || !sendOnceZero)
             {
                 if(_input == Vector3.zero)
                     sendOnceZero = true;
                 else
                     sendOnceZero = false;
-
+                
                 NetworkManager.Instance.SendPlayerInput(_player.EntityModel.Id, _player.EntityModel.Room, _input);
                 _move = _input;
             }                
