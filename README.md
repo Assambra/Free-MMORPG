@@ -250,16 +250,22 @@ Steps to use it:
 
 #### Build the Free-Server
 
-Open the Unity-Server project in Unity. Open Build Settings: (File -> Build Settings). The master-server can handle the following three types of builds
+Open the Unity-Server project in Unity. Open the Build Settings: (`File -> Build Settings`). The master server can handle the following three types of builds:
 
 - Windows, Mac, Linux
 - Dedicated Server - Windows
 - Dedicated Server - Linux
 
-Select as Platform 'Windows, Mac, Linux' or Dedicated Server and choose under Target Platform your platform, Windows or Linux, and build the project.
+Select `Windows, Mac, Linux` or `Dedicated Server` as the Platform. Then, under Target Platform, choose your platform (Windows or Linux) and build the project.
 
-#### Setup server executables path
-Open the master-server project in your IDE, edit the file: `master-server/master-server-app-api/src/main/resources/application.properties` and add the path to your server executables from the previous step where you saved them. E.g., `D:/Game Builds/Free-Server/Free-Server.exe`.
+#### Setup Server Executables Path
+
+Open the master-server project in your IDE. Edit the following file:  
+`master-server/master-server-app-api/src/main/resources/application.properties`.
+
+Add the path to your server executables from the previous step where you saved them. For example:  
+`D:/Game Builds/Free-Server/Free-Server.exe`.
+
 
 ---
 
