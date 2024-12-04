@@ -1,0 +1,10 @@
+*.sln
+.DS_Store
+*.DS_Store
+.vs/
+obj/
+bin/
+Properties/
+#*.csproj
+*.meta
+Program.cs
