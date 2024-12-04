@@ -4,8 +4,9 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
+# Free-MMORPG
+
 <div align="center">
-<h1>Free-MMORPG</h1>
     <a href="https://github.com/Assambra">
         <img src="Github/Images/Assambra-Logo-512x512.png" alt="Logo" width="80" height="80">
     </a>
@@ -73,7 +74,7 @@
 
 ---
 
-# Foreword
+## Foreword
 
 This project utilizes free resources for both server and client technology. Without these, the project likely wouldn't have been possible, so I extend my special thanks to the team at [Young Monkeys](https://youngmonkeys.org/) for their excellent foundational work, particularly for the [EzyFox Server](https://youngmonkeys.org/projects/ezyfox-server) framework, and for sharing it with the community. Also, special thanks to all the contributors to the [UMA](https://github.com/umasteeringgroup/UMA) project and their outstanding Unity Multipurpose Avatar System. For the ocean, we use the [Crest Ocean System](https://github.com/wave-harmonic/crest), which, in my personal opinion, is the best available ocean system for Unity. Please check out our Resources Section to see what technologies we use and consider supporting their projects in some way, such as through donations or code contributions, to help these talented individuals continue doing what they love: writing great code and developing fantastic frameworks.
 
@@ -83,7 +84,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 ---
 
-# Key Features
+## Key Features
 
 <ul>
     <li>Area of Interest System on the Unity-Server</li>
@@ -171,7 +172,7 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 
 ---
 
-# Playable Demo
+## Playable Demo
 
 ~~We provide a playable demo where you can play the latest release, check what Free-MMORPG can do, or test and send bug reports.
 You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases">Get Latest</a>. Only the latest release has a playable demo, provided as a `.rar` file. This client will connect to our game server.~~
@@ -180,8 +181,8 @@ You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases"
 
 ---
 
-# Getting Started
-## Get the project from github
+## Getting Started
+### Get the project from github
 
 Clone the repository:
 
@@ -189,11 +190,9 @@ Clone the repository:
 git clone git@github.com:Assambra/Free-MMORPG.git
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Download and import EzyFox Server CSharp Client Unity
+### Download and import EzyFox Server CSharp Client Unity
 
 Download and extract the following file: [ezyfox-server-csharp-client-1.1.6-unity.zip](https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip).
 
@@ -201,29 +200,25 @@ Perform the following steps for both Unity projects: **Free-Client** and **Free-
 1. Open the project in the Unity Editor.
 2. Select all folders and files from the extracted folder `ezyfox-server-csharp-client-1.1.6-unity/ezyfox-server-csharp-client-1.1.6-unity` and drag them into the folder `/Assets/Plugins/ezyfox-server-csharp-client-1.1.6-unity/` of your opened Unity project.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Needed projects from GitHub
+### Needed projects from GitHub
 
-### Crest Ocean System
+#### Crest Ocean System
 
-#### Get Crest Ocean System
+1. Get Crest Ocean System
 Download and extract the following file: <a href="https://github.com/wave-harmonic/crest/archive/refs/tags/4.21.3.zip">crest-4.21.3.zip</a>.
 
-#### Install Crest Ocean System
-1. Open the Unity-Client project in the Unity Editor.
+1. Install Crest Ocean System
+3. Open the Unity-Client project in the Unity Editor.
 Unzip and select all folders and filesthe second crest folder into Unity: `crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest`.
-2. Select all folders and files from the extracted folder `crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest/` and drag them into the folder `/Assets/Crest/` of your opened Unity project.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+4. Select all folders and files from the extracted folder `crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest/` and drag them into the folder `/Assets/Crest/` of your opened Unity project.
 
 ---
 
-## Needed Unity packages from the Unity Asset Store
+### Needed Unity packages from the Unity Asset Store
 
-### MapMagic 2
+#### MapMagic 2
 Go to the Unity Asset Store and get the free asset: <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180">MapMagic 2</a>.
 
 After acquiring the asset:
@@ -231,7 +226,7 @@ After acquiring the asset:
 2. Open the **Package Manager** (`Window -> Package Manager`) and select `Packages: My Assets`.
 3. Download and import **MapMagic 2** into both projects.
 
-### UMA 2
+#### UMA 2
 Please use our modified version of UMA: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>.
 
 Steps to use it:
@@ -241,18 +236,14 @@ Steps to use it:
 ~~Alternatively, get the free asset from the Unity Asset Store: <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611">UMA 2</a>.~~
 
 ~~After importing UMA 2 into the project, you must add Assembly Definition References:~~
-- Navigate to `Assets/UMA/Core/UMA_Core`.
-- In the Inspector, add references for `Addressables`, `Unity.Mathematics`, `Unity.Burst`, and `Unity.Collections`.
-
-Additional required steps can be found in: `Free-Client/Assets/UMA/Addressables - Read Me Now.pdf`.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. ~~Navigate to `Assets/UMA/Core/UMA_Core`.~~
+2. ~~In the Inspector, add references for `Unity.Mathematics`, `Unity.Burst`, and `Unity.Collections`.~~
 
 ---
 
-## Master-Server
+### Master-Server
 
-### Setup Database
+#### Setup Database
 
 1. Install MongoDB.
 2. Open your Mongo shell (`mongosh`).
@@ -284,11 +275,9 @@ db.character.createIndex({ name: 1 })
 ```bash
 db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
 ```
-6. Add or create the following configuration files for both server projects:
+6. Add to the following configuration file:
 
-**File locations:**
-- `Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
-- `Free-Game-Server/free-game-server-common/src/main/resources/free-game-server-common-config.properties`
+**File location:** `master.server/master-server-common/src/main/resources/master-server-common-config.properties`
 
 7. Insert the following values into your configuration file and modify them as needed:
 
@@ -304,15 +293,12 @@ Example credentials:
 - **Password:** 123456
 - **Database:** free
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Setup Mail
+#### Setup Mail
 
 Enable or disable server-side email sending via SMTP.
 
-### Basic Configuration
 If you do not have a mail server or mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
 
 **File location:**  
@@ -326,7 +312,8 @@ server.can_send_mail=false;
 **Important:** When `server.can_send_mail` is set to `false`, only log messages are generated on the server side. This is primarily intended for local development. For production environments, email functionality should be properly configured to enable features like "Forgot Password," "Forgot Username," and "Account Activation."
 
 
-### Setup Mail Values
+**Setup Mail Values**
+
 For production environments, configure email functionality in the same configuration file used for the database settings:
 
 **File location:**  
@@ -357,20 +344,16 @@ mail.content.transfer.encoding=8bit
 **Hint:**  
 Do not set both `mail.tls` and `mail.ssl` to `true` simultaneously. Only one should be set to `true` to avoid conflicts.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Deploy Master-Server
+### Deploy Master-Server
 
-### Download Server
-Download the EzyFox Server:  
-<a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
+#### Download Server
+Download the EzyFox Server: <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+#### Server Preparations
 
-### Server Preparations
-In this example, we use the location: `D:\ezyfox-server`.
+In following examples, we use allways the location: `D:\ezyfox-server`.
 
 1. Extract `ezyfox-server-full-1.2.9.zip` and copy the extracted files to the target location.
 2. Open the file `D:\ezyfox-server\settings\ezy-settings.xml` in a text editor.
@@ -383,11 +366,10 @@ In this example, we use the location: `D:\ezyfox-server`.
 </zone>
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
-### Export External Libraries
+#### Export External Libraries
 
-#### Steps for Account Server
 1. Open Git Bash and navigate to the folder `free-account-server-startup`.
 2. Run the following command:
    ```bash
@@ -396,33 +378,26 @@ In this example, we use the location: `D:\ezyfox-server`.
 3. Run the `ExternalLibrariesExporter` tool located in `free-account-server-startup/src/test/java/com/assambra/account/tools` in your IDE.
 4. When prompted, enter the path: `D:/ezyfox-server`.
 
-#### Steps for Game Server
-Repeat the above steps for the `free-game-server-startup` folder.
+---
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+#### Build the Server
 
-### Build the Server
-
-1. Open the following files and remove the `#` from the line `#export EZYFOX_SERVER_HOME=`:
-    - `Free-MMORPG/Free-Account-Server/build.sh`
-    - `Free-MMORPG/Free-Game-Server/build.sh`
-
-2. After `export EZYFOX_SERVER_HOME=`, insert the path `D:/ezyfox-server`.
-
-3. Run the following commands from the root of each project:
+1. Open the file `Free-MMORPG/master-server/build.sh` in the editor
+2. Remove the `#` from the line `#export EZYFOX_SERVER_HOME=`:
+3. Insert after `export EZYFOX_SERVER_HOME=`, the path `D:/ezyfox-server`.
+4. Run the following command in some command client e.g. gitbash from the root of the project (./Free-MMORPG/master-server/):
    ```bash
    bash build.sh
    ```
-
 **Hint:** If you encounter an error like:
 ```
 cp: cannot create regular file 'D:ezyfox-server/settings/zones/': No such file or directory
 ```
 Replace backslashes (`\`) with forward slashes (`/`) in your paths, depending on your operating system.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
-### Run the Server
+#### Run the Server
 
 Navigate to your server location: `D:/ezyfox-server`.
 
@@ -450,8 +425,6 @@ For Linux as a service:
 
 ---
 
----
-
 ## Play the client
 
 In your Unity project (**Free-Client**), double-click the **Persistent scene** in the folder location `Assets/Free-Client/Scenes/`. This is the persistent scene with all Managers/Handlers. All other scenes will automatically load additively/asynchronously when needed, along with the User Interfaces for the active scene.
@@ -461,6 +434,8 @@ To learn more about the **Module-GameManager**, visit the [Module-GameManager wi
 Once everything is set up, press "Play" in the Unity Editor to start the game, provided the server setup is complete (see below).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 ## Contributing
 
