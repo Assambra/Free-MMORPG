@@ -103,15 +103,16 @@ For the game client we are using [Unity](https://unity.com "Unity") as game engi
 ## Key Features
 
 <ul>
-    <li>Area of interest System on the Unity-Server</li>
-        <ul>
-            <li>Capability to spawn or despawn entities based on range</li>
-            <li>Each entity has a NearbyPlayer list and sends position updates only to players in this list</li>
-        </ul>
+    <li>Area of Interest System on the Unity-Server</li>
+    <ul>
+        <li>Capability to send spawn or despawn commands to the Unity Client player based on range</li>
+        <li>Each entity has a NearbyPlayer list and sends position updates only to players in this list</li>
+    </ul>
     <li>Entity-based System</li>
     <ul>
-        <li>An entity is the base and can be a player, effect, or building (currently, only Player is implemented)</li>
-        <li>Each entity automatically adds the NetworkTransform component, is added to the client’s entity list, and receives position updates or spawn/despawn events based on range</li>
+        <li>An entity is the base and can represent a player, effect, or building (currently, only Player is implemented)</li>
+        <li>Each entity on the Unity Client has a NetworkTransform component to receive position updates</li>
+        <li>If the Unity-Server sends a spawn or despawn command to the player (Client), the entity will be automatically added to or removed from the client entity list and instantiated or destroyed accordingly</li>
     </ul>
     <li>Master Server</li>
         <ul>
