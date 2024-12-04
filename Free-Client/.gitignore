@@ -75,6 +75,8 @@ crashlytics-build.properties
 
 # EzyFox Server CSharp Client Unity Client SDK
 /Assets/ezyfox-server-csharp-client-1.1.6-unity/*
+!/Assets/ezyfox-server-csharp-client-1.1.6-unity/com.tvd12.ezyfoxserver.client.asmdef
+!/Assets/ezyfox-server-csharp-client-1.1.6-unity/com.tvd12.ezyfoxserver.client.asmdef.meta
 
 #UMA Unity Multipurpose Avatar System
 /Assets/UMA
