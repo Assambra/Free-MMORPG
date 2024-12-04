@@ -49,6 +49,11 @@
                         <li><a href="#mapmagic-2">MapMagic 2</a></li>
                         <li><a href="#uma-2">UMA 2</a></li>
                     </ul>
+                <li><a href="#free-server">Free-Server</a></li>
+                    <ul>
+                        <li><a href="#build-the-free-server">Build the Free-Server</a></li>
+                        <li><a href="#setup-server-executables-path">Setup server executables path</a></li>
+                    </ul>
                 <li><a href="#master-server">Master-Server</a></li>
                     <ul>
                         <li><a href="#setup-database">Setup database</a></li>
@@ -241,6 +246,23 @@ Steps to use it:
 
 ---
 
+### Free-Server
+
+#### Build the Free-Server
+
+Open the Unity-Server project in Unity. Open Build Settings: (File -> Build Settings). The master-server can handle the following three types of builds
+
+- Windows, Mac, Linux
+- Dedicated Server - Windows
+- Dedicated Server - Linux
+
+Select as Platform 'Windows, Mac, Linux' or Dedicated Server and choose under Target Platform your platform, Windows or Linux, and build the project.
+
+#### Setup server executables path
+Open the master-server project in your IDE, edit the file: `master-server/master-server-app-api/src/main/resources/application.properties` and add the path to your server executables from the previous step where you saved them. E.g., `D:/Game Builds/Free-Server/Free-Server.exe`.
+
+---
+
 ### Master-Server
 
 #### Setup Database
@@ -319,7 +341,7 @@ For production environments, configure email functionality in the same configura
 **File location:**  
 `Free-MMORPG/master-server/master-server-common/src/main/resources/master-server-common-config.properties`
 
-Add or modify the following settings:
+Modify the following settings:
 
 ```
 mail.host=mail.example.com
