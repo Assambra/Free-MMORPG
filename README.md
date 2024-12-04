@@ -27,8 +27,10 @@
 ![Free-MMORPG screenshot][product-screenshot]
 
 <a name="readme-top"></a>
-<details>
-    <summary>Table of Contents</summary>
+
+---
+
+<details><summary>Table of Contents</summary>
     <ul>
         <li><a href="#foreword">Foreword</a></li>
         <li><a href="#key-features">Key Features</a></li>
