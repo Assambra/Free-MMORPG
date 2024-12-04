@@ -4,8 +4,9 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
+# Free-MMORPG
+
 <div align="center">
-<h1>Free-MMORPG</h1>
     <a href="https://github.com/Assambra">
         <img src="Github/Images/Assambra-Logo-512x512.png" alt="Logo" width="80" height="80">
     </a>
@@ -28,65 +29,53 @@
 
 <a name="readme-top"></a>
 
-<h2>Table of Contents</h2>
-<ul>
-    <li><a href="#foreword">Foreword</a></li>
-    <li><a href="#key-features">Key Features</a></li>
-    <li><a href="#playable-demo">Playable Demo</a></li>
-    <li><a href="#master-server">Master Server</a></li>
-        <ul>
-            <li><a href="#introduction-transitioning-to-a-hybrid-backend">Introduction: Transitioning to a Hybrid Backend</a></li>
-            <li><a href="#project-structure-overview">Project Structure Overview</a></li>
-            <li><a href="#communication-flow">Communication Flow</a></li>
-            <li><a href="#master-server-centralized-management">Master-Server: Centralized Management</a></li>
-            <li><a href="#request-flow">Request Flow</a>
-            <li><a href="#notes">Notes</a>
-        </ul>
-    <li><a href="#client">Client</a></li>
-        <ul>
-            <li><a href="#clone-from-github">Clone Free-MMORPG from GitHub</a></li>
-            <li><a href="#needed-unity-packages">Needed Unity packages</a></li>
+---
+
+<details><summary>Table of Contents</summary>
+    <ul>
+        <li><a href="#foreword">Foreword</a></li>
+        <li><a href="#key-features">Key Features</a></li>
+        <li><a href="#playable-demo">Playable Demo</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
             <ul>
-                <li><a href="#addressables">Addressables</a></li>
-                <li><a href="#burst-compiler">Burst compiler</a></li>
-                <li><a href="#collections">Collections</a></li>
-                <li><a href="#color-picker">HSV-Color-Picker-Unity</a></li>
-                <li><a href="#newtonsoft-json">Newtonsoft Json</a></li>
+                <li><a href="#get-the-project-from-github">Get the project from github</li>
+                <li><a href="#download-and-import-ezyfox-server-csharp-client-unity">Download and Import EzyFox Server CSharp Client Unity</a></li>
+                <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
+                    <ul>
+                        <li><a href="#crest-ocean-system">Crest Ocean System</a></li>
+                    </ul>
+                <li><a href="#needed-unity-packages-from-the-unity-asset-store">Needed Unity packages from the Unity asset store</a></li>
+                    <ul>
+                        <li><a href="#mapmagic-2">MapMagic 2</a></li>
+                        <li><a href="#uma-2">UMA 2</a></li>
+                    </ul>
+                <li><a href="#free-server">Free-Server</a></li>
+                    <ul>
+                        <li><a href="#build-the-free-server">Build the Free-Server</a></li>
+                        <li><a href="#setup-server-executables-path">Setup server executables path</a></li>
+                    </ul>
+                <li><a href="#master-server">Master-Server</a></li>
+                    <ul>
+                        <li><a href="#setup-database">Setup database</a></li>
+                        <li><a href="#setup-mail">Setup e-mail</a></li>
+                        <li><a href="#deploy-server">Deploy the server</a></li>
+                        <ul>
+                            <li><a href="#download-server">Download the Server</a></li>
+                            <li><a href="#server-preparations">Server preparations</a></li>
+                            <li><a href="#export-external-libraries">Export external libraries</a></li>
+                            <li><a href="#build-the-server">Build the server</a></li>
+                            <li><a href="#run-the-server">Run the server</a></li>
+                        </ul>
+                    </ul>
             </ul>
-            <li><a href="#needed-projects-from-github">Needed projects from GitHub</a></li>
-            <ul>
-            <li><a href="#crest-ocean-system">Crest Ocean System</a></li>
-                <ul>
-                    <li><a href="#get-crest-ocean-system">Get Crest Ocean System</a></li>
-                    <li><a href="#install-crest-ocean-system">Install Crest Ocean System</a></li>
-                </ul>
-            </ul>
-            <li><a href="#needed-unity-packages-from-the-unity-asset-store">Needed Unity packages from the Unity asset store</a></li>
-            <ul>
-                <li><a href="#mapmagic-2">MapMagic 2</a></li>
-                <li><a href="#uma-2">UMA 2</a></li>
-            </ul>
-            <li><a href="#play-the-client">Play the client</a></li>
-        </ul>
-    <li><a href="#server">Server</a></li>
-        <ul>
-            <li><a href="#setup-database">Setup database</a></li>
-            <li><a href="#setup-mail">Setup e-mail</a></li>
-            <li><a href="#deploy-server">Deploy the server</a></li>
-            <ul>
-                <li><a href="#download-server">Download the Server</a></li>
-                <li><a href="#server-preparations">Server preparations</a></li>
-                <li><a href="#export-external-libraries">Export external libraries</a></li>
-                <li><a href="#build-the-server">Build the server</a></li>
-                <li><a href="#run-the-server">Run the server</a></li>
-            </ul>
-        </ul>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#resources-section">Resources Section</a></li>
-    <li><a href="#credits">Credits</a></li>
-    <li><a href="#thank-you">Thank you</a></li>
-    <li><a href="#contact">Contact</a></li>
-</ul>
+        <li><a href="#play-the-client">Play the client</a></li>
+        <li><a href="#contributing">Contributing</a></li>
+        <li><a href="#resources-section">Resources Section</a></li>
+        <li><a href="#credits">Credits</a></li>
+        <li><a href="#thank-you">Thank you</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</details>
 
 ---
 
@@ -197,162 +186,44 @@ You can find it here: <a href="https://github.com/Assambra/Free-MMORPG/releases"
 
 ---
 
-## Master-Server
+## Getting Started
+### Get the project from github
 
-![Master-Server Concept][master-server-concept]
-
-### Introduction: Transitioning to a Hybrid Backend
-
-This project initially began with a backend built entirely on **EzyFox Server**. However, over time, I realized that developing both the client and server in **C#** and **Unity** was not only more intuitive but also significantly more efficient. While EzyFox Server provides robust networking capabilities, it posed significant challenges when implementing complex features such as physics-based collision and other advanced mechanics.
-
-For example, I initially calculated player height using a heightmap to ensure that the server's height calculations aligned with those on the client. While functional, this approach was labor-intensive and required significant effort to maintain state consistency between the server and Unity client. This challenge highlighted a recurring issue: each new feature or problem would require a similarly complex implementation to synchronize the server state with the client.
-
-To overcome these limitations, I extended EzyFox Server's existing room structure to support spawning **Unity-based server instances**. This hybrid approach combines EzyFox's powerful networking features with Unity's physics and game logic, resulting in a seamless and efficient integration for server-client interactions.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
-### Project Structure Overview
-
-This project comprises three key components:
-
-1. **Master-Server**: Based on the EzyFox Server, it acts as the central hub for communication and room management.
-2. **Free-Server**: A Unity instance that handles the game logic, physics, and state management for individual rooms.
-3. **Free-Client**: The client application for players, built using Unity and communicating with the Master-Server.
-
-### Communication Flow
-The **Unity-Servers** act as clients for the **Master-Server**, ensuring seamless interaction between:
-
-- **Free-Client ↔ Master-Server ↔ Free-Server**
-
-We rely on the **EzyFox Client SDK** for all communications across these components.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Master-Server: Centralized Management
-
-The **Master-Server** is built on EzyFox Server and performs several critical tasks:
-
-- **User Management**: Authentication and session tracking.
-- **Database Operations**: Handling requests to and from the database.
-- **Unity Server Management**: Spawning, monitoring, and managing a Unity-Server instance for each room.
-
-### Request Flow
-
-1. **Client Request**: A Unity-Client sends a request to the Master-Server.
-2. **Forwarding**: The Master-Server forwards the request to the appropriate Unity-Server.
-3. **Processing**: The Unity-Server processes the request (e.g., physics simulation or game logic updates).
-4. **Response Handling**: The processed response is sent back to the Master-Server, which forwards it to the appropriate client(s).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Notes
-
-This structure ensures that the Master-Server remains lightweight while leveraging Unity’s strengths for game-specific logic and physics calculations. Future sections will detail implementation specifics and provide example workflows for game scenarios.
-
----
-
-## Client
-
-### Clone from GitHub
 Clone the repository:
 
 ```bash
 git clone git@github.com:Assambra/Free-MMORPG.git
 ```
 
-Download and extract the file: [ezyfox-server-csharp-client-1.1.6-unity.zip](https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip).
+---
+
+### Download and import EzyFox Server CSharp Client Unity
+
+Download and extract the following file: [ezyfox-server-csharp-client-1.1.6-unity.zip](https://github.com/youngmonkeys/ezyfox-server-csharp-client/archive/refs/tags/v1.1.6-unity.zip).
 
 Perform the following steps for both Unity projects: **Free-Client** and **Free-Server**:
-1. Insert the extracted folder `ezyfox-server-csharp-client-1.1.6-unity` into the root folder `/Assets` of your opened Unity project.
-2. Open the Unity Editor and navigate to the folder `Assets/ezyfox-server-csharp-client-1.1.6-unity`.
-3. Right-click inside the folder -> **Create** -> **Assembly Definition**, and rename it to `com.tvd12.ezyfoxserver.client`.
+1. Open the project in the Unity Editor.
+2. Select all folders and files from the extracted folder `ezyfox-server-csharp-client-1.1.6-unity/ezyfox-server-csharp-client-1.1.6-unity` and drag them into the folder `/Assets/Plugins/ezyfox-server-csharp-client-1.1.6-unity/` of your opened Unity project.
 
-#### Free-Server Setup
-In the Unity Editor:
-1. Navigate to `Assets/Free-Server/Scripts/Assambra.Server`.
-2. In the Inspector, locate the **Assembly Definition Reference** section.
-3. Remove the missing reference starting with `GUID:` (if present).
-4. Add a new reference by clicking the plus sign (+) and select the earlier created `com.tvd12.ezyfoxserver.client` assembly definition.
-5. Click **Apply**.
+---
 
-#### Free-Client Setup
-Repeat the same steps for the **Free-Client** project:
-1. Navigate to `Assets/Free-Client/Scripts/Assambra.Client`.
-2. Follow the same process for updating the **Assembly Definition Reference**.
+### Needed projects from GitHub
 
 #### Crest Ocean System
-Follow the same procedure for Crest Ocean System if it is already installed. If not, you can find the installation instructions under the section [Crest Ocean System](#crest-ocean-system).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. Get Crest Ocean System
+Download and extract the following file: <a href="https://github.com/wave-harmonic/crest/archive/refs/tags/4.21.3.zip">crest-4.21.3.zip</a>.
 
-### Needed Unity packages
-
-To manually add these packages is only required if you create a new Unity project—for example, if you create a Unity package from Free-MMORPG and insert it into a brand-new, empty Unity project. These are already included in this project.
-
-#### Addressables
-Install Addressables via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Addressables." Click the "Install" button to install the package.
-
-#### Burst Compiler
-Install the Burst Compiler via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Burst." Click the "Install" button to install the package.
-
-#### Collections
-Install Collections via the Unity Package Manager. Navigate to `Windows -> Package Manager`. Select `Packages: Unity Registry` from the dropdown menu. Use the search field to search for "Collections." Click the "Install" button to install the package.
-
-#### Color Picker
-To get the HSV-Color-Picker-Unity:
-
-1. Edit the file: `Free-MMORPG\Free-Client\Packages\manifest.json`.
-2. Add a new dependency: `"com.judahperez.hsvcolorpicker": "3.3.0"`.
-3. Additionally, add the following section to the file:
-
-```json
-"scopedRegistries": [
-  {
-    "name": "package.openupm.com",
-    "url": "https://package.openupm.com",
-    "scopes": [
-      "com.judahperez.hsvcolorpicker",
-      "com.openupm"
-    ]
-  }
-]
-```
-
-**Hint:** Don't forget commas after "dependencies" and before "scopedRegistries" (`'},'`), and ensure the line before the new dependency ends with a comma.
-
-#### Newtonsoft Json
-The EzyFox Client SDK requires the Newtonsoft Json package to work.
-
-1. Edit the file: `Free-MMORPG\Free-Client\Packages\manifest.json`.
-2. Add a new dependency: `"com.unity.nuget.newtonsoft-json": "3.2.1"`.
-
-Please read the hint below.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. Install Crest Ocean System
+3. Open the Unity-Client project in the Unity Editor.
+Unzip and select all folders and filesthe second crest folder into Unity: `crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest`.
+4. Select all folders and files from the extracted folder `crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest/` and drag them into the folder `/Assets/Crest/` of your opened Unity project.
 
 ---
 
-## Needed projects from GitHub
+### Needed Unity packages from the Unity Asset Store
 
-### Crest Ocean System
-
-#### Get Crest Ocean System
-Download the latest source code with tag `4.21.3` as a zip file: <a href="https://github.com/wave-harmonic/crest/releases/tag/4.21.3">4.21.3</a>.
-
-#### Install Crest Ocean System
-Unzip and drag the second crest folder into Unity: `./crest-4.21.3/crest-4.21.3/crest/Assets/Crest/Crest`.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
-
-## Needed Unity packages from the Unity Asset Store
-
-### MapMagic 2
+#### MapMagic 2
 Go to the Unity Asset Store and get the free asset: <a href="https://assetstore.unity.com/packages/tools/terrain/mapmagic-2-165180">MapMagic 2</a>.
 
 After acquiring the asset:
@@ -360,9 +231,7 @@ After acquiring the asset:
 2. Open the **Package Manager** (`Window -> Package Manager`) and select `Packages: My Assets`.
 3. Download and import **MapMagic 2** into both projects.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### UMA 2
+#### UMA 2
 Please use our modified version of UMA: <a href="https://drive.google.com/drive/folders/1bZsXNPgpA5pMtIq1rkJhNSJeAs05XDxg?usp=sharing">UMA 2.13 Beta 1-modified.rar</a>.
 
 Steps to use it:
@@ -372,33 +241,37 @@ Steps to use it:
 ~~Alternatively, get the free asset from the Unity Asset Store: <a href="https://assetstore.unity.com/packages/3d/characters/uma-2-35611">UMA 2</a>.~~
 
 ~~After importing UMA 2 into the project, you must add Assembly Definition References:~~
-- Navigate to `Assets/UMA/Core/UMA_Core`.
-- In the Inspector, add references for `Addressables`, `Unity.Mathematics`, `Unity.Burst`, and `Unity.Collections`.
-
-Additional required steps can be found in: `Free-Client/Assets/UMA/Addressables - Read Me Now.pdf`.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. ~~Navigate to `Assets/UMA/Core/UMA_Core`.~~
+2. ~~In the Inspector, add references for `Unity.Mathematics`, `Unity.Burst`, and `Unity.Collections`.~~
 
 ---
 
-## Play the client
+### Free-Server
 
-In your Unity project (**Free-Client**), double-click the **Persistent scene** in the folder location `Assets/Free-Client/Scenes/`. This is the persistent scene with all Managers/Handlers. All other scenes will automatically load additively/asynchronously when needed, along with the User Interfaces for the active scene.
+#### Build the Free-Server
 
-To learn more about the **Module-GameManager**, visit the [Module-GameManager wiki page](https://github.com/Assambra/Free-MMORPG/wiki/Module-GameManager).
+Open the Unity-Server project in Unity. Open the Build Settings: (`File -> Build Settings`). The master server can handle the following three types of builds:
 
-Once everything is set up, press "Play" in the Unity Editor to start the game, provided the server setup is complete (see below).
+- Windows, Mac, Linux
+- Dedicated Server - Windows
+- Dedicated Server - Linux
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Select `Windows, Mac, Linux` or `Dedicated Server` as the Platform. Then, under Target Platform, choose your platform (Windows or Linux) and build the project.
+
+#### Setup Server Executables Path
+
+Open the master-server project in your IDE. Edit the following file:  
+`master-server/master-server-app-api/src/main/resources/application.properties`.
+
+Add the path to your server executables from the previous step where you saved them. For example:  
+`D:/Game Builds/Free-Server/Free-Server.exe`.
+
 
 ---
 
-## Server
+### Master-Server
 
-We use two servers: a **Free Account Server** and a **Free Game Server**.
-You can only start and test one of them from your IDE at the same time since they both use the same port. To test both simultaneously, you need to deploy the server. More information can be found in the section [Deploy the Server](#deploy-the-server).
-
-### Setup Database
+#### Setup Database
 
 1. Install MongoDB.
 2. Open your Mongo shell (`mongosh`).
@@ -430,11 +303,9 @@ db.character.createIndex({ name: 1 })
 ```bash
 db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
 ```
-6. Add or create the following configuration files for both server projects:
+6. Add to the following configuration file:
 
-**File locations:**
-- `Free-Account-Server/free-account-server-common/src/main/resources/free-account-server-common-config.properties`
-- `Free-Game-Server/free-game-server-common/src/main/resources/free-game-server-common-config.properties`
+**File location:** `master.server/master-server-common/src/main/resources/master-server-common-config.properties`
 
 7. Insert the following values into your configuration file and modify them as needed:
 
@@ -450,15 +321,12 @@ Example credentials:
 - **Password:** 123456
 - **Database:** free
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Setup Mail
+#### Setup Mail
 
 Enable or disable server-side email sending via SMTP.
 
-### Basic Configuration
 If you do not have a mail server or mail provider that supports sending emails via SMTP, or if you do not wish to send emails (e.g., for local development), locate the following file:
 
 **File location:**  
@@ -472,13 +340,14 @@ server.can_send_mail=false;
 **Important:** When `server.can_send_mail` is set to `false`, only log messages are generated on the server side. This is primarily intended for local development. For production environments, email functionality should be properly configured to enable features like "Forgot Password," "Forgot Username," and "Account Activation."
 
 
-### Setup Mail Values
+**Setup Mail Values**
+
 For production environments, configure email functionality in the same configuration file used for the database settings:
 
 **File location:**  
 `Free-MMORPG/master-server/master-server-common/src/main/resources/master-server-common-config.properties`
 
-Add or modify the following settings:
+Modify the following settings:
 
 ```
 mail.host=mail.example.com
@@ -503,20 +372,16 @@ mail.content.transfer.encoding=8bit
 **Hint:**  
 Do not set both `mail.tls` and `mail.ssl` to `true` simultaneously. Only one should be set to `true` to avoid conflicts.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ---
 
-## Deploy Server
+### Deploy Master-Server
 
-### Download Server
-Download the EzyFox Server:  
-<a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
+#### Download Server
+Download the EzyFox Server: <a href="https://resources.tvd12.com/ezyfox-server-full-1.2.9.zip">ezyfox-server-full-1.2.9.zip</a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+#### Server Preparations
 
-### Server Preparations
-In this example, we use the location: `D:\ezyfox-server`.
+In following examples, we use allways the location: `D:\ezyfox-server`.
 
 1. Extract `ezyfox-server-full-1.2.9.zip` and copy the extracted files to the target location.
 2. Open the file `D:\ezyfox-server\settings\ezy-settings.xml` in a text editor.
@@ -529,11 +394,10 @@ In this example, we use the location: `D:\ezyfox-server`.
 </zone>
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
-### Export External Libraries
+#### Export External Libraries
 
-#### Steps for Account Server
 1. Open Git Bash and navigate to the folder `free-account-server-startup`.
 2. Run the following command:
    ```bash
@@ -542,33 +406,26 @@ In this example, we use the location: `D:\ezyfox-server`.
 3. Run the `ExternalLibrariesExporter` tool located in `free-account-server-startup/src/test/java/com/assambra/account/tools` in your IDE.
 4. When prompted, enter the path: `D:/ezyfox-server`.
 
-#### Steps for Game Server
-Repeat the above steps for the `free-game-server-startup` folder.
+---
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+#### Build the Server
 
-### Build the Server
-
-1. Open the following files and remove the `#` from the line `#export EZYFOX_SERVER_HOME=`:
-    - `Free-MMORPG/Free-Account-Server/build.sh`
-    - `Free-MMORPG/Free-Game-Server/build.sh`
-
-2. After `export EZYFOX_SERVER_HOME=`, insert the path `D:/ezyfox-server`.
-
-3. Run the following commands from the root of each project:
+1. Open the file `Free-MMORPG/master-server/build.sh` in the editor
+2. Remove the `#` from the line `#export EZYFOX_SERVER_HOME=`:
+3. Insert after `export EZYFOX_SERVER_HOME=`, the path `D:/ezyfox-server`.
+4. Run the following command in some command client e.g. gitbash from the root of the project (./Free-MMORPG/master-server/):
    ```bash
    bash build.sh
    ```
-
 **Hint:** If you encounter an error like:
 ```
 cp: cannot create regular file 'D:ezyfox-server/settings/zones/': No such file or directory
 ```
 Replace backslashes (`\`) with forward slashes (`/`) in your paths, depending on your operating system.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
-### Run the Server
+#### Run the Server
 
 Navigate to your server location: `D:/ezyfox-server`.
 
@@ -591,6 +448,18 @@ For Linux as a service:
   ```bash
   sh ./restart-service.sh
   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Play the client
+
+In your Unity project (**Free-Client**), double-click the **Persistent scene** in the folder location `Assets/Free-Client/Scenes/`. This is the persistent scene with all Managers/Handlers. All other scenes will automatically load additively/asynchronously when needed, along with the User Interfaces for the active scene.
+
+To learn more about the **Module-GameManager**, visit the [Module-GameManager wiki page](https://github.com/Assambra/Free-MMORPG/wiki/Module-GameManager).
+
+Once everything is set up, press "Play" in the Unity Editor to start the game, provided the server setup is complete (see below).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
