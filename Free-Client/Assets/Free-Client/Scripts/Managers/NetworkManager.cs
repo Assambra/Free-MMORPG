@@ -26,6 +26,7 @@ namespace Assambra.FreeClient
         [SerializeField] private string _guestPassword = "Assambra";
 
         private LoginState _loginState;
+        private bool _isInitialized = false;
 
         private bool _characterListReseived;
         private bool _despawnInProgress;
@@ -97,24 +98,29 @@ namespace Assambra.FreeClient
 
         public void Login(string username, string password)
         {
-            socketProxy.onLoginSuccess<Object>(OnLoginSucess);
-            socketProxy.onLoginError<Object>(OnLoginError);
-            socketProxy.onAppAccessed<Object>(OnAppAccessed);
+            if(!_isInitialized)
+            {   
+                socketProxy.onLoginSuccess<Object>(OnLoginSucess);
+                socketProxy.onLoginError<Object>(OnLoginError);
+                socketProxy.onAppAccessed<Object>(OnAppAccessed);
+
+                socketProxy.setUrl(_socketConfig.TcpUrl);
+                socketProxy.setUdpPort(_socketConfig.UdpPort);
+                socketProxy.setDefaultAppName(_socketConfig.AppName);
+
+                if (_socketConfig.UdpUsage)
+                {
+                    socketProxy.setTransportType(EzyTransportType.UDP);
+                    socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
+                }
+                else
+                    socketProxy.setTransportType(EzyTransportType.TCP);
+
+                _isInitialized = true;
+            }
 
             socketProxy.setLoginUsername(username);
             socketProxy.setLoginPassword(password);
-
-            socketProxy.setUrl(_socketConfig.TcpUrl);
-            socketProxy.setUdpPort(_socketConfig.UdpPort);
-            socketProxy.setDefaultAppName(_socketConfig.AppName);
-
-            if (_socketConfig.UdpUsage)
-            {
-                socketProxy.setTransportType(EzyTransportType.UDP);
-                socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
-            }
-            else
-                socketProxy.setTransportType(EzyTransportType.TCP);
 
             StartCoroutine(WaitForDisconnectIfConnected());
         }
@@ -240,7 +246,12 @@ namespace Assambra.FreeClient
         {
             string error = data.ToString();
             if (error.Contains("invalid password") || error.Contains("invalid user name"))
+            {
                 ErrorPopup("Username or password is incorrect. Please check your entries and try again.");
+
+                LoginState = LoginState.Lobby;
+                Login(CreateGuestName(), _guestPassword);
+            } 
         }
 
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
