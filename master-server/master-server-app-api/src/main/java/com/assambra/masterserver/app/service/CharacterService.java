@@ -8,7 +8,7 @@ import com.assambra.masterserver.app.model.CreateCharacterModel;
 import com.assambra.masterserver.app.request.CreateCharacterRequest;
 import com.assambra.masterserver.common.entity.Character;
 import com.assambra.masterserver.common.entity.CharacterLocation;
-import com.assambra.masterserver.common.entity.User;
+import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.repository.CharacterLocationRepo;
 import com.assambra.masterserver.common.repository.CharacterRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class CharacterService extends EzyLoggable {
 
     private final MaxIdService maxIdService;
-    private final UserService userService;
+    private final AccountService accountService;
     private final CharacterRepo characterRepo;
     private final CharacterLocationRepo characterLocationRepo;
 
@@ -41,12 +41,12 @@ public class CharacterService extends EzyLoggable {
     }
 
     public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request) {
-        User user = userService.getUserByUsername(ezyUser.getName());
+        Account account = accountService.getAccountByUsername(ezyUser.getName());
 
         Character character = new Character();
         character.setId(maxIdService.incrementAndGet("character"));
-        character.setUserId(user.getId());
-        character.setUsername(user.getUsername());
+        character.setUserId(account.getId());
+        character.setUsername(account.getUsername());
         character.setName(request.getName());
         character.setSex(request.getSex());
         character.setRace(request.getRace());
@@ -73,14 +73,14 @@ public class CharacterService extends EzyLoggable {
     }
 
     public List<Character> getAllCharactersOfUser (EzyUser ezyUser) {
-        User user = userService.getUserByUsername(ezyUser.getName());
-        return characterRepo.findListByField("userId", user.getId());
+        Account account = accountService.getAccountByUsername(ezyUser.getName());
+        return characterRepo.findListByField("userId", account.getId());
     }
 
     public List<CharacterLocation> getAllCharacterLocationsOfUser(EzyUser ezyUser) {
-        User user = userService.getUserByUsername(ezyUser.getName());
+        Account account = accountService.getAccountByUsername(ezyUser.getName());
 
-        List<Character> characters = characterRepo.findListByField("userId", user.getId());
+        List<Character> characters = characterRepo.findListByField("userId", account.getId());
 
         if (characters.isEmpty()) {
             return new ArrayList<>();

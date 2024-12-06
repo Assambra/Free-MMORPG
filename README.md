@@ -289,7 +289,7 @@ db.createUser({
 ```
 5. Create the following collections:
 ```bash
-db.createCollection("user", { collation: { locale: 'en_US', strength: 2 } })
+db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } })
 ```
 ```bash
 db.user.createIndex({ username: 1 })

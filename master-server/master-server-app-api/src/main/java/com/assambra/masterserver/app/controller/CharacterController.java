@@ -6,9 +6,9 @@ import com.assambra.masterserver.app.model.CharacterInfoListModel;
 import com.assambra.masterserver.app.model.CreateCharacterModel;
 import com.assambra.masterserver.app.request.CreateCharacterRequest;
 import com.assambra.masterserver.app.service.CharacterService;
-import com.assambra.masterserver.app.service.UserService;
+import com.assambra.masterserver.app.service.AccountService;
+import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.entity.Character;
-import com.assambra.masterserver.common.entity.User;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -27,7 +27,7 @@ public class CharacterController extends EzyLoggable {
     private final EzyResponseFactory responseFactory;
     private final CharacterService characterService;
     private final ModelToResponseConverter modelToResponseConverter;
-    private final UserService userService;
+    private final AccountService accountService;
 
     @EzyDoHandle(Commands.CHARACTER_LIST)
     public void characterList(EzyUser ezyUser)
@@ -58,8 +58,8 @@ public class CharacterController extends EzyLoggable {
 
         if(!characterService.characterExist(request.getName()))
         {
-            User user = userService.getUserByUsername(ezyUser.getName());
-            int maxAllowedCharacters = user.getMaxAllowedCharacters();
+            Account account = accountService.getAccountByUsername(ezyUser.getName());
+            int maxAllowedCharacters = account.getMaxAllowedCharacters();
             List<Character> characters = characterService.getAllCharactersOfUser(ezyUser);
 
             if(characters.size() < maxAllowedCharacters)
