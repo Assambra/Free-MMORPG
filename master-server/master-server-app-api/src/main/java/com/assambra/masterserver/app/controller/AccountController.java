@@ -37,7 +37,7 @@ public class AccountController extends EzyLoggable {
 
 
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
-    public void createUser(EzyUser ezyUser, CreateUserRequest request) throws IOException, TemplateException
+    public void createAccount(EzyUser ezyUser, CreateAccountRequest request) throws IOException, TemplateException
     {
         logger.info("Account: Receive CREATE_ACCOUNT for new user {}", request.getUsername());
 
@@ -103,8 +103,8 @@ public class AccountController extends EzyLoggable {
                 .execute();
     }
 
-    @EzyDoHandle(Commands.ACTIVATE_USER)
-    public void activateUser(EzyUser ezyUser, ActivateUserRequest request)
+    @EzyDoHandle(Commands.ACTIVATE_ACCOUNT)
+    public void activateAccount(EzyUser ezyUser, ActivateAccountRequest request)
     {
         logger.info("Account: Receive ACTIVATE_USER for user {}", request.getUsername());
 
@@ -117,7 +117,7 @@ public class AccountController extends EzyLoggable {
             result = "wrong_activation_code";
 
         responseFactory.newObjectResponse()
-                .command(Commands.ACTIVATE_USER)
+                .command(Commands.ACTIVATE_ACCOUNT)
                 .param("result", result)
                 .user(ezyUser)
                 .execute();
