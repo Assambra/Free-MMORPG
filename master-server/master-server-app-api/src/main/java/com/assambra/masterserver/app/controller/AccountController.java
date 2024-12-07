@@ -2,6 +2,7 @@ package com.assambra.masterserver.app.controller;
 
 import com.assambra.masterserver.app.converter.RequestToModelConverter;
 import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
+import com.assambra.masterserver.app.model.request.RequestCreateAccountModel;
 import com.assambra.masterserver.app.model.request.RequestForgotPasswordModel;
 import com.assambra.masterserver.app.model.request.RequestForgotUsernameModel;
 import com.assambra.masterserver.common.config.ServerConfig;
@@ -46,11 +47,13 @@ public class AccountController extends EzyLoggable {
     {
         logger.info("Account: Receive CREATE_ACCOUNT for new user {}", request.getUsername());
 
+        RequestCreateAccountModel requestCreateAccountModel = requestToModelConverter.toModel(request);
+
         String resultMessage = "";
 
-        Account account = accountService.getAccountByUsername(request.getUsername());
+        Account account = accountService.getAccountByUsername(requestCreateAccountModel.getUsername());
         if(account == null)
-            account = accountService.getAccountByEMail(request.getEmail());
+            account = accountService.getAccountByEMail(requestCreateAccountModel.getEmail());
 
         if(account == null)
         {
@@ -58,7 +61,7 @@ public class AccountController extends EzyLoggable {
             {
                 String randomstring = RandomString.getAlphaNumericString(8);
 
-                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()), randomstring);
+                accountService.createAccount(requestCreateAccountModel, randomstring);
 
                 if(serverConfig.getCan_send_mail())
                 {
@@ -189,7 +192,7 @@ public class AccountController extends EzyLoggable {
         {
             String randomstring = RandomString.getAlphaNumericString(8);
 
-            accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
+            accountService.updatePassword(account.getId(), randomstring);
 
             if(serverConfig.getCan_send_mail())
             {
@@ -266,8 +269,5 @@ public class AccountController extends EzyLoggable {
                 .execute();
     }
 
-    private String encodePassword(String password)
-    {
-        return EzySHA256.cryptUtfToLowercase(password);
-    }
+
 }
