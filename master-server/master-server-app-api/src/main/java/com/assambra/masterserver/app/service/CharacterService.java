@@ -5,6 +5,7 @@ import com.assambra.masterserver.app.constant.GameConstant;
 import com.assambra.masterserver.app.model.CharacterInfoListModel;
 import com.assambra.masterserver.app.model.CharacterInfoModel;
 import com.assambra.masterserver.app.model.CreateCharacterModel;
+import com.assambra.masterserver.app.model.request.RequestCreateCharacterModel;
 import com.assambra.masterserver.app.request.CreateCharacterRequest;
 import com.assambra.masterserver.common.entity.Character;
 import com.assambra.masterserver.common.entity.CharacterLocation;
@@ -40,21 +41,19 @@ public class CharacterService extends EzyLoggable {
         return characterRepo.findById(id);
     }
 
-    public void createCharacter(EzyUser ezyUser, CreateCharacterRequest request) {
+    public void createCharacter(EzyUser ezyUser, RequestCreateCharacterModel model) {
         Account account = accountService.getAccountByUsername(ezyUser.getName());
 
         Character character = new Character();
         character.setId(maxIdService.incrementAndGet("character"));
         character.setAccountId(account.getId());
-        character.setUsername(account.getUsername());
-        character.setName(request.getName());
-        character.setSex(request.getSex());
-        character.setRace(request.getRace());
-        character.setModel(request.getModel());
+        character.setName(model.getName());
+        character.setSex(model.getSex());
+        character.setRace(model.getRace());
+        character.setModel(model.getModel());
         characterRepo.save(character);
 
         CharacterLocation characterLocation = new CharacterLocation();
-        characterLocation.setId(maxIdService.incrementAndGet("characterLocation"));
         characterLocation.setCharacterId(character.getId());
         characterLocation.setRoom(GameConstant.START_ROOM);
         characterLocation.setPosition(GameConstant.START_POSITION);
@@ -62,8 +61,7 @@ public class CharacterService extends EzyLoggable {
         characterLocationRepo.save(characterLocation);
     }
 
-    public Boolean characterExist(String name)
-    {
+    public Boolean characterExist(String name) {
         return characterRepo.findByField("name", name) != null;
     }
 

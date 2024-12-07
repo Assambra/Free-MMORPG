@@ -35,6 +35,15 @@ public class RequestToModelConverter {
                 .build();
     }
 
+    public RequestCreateCharacterModel toModel(CreateCharacterRequest request) {
+        return RequestCreateCharacterModel.builder()
+                .name(request.getName())
+                .sex(request.getSex())
+                .race(request.getRace())
+                .model(request.getModel())
+                .build();
+    }
+
     public RequestChangeServerModel toModel(ChangeServerRequest request) {
         return RequestChangeServerModel.builder()
                 .playerId(request.getPlayerId())
