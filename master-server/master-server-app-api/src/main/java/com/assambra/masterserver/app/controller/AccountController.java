@@ -20,7 +20,6 @@ import com.assambra.masterserver.common.mail.mailbodys.ForgotUsernameMailBody;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
-import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfoxserver.entity.EzyUser;
 import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
@@ -134,11 +133,11 @@ public class AccountController extends EzyLoggable {
     }
 
     @EzyDoHandle(Commands.RESEND_ACTIVATION_MAIL)
-    public void resendActivationMail(EzyUser ezyUser, ResendActivationMailRequest request) throws IOException, TemplateException
+    public void resendActivationMail(EzyUser ezyUser) throws IOException, TemplateException
     {
-        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", request.getUsername());
+        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", ezyUser.getName());
 
-        Account account =  accountService.getAccountByUsername(request.getUsername());
+        Account account =  accountService.getAccountByUsername(ezyUser.getName());
 
         if(account != null)
         {
@@ -168,7 +167,7 @@ public class AccountController extends EzyLoggable {
                     .execute();
         }
         else
-            logger.error("Account: Resend activation code user {} unknown user!", request.getUsername());
+            logger.error("Account: Resend activation code user {} unknown user!", ezyUser.getName());
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
