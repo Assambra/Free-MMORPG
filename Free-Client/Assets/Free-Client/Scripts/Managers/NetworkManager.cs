@@ -25,7 +25,6 @@ namespace Assambra.FreeClient
         [SerializeField] private EzySocketConfig _socketConfig;
         [SerializeField] private string _guestPassword = "Assambra";
 
-        private LoginState _loginState;
         private bool _isInitialized = false;
 
         private bool _characterListReseived;
@@ -38,7 +37,7 @@ namespace Assambra.FreeClient
             else
                 Instance = this;
 
-            _loginState = LoginState.Lobby;
+            LoginState = LoginState.Lobby;
         }
 
         private new void OnEnable()
