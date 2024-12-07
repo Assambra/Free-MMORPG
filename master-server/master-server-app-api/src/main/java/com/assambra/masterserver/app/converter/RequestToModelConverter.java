@@ -58,4 +58,11 @@ public class RequestToModelConverter {
                 .rotation(request.getRotation())
                 .build();
     }
+
+    public RequestServerReadyModel toModel(ServerReadyRequest request)
+    {
+        return RequestServerReadyModel.builder()
+                .password(request.getPassword())
+                .build();
+    }
 }
