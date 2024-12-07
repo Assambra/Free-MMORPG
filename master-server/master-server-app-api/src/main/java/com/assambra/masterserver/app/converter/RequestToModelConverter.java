@@ -44,6 +44,12 @@ public class RequestToModelConverter {
                 .build();
     }
 
+    public RequestPlayModel toModel(PlayRequest request) {
+        return RequestPlayModel.builder()
+                .playerId(request.getPlayerId())
+                .build();
+    }
+
     public RequestChangeServerModel toModel(ChangeServerRequest request) {
         return RequestChangeServerModel.builder()
                 .playerId(request.getPlayerId())

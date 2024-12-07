@@ -214,11 +214,11 @@ namespace Assambra.FreeClient
             appProxy.send(Commands.CREATE_CHARACTER, characterdata);
         }
 
-        public void PlayRequest(long id)
+        public void PlayRequest(long playerId)
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("id", id)
+                .append("playerId", playerId)
                 .build();
 
             appProxy.send(Commands.PLAY, data);

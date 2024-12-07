@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @EzyObjectBinding
 public class PlayRequest {
-    private Long id;
+    private Long playerId;
 }
