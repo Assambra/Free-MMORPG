@@ -1,5 +1,7 @@
 package com.assambra.masterserver.app.controller;
 
+import com.assambra.masterserver.app.converter.RequestToModelConverter;
+import com.assambra.masterserver.app.model.request.RequestServerReadyModel;
 import com.assambra.masterserver.app.request.ServerReadyRequest;
 import com.assambra.masterserver.app.service.RoomService;
 import com.assambra.masterserver.app.service.ServerService;
@@ -24,14 +26,18 @@ import java.util.Map;
 public class ServerController extends EzyLoggable {
 
     private final ServerService serverService;
-    private final EzyResponseFactory responseFactory;
     private final RoomService roomService;
+    private final RequestToModelConverter requestToModelConverter;
+    private final EzyResponseFactory responseFactory;
+
     private final List<EzyUser> globalServerEzyUsers;
 
     @EzyDoHandle(Commands.SERVER_READY)
     public void serverReady(EzyUser ezyUser, ServerReadyRequest request)
     {
-        if(roomService.checkRoomPassword(ezyUser.getName(), request.getPassword()))
+        RequestServerReadyModel requestServerReadyModel = requestToModelConverter.toModel(request);
+
+        if(roomService.checkRoomPassword(ezyUser.getName(), requestServerReadyModel.getPassword()))
         {
             logger.info("Receive Commands.SERVER_READY from Server: {} with correct password", ezyUser.getName());
             globalServerEzyUsers.add(ezyUser);
@@ -42,7 +48,6 @@ public class ServerController extends EzyLoggable {
             logger.info("Cheat: Commands.SERVER_READY from User: {} wrong password!", ezyUser.getName());
             ezyUser.disconnect(EzyDisconnectReason.ADMIN_KICK);
         }
-
     }
 
     @EzyDoHandle(Commands.CLIENT_TO_SERVER)

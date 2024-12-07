@@ -139,8 +139,6 @@ namespace Assambra.FreeClient
 
         public void CreateAccount(string email, string username, string password)
         {
-            GameManager.Instance.Account = username;
-
             EzyObject data = EzyEntityFactory
             .newObjectBuilder()
             .append("email", email)
@@ -155,7 +153,6 @@ namespace Assambra.FreeClient
         {
             EzyObject data = EzyEntityFactory
             .newObjectBuilder()
-            .append("username", GameManager.Instance.Account)
             .append("activationCode", activationcode)
             .build();
 
@@ -166,7 +163,6 @@ namespace Assambra.FreeClient
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("username", GameManager.Instance.Account)
                 .build();
 
             appProxy.send(Commands.RESEND_ACTIVATION_MAIL, data);
@@ -218,11 +214,11 @@ namespace Assambra.FreeClient
             appProxy.send(Commands.CREATE_CHARACTER, characterdata);
         }
 
-        public void PlayRequest(long id)
+        public void PlayRequest(long playerId)
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("id", id)
+                .append("playerId", playerId)
                 .build();
 
             appProxy.send(Commands.PLAY, data);

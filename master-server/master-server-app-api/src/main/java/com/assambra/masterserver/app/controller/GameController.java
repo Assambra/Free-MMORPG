@@ -2,7 +2,9 @@ package com.assambra.masterserver.app.controller;
 
 
 import com.assambra.masterserver.app.constant.Commands;
+import com.assambra.masterserver.app.converter.RequestToModelConverter;
 import com.assambra.masterserver.app.model.PlayerSpawnModel;
+import com.assambra.masterserver.app.model.request.RequestPlayModel;
 import com.assambra.masterserver.app.request.PlayRequest;
 import com.assambra.masterserver.app.service.CharacterService;
 import com.assambra.masterserver.app.service.PlayerService;
@@ -30,6 +32,7 @@ public class GameController extends EzyLoggable {
     private final CharacterService characterService;
     private final PlayerService playerService;
     private final RoomService roomService;
+    private final RequestToModelConverter requestToModelConverter;
     private final EzyResponseFactory responseFactory;
 
     @EzyDoHandle(Commands.CHECK)
@@ -52,7 +55,10 @@ public class GameController extends EzyLoggable {
 
     @EzyDoHandle(Commands.PLAY)
     public void play(EzyUser ezyUser, PlayRequest request) {
-        Character character = characterService.getCharacter(request.getId());
+
+        RequestPlayModel requestPlayModel = requestToModelConverter.toModel(request);
+
+        Character character = characterService.getCharacter(requestPlayModel.getPlayerId());
 
         // Check if the given character exist
         if (character == null) {

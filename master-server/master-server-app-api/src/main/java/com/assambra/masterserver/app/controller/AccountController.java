@@ -1,5 +1,10 @@
 package com.assambra.masterserver.app.controller;
 
+import com.assambra.masterserver.app.converter.RequestToModelConverter;
+import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
+import com.assambra.masterserver.app.model.request.RequestCreateAccountModel;
+import com.assambra.masterserver.app.model.request.RequestForgotPasswordModel;
+import com.assambra.masterserver.app.model.request.RequestForgotUsernameModel;
 import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
 import com.assambra.masterserver.common.entity.Account;
@@ -15,7 +20,6 @@ import com.assambra.masterserver.common.mail.mailbodys.ForgotUsernameMailBody;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
-import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfoxserver.entity.EzyUser;
 import com.tvd12.ezyfoxserver.support.factory.EzyResponseFactory;
@@ -31,29 +35,32 @@ public class AccountController extends EzyLoggable {
 
     private final AccountService accountService;
     private final EzyResponseFactory responseFactory;
+    private final RequestToModelConverter requestToModelConverter;
     @EzyAutoBind
     private ServerConfig serverConfig;
     private final SMTP_EMail mail = new SMTP_EMail();
 
 
     @EzyDoHandle(Commands.CREATE_ACCOUNT)
-    public void createUser(EzyUser ezyUser, CreateUserRequest request) throws IOException, TemplateException
+    public void createAccount(EzyUser ezyUser, CreateAccountRequest request) throws IOException, TemplateException
     {
-        logger.info("Account: Receive CREATE_ACCOUNT for new user {}", request.getUsername());
+        RequestCreateAccountModel requestCreateAccountModel = requestToModelConverter.toModel(request);
+
+        logger.info("Account: Receive CREATE_ACCOUNT for new user {}", requestCreateAccountModel.getUsername());
 
         String resultMessage = "";
 
-        Account account = accountService.getAccountByUsername(request.getUsername());
+        Account account = accountService.getAccountByUsername(requestCreateAccountModel.getUsername());
         if(account == null)
-            account = accountService.getAccountByEMail(request.getEmail());
+            account = accountService.getAccountByEMail(requestCreateAccountModel.getEmail());
 
         if(account == null)
         {
-            if(!request.getUsername().toLowerCase().contains("guest"))
+            if(!requestCreateAccountModel.getUsername().toLowerCase().contains("guest"))
             {
                 String randomstring = RandomString.getAlphaNumericString(8);
 
-                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()), randomstring);
+                accountService.createAccount(requestCreateAccountModel, randomstring);
 
                 if(serverConfig.getCan_send_mail())
                 {
@@ -65,34 +72,34 @@ public class AccountController extends EzyLoggable {
                     // Todo set subject as variable
                     mail.sendMail(request.getEmail(), "Your activation code", mailBuilder.buildEmail());
 
-                    logger.info("Account: Send activation code to {} for user: {}", request.getEmail(), request.getUsername());
+                    logger.info("Account: Send activation code to {} for user: {}", requestCreateAccountModel.getEmail(), requestCreateAccountModel.getUsername());
                 }
                 else
                 {
                     logger.warn("Warning: Setup the server to send emails!");
-                    logger.info("Activation code: {} for user: {}", randomstring, request.getUsername());
+                    logger.info("Activation code: {} for user: {}", randomstring, requestCreateAccountModel.getUsername());
                 }
 
                 resultMessage = "successful";
-                logger.info("Account: created successfully a new account for user {}", request.getUsername());
+                logger.info("Account: created successfully a new account for user {}", requestCreateAccountModel.getUsername());
             }
             else
             {
                 resultMessage = "username_are_not_allowed";
-                logger.info("Account: {} tried to create a new account but username are not allowed!", request.getUsername());
+                logger.info("Account: {} tried to create a new account but username are not allowed!", requestCreateAccountModel.getUsername());
             }
         }
         else
         {
-            if(account.getEmail().equals(request.getEmail().toLowerCase()))
+            if(account.getEmail().equals(requestCreateAccountModel.getEmail().toLowerCase()))
             {
                 resultMessage = "email_already_registered";
-                logger.info("Account: {} tried to create a new account but email: {} already registered!", request.getUsername(), request.getEmail());
+                logger.info("Account: {} tried to create a new account but email: {} already registered!", requestCreateAccountModel.getUsername(), requestCreateAccountModel.getEmail());
             }
-            else if(account.getUsername().equals(request.getUsername()))
+            else if(account.getUsername().equals(requestCreateAccountModel.getUsername()))
             {
                 resultMessage = "username_already_in_use";
-                logger.info("Account: {} tried to create a new account but username already in use!", request.getUsername());
+                logger.info("Account: {} tried to create a new account but username already in use!", requestCreateAccountModel.getUsername());
             }
         }
 
@@ -103,12 +110,14 @@ public class AccountController extends EzyLoggable {
                 .execute();
     }
 
-    @EzyDoHandle(Commands.ACTIVATE_USER)
-    public void activateUser(EzyUser ezyUser, ActivateUserRequest request)
+    @EzyDoHandle(Commands.ACTIVATE_ACCOUNT)
+    public void activateAccount(EzyUser ezyUser, ActivateAccountRequest request)
     {
-        logger.info("Account: Receive ACTIVATE_USER for user {}", request.getUsername());
+        RequestAccountActivationModel requestAccountActivationModel = requestToModelConverter.toModel(request);
 
-        boolean activated = accountService.activateAccount(request.getUsername(), request.getActivationCode());
+        logger.info("Account: Receive ACTIVATE_USER for user {}", ezyUser.getName());
+
+        boolean activated = accountService.activateAccount(ezyUser.getName(), requestAccountActivationModel.getActivationCode());
         String result;
 
         if(activated)
@@ -117,18 +126,18 @@ public class AccountController extends EzyLoggable {
             result = "wrong_activation_code";
 
         responseFactory.newObjectResponse()
-                .command(Commands.ACTIVATE_USER)
+                .command(Commands.ACTIVATE_ACCOUNT)
                 .param("result", result)
                 .user(ezyUser)
                 .execute();
     }
 
     @EzyDoHandle(Commands.RESEND_ACTIVATION_MAIL)
-    public void resendActivationMail(EzyUser ezyUser, ResendActivationMailRequest request) throws IOException, TemplateException
+    public void resendActivationMail(EzyUser ezyUser) throws IOException, TemplateException
     {
-        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", request.getUsername());
+        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", ezyUser.getName());
 
-        Account account =  accountService.getAccountByUsername(request.getUsername());
+        Account account =  accountService.getAccountByUsername(ezyUser.getName());
 
         if(account != null)
         {
@@ -158,31 +167,31 @@ public class AccountController extends EzyLoggable {
                     .execute();
         }
         else
-            logger.error("Account: Resend activation code user {} unknown user!", request.getUsername());
+            logger.error("Account: Resend activation code user {} unknown user!", ezyUser.getName());
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
     public void forgotPassword(EzyUser ezyUser, ForgotPasswordRequest request) throws IOException, TemplateException
     {
-        logger.info("Account: Receive FORGOT_PASSWORD for account or email-address {}", request.getUsernameOrEMail());
+        RequestForgotPasswordModel requestForgotPasswordModel = requestToModelConverter.toModel(request);
+
+        logger.info("Account: Receive FORGOT_PASSWORD for account or email-address {}", requestForgotPasswordModel.getUsernameOrEMail());
 
         String resultMessage;
 
-        Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
-        if(account == null)
-            account = accountService.getAccountByEMail(request.getUsernameOrEMail().toLowerCase());
+        Account account = accountService.getAccountByUsernameOrEMail(requestForgotPasswordModel.getUsernameOrEMail());
 
         if (account == null)
         {
             resultMessage = "no_account";
 
-            logger.info("Account: User or email-address {} tried to get a new password but no username or email address found!", request.getUsernameOrEMail());
+            logger.info("Account: User or email-address {} tried to get a new password but no username or email address found!", requestForgotPasswordModel.getUsernameOrEMail());
         }
         else
         {
             String randomstring = RandomString.getAlphaNumericString(8);
 
-            accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
+            accountService.updatePassword(account.getId(), randomstring);
 
             if(serverConfig.getCan_send_mail())
             {
@@ -199,7 +208,7 @@ public class AccountController extends EzyLoggable {
             else
             {
                 logger.warn("Warning: Setup the server to send emails!");
-                logger.info("Account: New password: {} for user or e-mail-address: {}", randomstring, request.getUsernameOrEMail());
+                logger.info("Account: New password: {} for user or e-mail-address: {}", randomstring, requestForgotPasswordModel.getUsernameOrEMail());
             }
 
             resultMessage = "successful";
@@ -215,16 +224,18 @@ public class AccountController extends EzyLoggable {
     @EzyDoHandle(Commands.FORGOT_USERNAME)
     public void forgotUsername(EzyUser ezyUser, ForgotUsernameRequest request) throws IOException, TemplateException
     {
+        RequestForgotUsernameModel requestForgotUsernameModel = requestToModelConverter.toModel(request);
+
         logger.info("Account: Receive FORGOT_USERNAME for email {}", request.getEmail());
 
         String resultMessage;
 
-        Account account = accountService.getAccountByEMail(request.getEmail().toLowerCase());
+        Account account = accountService.getAccountByEMail(requestForgotUsernameModel.getEmail().toLowerCase());
 
         if(account == null)
         {
             resultMessage = "not_found";
-            logger.info("Account: {} tried to get username but no email address found!", request.getEmail());
+            logger.info("Account: {} tried to get username but no email address found!", requestForgotUsernameModel.getEmail());
         }
         else
         {
@@ -244,7 +255,7 @@ public class AccountController extends EzyLoggable {
             else
             {
                 logger.warn("Warning: Setup the server to send emails!");
-                logger.info("Account: Username: {} for e-mail-address: {}", username, request.getEmail());
+                logger.info("Account: Username: {} for e-mail-address: {}", username, requestForgotUsernameModel.getEmail());
             }
 
             resultMessage = "successful";
@@ -255,10 +266,5 @@ public class AccountController extends EzyLoggable {
                 .param("result", resultMessage)
                 .user(ezyUser)
                 .execute();
-    }
-
-    private String encodePassword(String password)
-    {
-        return EzySHA256.cryptUtfToLowercase(password);
     }
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @EzyObjectBinding
 public class ChangeServerRequest {
-    private Long id;
+    private Long playerId;
     private String room;
     private EzyArray position;
     private EzyArray rotation;

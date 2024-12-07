@@ -32,10 +32,10 @@ public class ModelToResponseConverter {
         return responseFactory.newObjectResponse()
                 .param("id", model.getId())
                 .param("name", model.getName())
+                .param("username", model.getUsername())
                 .param("sex", model.getSex())
                 .param("race", model.getRace())
                 .param("model", model.getModel())
-                .param("username", model.getUsername())
                 .param("position", model.getPosition())
                 .param("rotation", model.getRotation());
     }
