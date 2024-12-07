@@ -52,6 +52,7 @@ public class GameController extends EzyLoggable {
 
     @EzyDoHandle(Commands.PLAY)
     public void play(EzyUser ezyUser, PlayRequest request) {
+
         Character character = characterService.getCharacter(request.getId());
 
         // Check if the given character exist

@@ -47,6 +47,7 @@ public class CharacterService extends EzyLoggable {
         Character character = new Character();
         character.setId(maxIdService.incrementAndGet("character"));
         character.setAccountId(account.getId());
+        character.setUsername(ezyUser.getName());
         character.setName(model.getName());
         character.setSex(model.getSex());
         character.setRace(model.getRace());

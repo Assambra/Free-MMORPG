@@ -10,6 +10,7 @@ public class Character {
     @EzyId
     Long id;
     Long accountId;
+    String username;
     String name;
     String sex;
     String race;
