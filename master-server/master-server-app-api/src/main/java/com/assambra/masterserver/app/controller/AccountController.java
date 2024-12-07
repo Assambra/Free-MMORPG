@@ -1,6 +1,8 @@
 package com.assambra.masterserver.app.controller;
 
 import com.assambra.masterserver.app.converter.RequestToModelConverter;
+import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
+import com.assambra.masterserver.app.model.request.RequestForgotPasswordModel;
 import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
 import com.assambra.masterserver.common.entity.Account;
@@ -110,7 +112,9 @@ public class AccountController extends EzyLoggable {
     {
         logger.info("Account: Receive ACTIVATE_USER for user {}", ezyUser.getName());
 
-        boolean activated = accountService.activateAccount(ezyUser.getName(), requestToModelConverter.toModel(request));
+        RequestAccountActivationModel requestAccountActivationModel = requestToModelConverter.toModel(request);
+
+        boolean activated = accountService.activateAccount(ezyUser.getName(), requestAccountActivationModel.getActivationCode());
         String result;
 
         if(activated)
@@ -170,9 +174,9 @@ public class AccountController extends EzyLoggable {
 
         String resultMessage;
 
-        Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
-        if(account == null)
-            account = accountService.getAccountByEMail(request.getUsernameOrEMail().toLowerCase());
+        RequestForgotPasswordModel requestForgotPasswordModel = requestToModelConverter.toModel(request);
+
+        Account account = accountService.getAccountByUsernameOrEMail(requestForgotPasswordModel.getUsernameOrEMail());
 
         if (account == null)
         {

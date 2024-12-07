@@ -25,6 +25,15 @@ public class AccountService
         return accountRepo.getFieldValueByFieldAndValue(field, value, retValue);
     }
 
+    public Account getAccountByUsernameOrEMail(String usernameOrEMail)
+    {
+        Account account = getAccountByUsername(usernameOrEMail);
+        if(account == null)
+            account = getAccountByEMail(usernameOrEMail);
+
+        return account;
+    }
+
     public Account getAccountByUsername(String username) {
         return accountRepo.findByField("username", username);
     }
@@ -51,10 +60,10 @@ public class AccountService
         accountRepo.save(account);
     }
 
-    public Boolean activateAccount(String username, RequestAccountActivationModel model)
+    public Boolean activateAccount(String username, String activationCode)
     {
         Account account = getAccountByUsername(username);
-        if(account.getActivationCode().contains(model.getActivationCode()))
+        if(account.getActivationCode().contains(activationCode))
         {
             account.setActivated(true);
             accountRepo.save(account);
