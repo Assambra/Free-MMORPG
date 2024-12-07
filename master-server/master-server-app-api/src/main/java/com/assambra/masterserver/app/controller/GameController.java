@@ -7,10 +7,10 @@ import com.assambra.masterserver.app.request.PlayRequest;
 import com.assambra.masterserver.app.service.CharacterService;
 import com.assambra.masterserver.app.service.PlayerService;
 import com.assambra.masterserver.app.service.RoomService;
-import com.assambra.masterserver.app.service.UserService;
+import com.assambra.masterserver.app.service.AccountService;
+import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.entity.Character;
 import com.assambra.masterserver.common.entity.CharacterLocation;
-import com.assambra.masterserver.common.entity.User;
 import com.assambra.masterserver.common.masterserver.entity.UnityPlayer;
 import com.tvd12.ezyfox.core.annotation.EzyDoHandle;
 import com.tvd12.ezyfox.core.annotation.EzyRequestController;
@@ -26,7 +26,7 @@ import static com.assambra.masterserver.app.constant.Errors.TRY_TO_CHEAT;
 @EzyRequestController
 public class GameController extends EzyLoggable {
 
-    private final UserService userService;
+    private final AccountService accountService;
     private final CharacterService characterService;
     private final PlayerService playerService;
     private final RoomService roomService;
@@ -35,10 +35,10 @@ public class GameController extends EzyLoggable {
     @EzyDoHandle(Commands.CHECK)
     public void check(EzyUser ezyUser)
     {
-        User user = userService.getUserByUsername(ezyUser.getName());
+        Account account = accountService.getAccountByUsername(ezyUser.getName());
         String result;
 
-        if(user.getActivated())
+        if(account.getActivated())
             result = "ok";
         else
             result = "need_activation";
@@ -62,11 +62,11 @@ public class GameController extends EzyLoggable {
             );
         }
 
-        User user = userService.getUserByUsername(ezyUser.getName());
+        Account account = accountService.getAccountByUsername(ezyUser.getName());
 
         // Check if the given account exist
         // Check if the account are the owner of the requested character
-        if (user == null || !character.getUserId().equals(user.getId())) {
+        if (account == null || !character.getAccountId().equals(account.getId())) {
             throw new EzyBadRequestException(
                 TRY_TO_CHEAT,
                 "you_are_trying_to_cheat"

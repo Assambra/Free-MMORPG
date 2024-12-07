@@ -289,19 +289,22 @@ db.createUser({
 ```
 5. Create the following collections:
 ```bash
-db.createCollection("user", { collation: { locale: 'en_US', strength: 2 } })
+db.createCollection("account", { collation: { locale: 'en_US', strength: 2 } })
 ```
 ```bash
-db.user.createIndex({ username: 1 })
+db.account.createIndex({ username: 1 })
 ```
 ```bash
 db.createCollection("character", { collation: { locale: 'en_US', strength: 2 } })
 ```
 ```bash
-db.character.createIndex({ name: 1 })
+db.character.createIndex({ accountId: 1 })
 ```
 ```bash
 db.createCollection("character_location", { collation: { locale: 'en_US', strength: 2 } })
+```
+```bash
+db.character_location.createIndex({ characterId: 1 })
 ```
 6. Add to the following configuration file:
 

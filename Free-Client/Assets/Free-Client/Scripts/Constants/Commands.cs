@@ -4,8 +4,8 @@ namespace Assambra.FreeClient.Constants
 {
     public sealed class Commands
     {
-        public const String CREATE_USER = "createUser";
-        public const String ACTIVATE_USER = "activateUser";
+        public const String CREATE_ACCOUNT = "createAccount";
+        public const String ACTIVATE_ACCOUNT = "activateAccount";
         public const String RESEND_ACTIVATION_MAIL = "resendActivationMail";
         public const String FORGOT_PASSWORD = "forgotPassword";
         public const String FORGOT_USERNAME = "forgotUsername";

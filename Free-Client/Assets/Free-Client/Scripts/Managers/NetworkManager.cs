@@ -46,8 +46,8 @@ namespace Assambra.FreeClient
             base.OnEnable();
 
             // User
-            AddHandler<EzyObject>(Commands.CREATE_USER, OnCreateUserResponse);
-            AddHandler<EzyObject>(Commands.ACTIVATE_USER, OnActivateUserResponse);
+            AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateUserResponse);
+            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
             AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
             AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
             AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
@@ -149,7 +149,7 @@ namespace Assambra.FreeClient
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_USER, data, _socketConfig.EnableSSL);
+            appProxy.send(Commands.CREATE_ACCOUNT, data, _socketConfig.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
@@ -160,7 +160,7 @@ namespace Assambra.FreeClient
             .append("activationCode", activationcode)
             .build();
 
-            appProxy.send(Commands.ACTIVATE_USER, data);
+            appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
         }
 
         public void ResendActivationCodeEmail()

@@ -2,13 +2,13 @@ package com.assambra.masterserver.app.controller;
 
 import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
+import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.mail.MailBuilder;
 import com.assambra.masterserver.common.mail.SMTP_EMail;
 import com.assambra.masterserver.app.helper.RandomString;
-import com.assambra.masterserver.app.service.UserService;
+import com.assambra.masterserver.app.service.AccountService;
 import com.assambra.masterserver.app.constant.Commands;
 
-import com.assambra.masterserver.common.entity.User;
 import com.assambra.masterserver.common.mail.mailbodys.UserActivationCodeMailBody;
 import com.assambra.masterserver.common.mail.mailbodys.ForgotPasswordMailBody;
 import com.assambra.masterserver.common.mail.mailbodys.ForgotUsernameMailBody;
@@ -27,33 +27,33 @@ import java.io.IOException;
 
 @AllArgsConstructor
 @EzyRequestController
-public class UserController extends EzyLoggable {
+public class AccountController extends EzyLoggable {
 
-    private final UserService userService;
+    private final AccountService accountService;
     private final EzyResponseFactory responseFactory;
     @EzyAutoBind
     private ServerConfig serverConfig;
     private final SMTP_EMail mail = new SMTP_EMail();
 
 
-    @EzyDoHandle(Commands.CREATE_USER)
+    @EzyDoHandle(Commands.CREATE_ACCOUNT)
     public void createUser(EzyUser ezyUser, CreateUserRequest request) throws IOException, TemplateException
     {
-        logger.info("User: Receive CREATE_USER for new user {}", request.getUsername());
+        logger.info("Account: Receive CREATE_ACCOUNT for new user {}", request.getUsername());
 
         String resultMessage = "";
 
-        User user = userService.getUserByUsername(request.getUsername());
-        if(user == null)
-            user = userService.getUserByEMail(request.getEmail());
+        Account account = accountService.getAccountByUsername(request.getUsername());
+        if(account == null)
+            account = accountService.getAccountByEMail(request.getEmail());
 
-        if(user == null)
+        if(account == null)
         {
             if(!request.getUsername().toLowerCase().contains("guest"))
             {
                 String randomstring = RandomString.getAlphaNumericString(8);
 
-                userService.createUser(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()), randomstring);
+                accountService.createAccount(request.getEmail().toLowerCase(), request.getUsername(), encodePassword(request.getPassword()), randomstring);
 
                 if(serverConfig.getCan_send_mail())
                 {
@@ -65,7 +65,7 @@ public class UserController extends EzyLoggable {
                     // Todo set subject as variable
                     mail.sendMail(request.getEmail(), "Your activation code", mailBuilder.buildEmail());
 
-                    logger.info("User: Send activation code to {} for user: {}", request.getEmail(), request.getUsername());
+                    logger.info("Account: Send activation code to {} for user: {}", request.getEmail(), request.getUsername());
                 }
                 else
                 {
@@ -74,30 +74,30 @@ public class UserController extends EzyLoggable {
                 }
 
                 resultMessage = "successful";
-                logger.info("User: {} created successfully a new user", request.getUsername());
+                logger.info("Account: created successfully a new account for user {}", request.getUsername());
             }
             else
             {
                 resultMessage = "username_are_not_allowed";
-                logger.info("User: {} tried to create a new user but username are not allowed!", request.getUsername());
+                logger.info("Account: {} tried to create a new account but username are not allowed!", request.getUsername());
             }
         }
         else
         {
-            if(user.getEmail().equals(request.getEmail().toLowerCase()))
+            if(account.getEmail().equals(request.getEmail().toLowerCase()))
             {
                 resultMessage = "email_already_registered";
-                logger.info("User: {} tried to create a new user but email already registered!", request.getUsername());
+                logger.info("Account: {} tried to create a new account but email: {} already registered!", request.getUsername(), request.getEmail());
             }
-            else if(user.getUsername().equals(request.getUsername()))
+            else if(account.getUsername().equals(request.getUsername()))
             {
                 resultMessage = "username_already_in_use";
-                logger.info("User: {} tried to create a new user but username already in use!", request.getUsername());
+                logger.info("Account: {} tried to create a new account but username already in use!", request.getUsername());
             }
         }
 
         responseFactory.newObjectResponse()
-                .command(Commands.CREATE_USER)
+                .command(Commands.CREATE_ACCOUNT)
                 .param("result", resultMessage)
                 .user(ezyUser)
                 .execute();
@@ -106,9 +106,9 @@ public class UserController extends EzyLoggable {
     @EzyDoHandle(Commands.ACTIVATE_USER)
     public void activateUser(EzyUser ezyUser, ActivateUserRequest request)
     {
-        logger.info("User: Receive ACTIVATE_USER for user {}", request.getUsername());
+        logger.info("Account: Receive ACTIVATE_USER for user {}", request.getUsername());
 
-        boolean activated = userService.activateUser(request.getUsername(), request.getActivationCode());
+        boolean activated = accountService.activateAccount(request.getUsername(), request.getActivationCode());
         String result;
 
         if(activated)
@@ -126,13 +126,13 @@ public class UserController extends EzyLoggable {
     @EzyDoHandle(Commands.RESEND_ACTIVATION_MAIL)
     public void resendActivationMail(EzyUser ezyUser, ResendActivationMailRequest request) throws IOException, TemplateException
     {
-        logger.info("User: Receive RESEND_ACTIVATION_MAIL for user {}", request.getUsername());
+        logger.info("Account: Receive RESEND_ACTIVATION_MAIL for user {}", request.getUsername());
 
-        User user =  userService.getUserByUsername(request.getUsername());
+        Account account =  accountService.getAccountByUsername(request.getUsername());
 
-        if(user != null)
+        if(account != null)
         {
-            String activationCode = user.getActivationCode();
+            String activationCode = account.getActivationCode();
 
             if(serverConfig.getCan_send_mail())
             {
@@ -142,14 +142,14 @@ public class UserController extends EzyLoggable {
                 mailBuilder.setVariable("activationCode", activationCode);
 
                 // Todo set subject as variable
-                mail.sendMail(user.getEmail(), "Your activation code", mailBuilder.buildEmail());
+                mail.sendMail(account.getEmail(), "Your activation code", mailBuilder.buildEmail());
 
-                logger.info("User: Send activation code to {} for account: {}", user.getEmail(), user.getUsername());
+                logger.info("Account: Send activation code to {} for account: {}", account.getEmail(), account.getUsername());
             }
             else
             {
                 logger.warn("Warning: Setup the server to send emails!");
-                logger.info("Activation code: {} for account: {}", activationCode, user.getUsername());
+                logger.info("Account: Activation code: {} for account: {}", activationCode, account.getUsername());
             }
 
             responseFactory.newObjectResponse()
@@ -158,31 +158,31 @@ public class UserController extends EzyLoggable {
                     .execute();
         }
         else
-            logger.error("User: Resend activation code user {} unknown user!", request.getUsername());
+            logger.error("Account: Resend activation code user {} unknown user!", request.getUsername());
     }
 
     @EzyDoHandle(Commands.FORGOT_PASSWORD)
     public void forgotPassword(EzyUser ezyUser, ForgotPasswordRequest request) throws IOException, TemplateException
     {
-        logger.info("User: Receive FORGOT_PASSWORD for user or email-address {}", request.getUsernameOrEMail());
+        logger.info("Account: Receive FORGOT_PASSWORD for account or email-address {}", request.getUsernameOrEMail());
 
         String resultMessage;
 
-        User user = userService.getUserByUsername(request.getUsernameOrEMail());
-        if(user == null)
-            user = userService.getUserByEMail(request.getUsernameOrEMail().toLowerCase());
+        Account account = accountService.getAccountByUsername(request.getUsernameOrEMail());
+        if(account == null)
+            account = accountService.getAccountByEMail(request.getUsernameOrEMail().toLowerCase());
 
-        if (user == null)
+        if (account == null)
         {
             resultMessage = "no_account";
 
-            logger.info("User: User or email-address {} tried to get a new password but no username or email address found!", request.getUsernameOrEMail());
+            logger.info("Account: User or email-address {} tried to get a new password but no username or email address found!", request.getUsernameOrEMail());
         }
         else
         {
             String randomstring = RandomString.getAlphaNumericString(8);
 
-            userService.updateStringFieldById(user.getId(), "password", encodePassword(randomstring));
+            accountService.updateStringFieldById(account.getId(), "password", encodePassword(randomstring));
 
             if(serverConfig.getCan_send_mail())
             {
@@ -192,14 +192,14 @@ public class UserController extends EzyLoggable {
                 mailBuilder.setVariable("password", randomstring);
 
                 // Todo set subject as variable
-                mail.sendMail(user.getEmail(), "Your new password", mailBuilder.buildEmail());
+                mail.sendMail(account.getEmail(), "Your new password", mailBuilder.buildEmail());
 
-                logger.info("User: Send new password to {} for user: {}", user.getEmail(), user.getUsername());
+                logger.info("Account: Send new password to {} for user: {}", account.getEmail(), account.getUsername());
             }
             else
             {
                 logger.warn("Warning: Setup the server to send emails!");
-                logger.info("User: New password: {} for user or e-mail-address: {}", randomstring, request.getUsernameOrEMail());
+                logger.info("Account: New password: {} for user or e-mail-address: {}", randomstring, request.getUsernameOrEMail());
             }
 
             resultMessage = "successful";
@@ -215,20 +215,20 @@ public class UserController extends EzyLoggable {
     @EzyDoHandle(Commands.FORGOT_USERNAME)
     public void forgotUsername(EzyUser ezyUser, ForgotUsernameRequest request) throws IOException, TemplateException
     {
-        logger.info("User: Receive FORGOT_USERNAME for email {}", request.getEmail());
+        logger.info("Account: Receive FORGOT_USERNAME for email {}", request.getEmail());
 
         String resultMessage;
 
-        User user = userService.getUserByEMail(request.getEmail().toLowerCase());
+        Account account = accountService.getAccountByEMail(request.getEmail().toLowerCase());
 
-        if(user == null)
+        if(account == null)
         {
             resultMessage = "not_found";
-            logger.info("User: {} tried to get username but no email address found!", request.getEmail());
+            logger.info("Account: {} tried to get username but no email address found!", request.getEmail());
         }
         else
         {
-            String username = user.getUsername();
+            String username = account.getUsername();
 
             if(serverConfig.getCan_send_mail())
             {
@@ -237,14 +237,14 @@ public class UserController extends EzyLoggable {
                 mailBuilder.setBodyTemplate(forgotUsernameMailBody);
                 mailBuilder.setVariable("username", username);
 
-                mail.sendMail(user.getEmail(), "Your Username", mailBuilder.buildEmail());
+                mail.sendMail(account.getEmail(), "Your Username", mailBuilder.buildEmail());
 
-                logger.info("User: Send username to {} for user: {}", user.getEmail(), user.getUsername());
+                logger.info("Account: Send username to {} for user: {}", account.getEmail(), account.getUsername());
             }
             else
             {
                 logger.warn("Warning: Setup the server to send emails!");
-                logger.info("User: Username: {} for e-mail-address: {}", username, request.getEmail());
+                logger.info("Account: Username: {} for e-mail-address: {}", username, request.getEmail());
             }
 
             resultMessage = "successful";
