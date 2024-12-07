@@ -66,7 +66,7 @@ public class GameController extends EzyLoggable {
 
         // Check if the given account exist
         // Check if the account are the owner of the requested character
-        if (account == null || !character.getUserId().equals(account.getId())) {
+        if (account == null || !character.getAccountId().equals(account.getId())) {
             throw new EzyBadRequestException(
                 TRY_TO_CHEAT,
                 "you_are_trying_to_cheat"

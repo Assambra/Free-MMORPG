@@ -34,7 +34,7 @@ public class AccountService
 
     public void createAccount(String email, String username, String password, String activationCode) {
         Account account = new Account();
-        account.setId(maxIdService.incrementAndGet("user"));
+        account.setId(maxIdService.incrementAndGet("account"));
         account.setEmail(email);
         account.setUsername(username);
         account.setPassword(password);

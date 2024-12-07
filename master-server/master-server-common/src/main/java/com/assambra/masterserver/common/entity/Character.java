@@ -9,7 +9,7 @@ import lombok.Data;
 public class Character {
     @EzyId
     Long id;
-    Long userId;
+    Long accountId;
     String username;
     String name;
     String sex;
