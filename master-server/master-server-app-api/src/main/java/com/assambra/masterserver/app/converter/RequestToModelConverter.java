@@ -2,8 +2,10 @@ package com.assambra.masterserver.app.converter;
 
 import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
 import com.assambra.masterserver.app.model.request.RequestForgotPasswordModel;
+import com.assambra.masterserver.app.model.request.RequestForgotUsernameModel;
 import com.assambra.masterserver.app.request.ActivateAccountRequest;
 import com.assambra.masterserver.app.request.ForgotPasswordRequest;
+import com.assambra.masterserver.app.request.ForgotUsernameRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
@@ -22,6 +24,13 @@ public class RequestToModelConverter {
     {
         return RequestForgotPasswordModel.builder()
                 .usernameOrEMail(request.getUsernameOrEMail())
+                .build();
+    }
+
+    public RequestForgotUsernameModel toModel(ForgotUsernameRequest request)
+    {
+        return RequestForgotUsernameModel.builder()
+                .email(request.getEmail())
                 .build();
     }
 }

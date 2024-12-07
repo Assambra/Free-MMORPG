@@ -3,6 +3,7 @@ package com.assambra.masterserver.app.controller;
 import com.assambra.masterserver.app.converter.RequestToModelConverter;
 import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
 import com.assambra.masterserver.app.model.request.RequestForgotPasswordModel;
+import com.assambra.masterserver.app.model.request.RequestForgotUsernameModel;
 import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
 import com.assambra.masterserver.common.entity.Account;
@@ -223,9 +224,11 @@ public class AccountController extends EzyLoggable {
     {
         logger.info("Account: Receive FORGOT_USERNAME for email {}", request.getEmail());
 
+        RequestForgotUsernameModel requestForgotUsernameModel = requestToModelConverter.toModel(request);
+
         String resultMessage;
 
-        Account account = accountService.getAccountByEMail(request.getEmail().toLowerCase());
+        Account account = accountService.getAccountByEMail(requestForgotUsernameModel.getEmail().toLowerCase());
 
         if(account == null)
         {
