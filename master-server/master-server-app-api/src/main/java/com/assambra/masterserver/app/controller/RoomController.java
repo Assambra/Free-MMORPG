@@ -1,8 +1,10 @@
 package com.assambra.masterserver.app.controller;
 
 import com.assambra.masterserver.app.constant.Commands;
+import com.assambra.masterserver.app.converter.RequestToModelConverter;
 import com.assambra.masterserver.app.model.PlayerDespawnModel;
 import com.assambra.masterserver.app.model.PlayerSpawnModel;
+import com.assambra.masterserver.app.model.request.RequestChangeServerModel;
 import com.assambra.masterserver.app.request.ChangeServerRequest;
 import com.assambra.masterserver.app.service.PlayerService;
 import com.assambra.masterserver.app.service.RoomService;
@@ -20,25 +22,28 @@ public class RoomController extends EzyLoggable {
 
     private final RoomService roomService;
     private final PlayerService playerService;
+    private final RequestToModelConverter requestToModelConverter;
 
     @EzyDoHandle(Commands.CHANGE_SERVER)
     public void changeServer(EzyUser ezyUser, ChangeServerRequest request)
     {
-        UnityPlayer player = playerService.getPlayerByIdFromGlobalPlayerManager(request.getId());
+        RequestChangeServerModel requestChangeServerModel = requestToModelConverter.toModel(request);
+
+        UnityPlayer player = playerService.getPlayerByIdFromGlobalPlayerManager(requestChangeServerModel.getPlayerId());
 
         Vec3 position = new Vec3(
-                request.getPosition().get(0, float.class),
-                request.getPosition().get(1, float.class),
-                request.getPosition().get(2, float.class)
+                requestChangeServerModel.getPosition().get(0, float.class),
+                requestChangeServerModel.getPosition().get(1, float.class),
+                requestChangeServerModel.getPosition().get(2, float.class)
         );
 
         Vec3 rotation = new Vec3(
-                request.getRotation().get(0, float.class),
-                request.getRotation().get(1, float.class),
-                request.getRotation().get(2, float.class)
+                requestChangeServerModel.getRotation().get(0, float.class),
+                requestChangeServerModel.getRotation().get(1, float.class),
+                requestChangeServerModel.getRotation().get(2, float.class)
         );
 
-        PlayerDespawnModel playerDespawnModel = playerService.getPlayerDespawnModel(request.getId());
+        PlayerDespawnModel playerDespawnModel = playerService.getPlayerDespawnModel(requestChangeServerModel.getPlayerId());
         roomService.removePlayerFromRoom(player, playerDespawnModel);
 
         PlayerSpawnModel playerSpawnModel = playerService.getPlayerSpawnModel(player, position, rotation);

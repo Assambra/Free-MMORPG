@@ -89,10 +89,10 @@ namespace Assambra.FreeServer
             appProxy.send(Commands.SERVER_READY, data);
         }
 
-        public void SendChangeServerRequest(long id, string room, Vector3 position, Vector3 rotation)
+        public void SendChangeServerRequest(long playerId, string room, Vector3 position, Vector3 rotation)
         {
             EzyObject data = EzyEntityFactory.newObjectBuilder()
-                .append("id", id)
+                .append("playerId", playerId)
                 .append("room", room)
                 .append("position", EzyEntityFactory.newArrayBuilder()
                         .append(position.x)
