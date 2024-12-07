@@ -7,6 +7,5 @@ import lombok.Data;
 @EzyObjectBinding
 public class ActivateAccountRequest
 {
-    private String username;
     private String activationCode;
 }

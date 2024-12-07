@@ -1,5 +1,6 @@
 package com.assambra.masterserver.app.service;
 
+import com.assambra.masterserver.app.model.request.RequestAccountActivationModel;
 import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.repository.AccountRepo;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -50,10 +51,10 @@ public class AccountService
         accountRepo.save(account);
     }
 
-    public Boolean activateAccount(String username, String activationCode)
+    public Boolean activateAccount(String username, RequestAccountActivationModel model)
     {
         Account account = getAccountByUsername(username);
-        if(account.getActivationCode().contains(activationCode))
+        if(account.getActivationCode().contains(model.getActivationCode()))
         {
             account.setActivated(true);
             accountRepo.save(account);

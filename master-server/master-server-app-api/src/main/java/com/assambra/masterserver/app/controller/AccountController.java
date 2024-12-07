@@ -1,5 +1,6 @@
 package com.assambra.masterserver.app.controller;
 
+import com.assambra.masterserver.app.converter.RequestToModelConverter;
 import com.assambra.masterserver.common.config.ServerConfig;
 import com.assambra.masterserver.app.request.*;
 import com.assambra.masterserver.common.entity.Account;
@@ -31,6 +32,7 @@ public class AccountController extends EzyLoggable {
 
     private final AccountService accountService;
     private final EzyResponseFactory responseFactory;
+    private final RequestToModelConverter requestToModelConverter;
     @EzyAutoBind
     private ServerConfig serverConfig;
     private final SMTP_EMail mail = new SMTP_EMail();
@@ -106,9 +108,9 @@ public class AccountController extends EzyLoggable {
     @EzyDoHandle(Commands.ACTIVATE_ACCOUNT)
     public void activateAccount(EzyUser ezyUser, ActivateAccountRequest request)
     {
-        logger.info("Account: Receive ACTIVATE_USER for user {}", request.getUsername());
+        logger.info("Account: Receive ACTIVATE_USER for user {}", ezyUser.getName());
 
-        boolean activated = accountService.activateAccount(request.getUsername(), request.getActivationCode());
+        boolean activated = accountService.activateAccount(ezyUser.getName(), requestToModelConverter.toModel(request));
         String result;
 
         if(activated)
