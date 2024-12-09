@@ -30,18 +30,20 @@ public class ServerReadyController extends EzyAbstractAppEventController<EzyServ
 
     private UnityRoom newcomer()
     {
-        return UnityRoom.builder(true)
+        return UnityRoom.builder()
                 .id(1)
                 .name("Newcomer")
+                .isStatic(true)
                 .maxPlayer(10000)
                 .build();
     }
 
     private UnityRoom world()
     {
-        return UnityRoom.builder(true)
+        return UnityRoom.builder()
                 .id(2)
                 .name("World")
+                .isStatic(true)
                 .maxPlayer(10000)
                 .build();
     }

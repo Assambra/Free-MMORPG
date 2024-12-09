@@ -1,44 +1,42 @@
 package com.assambra.masterserver.common.masterserver.entity;
 
-
 import com.assambra.masterserver.common.masterserver.constant.UnityRoomStatus;
-import com.assambra.masterserver.common.masterserver.manager.SynchronizedUnityPlayerManager;
 import com.assambra.masterserver.common.masterserver.server.UnityServer;
 import com.assambra.masterserver.common.masterserver.util.RandomStringUtil;
-import com.tvd12.gamebox.entity.NormalRoom;
 import com.tvd12.gamebox.entity.Player;
+import com.tvd12.gamebox.entity.Room;
+import com.tvd12.gamebox.manager.DefaultPlayerManager;
 import com.tvd12.gamebox.manager.PlayerManager;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
 
-public class UnityRoom extends NormalRoom {
+@Getter
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class UnityRoom extends Room {
+
+    @Setter(AccessLevel.NONE)
+    protected final PlayerManager playerManager;
     @Getter
     protected final boolean isStatic;
-
-    @Getter @Setter
-    protected boolean isReady = false;
-    protected final UnityServer unityServer;
-
     @Getter
-    protected final String userPassword;
-
+    protected final String serverUserPassword;
     @Getter
     protected Process unityProcess;
+    protected final UnityServer unityServer;
 
-    @Getter @Setter
-    protected UnityPlayer master;
-
-    public UnityRoom(Builder builder) {
+    public UnityRoom(Builder<?> builder) {
         super(builder);
+        this.playerManager = builder.playerManager;
         this.isStatic = builder.isStatic;
-        this.status = UnityRoomStatus.NONE;
-        this.userPassword = RandomStringUtil.getAlphaNumericString(6);
+        this.status = UnityRoomStatus.STARTING;
+        this.serverUserPassword = RandomStringUtil.getAlphaNumericString(6);
 
         this.unityServer = new UnityServer.Builder()
                 .username(this.name)
-                .password(userPassword)
+                .password(serverUserPassword)
                 .room(this.name)
                 .build();
 
@@ -50,69 +48,70 @@ public class UnityRoom extends NormalRoom {
         }
     }
 
-    public void markAsReady() {
-        this.setReady(true);
+    public static Builder builder() {
+        return new Builder<>();
     }
 
-    public static Builder builder(boolean isStatic) {
-        return new Builder(isStatic);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
     public void addPlayer(Player player) {
-        if (!(player instanceof UnityPlayer)) {
-            throw new IllegalArgumentException("Player " + player.getName() + " must be UnityPlayer");
-        }
-
-        if (playerManager.containsPlayer(player)) {
-            return;
-        }
-
-        synchronized (this) {
-            if (playerManager.isEmpty()) {
-                master = (UnityPlayer) player;
-            }
-            super.addPlayer(player);
-        }
+        player.setCurrentRoomId(id);
+        playerManager.addPlayer(player);
     }
 
-    public static class Builder extends NormalRoom.Builder<Builder> {
+    public void removePlayer(Player player) {
+        playerManager.removePlayer(player.getName());
+    }
+
+    public int getMaxPlayer(){
+        return this.getPlayerManager().getMaxPlayer();
+    }
+
+    public <T extends PlayerManager> T getPlayerManager() {
+        return (T) playerManager;
+    }
+
+    public static class Builder<B extends Builder<B>> extends Room.Builder<B> {
+
+        protected int maxPlayer = 2;
+        protected PlayerManager playerManager;
         protected boolean isStatic;
 
-        public Builder (boolean isStatic) {
-            this.isStatic = isStatic;
+        @Override
+        public B id(long id) {
+            super.id(id);
+            return (B) this;
         }
 
-        protected int maxPlayer = 999;
+        @Override
+        public B name(String name) {
+            super.name(name);
+            return (B) this;
+        }
 
-        public Builder maxPlayer(int maxPlayer) {
+        public B maxPlayer(int maxPlayer) {
             this.maxPlayer = maxPlayer;
-            return this;
+            return (B) this;
         }
 
-        @Override
-        public Builder defaultPlayerManager(int maxPlayer) {
-            this.playerManager = new SynchronizedUnityPlayerManager<>(maxPlayer);
-            return this;
+        public B playerManager(PlayerManager playerManager) {
+            this.playerManager = playerManager;
+            return (B) this;
         }
 
-        @SuppressWarnings("rawtypes")
-        @Override
-        public Builder playerManager(PlayerManager playerManager) {
-            if (playerManager instanceof SynchronizedUnityPlayerManager) {
-                return super.playerManager(playerManager);
-            }
-            throw new IllegalArgumentException("playerManager must be SynchronizedUnityPlayerManager");
+        public B defaultPlayerManager(int maxPlayer) {
+            this.playerManager = new DefaultPlayerManager<>(maxPlayer);
+            return (B) this;
+        }
+
+        public B isStatic(boolean isStatic) {
+            this.isStatic = isStatic;
+            return (B) this;
         }
 
         @Override
         protected void preBuild() {
             if (playerManager == null) {
-                playerManager = new SynchronizedUnityPlayerManager<>(maxPlayer);
+                playerManager = new DefaultPlayerManager<>(maxPlayer);
             }
-
-            super.preBuild();
         }
 
         @Override

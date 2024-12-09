@@ -47,7 +47,6 @@ public class RoomService extends EzyLoggable {
     {
         UnityRoom room = getRoom(player.getCurrentRoomId());
         room.removePlayer(player);
-        //player.setCurrentRoomId(0);
 
         modelToResponseConverter.toResponse(playerDespawnModel)
                 .command(Commands.PLAYER_DESPAWN)
@@ -58,6 +57,6 @@ public class RoomService extends EzyLoggable {
     public boolean checkRoomPassword(String roomName, String roomPassword)
     {
         UnityRoom room = getRoom(roomName);
-        return roomPassword.equals(roomPassword);
+        return roomPassword.equals(room.getServerUserPassword());
     }
 }

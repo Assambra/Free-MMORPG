@@ -22,7 +22,7 @@ import java.util.List;
 @EzySingleton("playerService")
 public class PlayerService extends EzyLoggable {
 
-    private final PlayerManager globalPlayerManager;
+    private final PlayerManager<UnityPlayer> globalPlayerManager;
 
     public void addPlayerToGlobalPlayerList(UnityPlayer player)
     {

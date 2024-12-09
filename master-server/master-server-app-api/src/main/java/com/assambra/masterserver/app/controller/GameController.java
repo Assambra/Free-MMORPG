@@ -81,9 +81,12 @@ public class GameController extends EzyLoggable {
 
         CharacterLocation characterLocation = characterService.getCharacterLocation(character.getId());
 
-        UnityPlayer player = new UnityPlayer(character.getName());
-        player.setUsername(ezyUser.getName());
-        player.setId(character.getId());
+        UnityPlayer player = new UnityPlayer.Builder<>()
+                .name(character.getName())
+                .id(character.getId())
+                .username(ezyUser.getName())
+                .build();
+
         playerService.addPlayerToGlobalPlayerList(player);
 
         PlayerSpawnModel serverPlayerSpawnModel = playerService.getPlayerSpawnModel(character, characterLocation);

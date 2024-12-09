@@ -8,7 +8,7 @@ import java.util.Map;
 
 public enum UnityRoomStatus implements IRoomStatus {
 
-    NONE(0),
+    STARTING(0),
     READY(1);
 
     @Getter

@@ -4,34 +4,51 @@ import com.tvd12.gamebox.entity.Player;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public class UnityPlayer extends Player {
-    public UnityPlayer(String name) {
-        super(name);
-    }
 
-    @Getter @Setter
-    protected Long id;
-    @Getter @Setter
-    protected String username;
+    protected final Long id;
+    protected final String username;
 
-    protected UnityPlayer(Builder builder) {
+    public UnityPlayer(Builder<?> builder) {
         super(builder);
+        this.id = builder.id;
+        this.username = builder.username;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static Builder<?> builder() {
+        return new Builder<>();
     }
 
-    public static class Builder extends Player.Builder<Builder> {
+    public static class Builder<B extends Builder<B>> extends  Player.Builder<B> {
+
+        protected long id;
+        protected String username;
+
+        public B id(long id) {
+            this.id = id;
+            return (B) this;
+        }
 
         @Override
-        protected Player newProduct() {
-            return new UnityPlayer(this);
+        public B name(String name){
+            super.name(name);
+            return (B) this;
+        }
+
+        public B username(String username) {
+            this.username = username;
+            return (B) this;
         }
 
         @Override
         public UnityPlayer build() {
             return (UnityPlayer) super.build();
+        }
+
+        @Override
+        protected Player newProduct() {
+            return new UnityPlayer(this);
         }
     }
 }

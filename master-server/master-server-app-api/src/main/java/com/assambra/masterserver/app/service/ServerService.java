@@ -33,7 +33,7 @@ public class ServerService extends EzyLoggable {
             if(room.getName().equals(user.getName()))
             {
                 logger.info("Set room: {} to ready", room.getName());
-                room.setReady(true);
+                room.setStatus(UnityRoomStatus.READY);
             }
         }
     }
