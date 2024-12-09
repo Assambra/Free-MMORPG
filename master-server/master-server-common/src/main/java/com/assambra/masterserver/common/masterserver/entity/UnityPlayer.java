@@ -2,7 +2,6 @@ package com.assambra.masterserver.common.masterserver.entity;
 
 import com.tvd12.gamebox.entity.Player;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class UnityPlayer extends Player {
@@ -47,7 +46,7 @@ public class UnityPlayer extends Player {
         }
 
         @Override
-        protected Player newProduct() {
+        protected UnityPlayer newProduct() {
             return new UnityPlayer(this);
         }
     }

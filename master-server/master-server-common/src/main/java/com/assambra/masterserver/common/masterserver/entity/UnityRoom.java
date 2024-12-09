@@ -48,7 +48,7 @@ public class UnityRoom extends Room {
         }
     }
 
-    public static Builder builder() {
+    public static Builder<?> builder() {
         return new Builder<>();
     }
 
