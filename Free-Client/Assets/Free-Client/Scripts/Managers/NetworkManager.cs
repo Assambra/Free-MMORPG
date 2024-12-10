@@ -26,9 +26,10 @@ namespace Assambra.FreeClient
         [SerializeField] private string _guestPassword = "Assambra";
 
         private bool _isInitialized = false;
-
-        private bool _characterListReseived;
+        private LoginState _lastLoginState;
+        private bool _isInitialChangeSceneAfterLoginDone;
         private bool _despawnInProgress;
+        
 
         private void Awake()
         {
@@ -38,27 +39,14 @@ namespace Assambra.FreeClient
                 Instance = this;
 
             LoginState = LoginState.Lobby;
+            _lastLoginState = LoginState;
         }
 
         private new void OnEnable()
         {
             base.OnEnable();
 
-            // User
-            AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateUserResponse);
-            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
-            AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
-            AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
-            AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
-
-            // Game
-            AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
-            AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
-            AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCharacterResponse);
-            AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
-            AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
-            AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
-
+            AccountAppHandler();
             Login(CreateGuestName(), _guestPassword);
         }
 
@@ -71,9 +59,48 @@ namespace Assambra.FreeClient
 
         private void Update()
         {
+            if(_lastLoginState != LoginState)
+            {
+                if(LoginState == LoginState.Lobby)
+                {
+                    _isInitialChangeSceneAfterLoginDone = false;
+                    Disconnect();
+                    UnbindAppHandlers();
+                    AccountAppHandler();
+                    Login(CreateGuestName(), _guestPassword);
+                }
+                else
+                {
+                    Disconnect();
+                    UnbindAppHandlers();
+                    GameAppHandler();
+                }
+
+                _lastLoginState = LoginState;
+            }
+
             EzyClients.getInstance()
                 .getClient(_socketConfig.ZoneName)
                 .processEvents();
+        }
+
+        private void AccountAppHandler()
+        {
+            AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateUserResponse);
+            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
+            AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
+            AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
+            AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
+        }
+
+        private void GameAppHandler()
+        {
+            AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
+            AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
+            AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCharacterResponse);
+            AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
+            AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
+            AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
         }
 
         protected override EzySocketConfig GetSocketConfig()
@@ -132,6 +159,8 @@ namespace Assambra.FreeClient
             }
             socketProxy.connect();
         }
+
+
 
         #region MASTER SERVER REQUESTS
 
@@ -252,11 +281,7 @@ namespace Assambra.FreeClient
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)
         {
             Debug.Log("OnUdpHandshake");
-
-            if(LoginState == LoginState.Lobby)
-                socketProxy.send(new EzyAppAccessRequest(_socketConfig.AppName));
-            else
-                socketProxy.send(new EzyAppAccessRequest(_socketConfig.AppName));
+            socketProxy.send(new EzyAppAccessRequest(_socketConfig.AppName));
         }
 
         private void OnAppAccessed(EzyAppProxy proxy, Object data)
@@ -390,7 +415,6 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "ok":
-                    GameManager.Instance.CharacterInfos.Clear();
                     GetCharacterList();
                     break;
                 case "need_activation":
@@ -402,11 +426,18 @@ namespace Assambra.FreeClient
         private void ReceiveCharacterList(EzyAppProxy proxy, EzyArray data)
         {
             if (data.isEmpty())
-                GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
+            {
+                if (!_isInitialChangeSceneAfterLoginDone)
+                {
+                    GameManager.Instance.ChangeScene(Scenes.CreateCharacter);
+                    _isInitialChangeSceneAfterLoginDone = true;
+                }
+                else
+                    Debug.LogError("Unexpected empty character list");
+            }
             else
             {
-                if (GameManager.Instance.CharacterInfos.Count > 0)
-                    GameManager.Instance.CharacterInfos.Clear();
+                GameManager.Instance.CharacterInfos.Clear();
 
                 for (int i = 0; i < data.size(); i++)
                 {
@@ -427,10 +458,12 @@ namespace Assambra.FreeClient
                     GameManager.Instance.CharacterInfos.Add(characterInfoModel);
                 }
 
-                if (!_characterListReseived)
+                if (!_isInitialChangeSceneAfterLoginDone)
+                {
                     GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
+                    _isInitialChangeSceneAfterLoginDone = true;
+                }
             }
-            _characterListReseived = true;
         }
 
         private void OnCreateCharacterResponse(EzyAppProxy proxy, EzyObject data)
@@ -443,6 +476,7 @@ namespace Assambra.FreeClient
                 case "successfully":
                     Debug.Log("successfully");
                     InformationPopup("Character created successfully");
+                    GetCharacterList();
                     GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
                     GameManager.Instance.CharacterId = characterId;
                     break;
