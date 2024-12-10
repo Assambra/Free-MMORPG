@@ -18,6 +18,14 @@ namespace Assambra.FreeClient.UserInterface
         private float parentWidth;
         private float parentHeight;
 
+        private void OnDestroy()
+        {
+            if (tooltipGameObject != null)
+            {
+                RemoveTooltip();
+            }
+        }
+
         private void Awake()
         {
             parentRectTransform = gameObject.gameObject.GetComponent<RectTransform>();
