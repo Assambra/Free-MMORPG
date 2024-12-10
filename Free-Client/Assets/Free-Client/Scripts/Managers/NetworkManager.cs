@@ -164,7 +164,7 @@ namespace Assambra.FreeClient
 
         #region MASTER SERVER REQUESTS
 
-        #region USER
+        #region ACCOUNT
 
         public void CreateAccount(string email, string username, string password)
         {
@@ -294,7 +294,7 @@ namespace Assambra.FreeClient
 
         #endregion
 
-        #region USER
+        #region ACCOUNT
 
         private void OnCreateUserResponse(EzyAppProxy proxy, EzyObject data)
         {
