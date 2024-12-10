@@ -39,8 +39,6 @@ namespace Assambra.FreeClient
                 Destroy(this);
             else
                 Instance = this;
-
-            Application.targetFrameRate = 60;
         }
 
         private void Start()
@@ -92,8 +90,6 @@ namespace Assambra.FreeClient
 
                     SetCameraGameCameraValues();
                     Destroy(playerGameObject);
-
-                    //_networkManagerUser.enabled = false;
                 }  
             }
             else
@@ -101,11 +97,6 @@ namespace Assambra.FreeClient
                 if(_currentState != GameState.Lobby)
                 {
                     ChangeState(GameState.Lobby);
-
-                    /*
-                    if (!_networkManagerUser.enabled)
-                        _networkManagerUser.enabled = true;
-                    */
                 }
             }
         }
