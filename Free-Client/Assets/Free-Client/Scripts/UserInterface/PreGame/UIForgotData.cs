@@ -31,8 +31,6 @@ namespace Assambra.FreeClient.UserInterface
             if (NetworkManager.Instance.Connected())
             {
                 ButtonSendPassword.interactable = false;
-                ButtonBackPassword.interactable = false;
-                ButtonTabUsername.interactable = false;
 
                 if (InputValidator.IsNotEmpty(_inputFieldUsernameOrEmail.text))
                     NetworkManager.Instance.ForgotPassword(_inputFieldUsernameOrEmail.text);
@@ -48,8 +46,6 @@ namespace Assambra.FreeClient.UserInterface
             if (NetworkManager.Instance.Connected())
             {
                 ButtonSendUsername.interactable = false;
-                ButtonBackUsername.interactable = false;
-                ButtonTabPassword.interactable = false;
 
                 if (InputValidator.IsNotEmpty(_inputFieldEmail.text))
                     NetworkManager.Instance.ForgotUsername(_inputFieldEmail.text);
@@ -86,8 +82,21 @@ namespace Assambra.FreeClient.UserInterface
             popup.Setup(
                 title,
                 info,
-                () => { popup.Destroy(); }
+                () => { OnErrorPopupUIForgotDataOk();  popup.Destroy(); }
             );
+        }
+
+        private void OnErrorPopupUIForgotDataOk()
+        {
+            if(_forgotPassword.activeSelf)
+            {
+                ButtonSendPassword.interactable = true;
+
+            }
+            else if(_forgotUsername.activeSelf)
+            {
+                ButtonSendUsername.interactable = true;
+            }
         }
     }
 }
