@@ -34,10 +34,7 @@ namespace Assambra.FreeClient.UserInterface
             if (InputValidator.IsNotEmpty(_username) && InputValidator.IsNotEmpty(_password))
             {
                 if(NetworkManager.Instance.LoginState == LoginState.Lobby)
-                {
-                    NetworkManager.Instance.Disconnect();
                     NetworkManager.Instance.LoginState = LoginState.Game;
-                }
 
                 NetworkManager.Instance.Login(_username, _password);
             }

@@ -76,8 +76,8 @@ namespace Assambra.FreeClient.UserInterface
 
         public void OnButtonBackToLogin()
         {
+            NetworkManager.Instance.LoginState = LoginState.Lobby;
             GameManager.Instance.ChangeScene(Scenes.Login);
-            NetworkManager.Instance.Disconnect();
         }
 
         public void OnButtonPlay()

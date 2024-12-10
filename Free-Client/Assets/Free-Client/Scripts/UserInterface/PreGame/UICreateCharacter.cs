@@ -556,8 +556,8 @@ namespace Assambra.FreeClient.UserInterface
                 GameManager.Instance.ChangeScene(Scenes.SelectCharacter);
             else
             {
+                NetworkManager.Instance.LoginState = LoginState.Lobby;
                 GameManager.Instance.ChangeScene(Scenes.Login);
-                NetworkManager.Instance.Disconnect();
             }
         }
 
