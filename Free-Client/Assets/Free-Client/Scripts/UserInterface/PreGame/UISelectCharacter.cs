@@ -22,7 +22,7 @@ namespace Assambra.FreeClient.UserInterface
         private DynamicCharacterAvatar _avatar;
         private int _currentShownCharacter;
 
-        private void OnEnable()
+        private void Start()
         {
             _characterInfos = GameManager.Instance.CharacterInfos;
 
@@ -35,14 +35,6 @@ namespace Assambra.FreeClient.UserInterface
                 _currentShownCharacter = 0;
 
                 SetCharacter(_currentShownCharacter);
-            }
-            else
-            {
-                // Todo inform the player that no characters available
-                // actually obsolete we can't go back from create character scene if we have zero characters
-                // and also after login we check if zero characters go straight to create character scene
-                // But we need to look into again if we create a option to delete the character.
-                Debug.Log("Todo inform the player that no characters available");
             }
 
             _charactersCount = _characterInfos.Count - 1;
