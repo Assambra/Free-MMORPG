@@ -1,4 +1,3 @@
-using Assambra.FreeClient.Utilities;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,17 +12,18 @@ namespace Assambra.FreeClient.UserInterface
         {
             base.Setup(title, information, primaryCallback);
 
-            if(_oKButton == null)
-                CustomLogger.LogWarning("InformationPopup: The OK button is not assigned.");
-            else
+            if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
-                _oKButton.onClick.RemoveAllListeners();
-                _oKButton.onClick.AddListener(() =>
-                {
-                    (primaryCallback as Action)?.Invoke();
-                    Destroy();
-                });
-            }
+                (_oKButton, "OK button")
+            }))
+                return;
+
+            _oKButton.onClick.RemoveAllListeners();
+            _oKButton.onClick.AddListener(() =>
+            {
+                (primaryCallback as Action)?.Invoke();
+                Destroy();
+            });
         }
 
         public override void OnButtonClose()

@@ -18,13 +18,30 @@ namespace Assambra.FreeClient.UserInterface
             _titleText.text = title;
             _informationText.text = information;
 
-            if (_buttonClose == null)
-                CustomLogger.LogWarning("BasePopup: The close button is not assigned.");
-            else
+            if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
-                _buttonClose.onClick.RemoveAllListeners();
-                _buttonClose.onClick.AddListener(() => { OnButtonClose(); });
+                (_buttonClose, "Close button")
+            }))
+                return;
+
+            _buttonClose.onClick.RemoveAllListeners();
+            _buttonClose.onClick.AddListener(() => { OnButtonClose(); });
+        }
+
+        public virtual bool ValidateComponents((UnityEngine.Object component, string name)[] components)
+        {
+            bool hasErrors = false;
+
+            foreach (var (component, name) in components)
+            {
+                if (component == null)
+                {
+                    CustomLogger.LogWarning($"{GetType().Name}: The {name} is not assigned.");
+                    hasErrors = true;
+                }
             }
+
+            return !hasErrors;
         }
 
         public abstract void OnButtonClose();
