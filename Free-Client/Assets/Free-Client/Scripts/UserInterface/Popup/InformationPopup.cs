@@ -1,5 +1,5 @@
+using Assambra.FreeClient.Utilities;
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,21 +8,35 @@ namespace Assambra.FreeClient.UserInterface
     public class InformationPopup : BasePopup
     {
         [SerializeField] Button _oKButton;
-        [SerializeField] private TMP_Text titleText;
-        [SerializeField] private TMP_Text informationText;
 
-        public void Setup(string title, string information, Action onOK)
+        public override void Setup(string title, string information, Delegate primaryCallback, Delegate secondaryCallback)
         {
-            titleText.text = title;
-            informationText.text = information;
+            base.Setup(title, information, primaryCallback);
 
-            _oKButton.onClick.RemoveAllListeners();
-            _oKButton.onClick.AddListener(() => { onOK?.Invoke(); });
+            if(_oKButton == null)
+                CustomLogger.LogWarning("InformationPopup: The OK button is not assigned.");
+            else
+            {
+                _oKButton.onClick.RemoveAllListeners();
+                _oKButton.onClick.AddListener(() =>
+                {
+                    (primaryCallback as Action)?.Invoke();
+                    Destroy();
+                });
+            }
+        }
+
+        public override void OnButtonClose()
+        {
+            Destroy();
         }
 
         public override void Destroy()
         {
-            Destroy(gameObject);
+            if (_oKButton != null) 
+                _oKButton.onClick.RemoveAllListeners();
+            
+            base.Destroy();
         }
     }
 }
