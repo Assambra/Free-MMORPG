@@ -19,7 +19,7 @@ namespace Assambra.FreeClient.UserInterface
             _informationText.text = information;
 
             if (_buttonClose == null)
-                CustomLogger.LogWarning("Popup: The close button is not assigned.");
+                CustomLogger.LogWarning("BasePopup: The close button is not assigned.");
             else
             {
                 _buttonClose.onClick.RemoveAllListeners();
