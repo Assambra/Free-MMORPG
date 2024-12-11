@@ -1,4 +1,8 @@
-using Assambra.FreeClient.UserInterface.PopupSystem;
+using Assambra.FreeClient.UserInterface.PopupSystem.Data;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
+using Assambra.FreeClient.UserInterface.PopupSystem.Factory;
+using Assambra.FreeClient.UserInterface.PopupSystem.Interface;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
 using Assambra.FreeClient.Utilities;
 using Assambra.GameFramework.GameManager;
 using System;
@@ -10,33 +14,66 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
     public class PopupManager : MonoBehaviour
     {
         public static PopupManager Instance { get; private set; }
-
         [field: SerializeField] public UIHandler UIHandler { get; private set; }
 
-        private Dictionary<Type, IPopupFactory> popupFactories;
+        [SerializeField] private List<PopupIcon> _popupIcons;
+        
+        private Dictionary<Type, IPopupFactory> _popupFactories;
+        private Dictionary<PopupType, Sprite> _iconDictionary;
 
-        public void Awake()
+        private void Awake()
         {
             if (Instance != null && Instance != this)
                 Destroy(this);
             else
                 Instance = this;
 
-            popupFactories = new Dictionary<Type, IPopupFactory>();
-            RegisterPopupFactory<InformationPopup>();
-            RegisterPopupFactory<ErrorPopup>();
+            _popupFactories = new Dictionary<Type, IPopupFactory>();
+            _iconDictionary = new Dictionary<PopupType, Sprite>();
+
+            RegisterPopupFactory<InfoPopup>();
             RegisterPopupFactory<YesNoPopup>();
             RegisterPopupFactory<InputPopup>();
+
+            InitializeIconDictionary();
         }
 
         private void RegisterPopupFactory<T>() where T : BasePopup, new()
         {
-            popupFactories[typeof(T)] = new PopupFactory<T>();
+            _popupFactories[typeof(T)] = new PopupFactory<T>();
         }
 
-        public T ShowPopup<T>(string title, string information, Delegate primaryCallback = null, Delegate secondaryCallback = null) where T : BasePopup
+        private void InitializeIconDictionary()
         {
-            if (popupFactories.TryGetValue(typeof(T), out var factory))
+            foreach (var popupIcon in _popupIcons)
+            {
+                if (!_iconDictionary.ContainsKey(popupIcon.Type))
+                {
+                    _iconDictionary.Add(popupIcon.Type, popupIcon.Icon);
+                }
+                else
+                {
+                    CustomLogger.LogWarning($"Duplicate PopupType found: {popupIcon.Type}");
+                }
+            }
+        }
+
+        public Sprite GetIcon(PopupType type)
+        {
+            if (_iconDictionary.TryGetValue(type, out var icon))
+            {
+                return icon;
+            }
+            else
+            {
+                CustomLogger.LogWarning($"No icon found for PopupType: {type}");
+                return null;
+            }
+        }
+
+        public T ShowPopup<T>(PopupType type, string title, string information, Delegate primaryCallback = null, Delegate secondaryCallback = null) where T : BasePopup
+        {
+            if (_popupFactories.TryGetValue(typeof(T), out var factory))
             {
                 T popup = factory.CreatePopup() as T;
                 if (popup == null)
@@ -45,7 +82,7 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
                     return null;
                 }
 
-                popup.Setup(title, information, primaryCallback, secondaryCallback);
+                popup.Setup(type, title, information, primaryCallback, secondaryCallback);
                 return popup;
             }
             else
@@ -55,24 +92,19 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
             }
         }
 
-        public T ShowInformationPopup<T>(string title, string information, Action primaryCallback = null) where T : InformationPopup
+        public T ShowInfoPopup<T>(PopupType type, string title, string information, Action primaryCallback = null) where T : InfoPopup
         {
-            return ShowPopup<T>(title, information, primaryCallback);
-        }
-
-        public T ShowErrorPopup<T>(string title, string information, Action primaryCallback = null) where T : ErrorPopup
-        {
-            return ShowPopup<T>(title, information, primaryCallback);
+            return ShowPopup<T>(type, title, information, primaryCallback);
         }
 
         public T ShowYesNoPopup<T>(string title, string information, Action<bool> primaryCallback = null) where T : YesNoPopup
         {
-            return ShowPopup<T>(title, information, primaryCallback);
+            return ShowPopup<T>(PopupType.Information, title, information, primaryCallback);
         }
 
         public T ShowInputPopup<T>(string title, string information, Action<string> primaryCallback = null, Action secondaryCallback = null) where T : InputPopup
         {
-            return ShowPopup<T>(title, information, primaryCallback, secondaryCallback);
+            return ShowPopup<T>(PopupType.Information, title, information, primaryCallback, secondaryCallback);
         }
     }
 }

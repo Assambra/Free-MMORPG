@@ -1,3 +1,4 @@
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,9 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
     {
         [SerializeField] Button _oKButton;
 
-        public override void Setup(string title, string information, Delegate primaryCallback, Delegate secondaryCallback)
+        public override void Setup(PopupType type, string title, string information, Delegate primaryCallback, Delegate secondaryCallback)
         {
-            base.Setup(title, information, primaryCallback);
+            base.Setup(type, title, information, primaryCallback);
 
             if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {

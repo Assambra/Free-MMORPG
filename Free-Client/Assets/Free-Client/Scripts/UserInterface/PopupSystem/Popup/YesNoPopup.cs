@@ -1,4 +1,5 @@
 using Assambra.FreeClient.UserInterface.PopupSystem;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,9 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
         private Delegate _primaryCallback;
 
-        public override void Setup(string title, string information, Delegate primaryCallback, Delegate secondaryCallback = null)
+        public override void Setup(PopupType type, string title, string information, Delegate primaryCallback, Delegate secondaryCallback = null)
         {
-            base.Setup(title, information, primaryCallback, secondaryCallback);
+            base.Setup(type, title, information, primaryCallback, secondaryCallback);
             
             _primaryCallback = primaryCallback;
 
