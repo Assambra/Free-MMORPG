@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
-    public class InformationPopup : BasePopup
+    public class InfoPopup : BasePopup
     {
         [SerializeField] Button _oKButton;
 
