@@ -1,6 +1,9 @@
 using Assambra.FreeClient.Constants;
 using Assambra.FreeClient.Helper;
 using Assambra.FreeClient.UserInterface;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
+using Assambra.FreeClient.UserInterface.PopupSystem.Manager;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
 using Assambra.GameFramework.GameManager;
 using com.tvd12.ezyfoxserver.client;
 using com.tvd12.ezyfoxserver.client.constant;
@@ -303,7 +306,7 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "successful":
-                    InformationPopupCreateAccount("Account successfully created");
+                    InfoPopupCreateAccount("Account successfully created");
                     break;
                 case "email_already_registered":
                     ErrorPopup("E-Mail already registered, please use the Forgot password function");
@@ -336,7 +339,7 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "successful":
-                    InformationPopupAccountActivation("Your account has been successfully activated");
+                    InfoPopupAccountActivation("Your account has been successfully activated");
                     break;
                 case "wrong_activation_code":
                     ErrorPopup("Wrong activation code");
@@ -346,7 +349,7 @@ namespace Assambra.FreeClient
 
         private void OnResendActivationMail(EzyAppProxy proxy, EzyObject data)
         {
-            InformationPopup("Your account activation code has been sent again to your email address.");
+            InfoPopup("Your account activation code has been sent again to your email address.");
         }
 
         private void OnForgotPasswordResponse(EzyAppProxy proxy, EzyObject data)
@@ -356,10 +359,10 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "successful":
-                    InformationPopup("Your new password has been sent to your registered e-mail address");
+                    InfoPopup("Your new password has been sent to your registered e-mail address");
                     break;
                 case "no_account":
-                    InformationPopup("No Account found for given username or email address");
+                    InfoPopup("No Account found for given username or email address");
                     break;
                 default:
                     Debug.LogError("Forgot Password: Unknown result: " + result);
@@ -383,10 +386,10 @@ namespace Assambra.FreeClient
             switch (result)
             {
                 case "successful":
-                    InformationPopup("Your username has been sent to your email address");
+                    InfoPopup("Your username has been sent to your email address");
                     break;
                 case "not_found":
-                    InformationPopup("This e-mail address are not registered");
+                    InfoPopup("This e-mail address are not registered");
                     break;
                 default:
                     Debug.LogError("Forgot Username: Unknown result: " + result);
@@ -475,7 +478,7 @@ namespace Assambra.FreeClient
             {
                 case "successfully":
                     Debug.Log("successfully");
-                    InformationPopup("Character created successfully");
+                    InfoPopup("Character created successfully");
                     GetCharacterList();
                     GameManager.Instance.CharacterCreatedAndReadyToPlay = true;
                     GameManager.Instance.CharacterId = characterId;
@@ -713,55 +716,44 @@ namespace Assambra.FreeClient
 
         #region POPUP
 
-        private void InformationPopup(string information)
+        private void InfoPopup(string info)
+        {
+            string title = "Error";
+
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(PopupType.Info, title, info);
+        }
+
+        private void InfoPopupCreateAccount(string info)
         {
             string title = "Info";
-            string info = information;
 
-            InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
-
-            popup.Setup(
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(
+                PopupType.Info,
                 title,
                 info,
-                () => { popup.Destroy(); }
+                () => OnInfoPopupCreateAccountHandler()
             );
         }
 
-        private void InformationPopupCreateAccount(string information)
-        {
-            string title = "Info";
-            string info = information;
-
-            InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
-
-            popup.Setup(
-                title,
-                info,
-                () => { OnInformationPopupCreateAccountOK(); popup.Destroy(); }
-            );
-        }
-
-        private void OnInformationPopupCreateAccountOK()
+        private void OnInfoPopupCreateAccountHandler()
         {
             GameManager.Instance.ChangeScene(Scenes.Login);
             Disconnect();
         }
 
-        private void InformationPopupAccountActivation(string information)
+        private void InfoPopupAccountActivation(string info)
         {
             string title = "Info";
-            string info = information;
 
-            InformationPopup popup = PopupManager.Instance.ShowInformationPopup<InformationPopup>(title, info, null);
-
-            popup.Setup(
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(
+                PopupType.Info,
                 title,
                 info,
-                () => { OnInformationPopupAccountActivationOK(); popup.Destroy(); }
+                () => OnInfoPopupAccountActivationHandler()
             );
         }
 
-        private void OnInformationPopupAccountActivationOK()
+        private void OnInfoPopupAccountActivationHandler()
         {
             if (NetworkManager.Instance.Connected())
                 NetworkManager.Instance.GetCharacterList();
@@ -772,15 +764,8 @@ namespace Assambra.FreeClient
         private void ErrorPopup(string error)
         {
             string title = "Error";
-            string info = error;
 
-            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
-
-            popup.Setup(
-                title,
-                info,
-                () => { popup.Destroy(); }
-            );
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(PopupType.Error, title, error);
         }
 
         #endregion

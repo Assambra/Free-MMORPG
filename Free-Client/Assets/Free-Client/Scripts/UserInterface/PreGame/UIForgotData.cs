@@ -3,6 +3,9 @@ using Assambra.FreeClient.Helper;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Assambra.FreeClient.UserInterface.PopupSystem.Manager;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
 
 namespace Assambra.FreeClient.UserInterface
 {
@@ -75,14 +78,12 @@ namespace Assambra.FreeClient.UserInterface
         private void ErrorPopup(string error)
         {
             string title = "Error";
-            string info = error;
 
-            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
-
-            popup.Setup(
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(
+                PopupType.Error,
                 title,
-                info,
-                () => { OnErrorPopupUIForgotDataOk();  popup.Destroy(); }
+                error,
+                () => OnErrorPopupUIForgotDataOk()
             );
         }
 
@@ -91,7 +92,6 @@ namespace Assambra.FreeClient.UserInterface
             if(_forgotPassword.activeSelf)
             {
                 ButtonSendPassword.interactable = true;
-
             }
             else if(_forgotUsername.activeSelf)
             {

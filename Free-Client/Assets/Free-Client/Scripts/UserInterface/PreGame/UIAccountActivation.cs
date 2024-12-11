@@ -1,4 +1,7 @@
 using Assambra.FreeClient.Helper;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
+using Assambra.FreeClient.UserInterface.PopupSystem.Manager;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,15 +44,8 @@ namespace Assambra.FreeClient.UserInterface
         private void ErrorPopup(string error)
         {
             string title = "Error";
-            string info = error;
 
-            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
-
-            popup.Setup(
-                title,
-                info,
-                () => { popup.Destroy(); }
-            );
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(PopupType.Error, title, error);
         }
     }
 }
