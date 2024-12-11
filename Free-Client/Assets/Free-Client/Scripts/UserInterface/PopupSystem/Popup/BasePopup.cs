@@ -43,7 +43,7 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
             switch (type)
             {
-                case PopupType.Information:
+                case PopupType.Info:
                     _titleText.color = Color.blue;
                     break;
                 case PopupType.Error:

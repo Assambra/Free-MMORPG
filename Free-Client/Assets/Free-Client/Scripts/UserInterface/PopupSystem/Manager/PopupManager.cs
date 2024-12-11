@@ -99,12 +99,12 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
 
         public T ShowYesNoPopup<T>(string title, string information, Action<bool> primaryCallback = null) where T : YesNoPopup
         {
-            return ShowPopup<T>(PopupType.Information, title, information, primaryCallback);
+            return ShowPopup<T>(PopupType.Info, title, information, primaryCallback);
         }
 
         public T ShowInputPopup<T>(string title, string information, Action<string> primaryCallback = null, Action secondaryCallback = null) where T : InputPopup
         {
-            return ShowPopup<T>(PopupType.Information, title, information, primaryCallback, secondaryCallback);
+            return ShowPopup<T>(PopupType.Info, title, information, primaryCallback, secondaryCallback);
         }
     }
 }

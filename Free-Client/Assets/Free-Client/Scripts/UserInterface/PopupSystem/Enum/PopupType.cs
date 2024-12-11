@@ -2,7 +2,7 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Enum
 {
     public enum PopupType
     {
-        Information,
+        Info,
         Warning,
         Error
     }
