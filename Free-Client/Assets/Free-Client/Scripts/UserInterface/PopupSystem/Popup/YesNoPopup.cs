@@ -1,8 +1,9 @@
+using Assambra.FreeClient.UserInterface.PopupSystem;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public class YesNoPopup : BasePopup
     {

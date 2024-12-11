@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assambra.FreeClient.Utilities;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public abstract class BasePopup : MonoBehaviour
     {

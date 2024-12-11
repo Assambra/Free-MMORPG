@@ -1,6 +1,10 @@
+
+using Assambra.FreeClient.UserInterface.PopupSystem.Interface;
+using Assambra.FreeClient.UserInterface.PopupSystem.Manager;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
 using UnityEngine;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient.UserInterface.PopupSystem.Factory
 {
     public class PopupFactory<T> : IPopupFactory where T : BasePopup
     {

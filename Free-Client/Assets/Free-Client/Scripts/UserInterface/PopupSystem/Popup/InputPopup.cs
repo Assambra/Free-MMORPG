@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public class InputPopup : BasePopup
     {

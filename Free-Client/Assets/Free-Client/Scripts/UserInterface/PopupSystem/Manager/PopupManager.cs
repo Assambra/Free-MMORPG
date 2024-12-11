@@ -1,10 +1,11 @@
+using Assambra.FreeClient.UserInterface.PopupSystem;
 using Assambra.FreeClient.Utilities;
 using Assambra.GameFramework.GameManager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assambra.FreeClient.UserInterface
+namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
 {
     public class PopupManager : MonoBehaviour
     {
