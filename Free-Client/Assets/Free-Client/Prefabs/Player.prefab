@@ -173,6 +173,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityNameInfo: {fileID: 6095457073473621084}
+  _entityModel:
+    _entityGameObject: {fileID: 0}
+    _id: 0
+    _entityType: 0
+    _name: 
+    _model: 
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _sex: 
+    _race: 
+    _room: 
+    _isLocalPlayer: 0
   _playerController: {fileID: 7747567344234363101}
   Initialized: 0
   IsAvatarCreated: 0
@@ -216,7 +228,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7747567344234363101
 MonoBehaviour:
