@@ -10,17 +10,18 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public abstract class BasePopup : MonoBehaviour
     {
-        [SerializeField] private Image _iconImage;
+        [SerializeField] private Image _imageWindowIcon;
         [SerializeField] private TMP_Text _titleText;
-        [SerializeField] private TMP_Text _informationText;
+        [SerializeField] private TMP_Text _infoText;
         [SerializeField] private Button _buttonClose;
+        [SerializeField] private AudioSource _audioSource;
 
         public virtual void Setup(PopupType type, string title, string information, Delegate primaryCallback = null, Delegate secondaryCallback = null)
         {
             ApplyPopupType(type);
 
             _titleText.text = title;
-            _informationText.text = information;
+            _infoText.text = information;
 
             if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
@@ -34,24 +35,29 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
         private void ApplyPopupType(PopupType type)
         {
-            var icon = PopupManager.Instance.GetIcon(type);
-
-            if (_iconImage != null && icon != null)
+            var titlecolor = PopupManager.Instance.GetTitleColor(type);
+            if(_titleText != null && titlecolor != null)
             {
-                _iconImage.sprite = icon;
+                _titleText.color = titlecolor;
             }
 
-            switch (type)
+            var icon = PopupManager.Instance.GetIcon(type);
+            if (_imageWindowIcon != null && icon != null)
             {
-                case PopupType.Info:
-                    _titleText.color = Color.blue;
-                    break;
-                case PopupType.Error:
-                    _titleText.color = Color.red;
-                    break;
-                case PopupType.Warning:
-                    _titleText.color = Color.yellow;
-                    break;
+                _imageWindowIcon.sprite = icon;
+            }
+            
+            var color = PopupManager.Instance.GetIconColor(type);
+            if (_imageWindowIcon != null && color != null)
+            {
+                _imageWindowIcon.color = color;
+            }
+
+            var audioclip = PopupManager.Instance.GetPlaySound(type);
+            if(_audioSource != null && audioclip != null)
+            {
+                _audioSource.clip = audioclip;
+                _audioSource.Play();
             }
         }
 

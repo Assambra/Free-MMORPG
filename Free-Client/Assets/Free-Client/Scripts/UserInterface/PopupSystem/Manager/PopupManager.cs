@@ -16,10 +16,10 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
         public static PopupManager Instance { get; private set; }
         [field: SerializeField] public UIHandler UIHandler { get; private set; }
 
-        [SerializeField] private List<PopupIcon> _popupIcons;
+        [SerializeField] private List<PopupTypeData> _popupTypeData;
         
         private Dictionary<Type, IPopupFactory> _popupFactories;
-        private Dictionary<PopupType, Sprite> _iconDictionary;
+        private Dictionary<PopupType, PopupTypeData> _popupTypeDataDictionary;
 
         private void Awake()
         {
@@ -27,15 +27,15 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
                 Destroy(this);
             else
                 Instance = this;
-
+            
             _popupFactories = new Dictionary<Type, IPopupFactory>();
-            _iconDictionary = new Dictionary<PopupType, Sprite>();
+            _popupTypeDataDictionary = new Dictionary<PopupType, PopupTypeData>();
 
             RegisterPopupFactory<InfoPopup>();
             RegisterPopupFactory<YesNoPopup>();
             RegisterPopupFactory<InputPopup>();
 
-            InitializeIconDictionary();
+            InitializePopupTypeDataDictionary();
         }
 
         private void RegisterPopupFactory<T>() where T : BasePopup, new()
@@ -43,32 +43,64 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Manager
             _popupFactories[typeof(T)] = new PopupFactory<T>();
         }
 
-        private void InitializeIconDictionary()
+        private void InitializePopupTypeDataDictionary()
         {
-            foreach (var popupIcon in _popupIcons)
+            _popupTypeDataDictionary = new Dictionary<PopupType, PopupTypeData>();
+
+            foreach (var popupData in _popupTypeData)
             {
-                if (!_iconDictionary.ContainsKey(popupIcon.Type))
+                if (!_popupTypeDataDictionary.ContainsKey(popupData.Type))
                 {
-                    _iconDictionary.Add(popupIcon.Type, popupIcon.Icon);
+                    _popupTypeDataDictionary.Add(popupData.Type, popupData);
                 }
                 else
                 {
-                    CustomLogger.LogWarning($"Duplicate PopupType found: {popupIcon.Type}");
+                    CustomLogger.LogWarning($"Duplicate PopupType found: {popupData.Type}");
                 }
             }
         }
 
+        public Color GetTitleColor(PopupType type)
+        {
+            if (_popupTypeDataDictionary.TryGetValue(type, out var data))
+            {
+                return data.TitleColor;
+            }
+            CustomLogger.LogWarning($"No PopupTypeData found for PopupType: {type}");
+            return Color.white;
+        }
+
         public Sprite GetIcon(PopupType type)
         {
-            if (_iconDictionary.TryGetValue(type, out var icon))
+            if (_popupTypeDataDictionary.TryGetValue(type, out var data))
             {
-                return icon;
+                return data.Icon;
+            }
+            CustomLogger.LogWarning($"No PopupTypeData found for PopupType: {type}");
+            return null;
+        }
+
+        public Color GetIconColor(PopupType type)
+        {
+            if (_popupTypeDataDictionary.TryGetValue(type, out var data))
+            {
+                return data.IconColor;
             }
             else
             {
-                CustomLogger.LogWarning($"No icon found for PopupType: {type}");
-                return null;
+                CustomLogger.LogWarning($"No PopupTypeData found for PopupType: {type}");
+                return Color.white;
             }
+        }
+
+        public AudioClip GetPlaySound(PopupType type)
+        {
+            if (_popupTypeDataDictionary.TryGetValue(type, out var data))
+            {
+                return data.PlaySound;
+            }
+            CustomLogger.LogWarning($"No PopupTypeData found for PopupType: {type}");
+            return null;
         }
 
         public T ShowPopup<T>(PopupType type, string title, string information, Delegate primaryCallback = null, Delegate secondaryCallback = null) where T : BasePopup

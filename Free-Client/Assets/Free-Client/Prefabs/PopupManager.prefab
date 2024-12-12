@@ -45,3 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UIHandler>k__BackingField: {fileID: 0}
+  _popupIcons:
+  - Type: 0
+    Icon: {fileID: 21300000, guid: 6fcdb0876bbf5dd409032e50f54f0ff8, type: 3}
+  - Type: 1
+    Icon: {fileID: 21300000, guid: a4bf0d21282fff041a9601a6bb2c37a1, type: 3}
+  - Type: 2
+    Icon: {fileID: 21300000, guid: eb12c39160ff83b44b1834b762065b64, type: 3}
