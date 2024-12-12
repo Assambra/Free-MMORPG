@@ -8,9 +8,9 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public class InputPopup : BasePopup
     {
-        [SerializeField] private Button _oKButton;
-        [SerializeField] private Button _cancelButton;
-        [SerializeField] private TMP_InputField _userInputField;
+        [SerializeField] private Button _buttonOK;
+        [SerializeField] private Button _buttonCancel;
+        [SerializeField] private TMP_InputField _inputFieldUserInput;
 
         private Delegate _secondaryCallback;
 
@@ -22,21 +22,21 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
             if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
-                (_oKButton, "OK button"),
-                (_cancelButton, "Cancel button"),
-                (_userInputField, "Input Field")
+                (_buttonOK, "OK button"),
+                (_buttonCancel, "Cancel button"),
+                (_inputFieldUserInput, "Input Field")
             }))
                 return;
             
-            _oKButton.onClick.RemoveAllListeners();
-            _oKButton.onClick.AddListener(() =>
+            _buttonOK.onClick.RemoveAllListeners();
+            _buttonOK.onClick.AddListener(() =>
             {
-                (primaryCallback as Action<string>)?.Invoke(_userInputField.text);
+                (primaryCallback as Action<string>)?.Invoke(_inputFieldUserInput.text);
                 Destroy();
             });
 
-            _cancelButton.onClick.RemoveAllListeners();
-            _cancelButton.onClick.AddListener(() =>
+            _buttonCancel.onClick.RemoveAllListeners();
+            _buttonCancel.onClick.AddListener(() =>
             {
                 (secondaryCallback as Action)?.Invoke();
                 Destroy();
@@ -51,10 +51,10 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
         public override void Destroy()
         {
-            if (_oKButton != null) 
-                _oKButton.onClick.RemoveAllListeners();
-            if (_cancelButton != null) 
-                _cancelButton.onClick.RemoveAllListeners();
+            if (_buttonOK != null) 
+                _buttonOK.onClick.RemoveAllListeners();
+            if (_buttonCancel != null) 
+                _buttonCancel.onClick.RemoveAllListeners();
             
             base.Destroy();
         }

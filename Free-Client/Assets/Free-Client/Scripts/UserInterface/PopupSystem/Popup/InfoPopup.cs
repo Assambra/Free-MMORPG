@@ -7,7 +7,7 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public class InfoPopup : BasePopup
     {
-        [SerializeField] Button _oKButton;
+        [SerializeField] Button _buttonOK;
 
         public override void Setup(PopupType type, string title, string information, Delegate primaryCallback, Delegate secondaryCallback)
         {
@@ -15,12 +15,12 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
             if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
-                (_oKButton, "OK button")
+                (_buttonOK, "OK button")
             }))
                 return;
 
-            _oKButton.onClick.RemoveAllListeners();
-            _oKButton.onClick.AddListener(() =>
+            _buttonOK.onClick.RemoveAllListeners();
+            _buttonOK.onClick.AddListener(() =>
             {
                 (primaryCallback as Action)?.Invoke();
                 Destroy();
@@ -34,8 +34,8 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
         public override void Destroy()
         {
-            if (_oKButton != null) 
-                _oKButton.onClick.RemoveAllListeners();
+            if (_buttonOK != null)
+                _buttonOK.onClick.RemoveAllListeners();
             
             base.Destroy();
         }

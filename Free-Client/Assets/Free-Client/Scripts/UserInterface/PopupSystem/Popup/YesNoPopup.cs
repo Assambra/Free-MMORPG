@@ -8,8 +8,8 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 {
     public class YesNoPopup : BasePopup
     {
-        [SerializeField] private Button _yesButton;
-        [SerializeField] private Button _noButton;
+        [SerializeField] private Button _buttonYes;
+        [SerializeField] private Button _buttonNo;
 
         private Delegate _primaryCallback;
 
@@ -21,20 +21,20 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
             if (!ValidateComponents(new (UnityEngine.Object, string)[]
             {
-                (_yesButton, "Yes button"),
-                (_noButton, "No button")
+                (_buttonYes, "Yes button"),
+                (_buttonNo, "No button")
             }))
                 return;
 
-            _yesButton.onClick.RemoveAllListeners();
-            _yesButton.onClick.AddListener(() =>
+            _buttonYes.onClick.RemoveAllListeners();
+            _buttonYes.onClick.AddListener(() =>
             {
                 (_primaryCallback as Action<bool>)?.Invoke(true);
                 Destroy();
             });
 
-            _noButton.onClick.RemoveAllListeners();
-            _noButton.onClick.AddListener(() =>
+            _buttonNo.onClick.RemoveAllListeners();
+            _buttonNo.onClick.AddListener(() =>
             {
                 (_primaryCallback as Action<bool>)?.Invoke(false);
                 Destroy();
@@ -49,10 +49,10 @@ namespace Assambra.FreeClient.UserInterface.PopupSystem.Popup
 
         public override void Destroy()
         {
-            if (_yesButton != null) 
-                _yesButton.onClick.RemoveAllListeners();
-            if (_noButton != null) 
-                _noButton.onClick.RemoveAllListeners();
+            if (_buttonYes != null) 
+                _buttonYes.onClick.RemoveAllListeners();
+            if (_buttonNo != null) 
+                _buttonNo.onClick.RemoveAllListeners();
 
             base.Destroy();
         }
