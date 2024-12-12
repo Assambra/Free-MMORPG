@@ -5,9 +5,12 @@ using UnityEngine;
 namespace Assambra.FreeClient.UserInterface.PopupSystem.Data
 {
     [Serializable]
-    public class PopupIcon
+    public class PopupTypeData
     {
         public PopupType Type;
+        public Color TitleColor;
         public Sprite Icon;
+        public Color IconColor;
+        public AudioClip PlaySound;
     }
 }
