@@ -2,6 +2,9 @@ using Assambra.GameFramework.GameManager;
 using Assambra.FreeClient.Helper;
 using UnityEngine;
 using TMPro;
+using Assambra.FreeClient.UserInterface.PopupSystem.Manager;
+using Assambra.FreeClient.UserInterface.PopupSystem.Popup;
+using Assambra.FreeClient.UserInterface.PopupSystem.Enum;
 
 namespace Assambra.FreeClient.UserInterface
 {
@@ -39,7 +42,7 @@ namespace Assambra.FreeClient.UserInterface
                 NetworkManager.Instance.Login(_username, _password);
             }
             else
-                ErrorPopup("Username or password cannot be empty. Please enter both and try again.");
+                InformationPopup("Username or password cannot be empty. Please enter both and try again.");
         }
 
         public void OnButtonNeedAccount()
@@ -52,18 +55,11 @@ namespace Assambra.FreeClient.UserInterface
             GameManager.Instance.ChangeScene(Scenes.ForgotData);
         }
 
-        private void ErrorPopup(string error)
+        private void InformationPopup(string info)
         {
-            string title = "Error";
-            string info = error;
+            string title = "Info";
 
-            ErrorPopup popup = PopupManager.Instance.ShowErrorPopup<ErrorPopup>(title, info, null);
-
-            popup.Setup(
-                title,
-                info,
-                () => { popup.Destroy(); }
-            );
+            PopupManager.Instance.ShowInfoPopup<InfoPopup>(PopupType.Info, title, info);
         }
     }
 }
