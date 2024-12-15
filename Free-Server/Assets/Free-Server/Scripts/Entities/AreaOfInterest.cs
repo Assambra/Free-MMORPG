@@ -16,6 +16,9 @@ namespace Assambra.FreeServer
 
         private void Start()
         {
+            if (_triggerCollider == null)
+                _triggerCollider = gameObject.GetComponent<SphereCollider>();
+
             _triggerCollider.isTrigger = true;
             _triggerCollider.center = new Vector3(0, 1, 0);
             _triggerCollider.radius = ServerConstants.AREA_OF_INTEREST;
