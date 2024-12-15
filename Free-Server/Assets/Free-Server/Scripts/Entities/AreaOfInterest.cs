@@ -6,13 +6,12 @@ namespace Assambra.FreeServer
     [RequireComponent(typeof(SphereCollider))]
     public class AreaOfInterest : MonoBehaviour
     {
-        [SerializeField] SphereCollider _sphereCollider;
+        [SerializeField] SphereCollider _triggerCollider;
         public Dictionary<uint, Player> NearbyPlayers { get => _nearbyPlayers; }
         public delegate void PlayerInteraction(Player player);
         public event PlayerInteraction PlayerEntered;
         public event PlayerInteraction PlayerExited;
 
-        private SphereCollider _triggerCollider;
         private Dictionary<uint, Player> _nearbyPlayers = new Dictionary<uint, Player>();
 
         private void Start()

@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639b021a13358ae4294a2f6f4e97d2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereCollider: {fileID: 4241818153369846467}
+  _triggerCollider: {fileID: 4241818153369846467}
 --- !u!1 &4557154954701823885
 GameObject:
   m_ObjectHideFlags: 0
