@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Assambra.FreeClient;
 
 namespace Assambra.Client
 {
@@ -11,6 +12,11 @@ namespace Assambra.Client
         private void Awake()
         {
             _portalNameText.text = _portalName + " portal";
+        }
+
+        private void LateUpdate()
+        {
+            _portalNameText.transform.rotation = GameManager.Instance.CameraController.transform.rotation;
         }
     }
 }
