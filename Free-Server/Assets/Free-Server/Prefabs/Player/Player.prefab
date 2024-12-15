@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7792535856005568350}
   - component: {fileID: 2983456754233845055}
   - component: {fileID: 3387836981607153488}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DummyPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 1927934047347373612}
   - component: {fileID: 6639105949285586154}
   - component: {fileID: 2095178066767915991}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextPlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 328950556901028738}
   - component: {fileID: 2419885180282245097}
   - component: {fileID: 1635837166826177739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2224254407444706517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 3D Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 1168709319918009148}
   - component: {fileID: 1628137054578048955}
   - component: {fileID: 1124094244762443862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PunkHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 7130999098950911729}
   - component: {fileID: 4799757058134406013}
   - component: {fileID: 6438320203362355121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9188010782592146686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2217270656424285908}
   - component: {fileID: 7319156777049076808}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerHeadInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 4794421233136286217}
   - component: {fileID: 2609883105853313326}
   - component: {fileID: 7965088398869344152}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4735411048409551914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WeaponEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
