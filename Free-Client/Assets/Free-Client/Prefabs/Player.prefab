@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8589574787961825693}
   - component: {fileID: 3557437099142914040}
   - component: {fileID: 6391312384079076106}
-  - component: {fileID: 90487678907464084}
   m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,26 +102,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1183024399 &90487678907464084
-LookAtConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192496004948987284}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_Roll: 0
-  m_WorldUpObject: {fileID: 0}
-  m_UseUpObject: 0
-  m_Active: 1
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!1 &471186384214967346
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,8 +395,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -521,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 4651862837477702450}
+      objectReference: {fileID: 5441103389551606318}
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: animationController
       value: 
@@ -617,7 +596,7 @@ PrefabInstance:
       addedObject: {fileID: 5238699868055525030}
     - targetCorrespondingSourceObject: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4651862837477702450}
+      addedObject: {fileID: 5441103389551606318}
   m_SourcePrefab: {fileID: 100100000, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
 --- !u!114 &6421357417252951630 stripped
 MonoBehaviour:
@@ -658,7 +637,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4651862837477702450
+--- !u!114 &5441103389551606318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
