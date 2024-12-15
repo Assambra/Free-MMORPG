@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Assambra.FreeServer
 {
     public class PlayerHeadInfo : MonoBehaviour
     {
-        [SerializeField] private Text _playerNameText;
+        [SerializeField] private TMP_Text _playerNameText;
 
         private void LateUpdate()
         {
