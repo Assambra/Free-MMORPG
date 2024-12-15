@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cbf2da5da3cdc434aa49db68ad4bb2cb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: cbf2da5da3cdc434aa49db68ad4bb2cb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6905942363aac694692e9356507f32fa, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 6905942363aac694692e9356507f32fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -286,11 +286,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25aff8181227cb048ab359abdc105b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _portalName: 
   _portalNameText: {fileID: 2577810801412171233}
   _room: 
   _position: {x: 0, y: 0, z: 0}
-  _rotation: {x: 0, y: 0, z: 0}
+  _rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1971315797798543985
 GameObject:
   m_ObjectHideFlags: 0

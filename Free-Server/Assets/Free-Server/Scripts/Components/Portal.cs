@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Assambra.FreeServer
 {
     public class Portal : MonoBehaviour
     {
-        [SerializeField] private Text _portalNameText;
+        [SerializeField] private TMP_Text _portalNameText;
         [SerializeField] string _room = "World";
         [SerializeField] Vector3 _position;
         [SerializeField] Quaternion _rotation;
