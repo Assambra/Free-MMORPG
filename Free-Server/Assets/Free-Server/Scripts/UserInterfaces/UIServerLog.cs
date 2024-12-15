@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Assambra.FreeServer
 {
     public class UIServerLog : MonoBehaviour
     {
-        [SerializeField] Text textFieldServerLog;
+        [SerializeField] TMP_Text textFieldServerLog;
         [SerializeField] ServerLogFile serverLogFile;
 
         private bool needsUpdate = false;
