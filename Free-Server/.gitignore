@@ -81,3 +81,6 @@ crashlytics-build.properties
 
 #MapMagic 2
 /Assets/MapMagic
+
+#Quantum Console
+/Assets/Plugins/QFSW/Quantum Console/*
