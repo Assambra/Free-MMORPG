@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3557437099142914040}
   - component: {fileID: 6391312384079076106}
   - component: {fileID: 90487678907464084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,9 +136,9 @@ GameObject:
   - component: {fileID: 5082358268722611675}
   - component: {fileID: 5584900385909291113}
   - component: {fileID: 7747567344234363101}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3406901771279141174}
   - component: {fileID: 6095457073473621084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EntityNameInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2479443068352586371}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 3DModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 391551849367897913}
   - component: {fileID: 1257924789392892000}
   - component: {fileID: 2083948034734061145}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextEntityName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MyUMADynamicCharacterAvatar
       objectReference: {fileID: 0}
+    - target: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -517,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 1577034562047970876}
+      objectReference: {fileID: 0}
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: animationController
       value: 
@@ -604,6 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4757962627389437816, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+    - {fileID: 5548432647977589970, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -611,17 +616,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5238699868055525030}
   m_SourcePrefab: {fileID: 100100000, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
---- !u!114 &1577034562047970876 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5548432647977589970, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
-  m_PrefabInstance: {fileID: 6421357417258308334}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6421357417258419970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ee0e75ac30e964b8dcd0ad5f953c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6421357417252951630 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
