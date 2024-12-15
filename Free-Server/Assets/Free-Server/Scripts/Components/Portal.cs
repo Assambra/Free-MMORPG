@@ -17,6 +17,11 @@ namespace Assambra.FreeServer
             _portalNameText.text = _room + " portal";
         }
 
+        private void LateUpdate()
+        {
+            _portalNameText.transform.rotation = Camera.main.transform.rotation;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(_playerTag))

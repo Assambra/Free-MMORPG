@@ -1,8 +1,7 @@
 using UnityEngine;
 using TMPro;
-using Assambra.FreeClient;
 
-namespace Assambra.Client
+namespace Assambra.FreeClient
 {
     public class Portal : MonoBehaviour
     {
