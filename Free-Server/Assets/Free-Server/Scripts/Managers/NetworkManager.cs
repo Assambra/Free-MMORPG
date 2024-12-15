@@ -7,9 +7,7 @@ using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Windows;
 using Object = System.Object;
 
 namespace Assambra.FreeServer
