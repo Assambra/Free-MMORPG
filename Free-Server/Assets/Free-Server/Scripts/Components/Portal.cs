@@ -24,10 +24,11 @@ namespace Assambra.FreeServer
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(_playerTag))
-            {
-                Player player = other.GetComponent<Player>();
+            if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
+                return;
 
+            if (other.TryGetComponent(out Player player))
+            {
                 ServerManager.Instance.ServerLog.ServerLogMessageInfo($"Player {player.Name} has entered the portal.");
 
                 NetworkManager.Instance.SendChangeServerRequest(player.Id, _room, _position, _rotation.eulerAngles);
