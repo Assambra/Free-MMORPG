@@ -6,6 +6,7 @@ namespace Assambra.FreeServer
     [RequireComponent(typeof(SphereCollider))]
     public class AreaOfInterest : MonoBehaviour
     {
+        [SerializeField] Entity _entity;
         [SerializeField] SphereCollider _triggerCollider;
         public Dictionary<uint, Player> NearbyPlayers { get => _nearbyPlayers; }
         public delegate void PlayerInteraction(Player player);
@@ -26,12 +27,19 @@ namespace Assambra.FreeServer
 
         private void OnTriggerEnter(Collider other)
         {
-            Entity entity = GetComponentInParent<Entity>();
-            Player otherPlayer = other.GetComponent<Player>();
-            ServerManager.Instance.ServerLog.ServerLogMessageInfo($"{entity.Name} OnTriggerEnter has detected {otherPlayer.Name} entering the area.");
-            if (otherPlayer != null)
+            if(other.TryGetComponent(out Entity otherEntity))
+            {
+                if (otherEntity == _entity)
+                    return;
+            }
+
+            if (other.TryGetComponent(out Player otherPlayer))
             {
                 uint id = otherPlayer.Id;
+
+                ServerManager.Instance.ServerLog.ServerLogMessageInfo(
+                    $"{_entity.Name} OnTriggerEnter detected {otherPlayer.Name} entering the area."
+                );
 
                 if (!_nearbyPlayers.ContainsKey(id))
                 {
@@ -43,13 +51,19 @@ namespace Assambra.FreeServer
 
         private void OnTriggerExit(Collider other)
         {
-            Entity entity = GetComponentInParent<Entity>();
-            Player otherPlayer = other.GetComponent<Player>();
-            ServerManager.Instance.ServerLog.ServerLogMessageInfo($"{entity.Name} OnTriggerExit has detected {otherPlayer.Name} entering the area.");
-            if (otherPlayer != null)
+            if (other.TryGetComponent(out Entity otherEntity))
             {
-                uint id = otherPlayer.Id;
+                if (otherEntity == _entity)
+                    return;
+            }
 
+            if (other.TryGetComponent(out Player otherPlayer))
+            {
+                ServerManager.Instance.ServerLog.ServerLogMessageInfo(
+                    $"{_entity.Name} OnTriggerExit has detected {otherPlayer.Name} leaving the area."
+                );
+
+                uint id = otherPlayer.Id;
                 if (_nearbyPlayers.ContainsKey(id))
                 {
                     _nearbyPlayers.Remove(id);
