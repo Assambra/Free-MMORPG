@@ -284,7 +284,7 @@ use free
 db.createUser({
   user: "root", 
   pwd: "123456", 
-  roles: [{role: "readWrite", db: "master-server"}]
+  roles: [{role: "readWrite", db: "free"}]
 })
 ```
 5. Create the following collections:
