@@ -90,7 +90,6 @@ namespace Assambra.FreeClient
         private void AccountAppHandler()
         {
             AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateUserResponse);
-            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
             AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
             AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
             AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
@@ -99,6 +98,7 @@ namespace Assambra.FreeClient
         private void GameAppHandler()
         {
             AddHandler<EzyObject>(Commands.CHECK, OnCheckResponse);
+            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
             AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
             AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCharacterResponse);
             AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
@@ -333,20 +333,6 @@ namespace Assambra.FreeClient
                 Debug.LogError("UICreateAccount not found!");
         }
 
-        private void OnActivateUserResponse(EzyAppProxy proxy, EzyObject data)
-        {
-            string result = data.get<string>("result");
-            switch (result)
-            {
-                case "successful":
-                    InfoPopupAccountActivation("Your account has been successfully activated");
-                    break;
-                case "wrong_activation_code":
-                    ErrorPopup("Wrong activation code");
-                    break;
-            }
-        }
-
         private void OnResendActivationMail(EzyAppProxy proxy, EzyObject data)
         {
             InfoPopup("Your account activation code has been sent again to your email address.");
@@ -422,6 +408,20 @@ namespace Assambra.FreeClient
                     break;
                 case "need_activation":
                     GameManager.Instance.ChangeScene(Scenes.AccountActivation);
+                    break;
+            }
+        }
+
+        private void OnActivateUserResponse(EzyAppProxy proxy, EzyObject data)
+        {
+            string result = data.get<string>("result");
+            switch (result)
+            {
+                case "successful":
+                    InfoPopupAccountActivation("Your account has been successfully activated");
+                    break;
+                case "wrong_activation_code":
+                    ErrorPopup("Wrong activation code");
                     break;
             }
         }
@@ -755,10 +755,7 @@ namespace Assambra.FreeClient
 
         private void OnInfoPopupAccountActivationHandler()
         {
-            if (NetworkManager.Instance.Connected())
-                NetworkManager.Instance.GetCharacterList();
-            else
-                GameManager.Instance.ChangeScene(Scenes.Login);
+            NetworkManager.Instance.GetCharacterList();
         }
 
         private void ErrorPopup(string error)
