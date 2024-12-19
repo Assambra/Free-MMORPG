@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06387e3271064b3478ae4c8517b9d5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  socketConfig:
+    zoneName: master-server
+    appName: master-server
+    webSocketUrl: 
+    tcpUrl: 127.0.0.1:3005
+    udpPort: 2611
+    udpUsage: 1
+    enableSSL: 0

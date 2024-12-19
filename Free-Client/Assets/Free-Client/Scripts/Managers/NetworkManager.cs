@@ -102,6 +102,7 @@ namespace Assambra.FreeClient
             AddHandler<EzyArray>(Commands.CHARACTER_LIST, ReceiveCharacterList);
             AddHandler<EzyObject>(Commands.CREATE_CHARACTER, OnCreateCharacterResponse);
             AddHandler<EzyObject>(Commands.PLAYER_SPAWN, ReceivePlayerSpawn);
+            AddHandler<EzyObject>(Commands.INITIALIZE_TICK, ReceiveInitializeTick);
             AddHandler<EzyObject>(Commands.PLAYER_DESPAWN, ReceivePlayerDespawn);
             AddHandler<EzyObject>(Commands.UPDATE_ENTITY_POSITION, ReceiveUpdateEntityPosition);
         }
@@ -624,6 +625,23 @@ namespace Assambra.FreeClient
             yield return new WaitForSeconds(0.5f);
 
             playerController.CharacterController.enabled = true;
+        }
+
+        private void ReceiveInitializeTick(EzyAppProxy proxy, EzyObject data)
+        {
+            long id = data.get<long>("id");
+            int tick = data.get<int>("tick");
+            
+            if(GameManager.Instance.ClientEntities.TryGetValue(id, out Entity entity))
+            {
+                if(entity is Player player)
+                {
+                    if(player.EntityModel.IsLocalPlayer)
+                    {
+                        player.PlayerController.SetClientTick(tick);
+                    }
+                }
+            }
         }
 
         private void ReceivePlayerDespawn(EzyAppProxy proxy, EzyObject data)

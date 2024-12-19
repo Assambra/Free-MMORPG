@@ -1189,15 +1189,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3630149597028381515, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 165.72212
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3630149597028381515, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 272.54694
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3630149597028381515, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -69.04999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3630149597028381515, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1226,42 +1226,6 @@ PrefabInstance:
     - target: {fileID: 3630149597028381515, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: socketConfig.tcpUrl
-      value: 127.0.0.1:3005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: _socketConfig.tcpUrl
-      value: 127.0.0.1:3005
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: socketConfig.appName
-      value: master-server
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: socketConfig.udpPort
-      value: 2611
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: _socketConfig.appName
-      value: master-server
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: _socketConfig.udpPort
-      value: 2611
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: socketConfig.zoneName
-      value: master-server
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: _socketConfig.zoneName
-      value: master-server
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973458390860205267, guid: c2f1b672d4b6f1a40a457fa135004fbd, type: 3}
-      propertyPath: <LoginState>k__BackingField
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

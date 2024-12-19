@@ -252,6 +252,15 @@ namespace Assambra.FreeServer
             });
         }
 
+        public void SendInitializeTick(string username, long id, int serverTick)
+        {
+            SendServerToClient(username, "initializeTick", new List<KeyValuePair<string, object>>
+            {
+                new KeyValuePair<string, object>("id", id),
+                new KeyValuePair<string, object>("tick", serverTick),
+            });
+        }
+
         public void SendDespawnToPlayer(string username, long id)
         {
             SendServerToClient(username, "playerDespawn", new List<KeyValuePair<string, object>>

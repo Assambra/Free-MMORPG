@@ -5,6 +5,8 @@ namespace Assambra.FreeServer
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] Player _player;
+
         public Vector3 Move { set => _move = value; }
         public bool Jump { set => _jump = value; }
 
@@ -18,6 +20,9 @@ namespace Assambra.FreeServer
         private float _jumpHeight = 1.0f;
         private float _gravityValue = -9.81f;
         private bool _jump;
+
+        private bool _serverTickInitialized = false;
+        [SerializeField] private int _serverTick = 0;
 
         private void Start()
         {
@@ -44,6 +49,18 @@ namespace Assambra.FreeServer
 
             _playerVelocity.y += _gravityValue * Time.deltaTime;
             _characterController.Move(_playerVelocity * Time.deltaTime);
+        }
+
+        private void FixedUpdate() 
+        {
+            _serverTick++;
+            
+            // we need a small delay to be sure the client alreaday received the Player spawn message and created the player (0,5s)
+            if (!_serverTickInitialized && _serverTick > 5) 
+            {
+                NetworkManager.Instance.SendInitializeTick(_player.Username, _player.Id, _serverTick);
+                _serverTickInitialized = true;
+            }
         }
     }
 }

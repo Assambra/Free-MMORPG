@@ -22,6 +22,7 @@ namespace Assambra.FreeClient.Constants
         public const String SERVER_TO_CLIENT = "serverToClient";
         public const String SERVER_TO_CLIENTS = "serverToClients";
 
+        public const String INITIALIZE_TICK = "initializeTick";
         public const String PLAYER_INPUT = "playerInput";
         public const String PLAYER_JUMP = "playerJump";
         public const String UPDATE_ENTITY_POSITION = "updateEntityPosition";

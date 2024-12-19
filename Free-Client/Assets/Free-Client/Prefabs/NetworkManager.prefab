@@ -44,3 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ef846c83d9ba34f83bff20a76b1624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LoginState>k__BackingField: 1
+  _socketConfig:
+    zoneName: master-server
+    appName: master-server
+    webSocketUrl: 
+    tcpUrl: 127.0.0.1:3005
+    udpPort: 2611
+    udpUsage: 0
+    enableSSL: 0
+  _guestPassword: Assambra

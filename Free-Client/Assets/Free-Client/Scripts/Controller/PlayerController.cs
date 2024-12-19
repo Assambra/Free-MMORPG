@@ -26,6 +26,8 @@ namespace Assambra.FreeClient
 
         private bool sendOnceZero = false;
 
+        [SerializeField] private int _clientTick = 0;
+
         private void Awake()
         {
             _characterController = gameObject.GetComponent<CharacterController>();
@@ -42,6 +44,10 @@ namespace Assambra.FreeClient
                 return;
 
             if (!_player.EntityModel.IsLocalPlayer)
+                return;
+
+            // To be sure that we receive the initial tick from the server before we accept any inputs
+            if (_clientTick == 0)
                 return;
 
             _groundedPlayer = _characterController.isGrounded;
@@ -71,7 +77,10 @@ namespace Assambra.FreeClient
                 return;
             if (!_player.EntityModel.IsLocalPlayer)
                 return;
-            
+
+            if (_clientTick > 0)
+                _clientTick++;
+
             if(_jump)
             {
                 NetworkManager.Instance.SendPlayerJump(_player.EntityModel.Id, _player.EntityModel.Room);
@@ -87,6 +96,11 @@ namespace Assambra.FreeClient
                 NetworkManager.Instance.SendPlayerInput(_player.EntityModel.Id, _player.EntityModel.Room, _input);
                 _move = _input;
             }                
+        }
+
+        public void SetClientTick(int _serverTick)
+        {
+            _clientTick = _serverTick;
         }
     }
 }
