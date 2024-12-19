@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Assambra.FreeClient
 {
-    [RequireComponent(typeof(NetworkTransform))]
     public abstract class Entity : MonoBehaviour
     {
         [SerializeField] protected EntityNameInfo _entityNameInfo;
@@ -14,11 +13,11 @@ namespace Assambra.FreeClient
         public Vector3 Position { get => gameObject.transform.position; }
         public Quaternion Rotation { get => gameObject.transform.rotation; }
 
-        private NetworkTransform _networkTransform;
+        protected NetworkTransform _networkTransform;
 
         private void Awake()
         {
-            _networkTransform = gameObject.GetComponent<NetworkTransform>();
+            _networkTransform = gameObject.AddComponent<NetworkTransform>();
         }
 
         public virtual void Initialize(EntityModel entityModel, GameObject entityGameObject)

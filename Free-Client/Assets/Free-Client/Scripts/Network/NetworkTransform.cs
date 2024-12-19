@@ -6,7 +6,7 @@ namespace Assambra.FreeClient
     {
         public bool IsActive { get => _isActive; set => _isActive = value; }
 
-        private bool _isActive;
+        private bool _isActive = false;
 
         private float _updateInterval;
         private float _elapsedTime = 0f;

@@ -2,14 +2,14 @@ using UnityEngine;
 using UMA.CharacterSystem;
 using UMA;
 using UnityEngine.Events;
+using Assambra.FreeClient.Network;
 
 namespace Assambra.FreeClient
 {
     public class Player : Entity
     {
         public PlayerController PlayerController {  get => _playerController; }
-
-        [SerializeField] private PlayerController _playerController;
+        public NetworkInputSender NetworkInputSender { get => _networkInputSender;}
 
         public bool Initialized = false;
         public bool IsAvatarCreated = false;
@@ -22,6 +22,9 @@ namespace Assambra.FreeClient
 
         private float lastHeight = 0;
         private float currentHeight = 0;
+
+        private PlayerController _playerController;
+        private NetworkInputSender _networkInputSender;
 
         private void Update()
         {
@@ -48,9 +51,30 @@ namespace Assambra.FreeClient
             }
         }
 
-        public void Initialize(EntityModel entityModel, GameObject entityGameObject)
+        public override void Initialize(EntityModel entityModel, GameObject entityGameObject)
         {
             base.Initialize(entityModel, entityGameObject);
+
+            if(entityModel.IsLocalPlayer)
+            {
+                _networkTransform.IsActive = false;
+                
+                _playerController = gameObject.AddComponent<PlayerController>();
+                _playerController.Player = this;
+                
+                _networkInputSender = gameObject.AddComponent<NetworkInputSender>();
+                _networkInputSender.Player = this;
+                _networkInputSender.IsActive = true;
+                
+                GameManager.Instance.CameraController.ChangeCameraPreset("GameCamera");
+                GameManager.Instance.CameraController.CameraTarget = gameObject;
+                GameManager.Instance.CameraController.Active = true;
+            }
+            else
+            {
+                _networkTransform.IsActive = true;
+                _networkTransform.Initialize(entityModel.Position, entityModel.Rotation);
+            }
         }
 
         private void SetCameraOffset(float lastHeight)

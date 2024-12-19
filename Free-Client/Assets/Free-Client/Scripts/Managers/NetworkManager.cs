@@ -570,36 +570,13 @@ namespace Assambra.FreeClient
             GameObject playerGameObject = GameManager.Instance.CreatePlayer(entityModel.Position, entityModel.Rotation);
 
             Player player = playerGameObject.GetComponent<Player>();
-            PlayerController playerController = playerGameObject.GetComponent<PlayerController>();
-
-            StartCoroutine(DelayToEnableCharacterController(playerController));
-
-            if (playerController != null)
-                playerController.Player = player;
-            else
-                Debug.LogError("PlayerController component not found on the playerGameObject.");
-
+            
             if (player != null)
             {
-                StartCoroutine(WaitForCharacterCreated(player, entityModel.Model));
-
                 player.Initialize(entityModel, playerGameObject);
 
-                if (!entityModel.IsLocalPlayer)
-                {
-                    player.NetworkTransform.IsActive = true;
-                    player.NetworkTransform.Initialize(entityModel.Position, entityModel.Rotation);
-                }
-                else
-                {
-                    GameManager.Instance.CameraController.ChangeCameraPreset("GameCamera");
-                    GameManager.Instance.CameraController.CameraTarget = playerGameObject;
-                    GameManager.Instance.CameraController.Active = true;
-                    player.PlayerController.IsActive = true;
-                    player.NetworkTransform.IsActive = false;
-                }
-
                 GameManager.Instance.ClientEntities.Add(entityModel.Id, player);
+                StartCoroutine(WaitForCharacterCreated(player, entityModel.Model));
             }
             else
             {
@@ -620,13 +597,6 @@ namespace Assambra.FreeClient
             UMAHelper.SetAvatarString(player.Avatar, model);
         }
 
-        private IEnumerator DelayToEnableCharacterController(PlayerController playerController)
-        {
-            yield return new WaitForSeconds(0.5f);
-
-            playerController.CharacterController.enabled = true;
-        }
-
         private void ReceiveInitializeTick(EzyAppProxy proxy, EzyObject data)
         {
             long id = data.get<long>("id");
@@ -638,7 +608,7 @@ namespace Assambra.FreeClient
                 {
                     if(player.EntityModel.IsLocalPlayer)
                     {
-                        player.PlayerController.SetClientTick(tick);
+                        player.NetworkInputSender.SetClientTick(tick);
                     }
                 }
             }
