@@ -6,7 +6,6 @@ import com.assambra.masterserver.app.model.CharacterInfoListModel;
 import com.assambra.masterserver.app.model.CharacterInfoModel;
 import com.assambra.masterserver.app.model.CreateCharacterModel;
 import com.assambra.masterserver.app.model.request.RequestCreateCharacterModel;
-import com.assambra.masterserver.app.request.CreateCharacterRequest;
 import com.assambra.masterserver.common.entity.Character;
 import com.assambra.masterserver.common.entity.CharacterLocation;
 import com.assambra.masterserver.common.entity.Account;
